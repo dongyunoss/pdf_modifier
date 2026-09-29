@@ -46,7 +46,7 @@ export async function saveHandoff(name: string, blob: Blob): Promise<boolean> {
 }
 
 /** 넘겨받은 파일을 꺼내고 저장소에서 지웁니다. */
-export async function takeHandoff(): Promise<File | null> {
+async function takeHandoff(): Promise<File | null> {
   try {
     const record = await run<HandoffRecord | undefined>('readonly', (store) => store.get(KEY));
     await run('readwrite', (store) => store.delete(KEY));
@@ -59,3 +59,29 @@ export async function takeHandoff(): Promise<File | null> {
 
 export const HANDOFF_PARAM = 'from';
 export const HANDOFF_VALUE = 'previous';
+
+let inPageFiles: File[] | null = null;
+
+/** 페이지 이동 없이 도구를 바꿔 끼우는 화면(체험판 등)에서 다음 도구로 파일을 넘깁니다. */
+export function handOffInPage(files: File[]) {
+  inPageFiles = files;
+}
+
+/**
+ * 이 도구로 넘어온 파일이 있으면 꺼냅니다.
+ * 같은 페이지 안에서 넘긴 파일, 또는 `?from=previous` 로 넘어온 이전 도구의 결과(IndexedDB) 순으로 확인합니다.
+ */
+export async function receiveHandoff(): Promise<File[]> {
+  if (inPageFiles) {
+    const files = inPageFiles;
+    inPageFiles = null;
+    return files;
+  }
+  const params = new URLSearchParams(window.location.search);
+  if (params.get(HANDOFF_PARAM) !== HANDOFF_VALUE) return [];
+  params.delete(HANDOFF_PARAM);
+  const query = params.toString();
+  window.history.replaceState(null, '', `${window.location.pathname}${query ? `?${query}` : ''}`);
+  const file = await takeHandoff();
+  return file ? [file] : [];
+}

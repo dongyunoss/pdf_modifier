@@ -3,6 +3,7 @@ node_modules/
 
 # build output
 dist/
+dist-demo/
 .astro/
 
 # pdf.js runtime assets (scripts/copy-pdfjs-assets.mjs 가 생성)

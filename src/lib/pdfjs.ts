@@ -21,7 +21,31 @@ export function loadPdfjs(): Promise<PdfjsModule> {
   return pdfjsPromise;
 }
 
-const ASSET_BASE = `${import.meta.env.BASE_URL.replace(/\/?$/, '/')}pdfjs/`;
+/** pdf.js 리소스(CMap, 폰트, wasm) 위치. 워커가 내려받으므로 절대 주소로 넘깁니다. */
+const assetBase = () => new URL(`${import.meta.env.BASE_URL.replace(/\/?$/, '/')}pdfjs/`, document.baseURI).href;
+
+/** 리소스 요청 종류별 기준 주소 (pdf.js 가 BinaryDataFactory 생성자에 넘겨 줌) */
+export interface PdfjsAssetUrls {
+  cMapUrl?: string | null;
+  standardFontDataUrl?: string | null;
+  wasmUrl?: string | null;
+}
+
+export interface PdfjsOverrides {
+  /** CMap·표준 폰트·wasm 을 직접 가져오는 클래스. 지정하면 워커 대신 이 페이지에서 내려받습니다. */
+  BinaryDataFactory?: new (urls: PdfjsAssetUrls) => {
+    fetch(request: { kind: keyof PdfjsAssetUrls; filename: string }): Promise<Uint8Array>;
+  };
+  /** false 면 CMYK 색상 프로필(.icc)을 내려받지 않고 pdf.js 의 기본 CMYK 변환을 씁니다. */
+  useIccProfile?: boolean;
+}
+
+let overrides: PdfjsOverrides = {};
+
+/** 리소스를 기본 형식으로 제공할 수 없는 곳(체험판 등)에서 pdf.js 옵션을 바꿉니다. */
+export function configurePdfjs(options: PdfjsOverrides) {
+  overrides = options;
+}
 
 export class PasswordNeededError extends Error {
   readonly incorrect: boolean;
@@ -43,14 +67,16 @@ export async function openPdfDocument(data: Blob | Uint8Array, password?: string
   const pdfjs = await loadPdfjs();
   // pdf.js 는 전달받은 버퍼를 워커로 넘겨(transfer) 원본을 비우므로 항상 새 버퍼를 넘깁니다.
   const bytes = data instanceof Blob ? new Uint8Array(await data.arrayBuffer()) : data.slice();
+  const base = assetBase();
   const task = pdfjs.getDocument({
     data: bytes,
     password,
-    cMapUrl: `${ASSET_BASE}cmaps/`,
+    cMapUrl: `${base}cmaps/`,
     cMapPacked: true,
-    standardFontDataUrl: `${ASSET_BASE}standard_fonts/`,
-    wasmUrl: `${ASSET_BASE}wasm/`,
-    iccUrl: `${ASSET_BASE}iccs/`,
+    standardFontDataUrl: `${base}standard_fonts/`,
+    wasmUrl: `${base}wasm/`,
+    iccUrl: overrides.useIccProfile === false ? undefined : `${base}iccs/`,
+    BinaryDataFactory: overrides.BinaryDataFactory,
     enableXfa: false,
   });
   try {

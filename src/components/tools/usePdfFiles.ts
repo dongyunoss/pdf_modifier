@@ -2,7 +2,7 @@ import type { PDFDocumentProxy } from 'pdfjs-dist';
 import { useCallback, useEffect, useRef, useState } from 'preact/hooks';
 import { fmt } from '../../i18n';
 import { looksLikePdf, uid } from '../../lib/files';
-import { HANDOFF_PARAM, HANDOFF_VALUE, takeHandoff } from '../../lib/handoff';
+import { receiveHandoff } from '../../lib/handoff';
 import { openPdfDocument, PasswordNeededError, releaseThumbnails } from '../../lib/pdfjs';
 import type { FileSource } from '../../lib/pdf/protocol';
 import { describeError, useTool } from './context';
@@ -141,13 +141,8 @@ export function usePdfFiles({ multiple, onError, onReady }: Options) {
 
   // 다른 도구에서 "이어서 작업하기"로 넘어온 경우 결과 파일을 자동으로 불러옵니다.
   useEffect(() => {
-    const params = new URLSearchParams(window.location.search);
-    if (params.get(HANDOFF_PARAM) !== HANDOFF_VALUE) return;
-    params.delete(HANDOFF_PARAM);
-    const query = params.toString();
-    window.history.replaceState(null, '', `${window.location.pathname}${query ? `?${query}` : ''}`);
-    void takeHandoff().then((file) => {
-      if (file) void addFiles([file]);
+    void receiveHandoff().then((handed) => {
+      if (handed.length) void addFiles(handed);
     });
   }, []);
 

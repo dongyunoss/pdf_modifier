@@ -67,6 +67,7 @@ npm run dev               # http://localhost:4321
 | `npm run check` | 타입 검사 (astro check) |
 | `npm run test:e2e` | 실제 브라우저로 모든 도구를 조작하는 E2E 테스트 (Playwright, 빌드 후 실행) |
 | `npm run generate:images` | 사이트 이름을 바꾼 뒤 공유 이미지(`og-image.png`)·아이콘 다시 생성 |
+| `npm run build:demo` | 13개 도구를 한 페이지에 모은 체험판을 `dist-demo/` 에 생성 (샘플 문서 포함, claude.ai 아티팩트용 `artifact.html` 도 함께 생성) |
 
 > E2E 테스트는 `npx playwright install chromium` 으로 브라우저를 설치한 뒤 실행하세요.
 > 이미 설치된 크로미움을 쓰려면 `PW_CHROMIUM_PATH=/path/to/chrome npm run test:e2e`.
@@ -105,6 +106,7 @@ src/
 ├─ components/tools/       도구 화면 (Preact 아일랜드)
 ├─ views/, layouts/, pages/  Astro 페이지 (ko: `/`, en: `/en/`)
 └─ styles/global.css       디자인 (라이트/다크 모드)
+demo/                      체험판 (실제 도구 컴포넌트를 그대로 쓰는 단일 페이지, 샘플 문서 생성)
 tests/
 ├─ unit/                   PDF 처리 단위 테스트
 └─ e2e/                    실제 브라우저 E2E 테스트 (데스크톱 + 모바일)

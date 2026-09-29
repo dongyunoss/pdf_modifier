@@ -1,12 +1,12 @@
 import type { ComponentChildren } from 'preact';
 import { useEffect, useRef, useState } from 'preact/hooks';
 import { fmt } from '../../i18n';
-import { downloadBlob, formatBytes, openBlobInNewTab } from '../../lib/files';
+import { canPreview, downloadBlob, formatBytes, previewBlob } from '../../lib/files';
 import { HANDOFF_PARAM, HANDOFF_VALUE, saveHandoff } from '../../lib/handoff';
 import { runTask } from '../../lib/pdf/client';
 import { AdUnit } from './AdUnit';
 import { Icon } from './Icon';
-import { describeError, localeOf, useTool } from './context';
+import { describeError, localeOf, useTool, type RelatedLink } from './context';
 
 export interface ResultFile {
   name: string;
@@ -23,11 +23,11 @@ interface ResultPanelProps {
 }
 
 export function ResultPanel({ files, zipName = 'files.zip', summary, onReset }: ResultPanelProps) {
-  const { ui, errors, lang, related, resultAd } = useTool();
+  const { ui, errors, lang, related, resultAd, navigate } = useTool();
   const heading = useRef<HTMLHeadingElement>(null);
   const [zip, setZip] = useState<Blob | null>(null);
   const [zipping, setZipping] = useState(false);
-  const [zipError, setZipError] = useState<string | null>(null);
+  const [saveError, setSaveError] = useState<string | null>(null);
   const locale = localeOf(lang);
   const single = files.length === 1 ? files[0] : null;
   const pdf = single && single.blob.type === 'application/pdf' ? single : null;
@@ -37,28 +37,44 @@ export function ResultPanel({ files, zipName = 'files.zip', summary, onReset }: 
     heading.current?.scrollIntoView({ behavior: 'smooth', block: 'center' });
   }, []);
 
-  const downloadZip = async () => {
-    if (zip) {
-      downloadBlob(zip, zipName);
-      return;
-    }
-    setZipping(true);
-    setZipError(null);
+  const save = async (blob: Blob, name: string) => {
+    setSaveError(null);
     try {
-      const bytes = await runTask('zip', { entries: files.map((file) => ({ name: file.name, data: file.blob })) });
-      const blob = new Blob([bytes as BlobPart], { type: 'application/zip' });
-      setZip(blob);
-      downloadBlob(blob, zipName);
+      await downloadBlob(blob, name);
     } catch (error) {
-      setZipError(describeError(error, errors));
-    } finally {
-      setZipping(false);
+      setSaveError(describeError(error, errors));
     }
   };
 
-  const continueWith = async (href: string) => {
-    if (pdf) await saveHandoff(pdf.name, pdf.blob);
-    window.location.href = `${href}?${HANDOFF_PARAM}=${HANDOFF_VALUE}`;
+  const downloadZip = async () => {
+    if (zip) {
+      await save(zip, zipName);
+      return;
+    }
+    setZipping(true);
+    setSaveError(null);
+    let blob: Blob;
+    try {
+      const bytes = await runTask('zip', { entries: files.map((file) => ({ name: file.name, data: file.blob })) });
+      blob = new Blob([bytes as BlobPart], { type: 'application/zip' });
+      setZip(blob);
+    } catch (error) {
+      setSaveError(describeError(error, errors));
+      return;
+    } finally {
+      setZipping(false);
+    }
+    await save(blob, zipName);
+  };
+
+  const continueWith = async (link: RelatedLink) => {
+    const handOver = pdf && link.acceptsPdf ? pdf : null;
+    if (navigate) {
+      navigate(link.href, handOver ? [new File([handOver.blob], handOver.name, { type: 'application/pdf' })] : []);
+      return;
+    }
+    if (handOver) await saveHandoff(handOver.name, handOver.blob);
+    window.location.href = handOver ? `${link.href}?${HANDOFF_PARAM}=${HANDOFF_VALUE}` : link.href;
   };
 
   return (
@@ -75,12 +91,12 @@ export function ResultPanel({ files, zipName = 'files.zip', summary, onReset }: 
 
       {single ? (
         <div class="result-actions">
-          <button type="button" class="btn btn-primary btn-lg" onClick={() => downloadBlob(single.blob, single.name)}>
+          <button type="button" class="btn btn-primary btn-lg" onClick={() => save(single.blob, single.name)}>
             <Icon name="download" size={20} />
             {ui.download}
           </button>
-          {pdf && (
-            <button type="button" class="btn btn-secondary btn-lg" onClick={() => openBlobInNewTab(pdf.blob)}>
+          {pdf && canPreview() && (
+            <button type="button" class="btn btn-secondary btn-lg" onClick={() => previewBlob(pdf.blob)}>
               <Icon name="eye" size={20} />
               {ui.preview}
             </button>
@@ -96,11 +112,6 @@ export function ResultPanel({ files, zipName = 'files.zip', summary, onReset }: 
             <Icon name="download" size={20} />
             {zipping ? ui.processing : ui.downloadZip}
           </button>
-          {zipError && (
-            <p class="form-error" role="alert">
-              {zipError}
-            </p>
-          )}
           <ul class="result-list">
             {files.map((file) => (
               <li key={file.name}>
@@ -109,13 +120,19 @@ export function ResultPanel({ files, zipName = 'files.zip', summary, onReset }: 
                   {file.name}
                 </span>
                 <span class="result-list-size">{formatBytes(file.blob.size, locale)}</span>
-                <button type="button" class="btn btn-ghost btn-sm" onClick={() => downloadBlob(file.blob, file.name)}>
+                <button type="button" class="btn btn-ghost btn-sm" onClick={() => save(file.blob, file.name)}>
                   {ui.download}
                 </button>
               </li>
             ))}
           </ul>
         </div>
+      )}
+
+      {saveError && (
+        <p class="form-error" role="alert">
+          {saveError}
+        </p>
       )}
 
       <button type="button" class="btn btn-link" onClick={onReset}>
@@ -135,10 +152,10 @@ export function ResultPanel({ files, zipName = 'files.zip', summary, onReset }: 
                 class="chip"
                 href={link.href}
                 onClick={
-                  pdf && link.acceptsPdf
+                  (pdf && link.acceptsPdf) || navigate
                     ? (event) => {
                         event.preventDefault();
-                        void continueWith(link.href);
+                        void continueWith(link);
                       }
                     : undefined
                 }

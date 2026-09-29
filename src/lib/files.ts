@@ -1,6 +1,6 @@
 // 파일 다운로드, 이름, 크기 표시 등 브라우저 공용 유틸리티
 
-export function downloadBlob(blob: Blob, filename: string) {
+function saveWithLink(blob: Blob, filename: string): Promise<void> {
   const url = URL.createObjectURL(blob);
   const link = document.createElement('a');
   link.href = url;
@@ -12,13 +12,39 @@ export function downloadBlob(blob: Blob, filename: string) {
   link.remove();
   // 일부 브라우저는 클릭 직후 URL 을 해제하면 다운로드가 실패하므로 여유를 둡니다.
   setTimeout(() => URL.revokeObjectURL(url), 60_000);
+  return Promise.resolve();
 }
 
-export function openBlobInNewTab(blob: Blob) {
+function openInNewTab(blob: Blob) {
   const url = URL.createObjectURL(blob);
   const opened = window.open(url, '_blank', 'noopener');
   if (!opened) window.location.assign(url);
   setTimeout(() => URL.revokeObjectURL(url), 5 * 60_000);
+}
+
+export interface FileActions {
+  /** 결과 파일 저장 */
+  save: (blob: Blob, filename: string) => Promise<void>;
+  /** 결과 PDF 미리 보기. null 이면 미리 보기 버튼을 숨깁니다. */
+  preview: ((blob: Blob) => void) | null;
+}
+
+const fileActions: FileActions = { save: saveWithLink, preview: openInNewTab };
+
+/**
+ * 파일 저장/미리 보기 방식을 바꿉니다. 새 창이나 다운로드 링크를 쓸 수 없는
+ * 환경(다른 서비스에 임베드된 체험판 등)에서 사용합니다.
+ */
+export function configureFileActions(overrides: Partial<FileActions>) {
+  Object.assign(fileActions, overrides);
+}
+
+export const downloadBlob = (blob: Blob, filename: string) => fileActions.save(blob, filename);
+
+export const canPreview = () => fileActions.preview !== null;
+
+export function previewBlob(blob: Blob) {
+  fileActions.preview?.(blob);
 }
 
 export const pdfBlob = (bytes: Uint8Array) => new Blob([bytes as BlobPart], { type: 'application/pdf' });

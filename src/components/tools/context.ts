@@ -25,6 +25,11 @@ export interface ToolBaseProps {
   errors: ErrorStrings;
   related: RelatedLink[];
   resultAd?: AdConfig | null;
+  /**
+   * 페이지 이동 대신 화면 안에서 도구를 바꾸는 경우(체험판 등)의 이동 함수.
+   * files 는 다음 도구로 넘길 결과 파일입니다(넘길 것이 없으면 빈 배열). 없으면 링크 주소로 페이지를 이동합니다.
+   */
+  navigate?: (href: string, files: File[]) => void;
 }
 
 export const ToolContext = createContext<ToolBaseProps | null>(null);

@@ -17,7 +17,8 @@ export default defineConfig({
     trace: 'retain-on-failure',
   },
   webServer: {
-    command: 'npx astro preview --port 4321',
+    // --ignore-lock: AI 에이전트 환경에서 astro preview 가 백그라운드로 빠져 바로 종료되는 것을 막습니다.
+    command: 'npx astro preview --port 4321 --ignore-lock',
     url: 'http://localhost:4321',
     reuseExistingServer: !process.env.CI,
     timeout: 120_000,
