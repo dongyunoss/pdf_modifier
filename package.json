@@ -1,0 +1,37 @@
+{
+  "name": "pdf-modifier",
+  "version": "0.1.0",
+  "private": true,
+  "description": "브라우저에서 동작하는 무료 PDF 편집 도구 모음 (서버 업로드 없음, 정적 호스팅)",
+  "type": "module",
+  "engines": {
+    "node": ">=22.13.0"
+  },
+  "scripts": {
+    "predev": "node scripts/copy-pdfjs-assets.mjs",
+    "dev": "astro dev",
+    "prebuild": "node scripts/copy-pdfjs-assets.mjs",
+    "build": "astro build",
+    "preview": "astro preview",
+    "check": "astro check",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "test:e2e": "playwright test",
+    "generate:images": "node scripts/generate-images.mjs"
+  },
+  "dependencies": {
+    "@astrojs/preact": "^6.0.5",
+    "@astrojs/sitemap": "^3.7.4",
+    "@cantoo/pdf-lib": "^2.11.1",
+    "astro": "^7.3.5",
+    "fflate": "^0.8.3",
+    "pdfjs-dist": "^6.3.289",
+    "preact": "^10.29.8"
+  },
+  "devDependencies": {
+    "@astrojs/check": "^0.9.10",
+    "@playwright/test": "^1.63.0",
+    "typescript": "^6.0.3",
+    "vitest": "^5.0.2"
+  }
+}

@@ -1,0 +1,148 @@
+---
+import AdSlot from '../components/AdSlot.astro';
+import Faq from '../components/Faq.astro';
+import Icon from '../components/Icon.astro';
+import ToolCard from '../components/ToolCard.astro';
+import CompressTool from '../components/tools/CompressTool';
+import ImagesToPdfTool from '../components/tools/ImagesToPdfTool';
+import MergeTool from '../components/tools/MergeTool';
+import OrganizeTool from '../components/tools/OrganizeTool';
+import PageNumbersTool from '../components/tools/PageNumbersTool';
+import PageSelectTool from '../components/tools/PageSelectTool';
+import PdfToImagesTool from '../components/tools/PdfToImagesTool';
+import ProtectTool from '../components/tools/ProtectTool';
+import RotateTool from '../components/tools/RotateTool';
+import SplitTool from '../components/tools/SplitTool';
+import UnlockTool from '../components/tools/UnlockTool';
+import WatermarkTool from '../components/tools/WatermarkTool';
+import type { ToolBaseProps } from '../components/tools/context';
+import { SITE } from '../config/site';
+import { fmt, getDictionary, langPrefix, toolPath, type Lang } from '../i18n';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { getTool, TOOLS, type ToolId } from '../tools/registry';
+
+interface Props {
+  lang: Lang;
+  id: ToolId;
+}
+
+const { lang, id } = Astro.props;
+const dict = getDictionary(lang);
+const tool = getTool(id);
+const content = dict.tools[id];
+const path = toolPath(lang, id);
+const url = (target: string) => new URL(target, `${SITE.url}/`).href;
+
+// 결과 화면의 "이어서 작업하기" 링크 (JPG→PDF 는 PDF 를 입력받지 않으므로 넘겨주기 제외)
+const related = tool.related.map((relatedId) => ({
+  href: toolPath(lang, relatedId),
+  name: dict.tools[relatedId].name,
+  acceptsPdf: relatedId !== 'jpg-to-pdf',
+}));
+const resultAd =
+  SITE.adsense.client && SITE.adsense.slots.result
+    ? { client: SITE.adsense.client, slot: SITE.adsense.slots.result }
+    : null;
+const base: ToolBaseProps = { lang, ui: dict.ui, errors: dict.errors, related, resultAd };
+const t = dict.tools;
+
+const jsonLd = [
+  {
+    '@context': 'https://schema.org',
+    '@type': 'WebApplication',
+    name: content.name,
+    url: url(path),
+    description: content.description,
+    applicationCategory: 'BusinessApplication',
+    operatingSystem: 'Any',
+    browserRequirements: 'Requires JavaScript',
+    inLanguage: dict.meta.htmlLang,
+    isAccessibleForFree: true,
+    offers: { '@type': 'Offer', price: '0', priceCurrency: lang === 'ko' ? 'KRW' : 'USD' },
+  },
+  {
+    '@context': 'https://schema.org',
+    '@type': 'BreadcrumbList',
+    itemListElement: [
+      { '@type': 'ListItem', position: 1, name: dict.nav.home, item: url(langPrefix(lang)) },
+      { '@type': 'ListItem', position: 2, name: content.name, item: url(path) },
+    ],
+  },
+  {
+    '@context': 'https://schema.org',
+    '@type': 'FAQPage',
+    mainEntity: content.faq.map((item) => ({
+      '@type': 'Question',
+      name: item.q,
+      acceptedAnswer: { '@type': 'Answer', text: item.a },
+    })),
+  },
+];
+const others = TOOLS.filter((item) => item.id !== id && item.category === tool.category)
+  .concat(TOOLS.filter((item) => item.category !== tool.category))
+  .slice(0, 6);
+---
+
+<BaseLayout lang={lang} title={content.title} description={content.description} path={path} jsonLd={jsonLd}>
+  <div class="container">
+    <nav class="breadcrumb" aria-label="breadcrumb">
+      <a href={langPrefix(lang)}>{dict.nav.home}</a>
+      <span aria-hidden="true">/</span>
+      <span aria-current="page">{content.name}</span>
+    </nav>
+
+    <header class="tool-header" data-category={tool.category}>
+      <span class="tool-header-icon"><Icon name={id} size={30} /></span>
+      <div>
+        <h1>{content.name}</h1>
+        <p class="tool-tagline">{content.tagline}</p>
+        <ul class="highlight-row">
+          {
+            dict.toolPage.highlights.map((item) => (
+              <li>
+                <Icon name="check" size={14} />
+                {item}
+              </li>
+            ))
+          }
+        </ul>
+      </div>
+    </header>
+
+    <section class="tool-area" aria-label={content.name}>
+      {id === 'merge' && <MergeTool client:load {...base} t={t.merge.ui} />}
+      {id === 'split' && <SplitTool client:load {...base} t={t.split.ui} />}
+      {id === 'organize' && <OrganizeTool client:load {...base} t={t.organize.ui} />}
+      {id === 'rotate' && <RotateTool client:load {...base} t={t.rotate.ui} />}
+      {id === 'delete-pages' && <PageSelectTool client:load {...base} mode="delete" t={t['delete-pages'].ui} />}
+      {id === 'extract-pages' && <PageSelectTool client:load {...base} mode="extract" t={t['extract-pages'].ui} />}
+      {id === 'compress' && <CompressTool client:load {...base} t={t.compress.ui} />}
+      {id === 'jpg-to-pdf' && <ImagesToPdfTool client:load {...base} t={t['jpg-to-pdf'].ui} />}
+      {id === 'pdf-to-jpg' && <PdfToImagesTool client:load {...base} t={t['pdf-to-jpg'].ui} />}
+      {id === 'watermark' && <WatermarkTool client:load {...base} t={t.watermark.ui} />}
+      {id === 'page-numbers' && <PageNumbersTool client:load {...base} t={t['page-numbers'].ui} />}
+      {id === 'protect' && <ProtectTool client:load {...base} t={t.protect.ui} />}
+      {id === 'unlock' && <UnlockTool client:load {...base} t={t.unlock.ui} />}
+    </section>
+
+    <AdSlot slot="tool" label={dict.ui.ad} />
+
+    <section class="section" aria-labelledby="howto-title">
+      <h2 id="howto-title">{fmt(dict.toolPage.howToTitle, { tool: content.name })}</h2>
+      <ol class="steps">
+        {content.steps.map((step) => <li>{step}</li>)}
+      </ol>
+    </section>
+
+    <AdSlot slot="content" label={dict.ui.ad} />
+
+    <Faq title={dict.toolPage.faqTitle} items={content.faq} />
+
+    <section class="section" aria-labelledby="related-title">
+      <h2 id="related-title">{dict.toolPage.relatedTitle}</h2>
+      <div class="tool-grid">
+        {others.map((item) => <ToolCard tool={item} lang={lang} />)}
+      </div>
+    </section>
+  </div>
+</BaseLayout>

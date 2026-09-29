@@ -1,0 +1,15 @@
+# Cloudflare Pages / Netlify 용 응답 헤더 설정
+
+/*
+  X-Content-Type-Options: nosniff
+  Referrer-Policy: strict-origin-when-cross-origin
+  X-Frame-Options: SAMEORIGIN
+  Permissions-Policy: camera=(), microphone=(), geolocation=()
+
+# 빌드 시 파일 이름에 해시가 붙는 JS/CSS 는 1년간 캐시 (재방문 시 트래픽 0)
+/_astro/*
+  Cache-Control: public, max-age=31536000, immutable
+
+# pdf.js 폰트/CMap/wasm 리소스 (버전이 바뀔 때만 교체됨)
+/pdfjs/*
+  Cache-Control: public, max-age=2592000

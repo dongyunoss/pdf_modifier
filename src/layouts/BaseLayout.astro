@@ -1,0 +1,114 @@
+---
+import Footer from '../components/Footer.astro';
+import Header from '../components/Header.astro';
+import { SITE } from '../config/site';
+import { DEFAULT_LANG, getDictionary, LANGS, switchLangPath, type Lang } from '../i18n';
+import '../styles/global.css';
+
+interface Props {
+  lang: Lang;
+  /** 사이트 이름 앞에 붙는 페이지 제목 */
+  title: string;
+  description: string;
+  /** 언어 접두사를 포함한 현재 경로 (예: /en/merge-pdf/) */
+  path: string;
+  /** 구조화 데이터 (JSON-LD) */
+  jsonLd?: object[];
+  noindex?: boolean;
+}
+
+const { lang, title, description, path, jsonLd = [], noindex = false } = Astro.props;
+const dict = getDictionary(lang);
+const fullTitle = `${title} | ${SITE.name}`;
+const canonical = new URL(path, `${SITE.url}/`).href;
+const ogImage = new URL('/og-image.png', `${SITE.url}/`).href;
+const alternates = LANGS.map((code) => ({
+  hreflang: getDictionary(code).meta.htmlLang,
+  href: new URL(switchLangPath(path, code), `${SITE.url}/`).href,
+}));
+const xDefault = new URL(switchLangPath(path, DEFAULT_LANG), `${SITE.url}/`).href;
+const { client: adClient } = SITE.adsense;
+const { cloudflareToken, gaId } = SITE.analytics;
+---
+
+<!doctype html>
+<html lang={dict.meta.htmlLang}>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{fullTitle}</title>
+    <meta name="description" content={description} />
+    {noindex ? <meta name="robots" content="noindex" /> : <link rel="canonical" href={canonical} />}
+    {!noindex && alternates.map((alt) => <link rel="alternate" hreflang={alt.hreflang} href={alt.href} />)}
+    {!noindex && <link rel="alternate" hreflang="x-default" href={xDefault} />}
+
+    <meta name="color-scheme" content="light dark" />
+    <meta name="theme-color" content="#ffffff" media="(prefers-color-scheme: light)" />
+    <meta name="theme-color" content="#0f1115" media="(prefers-color-scheme: dark)" />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+    <link rel="sitemap" href="/sitemap-index.xml" />
+
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content={SITE.name} />
+    <meta property="og:title" content={fullTitle} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:image" content={ogImage} />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:locale" content={dict.meta.ogLocale} />
+    {
+      LANGS.filter((code) => code !== lang).map((code) => (
+        <meta property="og:locale:alternate" content={getDictionary(code).meta.ogLocale} />
+      ))
+    }
+    <meta name="twitter:card" content="summary_large_image" />
+
+    {SITE.verification.google && <meta name="google-site-verification" content={SITE.verification.google} />}
+    {SITE.verification.naver && <meta name="naver-site-verification" content={SITE.verification.naver} />}
+    {SITE.verification.bing && <meta name="msvalidate.01" content={SITE.verification.bing} />}
+
+    {jsonLd.map((data) => <script type="application/ld+json" set:html={JSON.stringify(data)} />)}
+
+    {
+      adClient && (
+        <script
+          async
+          src={`https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=${adClient}`}
+          crossorigin="anonymous"
+        />
+      )
+    }
+    {
+      cloudflareToken && (
+        <script
+          defer
+          src="https://static.cloudflareinsights.com/beacon.min.js"
+          data-cf-beacon={JSON.stringify({ token: cloudflareToken })}
+        />
+      )
+    }
+    {gaId && <script async src={`https://www.googletagmanager.com/gtag/js?id=${gaId}`} />}
+    {
+      gaId && (
+        <script is:inline define:vars={{ gaId }}>
+          window.dataLayer = window.dataLayer || [];
+          function gtag() {
+            dataLayer.push(arguments);
+          }
+          gtag('js', new Date());
+          gtag('config', gaId);
+        </script>
+      )
+    }
+  </head>
+  <body>
+    <a class="skip-link" href="#main">{dict.nav.skipToContent}</a>
+    <Header lang={lang} path={path} />
+    <main id="main">
+      <slot />
+    </main>
+    <Footer lang={lang} path={path} />
+  </body>
+</html>

@@ -1,0 +1,21 @@
+---
+import { getDictionary, toolPath, type Lang } from '../i18n';
+import type { ToolMeta } from '../tools/registry';
+import Icon from './Icon.astro';
+
+interface Props {
+  tool: ToolMeta;
+  lang: Lang;
+}
+
+const { tool, lang } = Astro.props;
+const content = getDictionary(lang).tools[tool.id];
+---
+
+<a class="tool-card" href={toolPath(lang, tool.id)} data-category={tool.category}>
+  <span class="tool-card-icon"><Icon name={tool.id} size={26} /></span>
+  <span class="tool-card-body">
+    <strong>{content.name}</strong>
+    <span>{content.tagline}</span>
+  </span>
+</a>

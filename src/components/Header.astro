@@ -1,0 +1,82 @@
+---
+import { SITE } from '../config/site';
+import { getDictionary, langPrefix, LANGS, switchLangPath, toolPath, type Lang } from '../i18n';
+import { CATEGORY_ORDER, TOOLS } from '../tools/registry';
+import Icon from './Icon.astro';
+
+interface Props {
+  lang: Lang;
+  path: string;
+}
+
+const { lang, path } = Astro.props;
+const dict = getDictionary(lang);
+---
+
+<header class="site-header">
+  <div class="container header-inner">
+    <a class="brand" href={langPrefix(lang)} aria-label={`${SITE.name} ${dict.nav.home}`}>
+      <span class="brand-mark" aria-hidden="true">
+        <svg viewBox="0 0 32 32" width="28" height="28"><rect width="32" height="32" rx="8" fill="currentColor"></rect><path d="M10 8h8l5 5v11a2 2 0 0 1-2 2H10a2 2 0 0 1-2-2V10a2 2 0 0 1 2-2z" fill="#fff"></path><path d="M18 8v5h5" fill="none" stroke="currentColor" stroke-width="1.6"></path><path d="M11.5 18.5h9M11.5 21.5h6" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"></path></svg>
+      </span>
+      <span class="brand-name">{SITE.name}</span>
+    </a>
+
+    <nav class="header-nav" aria-label={dict.nav.allTools}>
+      <details class="menu">
+        <summary class="btn btn-ghost">
+          {dict.nav.allTools}
+          <svg class="menu-caret" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" aria-hidden="true"><path d="m6 9 6 6 6-6"></path></svg>
+        </summary>
+        <div class="menu-panel">
+          {
+            CATEGORY_ORDER.map((category) => (
+              <div class="menu-group">
+                <p class="menu-group-title">{dict.categories[category]}</p>
+                {TOOLS.filter((tool) => tool.category === category).map((tool) => (
+                  <a class="menu-link" href={toolPath(lang, tool.id)} data-category={tool.category}>
+                    <Icon name={tool.id} size={18} />
+                    {dict.tools[tool.id].name}
+                  </a>
+                ))}
+              </div>
+            ))
+          }
+        </div>
+      </details>
+
+      <div class="lang-switch" role="group" aria-label={dict.nav.language}>
+        <Icon name="globe" size={18} />
+        {
+          LANGS.map((code) => (
+            <a
+              href={switchLangPath(path, code)}
+              hreflang={code}
+              lang={code}
+              class:list={['lang-link', { 'is-active': code === lang }]}
+              aria-current={code === lang ? 'true' : undefined}
+            >
+              {code.toUpperCase()}
+            </a>
+          ))
+        }
+      </div>
+    </nav>
+  </div>
+</header>
+
+<script>
+  // 메뉴 바깥을 클릭하거나 Esc 를 누르면 도구 메뉴를 닫습니다.
+  const menu = document.querySelector<HTMLDetailsElement>('.site-header details.menu');
+  if (menu) {
+    document.addEventListener('click', (event) => {
+      if (menu.open && !menu.contains(event.target as Node)) menu.open = false;
+    });
+    document.addEventListener('keydown', (event) => {
+      if (event.key === 'Escape' && menu.open) {
+        menu.open = false;
+        menu.querySelector('summary')?.focus();
+      }
+    });
+  }
+</script>

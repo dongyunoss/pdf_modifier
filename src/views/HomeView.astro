@@ -1,0 +1,112 @@
+---
+import AdSlot from '../components/AdSlot.astro';
+import Faq from '../components/Faq.astro';
+import Icon from '../components/Icon.astro';
+import ToolCard from '../components/ToolCard.astro';
+import type { IconName } from '../components/icon-paths';
+import { SITE } from '../config/site';
+import { fmt, getDictionary, langPrefix, toolPath, type Lang } from '../i18n';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { CATEGORY_ORDER, TOOLS } from '../tools/registry';
+
+interface Props {
+  lang: Lang;
+}
+
+const { lang } = Astro.props;
+const dict = getDictionary(lang);
+const path = langPrefix(lang);
+const whyIcons: IconName[] = ['shield', 'zap', 'gem', 'devices'];
+
+const jsonLd = [
+  {
+    '@context': 'https://schema.org',
+    '@type': 'WebSite',
+    name: SITE.name,
+    url: new URL(path, `${SITE.url}/`).href,
+    inLanguage: dict.meta.htmlLang,
+    description: dict.site.description,
+  },
+  {
+    '@context': 'https://schema.org',
+    '@type': 'ItemList',
+    itemListElement: TOOLS.map((tool, index) => ({
+      '@type': 'ListItem',
+      position: index + 1,
+      name: dict.tools[tool.id].name,
+      url: new URL(toolPath(lang, tool.id), `${SITE.url}/`).href,
+    })),
+  },
+  {
+    '@context': 'https://schema.org',
+    '@type': 'FAQPage',
+    mainEntity: dict.home.faq.map((item) => ({
+      '@type': 'Question',
+      name: item.q,
+      acceptedAnswer: { '@type': 'Answer', text: item.a },
+    })),
+  },
+];
+---
+
+<BaseLayout lang={lang} title={dict.home.title} description={dict.site.description} path={path} jsonLd={jsonLd}>
+  <section class="hero">
+    <div class="container">
+      <h1>{dict.home.h1}</h1>
+      <p class="hero-lead">{dict.home.lead}</p>
+      <ul class="badge-row">
+        {
+          dict.home.badges.map((badge) => (
+            <li class="badge">
+              <Icon name="check" size={16} />
+              {badge}
+            </li>
+          ))
+        }
+      </ul>
+    </div>
+  </section>
+
+  <section class="container section" id="tools" aria-labelledby="tools-title">
+    <h2 id="tools-title" class="visually-hidden">{dict.home.toolsTitle}</h2>
+    {
+      CATEGORY_ORDER.map((category) => (
+        <div class="tool-group">
+          <h3 class="tool-group-title" data-category={category}>
+            {dict.categories[category]}
+          </h3>
+          <div class="tool-grid">
+            {TOOLS.filter((tool) => tool.category === category).map((tool) => (
+              <ToolCard tool={tool} lang={lang} />
+            ))}
+          </div>
+        </div>
+      ))
+    }
+  </section>
+
+  <div class="container">
+    <AdSlot slot="content" label={dict.ui.ad} />
+  </div>
+
+  <section class="container section" aria-labelledby="why-title">
+    <h2 id="why-title">{fmt(dict.home.whyTitle, { site: SITE.name })}</h2>
+    <div class="feature-grid">
+      {
+        dict.home.why.map((item, index) => (
+          <article class="feature">
+            <span class="feature-icon">
+              <Icon name={whyIcons[index % whyIcons.length]} size={22} />
+            </span>
+            <h3>{item.title}</h3>
+            <p>{item.body}</p>
+          </article>
+        ))
+      }
+    </div>
+  </section>
+
+  <div class="container">
+    <Faq title={dict.home.faqTitle} items={dict.home.faq} />
+  </div>
+</BaseLayout>

@@ -1,0 +1,21 @@
+---
+import ToolCard from '../components/ToolCard.astro';
+import { getDictionary } from '../i18n';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { TOOLS } from '../tools/registry';
+
+const ko = getDictionary('ko');
+const en = getDictionary('en');
+---
+
+<BaseLayout lang="ko" title={ko.notFound.title} description={ko.notFound.body} path="/404/" noindex>
+  <section class="container section not-found">
+    <h1>{ko.notFound.title}</h1>
+    <p lang="en" class="not-found-en">{en.notFound.title}</p>
+    <p>{ko.notFound.body}</p>
+    <p><a class="btn btn-primary" href="/">{ko.notFound.back}</a> <a class="btn btn-ghost" href="/en/" lang="en">{en.notFound.back}</a></p>
+    <div class="tool-grid">
+      {TOOLS.map((tool) => <ToolCard tool={tool} lang="ko" />)}
+    </div>
+  </section>
+</BaseLayout>

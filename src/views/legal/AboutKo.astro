@@ -1,0 +1,57 @@
+---
+import { SITE } from '../../config/site';
+import { toolPath } from '../../i18n';
+---
+
+<p>
+  {SITE.name}는 누구나 무료로, 안심하고 쓸 수 있는 PDF 도구를 목표로 만든 웹 서비스입니다. 프로그램 설치나 회원가입 없이 브라우저만 있으면
+  PDF를 합치고, 나누고, 페이지를 정리하고, 용량을 줄이고, 이미지로 변환할 수 있습니다.
+</p>
+
+<h2>파일을 업로드하지 않는 PDF 도구</h2>
+<p>
+  대부분의 온라인 PDF 서비스는 파일을 서버로 올려 처리합니다. {SITE.name}는 WebAssembly와 최신 브라우저 기술을 이용해
+  <strong>모든 처리를 이용자의 기기 안에서</strong> 수행합니다. 계약서, 증명서, 신분증 사본처럼 민감한 문서도 외부로 나가지 않으며, 업로드와
+  다운로드를 기다릴 필요가 없어 더 빠릅니다.
+</p>
+
+<h2>제공하는 기능</h2>
+<ul>
+  <li><a href={toolPath('ko', 'merge')}>PDF 합치기</a>, <a href={toolPath('ko', 'split')}>PDF 분할</a></li>
+  <li>
+    <a href={toolPath('ko', 'organize')}>PDF 페이지 편집</a>(순서 변경·회전·삭제·복제·빈 페이지), <a href={toolPath('ko', 'rotate')}>회전</a>,
+    <a href={toolPath('ko', 'delete-pages')}>페이지 삭제</a>, <a href={toolPath('ko', 'extract-pages')}>페이지 추출</a>
+  </li>
+  <li><a href={toolPath('ko', 'compress')}>PDF 압축</a></li>
+  <li><a href={toolPath('ko', 'jpg-to-pdf')}>JPG → PDF</a>, <a href={toolPath('ko', 'pdf-to-jpg')}>PDF → JPG</a> 변환</li>
+  <li><a href={toolPath('ko', 'watermark')}>워터마크</a>, <a href={toolPath('ko', 'page-numbers')}>페이지 번호</a> 넣기</li>
+  <li><a href={toolPath('ko', 'protect')}>암호 설정</a>, <a href={toolPath('ko', 'unlock')}>암호 해제</a></li>
+</ul>
+
+<h2>운영 방식</h2>
+<p>
+  모든 기능은 무료이며, 사이트 운영비는 페이지에 표시되는 광고로 충당합니다. 서버에서 파일을 처리하지 않기 때문에 운영 비용이 낮고, 그만큼
+  사용 횟수나 파일 크기 제한 없이 서비스를 제공할 수 있습니다.
+</p>
+
+<h2>사용한 오픈소스</h2>
+<p>이 서비스는 다음 오픈소스 프로젝트 덕분에 만들어졌습니다.</p>
+<ul>
+  <li><a href="https://github.com/cantoo-scribe/pdf-lib" rel="noopener">pdf-lib (@cantoo/pdf-lib)</a> — MIT License</li>
+  <li><a href="https://mozilla.github.io/pdf.js/" rel="noopener">PDF.js</a> — Apache License 2.0</li>
+  <li><a href="https://github.com/101arrowz/fflate" rel="noopener">fflate</a> — MIT License</li>
+  <li><a href="https://preactjs.com/" rel="noopener">Preact</a>, <a href="https://astro.build/" rel="noopener">Astro</a> — MIT License</li>
+</ul>
+
+<h2>문의</h2>
+<p>
+  {
+    SITE.contactEmail ? (
+      <>
+        기능 제안, 오류 신고, 제휴 문의는 <a href={`mailto:${SITE.contactEmail}`}>{SITE.contactEmail}</a>로 보내 주세요.
+      </>
+    ) : (
+      '기능 제안이나 오류 신고는 사이트 운영자에게 알려 주세요.'
+    )
+  }
+</p>

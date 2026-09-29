@@ -1,0 +1,78 @@
+---
+import { SITE } from '../config/site';
+import { getDictionary, LANGS, pagePath, switchLangPath, toolPath, type Lang } from '../i18n';
+import { TOOLS } from '../tools/registry';
+import Icon from './Icon.astro';
+
+interface Props {
+  lang: Lang;
+  path: string;
+}
+
+const { lang, path } = Astro.props;
+const dict = getDictionary(lang);
+const year = new Date().getFullYear();
+---
+
+<footer class="site-footer">
+  <div class="container footer-grid">
+    <div class="footer-about">
+      <p class="footer-brand">{SITE.name}</p>
+      <p>{dict.footer.tagline}</p>
+      <p class="footer-privacy">
+        <Icon name="shield" size={16} />
+        {dict.footer.privacyNote}
+      </p>
+      {
+        SITE.donationUrl && (
+          <a class="btn btn-secondary btn-sm" href={SITE.donationUrl} target="_blank" rel="noopener sponsored">
+            <Icon name="heart" size={16} />
+            {dict.nav.support}
+          </a>
+        )
+      }
+    </div>
+
+    <nav aria-label={dict.footer.toolsTitle}>
+      <p class="footer-title">{dict.footer.toolsTitle}</p>
+      <ul class="footer-links footer-links-grid">
+        {
+          TOOLS.map((tool) => (
+            <li>
+              <a href={toolPath(lang, tool.id)}>{dict.tools[tool.id].name}</a>
+            </li>
+          ))
+        }
+      </ul>
+    </nav>
+
+    <nav aria-label={dict.footer.infoTitle}>
+      <p class="footer-title">{dict.footer.infoTitle}</p>
+      <ul class="footer-links">
+        <li><a href={pagePath(lang, 'about')}>{dict.nav.about}</a></li>
+        <li><a href={pagePath(lang, 'privacy')}>{dict.nav.privacy}</a></li>
+        <li><a href={pagePath(lang, 'terms')}>{dict.nav.terms}</a></li>
+        {SITE.contactEmail && (
+          <li>
+            <a href={`mailto:${SITE.contactEmail}`}>{dict.nav.contact}</a>
+          </li>
+        )}
+      </ul>
+      <p class="footer-title">{dict.nav.language}</p>
+      <ul class="footer-links">
+        {
+          LANGS.map((code) => (
+            <li>
+              <a href={switchLangPath(path, code)} hreflang={code} lang={code}>
+                {getDictionary(code).meta.langName}
+              </a>
+            </li>
+          ))
+        }
+      </ul>
+    </nav>
+  </div>
+  <div class="container footer-bottom">
+    <p>© {year} {SITE.name}</p>
+  </div>
+</footer>

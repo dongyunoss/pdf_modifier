@@ -1,0 +1,46 @@
+---
+import { getDictionary, pagePath, type Lang, type StaticPage } from '../i18n';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import AboutEn from './legal/AboutEn.astro';
+import AboutKo from './legal/AboutKo.astro';
+import PrivacyEn from './legal/PrivacyEn.astro';
+import PrivacyKo from './legal/PrivacyKo.astro';
+import TermsEn from './legal/TermsEn.astro';
+import TermsKo from './legal/TermsKo.astro';
+
+interface Props {
+  lang: Lang;
+  page: StaticPage;
+}
+
+const { lang, page } = Astro.props;
+const dict = getDictionary(lang);
+/** 개인정보처리방침/이용약관 시행일 — 내용을 바꾸면 함께 수정하세요. */
+const EFFECTIVE_DATE = lang === 'ko' ? '2026년 9월 29일' : 'September 29, 2026';
+
+const titles: Record<StaticPage, string> = {
+  about: dict.nav.about,
+  privacy: dict.nav.privacy,
+  terms: dict.nav.terms,
+};
+const descriptions: Record<StaticPage, string> = {
+  about: dict.site.description,
+  privacy: `${dict.nav.privacy} - ${dict.footer.privacyNote}`,
+  terms: `${dict.nav.terms} - ${dict.site.tagline}`,
+};
+---
+
+<BaseLayout lang={lang} title={titles[page]} description={descriptions[page]} path={pagePath(lang, page)}>
+  <article class="container prose">
+    <h1>{titles[page]}</h1>
+    {page === 'about' && (lang === 'ko' ? <AboutKo /> : <AboutEn />)}
+    {
+      page === 'privacy' &&
+        (lang === 'ko' ? <PrivacyKo effectiveDate={EFFECTIVE_DATE} /> : <PrivacyEn effectiveDate={EFFECTIVE_DATE} />)
+    }
+    {
+      page === 'terms' &&
+        (lang === 'ko' ? <TermsKo effectiveDate={EFFECTIVE_DATE} /> : <TermsEn effectiveDate={EFFECTIVE_DATE} />)
+    }
+  </article>
+</BaseLayout>

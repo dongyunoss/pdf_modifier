@@ -1,0 +1,12 @@
+---
+import { TOOLS } from '../../tools/registry';
+import ToolView from '../../views/ToolView.astro';
+
+export function getStaticPaths() {
+  return TOOLS.map((tool) => ({ params: { tool: tool.slug }, props: { id: tool.id } }));
+}
+
+const { id } = Astro.props;
+---
+
+<ToolView lang="en" id={id} />

@@ -1,0 +1,58 @@
+---
+import { SITE } from '../../config/site';
+import { toolPath } from '../../i18n';
+---
+
+<p>
+  {SITE.name} is a set of free PDF tools that anyone can use safely. With nothing but a web browser — no installation and no account —
+  you can merge, split, reorder, compress and convert PDF files.
+</p>
+
+<h2>PDF tools that never upload your files</h2>
+<p>
+  Most online PDF services upload your files to their servers. {SITE.name} uses WebAssembly and modern browser technology to do
+  <strong>all processing on your own device</strong>. Contracts, certificates and ID copies never leave your computer, and there is no
+  waiting for uploads or downloads.
+</p>
+
+<h2>Tools</h2>
+<ul>
+  <li><a href={toolPath('en', 'merge')}>Merge PDF</a>, <a href={toolPath('en', 'split')}>Split PDF</a></li>
+  <li>
+    <a href={toolPath('en', 'organize')}>Organize PDF</a> (reorder, rotate, delete, duplicate, blank pages),
+    <a href={toolPath('en', 'rotate')}>Rotate</a>, <a href={toolPath('en', 'delete-pages')}>Delete pages</a>,
+    <a href={toolPath('en', 'extract-pages')}>Extract pages</a>
+  </li>
+  <li><a href={toolPath('en', 'compress')}>Compress PDF</a></li>
+  <li><a href={toolPath('en', 'jpg-to-pdf')}>JPG to PDF</a>, <a href={toolPath('en', 'pdf-to-jpg')}>PDF to JPG</a></li>
+  <li><a href={toolPath('en', 'watermark')}>Watermark</a>, <a href={toolPath('en', 'page-numbers')}>Page numbers</a></li>
+  <li><a href={toolPath('en', 'protect')}>Protect</a>, <a href={toolPath('en', 'unlock')}>Unlock</a></li>
+</ul>
+
+<h2>How the site is funded</h2>
+<p>
+  Every tool is free. The site is supported by the ads shown on its pages. Because files are not processed on servers, running costs stay
+  low, so there are no limits on usage or file size.
+</p>
+
+<h2>Open source</h2>
+<p>This service is built on these open-source projects:</p>
+<ul>
+  <li><a href="https://github.com/cantoo-scribe/pdf-lib" rel="noopener">pdf-lib (@cantoo/pdf-lib)</a> — MIT License</li>
+  <li><a href="https://mozilla.github.io/pdf.js/" rel="noopener">PDF.js</a> — Apache License 2.0</li>
+  <li><a href="https://github.com/101arrowz/fflate" rel="noopener">fflate</a> — MIT License</li>
+  <li><a href="https://preactjs.com/" rel="noopener">Preact</a>, <a href="https://astro.build/" rel="noopener">Astro</a> — MIT License</li>
+</ul>
+
+<h2>Contact</h2>
+<p>
+  {
+    SITE.contactEmail ? (
+      <>
+        Suggestions, bug reports and partnership inquiries: <a href={`mailto:${SITE.contactEmail}`}>{SITE.contactEmail}</a>
+      </>
+    ) : (
+      'Please contact the site operator with suggestions or bug reports.'
+    )
+  }
+</p>
