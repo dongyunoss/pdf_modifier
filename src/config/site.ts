@@ -1,4 +1,4 @@
-// 사이트 전역 설정. 값은 모두 빌드 시점 환경변수(.env / 호스팅 대시보드)에서 읽습니다.
+// 사이트 전역 설정. 값은 빌드 시점 환경변수(.env / 호스팅 대시보드)에서 읽고, 비어 있으면 pdfmodifier.app 기본값을 씁니다.
 // 자세한 설명은 .env.example 과 docs/MONETIZATION.md 를 참고하세요.
 const env = import.meta.env;
 
@@ -23,7 +23,8 @@ export const SITE = {
   },
   verification: {
     google: clean(env.PUBLIC_GOOGLE_SITE_VERIFICATION),
-    naver: clean(env.PUBLIC_NAVER_SITE_VERIFICATION),
+    // pdfmodifier.app 의 네이버 서치어드바이저 소유 확인 값 (공개되는 값이라 코드에 둡니다)
+    naver: clean(env.PUBLIC_NAVER_SITE_VERIFICATION) || '43dbab42e30fa1bbbfe19a176bf56bbe90e671b9',
     bing: clean(env.PUBLIC_BING_SITE_VERIFICATION),
   },
 } as const;
