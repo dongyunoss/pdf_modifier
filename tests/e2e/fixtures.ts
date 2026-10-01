@@ -19,6 +19,10 @@ export const pdfFile = (name: string, bytes: Uint8Array): UploadFile => ({
 export const test = base.extend<{ pageErrors: string[] }>({
   pageErrors: [
     async ({ page }, use) => {
+      // 애드센스 스크립트는 외부 서버에서 받아 오므로, 테스트에서는 빈 스크립트로 대신합니다.
+      await page.route('https://pagead2.googlesyndication.com/**', (route) =>
+        route.fulfill({ status: 200, contentType: 'text/javascript', body: '' }),
+      );
       const errors: string[] = [];
       page.on('pageerror', (error) => errors.push(`pageerror: ${error.message}`));
       page.on('console', (message) => {

@@ -75,7 +75,7 @@ npm run dev               # http://localhost:4321
 
 ## 환경 변수
 
-모두 빌드 시점에 적용됩니다. 비워 두면 해당 기능이 꺼질 뿐 사이트는 정상 동작합니다. ([.env.example](.env.example))
+모두 빌드 시점에 적용됩니다. 주소·이름·문의 이메일·애드센스 게시자 ID·네이버 인증값은 비워 두면 pdfmodifier.app 기본값(`src/config/site.ts`)을 쓰고, 나머지는 비워 두면 해당 기능이 꺼질 뿐 사이트는 정상 동작합니다. ([.env.example](.env.example))
 
 | 변수 | 설명 |
 | --- | --- |

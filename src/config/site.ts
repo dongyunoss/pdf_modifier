@@ -7,10 +7,10 @@ const clean = (value: string | undefined) => (value ?? '').trim();
 export const SITE = {
   url: (clean(env.PUBLIC_SITE_URL) || 'https://pdfmodifier.app').replace(/\/+$/, ''),
   name: clean(env.PUBLIC_SITE_NAME) || 'PDF Modifier',
-  contactEmail: clean(env.PUBLIC_CONTACT_EMAIL),
+  contactEmail: clean(env.PUBLIC_CONTACT_EMAIL) || 'contact@pdfmodifier.app',
   donationUrl: clean(env.PUBLIC_DONATION_URL),
   adsense: {
-    client: clean(env.PUBLIC_ADSENSE_CLIENT),
+    client: clean(env.PUBLIC_ADSENSE_CLIENT) || 'ca-pub-2663525198080452',
     slots: {
       tool: clean(env.PUBLIC_ADSENSE_SLOT_TOOL),
       result: clean(env.PUBLIC_ADSENSE_SLOT_RESULT),
