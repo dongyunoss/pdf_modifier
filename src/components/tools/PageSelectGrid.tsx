@@ -1,5 +1,5 @@
 import { useRef, useState } from 'preact/hooks';
-import { fmt } from '../../i18n';
+import { fmt } from '../../i18n/format';
 import { formatPageRanges, parsePageSelection } from '../../lib/pdf/ranges';
 import type { ReadyEntry } from './FileGate';
 import { Icon } from './Icon';

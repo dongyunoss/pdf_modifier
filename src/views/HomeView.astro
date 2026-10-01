@@ -5,7 +5,7 @@ import Icon from '../components/Icon.astro';
 import ToolCard from '../components/ToolCard.astro';
 import type { IconName } from '../components/icon-paths';
 import { SITE } from '../config/site';
-import { fmt, getDictionary, langPrefix, toolPath, type Lang } from '../i18n';
+import { fmt, getDictionary, langPrefix, LANGUAGES, toolPath, type Lang } from '../i18n';
 import BaseLayout from '../layouts/BaseLayout.astro';
 import { CATEGORY_ORDER, TOOLS } from '../tools/registry';
 
@@ -24,7 +24,7 @@ const jsonLd = [
     '@type': 'WebSite',
     name: SITE.name,
     url: new URL(path, `${SITE.url}/`).href,
-    inLanguage: dict.meta.htmlLang,
+    inLanguage: LANGUAGES[lang].htmlLang,
     description: dict.site.description,
   },
   {

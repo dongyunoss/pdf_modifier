@@ -1,11 +1,6 @@
 import type { Dictionary } from './index';
 
 export const en: Dictionary = {
-  meta: {
-    htmlLang: 'en',
-    ogLocale: 'en_US',
-    langName: 'English',
-  },
   site: {
     tagline: 'Free online PDF editor',
     description:

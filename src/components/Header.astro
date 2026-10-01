@@ -1,6 +1,6 @@
 ---
 import { SITE } from '../config/site';
-import { getDictionary, langPrefix, LANGS, switchLangPath, toolPath, type Lang } from '../i18n';
+import { getDictionary, langPrefix, LANGS, LANGUAGES, switchLangPath, toolPath, type Lang } from '../i18n';
 import { CATEGORY_ORDER, TOOLS } from '../tools/registry';
 import Icon from './Icon.astro';
 
@@ -45,38 +45,65 @@ const dict = getDictionary(lang);
         </div>
       </details>
 
-      <div class="lang-switch" role="group" aria-label={dict.nav.language}>
-        <Icon name="globe" size={18} />
-        {
-          LANGS.map((code) => (
-            <a
-              href={switchLangPath(path, code)}
-              hreflang={code}
-              lang={code}
-              class:list={['lang-link', { 'is-active': code === lang }]}
-              aria-current={code === lang ? 'true' : undefined}
-            >
-              {code.toUpperCase()}
-            </a>
-          ))
-        }
-      </div>
+      <details class="menu lang-menu">
+        <summary class="btn btn-ghost" aria-label={`${dict.nav.language}: ${LANGUAGES[lang].name}`}>
+          <Icon name="globe" size={18} />
+          <span class="lang-menu-current">{LANGUAGES[lang].name}</span>
+          <svg class="menu-caret" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" aria-hidden="true"><path d="m6 9 6 6 6-6"></path></svg>
+        </summary>
+        <ul class="menu-panel lang-panel">
+          {
+            LANGS.map((code) => (
+              <li>
+                <a
+                  href={switchLangPath(path, code)}
+                  hreflang={LANGUAGES[code].htmlLang}
+                  lang={LANGUAGES[code].htmlLang}
+                  data-lang-choice={code}
+                  class:list={['menu-link', 'lang-option', { 'is-active': code === lang }]}
+                  aria-current={code === lang ? 'true' : undefined}
+                >
+                  {LANGUAGES[code].name}
+                  {code === lang && <Icon name="check" size={16} />}
+                </a>
+              </li>
+            ))
+          }
+        </ul>
+      </details>
     </nav>
   </div>
 </header>
 
 <script>
-  // 메뉴 바깥을 클릭하거나 Esc 를 누르면 도구 메뉴를 닫습니다.
-  const menu = document.querySelector<HTMLDetailsElement>('.site-header details.menu');
-  if (menu) {
-    document.addEventListener('click', (event) => {
-      if (menu.open && !menu.contains(event.target as Node)) menu.open = false;
-    });
-    document.addEventListener('keydown', (event) => {
-      if (event.key === 'Escape' && menu.open) {
-        menu.open = false;
-        menu.querySelector('summary')?.focus();
-      }
+  import { LANG_STORAGE_KEY } from '../i18n/languages';
+
+  // 메뉴 바깥을 클릭하거나 Esc 를 누르면 열린 메뉴(도구·언어)를 닫고, 한 메뉴를 열면 다른 메뉴는 닫습니다.
+  const menus = [...document.querySelectorAll<HTMLDetailsElement>('.site-header details.menu')];
+  for (const menu of menus) {
+    menu.addEventListener('toggle', () => {
+      if (menu.open) menus.filter((other) => other !== menu).forEach((other) => (other.open = false));
     });
   }
+  document.addEventListener('click', (event) => {
+    for (const menu of menus) if (menu.open && !menu.contains(event.target as Node)) menu.open = false;
+  });
+  document.addEventListener('keydown', (event) => {
+    if (event.key !== 'Escape') return;
+    const open = menus.find((menu) => menu.open);
+    if (!open) return;
+    open.open = false;
+    open.querySelector('summary')?.focus();
+  });
+
+  // 언어 메뉴(머리말·바닥글)에서 고른 언어를 기억해 두면, 다음에 다른 언어 주소로 들어와도 그 언어로 보여 줍니다.
+  document.addEventListener('click', (event) => {
+    const link = (event.target as Element | null)?.closest<HTMLAnchorElement>('a[data-lang-choice]');
+    if (!link?.dataset.langChoice) return;
+    try {
+      localStorage.setItem(LANG_STORAGE_KEY, link.dataset.langChoice);
+    } catch {
+      // 저장소를 쓸 수 없는 환경(사생활 보호 모드 등)에서는 기억하지 않습니다.
+    }
+  });
 </script>

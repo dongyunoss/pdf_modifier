@@ -1,0 +1,68 @@
+---
+// 소개·개인정보처리방침·이용약관 본문을 언어별 문구(src/i18n/legal/)로 그립니다.
+import { SITE } from '../../config/site';
+import { getDictionary, toolPath, type Lang, type StaticPage } from '../../i18n';
+import { getLegalText, type LegalBlock } from '../../i18n/legal';
+import { CATEGORY_ORDER, TOOLS } from '../../tools/registry';
+
+interface Props {
+  lang: Lang;
+  page: StaticPage;
+  /** 언어별 형식으로 쓴 시행일 */
+  effectiveDate: string;
+}
+
+const { lang, page, effectiveDate } = Astro.props;
+const text = getLegalText(lang);
+const dict = getDictionary(lang);
+
+const escapeHtml = (value: string) =>
+  value.replace(/[&<>"']/g, (char) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' })[char]!);
+const fill = (html: string) =>
+  html.replaceAll('{site}', escapeHtml(SITE.name)).replaceAll('{date}', escapeHtml(effectiveDate));
+
+const OPEN_SOURCE = [
+  { name: 'pdf-lib (@cantoo/pdf-lib)', href: 'https://github.com/cantoo-scribe/pdf-lib', license: 'MIT License' },
+  { name: 'PDF.js', href: 'https://mozilla.github.io/pdf.js/', license: 'Apache License 2.0' },
+  { name: 'fflate', href: 'https://github.com/101arrowz/fflate', license: 'MIT License' },
+  { name: 'Preact', href: 'https://preactjs.com/', license: 'MIT License' },
+  { name: 'Astro', href: 'https://astro.build/', license: 'MIT License' },
+];
+
+const toolList = () =>
+  `<ul>${CATEGORY_ORDER.map((category) => {
+    const links = TOOLS.filter((tool) => tool.category === category).map(
+      (tool) => `<a href="${toolPath(lang, tool.id)}">${escapeHtml(dict.tools[tool.id].name)}</a>`,
+    );
+    return `<li><strong>${escapeHtml(dict.categories[category])}</strong>: ${links.join(text.listSeparator)}</li>`;
+  }).join('')}</ul>`;
+
+const openSourceList = () =>
+  `<ul>${OPEN_SOURCE.map(
+    (item) => `<li><a href="${item.href}" rel="noopener">${escapeHtml(item.name)}</a> — ${item.license}</li>`,
+  ).join('')}</ul>`;
+
+const contact = () => {
+  const email = SITE.contactEmail;
+  if (!email) return `<p>${fill(text.contact.none)}</p>`;
+  const link = `<a href="mailto:${escapeHtml(email)}">${escapeHtml(email)}</a>`;
+  return `<p>${fill(text.contact[page === 'privacy' ? 'privacy' : 'about']).replace('{email}', link)}</p>`;
+};
+
+const special: Record<string, () => string> = { '{tools}': toolList, '{opensource}': openSourceList, '{contact}': contact };
+
+const render = (block: LegalBlock) => {
+  if (typeof block !== 'string') return `<ul>${block.list.map((item) => `<li>${fill(item)}</li>`).join('')}</ul>`;
+  const make = special[block];
+  return make ? make() : `<p>${fill(block)}</p>`;
+};
+---
+
+{
+  text[page].map((section) => (
+    <>
+      {section.title && <h2>{section.title}</h2>}
+      <Fragment set:html={section.blocks.map(render).join('')} />
+    </>
+  ))
+}

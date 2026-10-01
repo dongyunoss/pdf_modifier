@@ -2,7 +2,18 @@
 import Footer from '../components/Footer.astro';
 import Header from '../components/Header.astro';
 import { SITE } from '../config/site';
-import { DEFAULT_LANG, getDictionary, LANGS, switchLangPath, type Lang } from '../i18n';
+import {
+  FALLBACK_LANG,
+  getDictionary,
+  LANG_STORAGE_KEY,
+  langPrefix,
+  LANGS,
+  LANGUAGES,
+  neutralPath,
+  switchLangPath,
+  type Lang,
+} from '../i18n';
+import autoLanguage from '../i18n/auto-language.js?raw';
 import '../styles/global.css';
 
 interface Props {
@@ -23,19 +34,36 @@ const fullTitle = `${title} | ${SITE.name}`;
 const canonical = new URL(path, `${SITE.url}/`).href;
 const ogImage = new URL('/og-image.png', `${SITE.url}/`).href;
 const alternates = LANGS.map((code) => ({
-  hreflang: getDictionary(code).meta.htmlLang,
+  hreflang: LANGUAGES[code].htmlLang,
   href: new URL(switchLangPath(path, code), `${SITE.url}/`).href,
 }));
-const xDefault = new URL(switchLangPath(path, DEFAULT_LANG), `${SITE.url}/`).href;
+// 지원하지 않는 언어 사용자에게는 영어 페이지를 보여 주도록 검색엔진에 알립니다.
+const xDefault = new URL(switchLangPath(path, FALLBACK_LANG), `${SITE.url}/`).href;
+// 처음 들어온 방문자를 브라우저 언어에 맞는 같은 페이지로 옮기는 스크립트 (src/i18n/auto-language.js)
+const autoLanguageConfig = {
+  current: lang,
+  path: neutralPath(path),
+  prefixes: Object.fromEntries(LANGS.map((code) => [code, langPrefix(code)])),
+  match: Object.fromEntries(LANGS.map((code) => [code, LANGUAGES[code].match])),
+  fallback: FALLBACK_LANG,
+  storageKey: LANG_STORAGE_KEY,
+};
+const autoLanguageSource = autoLanguage
+  .replace(/\/\*[\s\S]*?\*\//g, '')
+  .replace(/^\s*\/\/.*$/gm, '')
+  .replace(/^\s+/gm, '')
+  .trim();
+const autoLanguageScript = `${autoLanguageSource}(${JSON.stringify(autoLanguageConfig).replace(/</g, '\\u003c')}, window);`;
 const { client: adClient } = SITE.adsense;
 const { cloudflareToken, gaId } = SITE.analytics;
 ---
 
 <!doctype html>
-<html lang={dict.meta.htmlLang}>
+<html lang={LANGUAGES[lang].htmlLang}>
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
+    {!noindex && <script is:inline set:html={autoLanguageScript} />}
     <title>{fullTitle}</title>
     <meta name="description" content={description} />
     {noindex ? <meta name="robots" content="noindex" /> : <link rel="canonical" href={canonical} />}
@@ -57,10 +85,10 @@ const { cloudflareToken, gaId } = SITE.analytics;
     <meta property="og:image" content={ogImage} />
     <meta property="og:image:width" content="1200" />
     <meta property="og:image:height" content="630" />
-    <meta property="og:locale" content={dict.meta.ogLocale} />
+    <meta property="og:locale" content={LANGUAGES[lang].ogLocale} />
     {
       LANGS.filter((code) => code !== lang).map((code) => (
-        <meta property="og:locale:alternate" content={getDictionary(code).meta.ogLocale} />
+        <meta property="og:locale:alternate" content={LANGUAGES[code].ogLocale} />
       ))
     }
     <meta name="twitter:card" content="summary_large_image" />

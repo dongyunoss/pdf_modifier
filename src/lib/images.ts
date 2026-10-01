@@ -96,8 +96,30 @@ export interface TextImageOptions {
   bold?: boolean;
 }
 
-export const DEFAULT_FONT_STACK =
-  '"Apple SD Gothic Neo", "Malgun Gothic", "Noto Sans KR", "Noto Sans CJK KR", "Hiragino Sans", "Segoe UI", Roboto, Arial, sans-serif';
+const FONTS = {
+  latin: '"Segoe UI", Roboto, "Helvetica Neue", Arial',
+  ko: '"Apple SD Gothic Neo", "Malgun Gothic", "Noto Sans KR", "Noto Sans CJK KR"',
+  ja: '"Hiragino Sans", "Hiragino Kaku Gothic ProN", "Yu Gothic", Meiryo, "Noto Sans JP", "Noto Sans CJK JP"',
+  sc: '"PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "Noto Sans SC", "Noto Sans CJK SC"',
+  tc: '"PingFang TC", "Microsoft JhengHei", "Noto Sans TC", "Noto Sans CJK TC"',
+};
+
+/**
+ * 페이지 언어의 글꼴을 앞에 둔 글꼴 목록. 한자처럼 언어마다 모양이 다른 글자를 그 언어 글꼴로 그리고,
+ * 다른 문자는 뒤의 글꼴로 넘어갑니다. (lang: 사이트 언어 코드 — ko, ja, zh-cn …)
+ */
+export function fontStackFor(lang: string): string {
+  const first: Record<string, Array<keyof typeof FONTS>> = {
+    ko: ['ko', 'latin', 'ja', 'sc'],
+    ja: ['ja', 'latin', 'ko', 'sc'],
+    'zh-cn': ['sc', 'latin', 'ja', 'ko'],
+    'zh-tw': ['tc', 'latin', 'ja', 'ko'],
+  };
+  const order = first[lang] ?? ['latin', 'ko', 'ja', 'sc'];
+  return `${order.map((name) => FONTS[name]).join(', ')}, sans-serif`;
+}
+
+export const DEFAULT_FONT_STACK = fontStackFor('ko');
 
 /**
  * 텍스트를 투명 배경 PNG 로 렌더링합니다. PDF 에 폰트를 넣지 않고도

@@ -1,5 +1,6 @@
 import { useMemo, useState } from 'preact/hooks';
-import { fmt, type ToolUi } from '../../i18n';
+import type { ToolUi } from '../../i18n';
+import { fmt } from '../../i18n/format';
 import { baseName, pdfBlob, safeFileName, uniqueNames } from '../../lib/files';
 import { cancelAllTasks, runTask } from '../../lib/pdf/client';
 import { chunkPages, formatPageRanges, parsePageRanges } from '../../lib/pdf/ranges';

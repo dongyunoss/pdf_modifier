@@ -1,5 +1,6 @@
 import { useState } from 'preact/hooks';
-import { fmt, type ToolUi } from '../../i18n';
+import type { ToolUi } from '../../i18n';
+import { fmt } from '../../i18n/format';
 import { baseName, pdfBlob, safeFileName } from '../../lib/files';
 import { cancelAllTasks, runTask } from '../../lib/pdf/client';
 import { Busy } from './Busy';

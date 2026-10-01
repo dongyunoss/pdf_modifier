@@ -1,6 +1,6 @@
 import type { ComponentChildren } from 'preact';
 import { useEffect, useRef, useState } from 'preact/hooks';
-import { fmt } from '../../i18n';
+import { fmt } from '../../i18n/format';
 import { canPreview, downloadBlob, formatBytes, previewBlob } from '../../lib/files';
 import { HANDOFF_PARAM, HANDOFF_VALUE, saveHandoff } from '../../lib/handoff';
 import { runTask } from '../../lib/pdf/client';

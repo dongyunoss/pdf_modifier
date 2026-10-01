@@ -1,12 +1,7 @@
 ---
-import { getDictionary, pagePath, type Lang, type StaticPage } from '../i18n';
+import { getDictionary, LANGUAGES, pagePath, type Lang, type StaticPage } from '../i18n';
 import BaseLayout from '../layouts/BaseLayout.astro';
-import AboutEn from './legal/AboutEn.astro';
-import AboutKo from './legal/AboutKo.astro';
-import PrivacyEn from './legal/PrivacyEn.astro';
-import PrivacyKo from './legal/PrivacyKo.astro';
-import TermsEn from './legal/TermsEn.astro';
-import TermsKo from './legal/TermsKo.astro';
+import LegalPage from './legal/LegalPage.astro';
 
 interface Props {
   lang: Lang;
@@ -15,8 +10,11 @@ interface Props {
 
 const { lang, page } = Astro.props;
 const dict = getDictionary(lang);
-/** 개인정보처리방침/이용약관 시행일 — 내용을 바꾸면 함께 수정하세요. */
-const EFFECTIVE_DATE = lang === 'ko' ? '2026년 9월 29일' : 'September 29, 2026';
+/** 개인정보처리방침/이용약관 시행일 — 내용을 바꾸면 함께 수정하세요. (월은 0부터) */
+const EFFECTIVE_DATE = Date.UTC(2026, 8, 29);
+const effectiveDate = new Intl.DateTimeFormat(LANGUAGES[lang].locale, { dateStyle: 'long', timeZone: 'UTC' }).format(
+  EFFECTIVE_DATE,
+);
 
 const titles: Record<StaticPage, string> = {
   about: dict.nav.about,
@@ -33,14 +31,6 @@ const descriptions: Record<StaticPage, string> = {
 <BaseLayout lang={lang} title={titles[page]} description={descriptions[page]} path={pagePath(lang, page)}>
   <article class="container prose">
     <h1>{titles[page]}</h1>
-    {page === 'about' && (lang === 'ko' ? <AboutKo /> : <AboutEn />)}
-    {
-      page === 'privacy' &&
-        (lang === 'ko' ? <PrivacyKo effectiveDate={EFFECTIVE_DATE} /> : <PrivacyEn effectiveDate={EFFECTIVE_DATE} />)
-    }
-    {
-      page === 'terms' &&
-        (lang === 'ko' ? <TermsKo effectiveDate={EFFECTIVE_DATE} /> : <TermsEn effectiveDate={EFFECTIVE_DATE} />)
-    }
+    <LegalPage lang={lang} page={page} effectiveDate={effectiveDate} />
   </article>
 </BaseLayout>

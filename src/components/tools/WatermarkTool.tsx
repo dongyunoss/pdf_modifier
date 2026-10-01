@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from 'preact/hooks';
-import { type ToolUi } from '../../i18n';
+import type { ToolUi } from '../../i18n';
 import { baseName, pdfBlob, safeFileName } from '../../lib/files';
-import { IMAGE_ACCEPT, imageSize, prepareImage, renderTextImage } from '../../lib/images';
+import { fontStackFor, IMAGE_ACCEPT, imageSize, prepareImage, renderTextImage } from '../../lib/images';
 import { cancelAllTasks, runTask } from '../../lib/pdf/client';
 import { watermarkCenters } from '../../lib/pdf/geometry';
 import { parsePageSelection } from '../../lib/pdf/ranges';
@@ -28,7 +28,7 @@ interface Stamp {
 const COLORS = ['#e11d48', '#6b7280', '#111827', '#2563eb'];
 
 function WatermarkTool({ t }: { t: ToolUi<'watermark'> }) {
-  const { ui, errors } = useTool();
+  const { ui, errors, lang } = useTool();
   const [error, setError] = useState<string | null>(null);
   const [busy, setBusy] = useState(false);
   const [result, setResult] = useState<ResultFile[] | null>(null);
@@ -68,7 +68,7 @@ function WatermarkTool({ t }: { t: ToolUi<'watermark'> }) {
       try {
         let next: Stamp | null = null;
         if (kind === 'text' && text.trim()) {
-          const image = await renderTextImage(text, { color });
+          const image = await renderTextImage(text, { color, fontFamily: fontStackFor(lang) });
           next = { url: URL.createObjectURL(image.blob), width: image.width, height: image.height };
         } else if (kind === 'image' && imageFile) {
           const size = await imageSize(imageFile);
@@ -112,7 +112,7 @@ function WatermarkTool({ t }: { t: ToolUi<'watermark'> }) {
     try {
       let image: { bytes: Uint8Array; type: 'png' | 'jpeg' };
       if (kind === 'text') {
-        const rendered = await renderTextImage(text, { color });
+        const rendered = await renderTextImage(text, { color, fontFamily: fontStackFor(lang) });
         image = { bytes: new Uint8Array(await rendered.blob.arrayBuffer()), type: 'png' };
       } else {
         const prepared = await prepareImage(imageFile!);

@@ -1,0 +1,16 @@
+---
+import { PREFIXED_LANGS, type Lang } from '../../i18n';
+import { TOOLS } from '../../tools/registry';
+import ToolView from '../../views/ToolView.astro';
+
+export function getStaticPaths() {
+  return PREFIXED_LANGS.flatMap((lang) =>
+    TOOLS.map((tool) => ({ params: { lang, tool: tool.slug }, props: { id: tool.id } })),
+  );
+}
+
+const lang = Astro.params.lang as Lang;
+const { id } = Astro.props;
+---
+
+<ToolView lang={lang} id={id} />

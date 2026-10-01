@@ -264,14 +264,16 @@ test('PDF 가 아닌 파일은 거절한다', async ({ page }) => {
   await expect(page.getByRole('alert')).toContainText('「notes.txt」은(는) PDF 파일이 아닙니다.');
 });
 
-test('영어 페이지와 SEO 메타데이터', async ({ page }) => {
+test('다른 언어 페이지와 SEO 메타데이터', async ({ page }) => {
   await page.goto('/en/merge-pdf/');
   await expect(page).toHaveTitle(/^Merge PDF - Combine PDF Files into One for Free \| /);
   await expect(page.locator('html')).toHaveAttribute('lang', 'en');
   await expect(page.locator('link[rel=alternate][hreflang=ko]')).toHaveAttribute('href', /\/merge-pdf\/$/);
+  await expect(page.locator('link[rel=alternate][hreflang=x-default]')).toHaveAttribute('href', /\/en\/merge-pdf\/$/);
   await expect(page.locator('link[rel=canonical]')).toHaveAttribute('href', /\/en\/merge-pdf\/$/);
   await expect(page.getByRole('button', { name: 'Select PDF files' })).toBeVisible();
-  await page.getByRole('link', { name: 'KO' }).click();
+  await page.locator('.lang-menu summary').click();
+  await page.locator('.lang-menu').getByRole('link', { name: '한국어' }).click();
   await expect(page).toHaveURL(/\/merge-pdf\/$/);
   await expect(page.getByRole('heading', { level: 1 })).toHaveText('PDF 합치기');
 });

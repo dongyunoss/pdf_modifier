@@ -4,7 +4,8 @@
 모든 PDF 처리가 **사용자의 브라우저 안에서** 이루어지기 때문에 파일을 서버로 올리지 않으며,
 사이트는 **정적 파일만으로 운영**되어 서버 비용이 사실상 0원입니다. 수익은 Google AdSense 광고로 얻는 구조입니다.
 
-- 한국어(기본)·영어 지원, 도구별 SEO 페이지 자동 생성
+- 13개 언어 지원(한국어·영어·일본어·중국어 간체/번체·스페인어·포르투갈어·프랑스어·독일어·이탈리아어·인도네시아어·베트남어·터키어), 도구별 SEO 페이지 자동 생성
+- 처음 들어온 방문자는 **브라우저 언어에 맞는 페이지로 자동 이동** (검색엔진 크롤러는 제외, 언어 메뉴에서 고른 언어는 기억)
 - 애드센스 광고 자리, `ads.txt`, 개인정보처리방침·이용약관·소개 페이지 포함 (애드센스 심사 대비)
 - 사이트맵, `robots.txt`, hreflang, Open Graph, 구조화 데이터(JSON-LD) 자동 생성
 
@@ -26,7 +27,7 @@
 | 보안 | **암호 설정** — AES-256 암호화, 인쇄·복사·편집 권한 제한 | `/protect-pdf/` |
 | | **암호 해제** — 알고 있는 암호로 잠금 해제, 권한 제한 제거 | `/unlock-pdf/` |
 
-영어 페이지는 같은 주소 앞에 `/en`이 붙습니다 (예: `/en/merge-pdf/`).
+한국어가 기본(루트 주소)이고, 다른 언어는 같은 주소 앞에 언어 코드가 붙습니다 (예: `/en/merge-pdf/`, `/ja/merge-pdf/`, `/zh-cn/merge-pdf/`).
 작업을 마친 결과 파일은 **"이어서 작업하기"** 버튼으로 다른 도구에 바로 넘길 수 있어 한 방문당 페이지뷰(=광고 노출)가 늘어납니다.
 
 ## 서버 비용을 최소화한 구조
@@ -92,7 +93,11 @@ npm run dev               # http://localhost:4321
 ```
 src/
 ├─ config/site.ts          사이트 설정 (환경 변수 → 설정값)
-├─ i18n/                   ko.ts(기준), en.ts — UI 문구와 도구별 SEO 콘텐츠(제목·설명·사용법·FAQ)
+├─ i18n/
+│  ├─ languages.ts         지원 언어 목록 (주소 접두사, hreflang, 로케일, 브라우저 언어 매칭)
+│  ├─ ko.ts, en.ts, ja.ts …  언어별 UI 문구와 도구별 SEO 콘텐츠(제목·설명·사용법·FAQ) — ko.ts 가 기준
+│  ├─ legal/               언어별 소개·개인정보처리방침·이용약관 문구
+│  └─ auto-language.js     첫 방문자를 브라우저 언어 페이지로 옮기는 스크립트 (<head>에 인라인)
 ├─ tools/registry.ts       도구 목록 (주소, 분류, 추천 도구)
 ├─ lib/
 │  ├─ pdf/                 PDF 처리 핵심 (Node 에서도 테스트 가능한 순수 함수)
@@ -104,7 +109,7 @@ src/
 │  ├─ images.ts            이미지 준비(EXIF·형식 변환), 워터마크 문구 렌더링
 │  └─ handoff.ts           "이어서 작업하기" 결과 전달 (IndexedDB, 브라우저 안에서만)
 ├─ components/tools/       도구 화면 (Preact 아일랜드)
-├─ views/, layouts/, pages/  Astro 페이지 (ko: `/`, en: `/en/`)
+├─ views/, layouts/, pages/  Astro 페이지 (한국어: `/`, 그 밖의 언어: `/[언어]/` 동적 경로)
 └─ styles/global.css       디자인 (라이트/다크 모드)
 demo/                      체험판 (실제 도구 컴포넌트를 그대로 쓰는 단일 페이지, 샘플 문서 생성)
 tests/
@@ -115,12 +120,17 @@ tests/
 ### 도구 추가하기
 1. `src/lib/pdf/ops.ts` 에 처리 함수를 만들고 `protocol.ts`·`worker.ts` 에 작업을 등록합니다.
 2. `src/components/tools/` 에 화면 컴포넌트를 만듭니다 (기존 도구를 복사해 시작하면 쉽습니다).
-3. `src/tools/registry.ts` 에 도구를 등록하고, `src/i18n/ko.ts`·`en.ts` 에 문구를 추가합니다.
-4. `src/views/ToolView.astro` 에 컴포넌트를 연결하면 `/도구주소/`, `/en/도구주소/` 페이지와 사이트맵이 자동 생성됩니다.
+3. `src/tools/registry.ts` 에 도구를 등록하고, 모든 언어 사전(`src/i18n/*.ts`)에 문구를 추가합니다. (빠진 언어가 있으면 타입 검사가 알려 줍니다.)
+4. `src/views/ToolView.astro` 에 컴포넌트를 연결하면 모든 언어의 도구 페이지와 사이트맵이 자동 생성됩니다.
 
 ### 언어 추가하기
-`src/i18n/` 에 사전 파일(예: `ja.ts`)을 추가하고 `LANGS` 에 등록한 뒤, `src/pages/en/` 폴더를 복사해 `src/pages/ja/` 를 만들고
-`lang="ja"` 로 바꿉니다. `astro.config.mjs` 의 사이트맵 `locales` 에도 추가하세요.
+1. `src/i18n/languages.ts` 의 `LANGUAGES` 에 한 줄을 추가합니다 (이름, hreflang, 로케일, 브라우저 언어 매칭 접두사).
+2. 같은 코드로 사전 `src/i18n/<코드>.ts`(기존 사전을 복사해 번역)와 법적 문서 `src/i18n/legal/<코드>.ts` 를 만들고,
+   `src/i18n/index.ts`·`src/i18n/legal/index.ts` 에 등록합니다.
+3. 페이지(`/<코드>/…`), hreflang, 사이트맵, 언어 메뉴, 자동 언어 이동은 저절로 반영됩니다.
+   `npm test` 가 빠진 문구·자리표시자(`{n}` 등)·HTML 태그 짝을 검사합니다.
+
+브라우저 언어가 지원 언어와 맞지 않는 방문자에게는 영어 페이지를 보여 줍니다 (`FALLBACK_LANG`, 검색엔진용 `x-default`).
 
 ## 사용한 오픈소스
 [pdf-lib (@cantoo/pdf-lib)](https://github.com/cantoo-scribe/pdf-lib) (MIT), [PDF.js](https://github.com/mozilla/pdf.js) (Apache-2.0),

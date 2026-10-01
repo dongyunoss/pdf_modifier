@@ -1,6 +1,6 @@
 import type { ComponentChildren } from 'preact';
 import type { PDFDocumentProxy } from 'pdfjs-dist';
-import { fmt } from '../../i18n';
+import { fmt } from '../../i18n/format';
 import { formatBytes } from '../../lib/files';
 import { Busy } from './Busy';
 import { Dropzone } from './Dropzone';

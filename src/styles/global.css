@@ -38,10 +38,28 @@
   --shadow: 0 1px 3px rgb(16 24 40 / 8%), 0 4px 12px rgb(16 24 40 / 6%);
   --shadow-lg: 0 12px 32px rgb(16 24 40 / 16%);
 
-  --font: -apple-system, BlinkMacSystemFont, 'Apple SD Gothic Neo', 'Pretendard', 'Malgun Gothic', 'Noto Sans KR',
-    'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+  /* 글꼴: 한자처럼 언어마다 모양이 다른 글자가 그 언어 글꼴로 보이도록 페이지 언어별로 순서를 바꿉니다. */
+  --font-latin: 'Segoe UI', Roboto, 'Helvetica Neue', Arial;
+  --font-ko: 'Apple SD Gothic Neo', 'Pretendard', 'Malgun Gothic', 'Noto Sans KR', 'Noto Sans CJK KR';
+  --font-ja: 'Hiragino Sans', 'Hiragino Kaku Gothic ProN', 'Yu Gothic UI', 'Yu Gothic', Meiryo, 'Noto Sans JP', 'Noto Sans CJK JP';
+  --font-sc: 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', 'Noto Sans SC', 'Noto Sans CJK SC';
+  --font-tc: 'PingFang TC', 'Microsoft JhengHei', 'Noto Sans TC', 'Noto Sans CJK TC';
+  --font: -apple-system, BlinkMacSystemFont, var(--font-latin), var(--font-ko), var(--font-ja), var(--font-sc), sans-serif;
   --header-h: 60px;
   color-scheme: light;
+}
+
+html:lang(ko) {
+  --font: -apple-system, BlinkMacSystemFont, var(--font-ko), var(--font-latin), sans-serif;
+}
+html:lang(ja) {
+  --font: -apple-system, BlinkMacSystemFont, var(--font-ja), var(--font-latin), sans-serif;
+}
+html:lang(zh-CN) {
+  --font: -apple-system, BlinkMacSystemFont, var(--font-sc), var(--font-latin), sans-serif;
+}
+html:lang(zh-TW) {
+  --font: -apple-system, BlinkMacSystemFont, var(--font-tc), var(--font-latin), sans-serif;
 }
 
 /* 다크 모드: 운영체제 설정을 따르되, data-theme 속성(임베드된 체험판 등)이 있으면 그 값을 우선합니다. */
@@ -118,9 +136,17 @@ body {
   font-family: var(--font);
   font-size: 16px;
   line-height: 1.6;
-  word-break: keep-all;
   overflow-wrap: anywhere;
   -webkit-font-smoothing: antialiased;
+}
+
+/* 한국어는 낱말 단위로 줄을 바꾸고, 일본어·중국어는 금칙 처리(문장부호가 줄 맨 앞에 오지 않게)를 엄격히 합니다. */
+html:lang(ko) body {
+  word-break: keep-all;
+}
+html:lang(ja) body,
+html:lang(zh) body {
+  line-break: strict;
 }
 
 img,
@@ -455,28 +481,44 @@ textarea {
   --cat-color: var(--cat-security);
 }
 
-.lang-switch {
-  display: inline-flex;
-  align-items: center;
-  gap: 2px;
-  padding: 2px 4px 2px 8px;
-  border: 1px solid var(--border);
-  border-radius: 999px;
-  color: var(--text-muted);
+.lang-panel {
+  width: min(340px, calc(100vw - 32px));
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 2px 8px;
+  margin: 0;
+  padding: 8px;
+  list-style: none;
 }
 
-.lang-link {
+.lang-option {
+  justify-content: space-between;
   white-space: nowrap;
-  padding: 4px 8px;
-  border-radius: 999px;
-  font-size: 0.8rem;
-  font-weight: 700;
-  text-decoration: none;
 }
 
-.lang-link.is-active {
-  background: var(--text);
-  color: var(--bg);
+.lang-option.is-active {
+  font-weight: 700;
+}
+
+/* 언어 이름은 페이지 언어와 상관없이 그 언어의 글꼴로 보여 줍니다. */
+.lang-option:lang(ko),
+.footer-langs a:lang(ko),
+.not-found-langs a:lang(ko) {
+  font-family: -apple-system, BlinkMacSystemFont, var(--font-ko), sans-serif;
+}
+.lang-option:lang(ja),
+.footer-langs a:lang(ja),
+.not-found-langs a:lang(ja) {
+  font-family: -apple-system, BlinkMacSystemFont, var(--font-ja), sans-serif;
+}
+.lang-option:lang(zh-CN),
+.footer-langs a:lang(zh-CN),
+.not-found-langs a:lang(zh-CN) {
+  font-family: -apple-system, BlinkMacSystemFont, var(--font-sc), sans-serif;
+}
+.lang-option:lang(zh-TW),
+.footer-langs a:lang(zh-TW),
+.not-found-langs a:lang(zh-TW) {
+  font-family: -apple-system, BlinkMacSystemFont, var(--font-tc), sans-serif;
 }
 
 /* ───────────────────────── 홈 ───────────────────────── */
@@ -2020,6 +2062,17 @@ body.is-sorting * {
   color: var(--text-muted);
 }
 
+.not-found-langs {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 4px 16px;
+  margin: 0 0 32px;
+  padding: 0;
+  list-style: none;
+  font-size: 0.9rem;
+}
+
 .not-found .tool-grid {
   margin-top: 32px;
   text-align: left;
@@ -2125,11 +2178,7 @@ body.is-sorting * {
     padding-inline: 10px;
   }
 
-  .lang-switch {
-    padding: 2px;
-  }
-
-  .lang-switch > .icon {
+  .lang-menu-current {
     display: none;
   }
 

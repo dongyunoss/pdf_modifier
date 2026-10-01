@@ -17,7 +17,7 @@ import UnlockTool from '../components/tools/UnlockTool';
 import WatermarkTool from '../components/tools/WatermarkTool';
 import type { ToolBaseProps } from '../components/tools/context';
 import { SITE } from '../config/site';
-import { fmt, getDictionary, langPrefix, toolPath, type Lang } from '../i18n';
+import { fmt, getDictionary, langPrefix, LANGUAGES, toolPath, type Lang } from '../i18n';
 import BaseLayout from '../layouts/BaseLayout.astro';
 import { getTool, TOOLS, type ToolId } from '../tools/registry';
 
@@ -56,9 +56,9 @@ const jsonLd = [
     applicationCategory: 'BusinessApplication',
     operatingSystem: 'Any',
     browserRequirements: 'Requires JavaScript',
-    inLanguage: dict.meta.htmlLang,
+    inLanguage: LANGUAGES[lang].htmlLang,
     isAccessibleForFree: true,
-    offers: { '@type': 'Offer', price: '0', priceCurrency: lang === 'ko' ? 'KRW' : 'USD' },
+    offers: { '@type': 'Offer', price: '0', priceCurrency: LANGUAGES[lang].currency },
   },
   {
     '@context': 'https://schema.org',

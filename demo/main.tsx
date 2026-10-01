@@ -16,7 +16,7 @@ import SplitTool from '../src/components/tools/SplitTool';
 import UnlockTool from '../src/components/tools/UnlockTool';
 import WatermarkTool from '../src/components/tools/WatermarkTool';
 import type { ToolBaseProps } from '../src/components/tools/context';
-import { getDictionary } from '../src/i18n';
+import { ko } from '../src/i18n/ko';
 import { configureFileActions } from '../src/lib/files';
 import { handOffInPage } from '../src/lib/handoff';
 import '../src/styles/global.css';
@@ -35,7 +35,8 @@ declare global {
   }
 }
 
-const dict = getDictionary('ko');
+// 체험판은 한국어만 씁니다 (다른 언어 사전을 번들에 넣지 않도록 직접 불러옴).
+const dict = ko;
 
 // claude.ai 아티팩트 뷰어에서는 다운로드 링크와 새 창이 막혀 있으므로 뷰어의 저장 기능을 사용합니다.
 if (window.claude) {

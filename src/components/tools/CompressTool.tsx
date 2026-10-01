@@ -1,5 +1,6 @@
 import { useRef, useState } from 'preact/hooks';
-import { fmt, type ToolUi } from '../../i18n';
+import type { ToolUi } from '../../i18n';
+import { fmt } from '../../i18n/format';
 import { baseName, formatBytes, pdfBlob, safeFileName } from '../../lib/files';
 import { cancelAllTasks, runTask } from '../../lib/pdf/client';
 import { COMPRESSION_PRESETS, RASTER_PRESETS, type CompressionLevel } from '../../lib/pdf/constants';

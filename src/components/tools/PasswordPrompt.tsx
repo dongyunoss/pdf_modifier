@@ -1,5 +1,5 @@
 import { useState } from 'preact/hooks';
-import { fmt } from '../../i18n';
+import { fmt } from '../../i18n/format';
 import { Icon } from './Icon';
 import { useTool } from './context';
 import type { PdfEntry } from './usePdfFiles';

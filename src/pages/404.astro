@@ -1,6 +1,6 @@
 ---
 import ToolCard from '../components/ToolCard.astro';
-import { getDictionary } from '../i18n';
+import { getDictionary, langPrefix, LANGS, LANGUAGES } from '../i18n';
 import BaseLayout from '../layouts/BaseLayout.astro';
 import { TOOLS } from '../tools/registry';
 
@@ -8,12 +8,24 @@ const ko = getDictionary('ko');
 const en = getDictionary('en');
 ---
 
-<BaseLayout lang="ko" title={ko.notFound.title} description={ko.notFound.body} path="/404/" noindex>
+<!-- 모든 언어 주소에서 같은 404 페이지가 쓰이므로 한국어·영어를 함께 보여 주고 언어별 홈으로 갈 수 있게 합니다. -->
+<BaseLayout lang="ko" title={ko.notFound.title} description={ko.notFound.body} path="/" noindex>
   <section class="container section not-found">
     <h1>{ko.notFound.title}</h1>
     <p lang="en" class="not-found-en">{en.notFound.title}</p>
     <p>{ko.notFound.body}</p>
     <p><a class="btn btn-primary" href="/">{ko.notFound.back}</a> <a class="btn btn-ghost" href="/en/" lang="en">{en.notFound.back}</a></p>
+    <ul class="not-found-langs">
+      {
+        LANGS.map((code) => (
+          <li>
+            <a href={langPrefix(code)} hreflang={LANGUAGES[code].htmlLang} lang={LANGUAGES[code].htmlLang}>
+              {LANGUAGES[code].name}
+            </a>
+          </li>
+        ))
+      }
+    </ul>
     <div class="tool-grid">
       {TOOLS.map((tool) => <ToolCard tool={tool} lang="ko" />)}
     </div>

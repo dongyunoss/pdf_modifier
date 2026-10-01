@@ -1,10 +1,5 @@
-// 한국어 문구 (기준 사전). en.ts 는 이 구조를 그대로 따라야 합니다.
+// 한국어 문구 (기준 사전). 다른 언어 사전(en.ts, ja.ts …)은 이 구조를 그대로 따라야 합니다.
 export const ko = {
-  meta: {
-    htmlLang: 'ko',
-    ogLocale: 'ko_KR',
-    langName: '한국어',
-  },
   site: {
     tagline: '무료 온라인 PDF 편집기',
     description:

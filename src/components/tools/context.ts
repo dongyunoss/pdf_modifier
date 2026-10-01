@@ -1,6 +1,8 @@
 import { createContext } from 'preact';
 import { useContext } from 'preact/hooks';
-import { fmt, type ErrorStrings, type Lang, type UiStrings } from '../../i18n';
+import type { ErrorStrings, UiStrings } from '../../i18n';
+import { fmt } from '../../i18n/format';
+import { LANGUAGES, type Lang } from '../../i18n/languages';
 import { UnsupportedImageError } from '../../lib/images';
 import { TaskError } from '../../lib/pdf/client';
 import { PdfToolError } from '../../lib/pdf/errors';
@@ -40,7 +42,8 @@ export function useTool(): ToolBaseProps {
   return value;
 }
 
-export const localeOf = (lang: Lang) => (lang === 'ko' ? 'ko-KR' : 'en-US');
+/** 숫자·크기 표시에 쓰는 로케일 */
+export const localeOf = (lang: Lang): string => LANGUAGES[lang].locale;
 
 /** 어떤 에러든 사용자에게 보여줄 문장으로 바꿉니다. */
 export function describeError(error: unknown, errors: ErrorStrings): string {

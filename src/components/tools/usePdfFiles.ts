@@ -1,6 +1,6 @@
 import type { PDFDocumentProxy } from 'pdfjs-dist';
 import { useCallback, useEffect, useRef, useState } from 'preact/hooks';
-import { fmt } from '../../i18n';
+import { fmt } from '../../i18n/format';
 import { looksLikePdf, uid } from '../../lib/files';
 import { receiveHandoff } from '../../lib/handoff';
 import { openPdfDocument, PasswordNeededError, releaseThumbnails } from '../../lib/pdfjs';

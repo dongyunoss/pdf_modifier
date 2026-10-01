@@ -1,6 +1,6 @@
 ---
 import { SITE } from '../config/site';
-import { getDictionary, LANGS, pagePath, switchLangPath, toolPath, type Lang } from '../i18n';
+import { getDictionary, LANGS, LANGUAGES, pagePath, switchLangPath, toolPath, type Lang } from '../i18n';
 import { TOOLS } from '../tools/registry';
 import Icon from './Icon.astro';
 
@@ -59,12 +59,18 @@ const year = new Date().getFullYear();
         )}
       </ul>
       <p class="footer-title">{dict.nav.language}</p>
-      <ul class="footer-links">
+      <ul class="footer-links footer-links-grid footer-langs">
         {
           LANGS.map((code) => (
             <li>
-              <a href={switchLangPath(path, code)} hreflang={code} lang={code}>
-                {getDictionary(code).meta.langName}
+              <a
+                href={switchLangPath(path, code)}
+                hreflang={LANGUAGES[code].htmlLang}
+                lang={LANGUAGES[code].htmlLang}
+                data-lang-choice={code}
+                aria-current={code === lang ? 'true' : undefined}
+              >
+                {LANGUAGES[code].name}
               </a>
             </li>
           ))
