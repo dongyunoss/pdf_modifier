@@ -5,7 +5,7 @@ const env = import.meta.env;
 const clean = (value: string | undefined) => (value ?? '').trim();
 
 export const SITE = {
-  url: (clean(env.PUBLIC_SITE_URL) || 'https://example.com').replace(/\/+$/, ''),
+  url: (clean(env.PUBLIC_SITE_URL) || 'https://pdfmodifier.app').replace(/\/+$/, ''),
   name: clean(env.PUBLIC_SITE_NAME) || 'PDF Modifier',
   contactEmail: clean(env.PUBLIC_CONTACT_EMAIL),
   donationUrl: clean(env.PUBLIC_DONATION_URL),

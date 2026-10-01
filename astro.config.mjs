@@ -7,7 +7,7 @@ import { DEFAULT_LANG, LANGS, LANGUAGES } from './src/i18n/languages.ts';
 
 // .env 파일과 호스팅 플랫폼(Cloudflare Pages 등)의 환경변수를 모두 읽습니다.
 const env = loadEnv(process.env.NODE_ENV ?? 'production', process.cwd(), '');
-const site = (env.PUBLIC_SITE_URL || 'https://example.com').replace(/\/+$/, '');
+const site = (env.PUBLIC_SITE_URL || 'https://pdfmodifier.app').replace(/\/+$/, '');
 
 export default defineConfig({
   site,

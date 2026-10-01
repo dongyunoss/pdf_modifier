@@ -79,7 +79,7 @@ npm run dev               # http://localhost:4321
 
 | 변수 | 설명 |
 | --- | --- |
-| `PUBLIC_SITE_URL` | 실제 도메인 (예: `https://pdf.example.com`). canonical·사이트맵·OG 태그에 사용 — **배포 시 필수** |
+| `PUBLIC_SITE_URL` | 실제 도메인 (기본값: `https://pdfmodifier.app`). canonical·사이트맵·OG 태그에 사용 — **다른 도메인으로 배포할 때만 설정** |
 | `PUBLIC_SITE_NAME` | 사이트 이름 |
 | `PUBLIC_CONTACT_EMAIL` | 문의 이메일 (소개·개인정보처리방침에 표시) |
 | `PUBLIC_ADSENSE_CLIENT` | 애드센스 게시자 ID `ca-pub-…` (설정 시 광고 스크립트와 `ads.txt` 자동 생성) |

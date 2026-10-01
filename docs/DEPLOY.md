@@ -29,15 +29,20 @@
    | Build command | `npm run build` |
    | Build output directory | `dist` |
 
-4. **Environment variables(환경 변수)** 에 최소한 아래 값을 넣습니다. 나머지는 [.env.example](../.env.example) 참고.
+   > 저장소에 아직 `main` 브랜치가 없다면 GitHub 저장소의 **Branches** 화면에서 작업 브랜치를 바탕으로 `main` 을 만들고,
+   > **Settings → Default branch** 에서 기본 브랜치로 지정한 뒤 고르세요.
 
-   | 이름 | 예시 |
+4. **Environment variables(환경 변수)** 를 확인합니다. `pdfmodifier.app` 으로 배포한다면 주소와 이름은 기본값이 이미 들어 있어
+   생략해도 됩니다. 나머지는 [.env.example](../.env.example) 참고.
+
+   | 이름 | 값 |
    | --- | --- |
-   | `PUBLIC_SITE_URL` | `https://pdf.example.com` (처음엔 `https://프로젝트명.pages.dev`) |
-   | `PUBLIC_SITE_NAME` | `PDF Modifier` |
+   | `PUBLIC_SITE_URL` | `https://pdfmodifier.app` (기본값 — 다른 도메인을 쓸 때만 입력) |
+   | `PUBLIC_SITE_NAME` | `PDF Modifier` (기본값) |
    | `NODE_VERSION` | `22` (저장소의 `.nvmrc` 로도 지정되어 있음) |
 
 5. **Save and Deploy** 를 누르면 1~2분 뒤 `https://프로젝트명.pages.dev` 로 사이트가 열립니다.
+   이 주소의 페이지도 canonical 이 `https://pdfmodifier.app` 을 가리키므로 검색엔진에는 본 도메인만 색인됩니다.
 6. 이후 `main` 브랜치에 푸시할 때마다 자동으로 다시 배포되고, 다른 브랜치·PR 은 미리보기 주소가 따로 생깁니다.
 
 ### 직접 업로드로 배포하기 (Git 연동 없이)
@@ -47,16 +52,19 @@ npm run build
 npx wrangler pages deploy dist --project-name pdf-modifier
 ```
 
-## 도메인 연결 (애드센스 신청 전 필수)
+## 도메인 연결 — pdfmodifier.app (애드센스 신청 전 필수)
 
 애드센스에는 **본인 소유 도메인**을 등록해야 하므로 `*.pages.dev` 주소로는 신청할 수 없습니다.
 
-1. 도메인을 구입합니다. `.com` 은 [Cloudflare Registrar](https://www.cloudflare.com/products/registrar/) 에서 원가(연 약 10달러)에,
-   `.kr`·`.co.kr` 은 국내 등록 대행사(가비아 등)에서 살 수 있습니다.
-2. Pages 프로젝트 → **Custom domains → Set up a custom domain** 에서 도메인을 입력하고 안내에 따라 DNS 를 설정합니다.
-   도메인이 Cloudflare DNS 를 쓰면 자동으로 설정됩니다. HTTPS 인증서도 무료로 자동 발급됩니다.
-3. 환경 변수 `PUBLIC_SITE_URL` 을 새 도메인(예: `https://pdf.example.com`)으로 바꾸고 **다시 배포**합니다.
-   (canonical 주소·사이트맵·공유 이미지 주소가 이 값으로 만들어집니다.)
+1. Cloudflare 대시보드 → **Domain Registration → Register Domains** 에서 `pdfmodifier.app` 을 검색해 구입합니다.
+   `.app` 은 [Cloudflare Registrar](https://www.cloudflare.com/products/registrar/) 에서 원가(연 14.20달러, 갱신가 동일)로 살 수 있습니다.
+2. Pages 프로젝트 → **Custom domains → Set up a custom domain** 에 `pdfmodifier.app` 을 입력합니다.
+   Cloudflare 에서 산 도메인은 DNS 가 자동으로 설정되고, HTTPS 인증서도 무료로 자동 발급됩니다.
+   > `.app` 은 브라우저가 항상 HTTPS 로만 여는 도메인입니다. 인증서가 발급되기 전 몇 분 동안은 접속되지 않을 수 있습니다.
+3. (선택) `www.pdfmodifier.app` 도 같은 방법으로 추가하고, **Rules → Redirect Rules** 에서 `www` 주소를
+   `https://pdfmodifier.app` 으로 영구(301) 리디렉션합니다.
+4. 다른 도메인을 쓴다면 환경 변수 `PUBLIC_SITE_URL` 을 그 주소로 바꾸고 **다시 배포**합니다.
+   (canonical 주소·사이트맵·공유 이미지 주소가 이 값으로 만들어집니다.) `pdfmodifier.app` 은 기본값이라 바꿀 필요가 없습니다.
 
 ## 비용 정리
 
@@ -65,7 +73,7 @@ npx wrangler pages deploy dist --project-name pdf-modifier
 | 호스팅 (Cloudflare Pages Free) | 0원 — 방문자가 늘어도 동일 |
 | PDF 처리 서버 | 없음 (방문자 브라우저에서 처리) |
 | 방문 통계 (Cloudflare Web Analytics) | 0원 |
-| 도메인 | 연 1~2만 원 수준 |
+| 도메인 (`pdfmodifier.app`) | 연 14.20달러 (약 2만 원) |
 
 무료 플랜에서 신경 쓸 한도는 **월 500회 빌드**(= 배포 횟수) 정도입니다. 여러 커밋을 모아서 푸시하면 충분합니다.
 
@@ -78,7 +86,7 @@ npx wrangler pages deploy dist --project-name pdf-modifier
 
 ## 배포 후 확인할 것
 
-- [ ] `https://도메인/robots.txt`, `https://도메인/sitemap-index.xml` 이 열리는지
-- [ ] `https://도메인/ads.txt` 에 게시자 ID 가 보이는지 (애드센스 설정 후)
+- [ ] `https://pdfmodifier.app/robots.txt`, `https://pdfmodifier.app/sitemap-index.xml` 이 열리는지
+- [ ] `https://pdfmodifier.app/ads.txt` 에 게시자 ID 가 보이는지 (애드센스 설정 후)
 - [ ] PDF 합치기 등 도구가 PC·휴대폰에서 동작하는지
 - [ ] 페이지 공유 시 미리보기 이미지가 나오는지 (카카오톡·페이스북 등)
