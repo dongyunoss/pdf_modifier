@@ -2,7 +2,7 @@ import { useState } from 'preact/hooks';
 import type { ToolUi } from '../../i18n';
 import { fmt } from '../../i18n/format';
 import { formatBytes, pdfBlob } from '../../lib/files';
-import { cancelAllTasks, runTask } from '../../lib/pdf/client';
+import { cancelAllTasks, minBusyTime, runTask, startBusy } from '../../lib/pdf/client';
 import { Busy } from './Busy';
 import { Dropzone } from './Dropzone';
 import { PDF_ACCEPT } from './FileGate';
@@ -34,9 +34,11 @@ function MergeTool({ t }: { t: ToolUi<'merge'> }) {
       setError(t.needTwo);
       return;
     }
+    const started = startBusy();
     setBusy(true);
     try {
       const bytes = await runTask('merge', { files: ready.map(toFileSource) });
+      await minBusyTime(started);
       setResult([{ name: 'merged.pdf', blob: pdfBlob(bytes) }]);
     } catch (err) {
       if (!isCancelled(err)) setError(describeError(err, errors));
@@ -55,7 +57,7 @@ function MergeTool({ t }: { t: ToolUi<'merge'> }) {
   if (result) {
     body = <ResultPanel files={result} onReset={reset} />;
   } else if (busy) {
-    body = <Busy message={ui.processing} onCancel={cancelAllTasks} />;
+    body = <Busy onCancel={cancelAllTasks} />;
   } else if (entries.length === 0) {
     body = (
       <Dropzone accept={PDF_ACCEPT} multiple onFiles={files.addFiles} button={ui.choosePdfs} hint={ui.dropPdfs} />

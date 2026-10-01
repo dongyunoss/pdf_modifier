@@ -43,7 +43,7 @@ const resultAd =
   SITE.adsense.client && SITE.adsense.slots.result
     ? { client: SITE.adsense.client, slot: SITE.adsense.slots.result }
     : null;
-const base: ToolBaseProps = { lang, ui: dict.ui, errors: dict.errors, related, resultAd };
+const base: ToolBaseProps = { lang, ui: dict.ui, errors: dict.errors, tool: { id, name: content.name }, related, resultAd };
 const t = dict.tools;
 
 const jsonLd = [

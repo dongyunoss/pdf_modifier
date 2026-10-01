@@ -1,7 +1,7 @@
 import { useState } from 'preact/hooks';
 import type { ToolUi } from '../../i18n';
 import { baseName, pdfBlob, safeFileName } from '../../lib/files';
-import { cancelAllTasks, runTask } from '../../lib/pdf/client';
+import { cancelAllTasks, minBusyTime, runTask, startBusy } from '../../lib/pdf/client';
 import { Busy } from './Busy';
 import { FileCard, SingleFileGate, type ReadyEntry } from './FileGate';
 import { Icon } from './Icon';
@@ -11,7 +11,7 @@ import { describeError, isCancelled, useTool } from './context';
 import { toFileSource, usePdfFiles } from './usePdfFiles';
 
 function UnlockTool({ t }: { t: ToolUi<'unlock'> }) {
-  const { ui, errors } = useTool();
+  const { errors } = useTool();
   const [error, setError] = useState<string | null>(null);
   const [notice, setNotice] = useState<string | null>(null);
   const [busy, setBusy] = useState(false);
@@ -34,9 +34,11 @@ function UnlockTool({ t }: { t: ToolUi<'unlock'> }) {
   const unlock = async (entry: ReadyEntry) => {
     setError(null);
     setNotice(null);
+    const started = startBusy();
     setBusy(true);
     try {
       const { bytes, wasEncrypted } = await runTask('unlock', { file: toFileSource(entry) });
+      await minBusyTime(started);
       if (!wasEncrypted) {
         setNotice(t.notEncrypted);
         return;
@@ -61,7 +63,7 @@ function UnlockTool({ t }: { t: ToolUi<'unlock'> }) {
       {result ? (
         <ResultPanel files={result} onReset={reset} summary={<p class="result-summary">{t.unlocked}</p>} />
       ) : busy ? (
-        <Busy message={ui.processing} onCancel={cancelAllTasks} />
+        <Busy onCancel={cancelAllTasks} />
       ) : (
         <SingleFileGate files={files}>
           {(entry) => (

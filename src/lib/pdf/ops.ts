@@ -17,6 +17,11 @@ export { PAGE_SIZES, formatPageNumber, type NumberFormat, type NumberPosition, t
 export interface CommonOptions {
   /** 새로 만드는 문서의 Producer/Creator 메타데이터 */
   producer?: string;
+  /**
+   * 진행 상황 (끝난 단계 수, 전체 단계 수). 파일 읽기·이미지 넣기처럼 반복되는 단계마다 알리고,
+   * 마지막 저장 단계는 전체 수에만 포함됩니다 (결과가 나오면 끝난 것).
+   */
+  onProgress?: (done: number, total: number) => void;
 }
 
 /** 결과 문서에 들어갈 페이지 한 장: 원본 파일의 페이지 또는 빈 페이지 */
@@ -75,11 +80,14 @@ async function buildDocument(
   return out;
 }
 
-async function loadReferencedSources(sources: PdfSource[], specs: PageSpec[]) {
+async function loadReferencedSources(sources: PdfSource[], specs: PageSpec[], onProgress?: CommonOptions['onProgress']) {
   const needed = new Set(specs.filter(isSourcePage).map((spec) => spec.src));
   const docs: Array<PDFDocument | undefined> = [];
+  let loaded = 0;
   for (let i = 0; i < sources.length; i++) {
-    if (needed.has(i)) docs[i] = await loadPdf(sources[i], i);
+    if (!needed.has(i)) continue;
+    docs[i] = await loadPdf(sources[i], i);
+    onProgress?.(++loaded, needed.size + 1);
   }
   return docs;
 }
@@ -93,7 +101,7 @@ export async function assemble(
   specs: PageSpec[],
   options: CommonOptions = {},
 ): Promise<Uint8Array> {
-  const docs = await loadReferencedSources(sources, specs);
+  const docs = await loadReferencedSources(sources, specs, options.onProgress);
   const out = await buildDocument(docs, specs, options);
   return savePdf(out, { useObjectStreams: true });
 }
@@ -101,7 +109,10 @@ export async function assemble(
 /** 여러 PDF 를 순서대로 이어 붙입니다. */
 export async function merge(sources: PdfSource[], options: CommonOptions = {}): Promise<Uint8Array> {
   const docs: PDFDocument[] = [];
-  for (let i = 0; i < sources.length; i++) docs.push(await loadPdf(sources[i], i));
+  for (let i = 0; i < sources.length; i++) {
+    docs.push(await loadPdf(sources[i], i));
+    options.onProgress?.(i + 1, sources.length + 1);
+  }
   const specs: PageSpec[] = docs.flatMap((doc, src) =>
     Array.from({ length: doc.getPageCount() }, (_, page) => ({ src, page })),
   );
@@ -117,10 +128,14 @@ export async function split(
 ): Promise<Uint8Array[]> {
   if (groups.length === 0) throw new PdfToolError('NO_PAGES', 'no groups');
   const doc = await loadPdf(source, 0);
+  // 단계: 원본 읽기 1 + 만들 파일 수
+  const total = groups.length + 1;
+  options.onProgress?.(1, total);
   const results: Uint8Array[] = [];
   for (const group of groups) {
     const out = await buildDocument([doc], group.map((page) => ({ src: 0, page })), options);
     results.push(await savePdf(out, { useObjectStreams: true }));
+    options.onProgress?.(results.length + 1, total);
   }
   return results;
 }
@@ -367,6 +382,7 @@ export async function imagesToPdf(
         page.drawImage(image, { x, y, width: w, height: h });
     }
     if (input.rotation) page.setRotation(degrees(normalizeRotation(input.rotation)));
+    common.onProgress?.(i + 1, images.length + 1);
   }
   return savePdf(doc, { useObjectStreams: true });
 }
@@ -382,9 +398,11 @@ export async function pagesFromImages(
   if (pages.length === 0) throw new PdfToolError('NO_PAGES', 'no pages');
   const doc = await PDFDocument.create();
   setProducer(doc, common.producer);
-  for (const { jpeg, width, height } of pages) {
+  for (let i = 0; i < pages.length; i++) {
+    const { jpeg, width, height } = pages[i];
     const image = await doc.embedJpg(jpeg);
     doc.addPage([width, height]).drawImage(image, { x: 0, y: 0, width, height });
+    common.onProgress?.(i + 1, pages.length + 1);
   }
   return savePdf(doc, { useObjectStreams: true });
 }

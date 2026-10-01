@@ -279,3 +279,59 @@ describe('protect / unlock', () => {
     expect(result.wasEncrypted).toBe(false);
   });
 });
+
+describe('progress reporting', () => {
+  const recorder = () => {
+    const calls: Array<[number, number]> = [];
+    return { calls, onProgress: (done: number, total: number) => calls.push([done, total]) };
+  };
+
+  it('merge reports each file read, leaving the final save step', async () => {
+    const { calls, onProgress } = recorder();
+    await merge([{ bytes: await makePdf(1) }, { bytes: await makePdf(2) }], { onProgress });
+    expect(calls).toEqual([
+      [1, 3],
+      [2, 3],
+    ]);
+  });
+
+  it('assemble reports only the files that are used', async () => {
+    const { calls, onProgress } = recorder();
+    const sources = [{ bytes: await makePdf(1) }, { bytes: await makePdf(1) }, { bytes: await makePdf(1) }];
+    await assemble(sources, [{ src: 2, page: 0 }, { src: 0, page: 0 }], { onProgress });
+    expect(calls).toEqual([
+      [1, 3],
+      [2, 3],
+    ]);
+  });
+
+  it('split reports reading the source and every output file', async () => {
+    const { calls, onProgress } = recorder();
+    await split({ bytes: await makePdf(3) }, [[0], [1, 2]], { onProgress });
+    expect(calls).toEqual([
+      [1, 3],
+      [2, 3],
+      [3, 3],
+    ]);
+  });
+
+  it('image documents report every image added', async () => {
+    const images = recorder();
+    await imagesToPdf(
+      [
+        { bytes: makeJpeg(40, 40), type: 'jpeg' },
+        { bytes: makePng(10, 10), type: 'png' },
+      ],
+      { pageSize: 'fit', orientation: 'auto', margin: 0 },
+      { onProgress: images.onProgress },
+    );
+    expect(images.calls).toEqual([
+      [1, 3],
+      [2, 3],
+    ]);
+
+    const pages = recorder();
+    await pagesFromImages([{ jpeg: makeJpeg(10, 10), width: 100, height: 100 }], { onProgress: pages.onProgress });
+    expect(pages.calls).toEqual([[1, 2]]);
+  });
+});

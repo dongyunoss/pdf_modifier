@@ -2,7 +2,7 @@ import { useCallback, useEffect, useMemo, useRef, useState } from 'preact/hooks'
 import type { ToolUi } from '../../i18n';
 import { fmt } from '../../i18n/format';
 import { baseName, pdfBlob, safeFileName, uid } from '../../lib/files';
-import { cancelAllTasks, runTask } from '../../lib/pdf/client';
+import { cancelAllTasks, minBusyTime, runTask, startBusy } from '../../lib/pdf/client';
 import { PAGE_SIZES } from '../../lib/pdf/constants';
 import type { PageSpec } from '../../lib/pdf/ops';
 import { Busy } from './Busy';
@@ -194,9 +194,11 @@ function OrganizeTool({ t }: { t: ToolUi<'organize'> }) {
         : { src: indexOf.get(item.src) ?? -1, page: item.page, rotate: item.rotation },
     );
     if (specs.some((spec) => 'src' in spec && spec.src < 0)) return;
+    const started = startBusy();
     setBusy(true);
     try {
       const bytes = await runTask('assemble', { files: used.map(toFileSource), pages: specs });
+      await minBusyTime(started);
       const first = used[0]?.name ?? 'document.pdf';
       setResult([{ name: `${safeFileName(baseName(first))}_edited.pdf`, blob: pdfBlob(bytes) }]);
     } catch (err) {
@@ -225,7 +227,7 @@ function OrganizeTool({ t }: { t: ToolUi<'organize'> }) {
   if (result) {
     body = <ResultPanel files={result} onReset={reset} />;
   } else if (busy) {
-    body = <Busy message={ui.processing} onCancel={cancelAllTasks} />;
+    body = <Busy onCancel={cancelAllTasks} />;
   } else if (files.entries.length === 0) {
     body = (
       <Dropzone accept={PDF_ACCEPT} multiple onFiles={files.addFiles} button={ui.choosePdfs} hint={ui.dropPdfs} />

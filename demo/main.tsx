@@ -135,6 +135,7 @@ function Demo() {
     lang: 'ko',
     ui: dict.ui,
     errors: dict.errors,
+    tool: { id: toolId, name: dict.tools[toolId].name },
     resultAd: null,
     related: tool.related.map((relatedId) => ({
       href: `#${getTool(relatedId).slug}`,

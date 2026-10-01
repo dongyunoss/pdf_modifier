@@ -24,7 +24,7 @@ type Files = ReturnType<typeof usePdfFiles>;
  * 파일 선택 → (필요하면) 암호 입력 → 불러오기 → 도구 화면
  */
 export function SingleFileGate({ files, children }: { files: Files; children: (entry: ReadyEntry) => ComponentChildren }) {
-  const { ui } = useTool();
+  const { ui, lang } = useTool();
   const entry = files.entries[0];
   if (!entry || entry.status === 'error') {
     return (
@@ -40,7 +40,9 @@ export function SingleFileGate({ files, children }: { files: Files; children: (e
       />
     );
   }
-  if (!isReady(entry)) return <Busy message={ui.loading} />;
+  if (!isReady(entry)) {
+    return <Busy mode="loading" detail={`${entry.name} · ${formatBytes(entry.size, localeOf(lang))}`} />;
+  }
   return <>{children(entry)}</>;
 }
 

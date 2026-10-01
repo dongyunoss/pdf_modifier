@@ -1,7 +1,7 @@
 import { useState } from 'preact/hooks';
 import type { ToolUi } from '../../i18n';
 import { baseName, pdfBlob, safeFileName } from '../../lib/files';
-import { cancelAllTasks, runTask } from '../../lib/pdf/client';
+import { cancelAllTasks, minBusyTime, runTask, startBusy } from '../../lib/pdf/client';
 import { Busy } from './Busy';
 import { FileCard, SingleFileGate, type ReadyEntry } from './FileGate';
 import { Icon } from './Icon';
@@ -12,7 +12,7 @@ import { describeError, isCancelled, useTool } from './context';
 import { toFileSource, usePdfFiles } from './usePdfFiles';
 
 function ProtectTool({ t }: { t: ToolUi<'protect'> }) {
-  const { ui, errors } = useTool();
+  const { errors } = useTool();
   const [error, setError] = useState<string | null>(null);
   const [busy, setBusy] = useState(false);
   const [result, setResult] = useState<ResultFile[] | null>(null);
@@ -30,12 +30,14 @@ function ProtectTool({ t }: { t: ToolUi<'protect'> }) {
     setTouched(true);
     setError(null);
     if (validation) return;
+    const started = startBusy();
     setBusy(true);
     try {
       const bytes = await runTask('protect', {
         file: toFileSource(entry),
         options: { userPassword: password, permissions },
       });
+      await minBusyTime(started);
       setResult([{ name: `${safeFileName(baseName(entry.name))}_protected.pdf`, blob: pdfBlob(bytes) }]);
     } catch (err) {
       if (!isCancelled(err)) setError(describeError(err, errors));
@@ -61,7 +63,7 @@ function ProtectTool({ t }: { t: ToolUi<'protect'> }) {
       {result ? (
         <ResultPanel files={result} onReset={reset} />
       ) : busy ? (
-        <Busy message={ui.processing} onCancel={cancelAllTasks} />
+        <Busy onCancel={cancelAllTasks} />
       ) : (
         <SingleFileGate files={files}>
           {(entry) => (

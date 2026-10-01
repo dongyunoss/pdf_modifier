@@ -2,7 +2,7 @@ import { useState } from 'preact/hooks';
 import type { ToolUi } from '../../i18n';
 import { fmt } from '../../i18n/format';
 import { baseName, pdfBlob, safeFileName } from '../../lib/files';
-import { cancelAllTasks, runTask } from '../../lib/pdf/client';
+import { cancelAllTasks, minBusyTime, runTask, startBusy } from '../../lib/pdf/client';
 import { Busy } from './Busy';
 import { FileCard, SingleFileGate, type ReadyEntry } from './FileGate';
 import { Icon } from './Icon';
@@ -35,9 +35,11 @@ function RotateTool({ t }: { t: ToolUi<'rotate'> }) {
       setError(t.noChange);
       return;
     }
+    const started = startBusy();
     setBusy(true);
     try {
       const bytes = await runTask('rotatePages', { file: toFileSource(entry), rotations: changes });
+      await minBusyTime(started);
       setResult([{ name: `${safeFileName(baseName(entry.name))}_rotated.pdf`, blob: pdfBlob(bytes) }]);
     } catch (err) {
       if (!isCancelled(err)) setError(describeError(err, errors));
@@ -62,7 +64,7 @@ function RotateTool({ t }: { t: ToolUi<'rotate'> }) {
       {result ? (
         <ResultPanel files={result} onReset={reset} />
       ) : busy ? (
-        <Busy message={ui.processing} onCancel={cancelAllTasks} />
+        <Busy onCancel={cancelAllTasks} />
       ) : (
         <SingleFileGate files={files}>
           {(entry) => (

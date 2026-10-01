@@ -7,6 +7,7 @@ import { UnsupportedImageError } from '../../lib/images';
 import { TaskError } from '../../lib/pdf/client';
 import { PdfToolError } from '../../lib/pdf/errors';
 import { InvalidPdfError, PasswordNeededError } from '../../lib/pdfjs';
+import type { ToolId } from '../../tools/registry';
 
 export interface RelatedLink {
   href: string;
@@ -25,6 +26,8 @@ export interface ToolBaseProps {
   lang: Lang;
   ui: UiStrings;
   errors: ErrorStrings;
+  /** 지금 쓰는 도구 (처리 화면 제목과 팁 고르기에 사용) */
+  tool?: { id: ToolId; name: string };
   related: RelatedLink[];
   resultAd?: AdConfig | null;
   /**

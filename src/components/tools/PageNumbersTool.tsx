@@ -1,7 +1,7 @@
 import { useState } from 'preact/hooks';
 import type { ToolUi } from '../../i18n';
 import { baseName, pdfBlob, safeFileName } from '../../lib/files';
-import { cancelAllTasks, runTask } from '../../lib/pdf/client';
+import { cancelAllTasks, minBusyTime, runTask, startBusy } from '../../lib/pdf/client';
 import { formatPageNumber, type NumberFormat, type NumberPosition } from '../../lib/pdf/constants';
 import { parsePageSelection } from '../../lib/pdf/ranges';
 import { Busy } from './Busy';
@@ -45,12 +45,14 @@ function PageNumbersTool({ t }: { t: ToolUi<'page-numbers'> }) {
         return;
       }
     }
+    const started = startBusy();
     setBusy(true);
     try {
       const bytes = await runTask('pageNumbers', {
         file: toFileSource(entry),
         options: { position, format, startAt, fontSize, margin: MARGINS[margin], pages: targetPages },
       });
+      await minBusyTime(started);
       setResult([{ name: `${safeFileName(baseName(entry.name))}_numbered.pdf`, blob: pdfBlob(bytes) }]);
     } catch (err) {
       if (!isCancelled(err)) setError(describeError(err, errors));
@@ -70,7 +72,7 @@ function PageNumbersTool({ t }: { t: ToolUi<'page-numbers'> }) {
       {result ? (
         <ResultPanel files={result} onReset={reset} />
       ) : busy ? (
-        <Busy message={ui.processing} onCancel={cancelAllTasks} />
+        <Busy onCancel={cancelAllTasks} />
       ) : (
         <SingleFileGate files={files}>
           {(entry) => {

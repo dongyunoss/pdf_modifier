@@ -9,9 +9,9 @@ import { ToolContext, useTool, type ToolBaseProps } from './context';
  */
 export function withToolRoot<T extends object>(Inner: FunctionComponent<T>) {
   function ToolRoot(props: ToolBaseProps & T) {
-    const { lang, ui, errors, related, resultAd, navigate, ...rest } = props;
+    const { lang, ui, errors, tool, related, resultAd, navigate, ...rest } = props;
     return (
-      <ToolContext.Provider value={{ lang, ui, errors, related, resultAd, navigate }}>
+      <ToolContext.Provider value={{ lang, ui, errors, tool, related, resultAd, navigate }}>
         <Inner {...(rest as unknown as T)} />
       </ToolContext.Provider>
     );

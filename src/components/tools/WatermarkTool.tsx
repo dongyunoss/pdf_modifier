@@ -2,7 +2,7 @@ import { useEffect, useRef, useState } from 'preact/hooks';
 import type { ToolUi } from '../../i18n';
 import { baseName, pdfBlob, safeFileName } from '../../lib/files';
 import { fontStackFor, IMAGE_ACCEPT, imageSize, prepareImage, renderTextImage } from '../../lib/images';
-import { cancelAllTasks, runTask } from '../../lib/pdf/client';
+import { cancelAllTasks, minBusyTime, runTask, startBusy, throwIfCancelled } from '../../lib/pdf/client';
 import { watermarkCenters } from '../../lib/pdf/geometry';
 import { parsePageSelection } from '../../lib/pdf/ranges';
 import { Busy } from './Busy';
@@ -108,6 +108,7 @@ function WatermarkTool({ t }: { t: ToolUi<'watermark'> }) {
       setError(t.needImage);
       return;
     }
+    const started = startBusy();
     setBusy(true);
     try {
       let image: { bytes: Uint8Array; type: 'png' | 'jpeg' };
@@ -118,10 +119,12 @@ function WatermarkTool({ t }: { t: ToolUi<'watermark'> }) {
         const prepared = await prepareImage(imageFile!);
         image = { bytes: new Uint8Array(await prepared.data.arrayBuffer()), type: prepared.type };
       }
+      throwIfCancelled(started);
       const bytes = await runTask('watermark', {
         file: toFileSource(entry),
         options: { image, scale, opacity, rotation, layout, pages: targetPages },
       });
+      await minBusyTime(started);
       setResult([{ name: `${safeFileName(baseName(entry.name))}_watermarked.pdf`, blob: pdfBlob(bytes) }]);
     } catch (err) {
       if (!isCancelled(err)) setError(describeError(err, errors));
@@ -141,7 +144,7 @@ function WatermarkTool({ t }: { t: ToolUi<'watermark'> }) {
       {result ? (
         <ResultPanel files={result} onReset={reset} />
       ) : busy ? (
-        <Busy message={ui.processing} onCancel={cancelAllTasks} />
+        <Busy onCancel={cancelAllTasks} />
       ) : (
         <SingleFileGate files={files}>
           {(entry) => (

@@ -2,7 +2,7 @@ import { useRef, useState } from 'preact/hooks';
 import type { ToolUi } from '../../i18n';
 import { fmt } from '../../i18n/format';
 import { baseName, formatBytes, pdfBlob, safeFileName } from '../../lib/files';
-import { cancelAllTasks, runTask } from '../../lib/pdf/client';
+import { cancelAllTasks, minBusyTime, runTask, startBusy } from '../../lib/pdf/client';
 import { COMPRESSION_PRESETS, RASTER_PRESETS, type CompressionLevel } from '../../lib/pdf/constants';
 import { canvasToBlob, releaseCanvas, renderPage } from '../../lib/pdfjs';
 import { Busy } from './Busy';
@@ -17,11 +17,11 @@ import { toFileSource, usePdfFiles } from './usePdfFiles';
 class Cancelled extends Error {}
 
 function CompressTool({ t }: { t: ToolUi<'compress'> }) {
-  const { ui, errors, lang } = useTool();
+  const { errors, lang } = useTool();
   const locale = localeOf(lang);
   const [error, setError] = useState<string | null>(null);
   const [notice, setNotice] = useState<string | null>(null);
-  const [progress, setProgress] = useState<{ message: string; value: number | null } | null>(null);
+  const [progress, setProgress] = useState<{ detail: string | null; value: number | null } | null>(null);
   const [result, setResult] = useState<{ files: ResultFile[]; before: number; after: number } | null>(null);
   const [level, setLevel] = useState<CompressionLevel>('medium');
   const [rasterize, setRasterize] = useState(false);
@@ -33,7 +33,7 @@ function CompressTool({ t }: { t: ToolUi<'compress'> }) {
     const pages: Array<{ jpeg: Blob; width: number; height: number }> = [];
     for (let i = 1; i <= entry.pageCount; i++) {
       if (cancelled.current) throw new Cancelled();
-      setProgress({ message: fmt(t.rendering, { done: i, total: entry.pageCount }), value: (i - 1) / entry.pageCount });
+      setProgress({ detail: fmt(t.rendering, { done: i, total: entry.pageCount }), value: (i - 1) / entry.pageCount });
       const page = await entry.doc.getPage(i);
       const viewport = page.getViewport({ scale: 1 });
       page.cleanup();
@@ -42,7 +42,8 @@ function CompressTool({ t }: { t: ToolUi<'compress'> }) {
       releaseCanvas(canvas);
       pages.push({ jpeg, width: viewport.width, height: viewport.height });
     }
-    setProgress({ message: ui.processing, value: null });
+    // 이미지로 바꾼 페이지를 PDF 에 넣는 단계는 워커가 진행 상황을 알려 줍니다.
+    setProgress({ detail: null, value: null });
     return runTask('pagesFromImages', { pages });
   };
 
@@ -50,7 +51,8 @@ function CompressTool({ t }: { t: ToolUi<'compress'> }) {
     setError(null);
     setNotice(null);
     cancelled.current = false;
-    setProgress({ message: ui.processing, value: null });
+    const started = startBusy();
+    setProgress({ detail: null, value: null });
     try {
       let bytes: Uint8Array;
       if (rasterize) {
@@ -61,11 +63,12 @@ function CompressTool({ t }: { t: ToolUi<'compress'> }) {
           { file: toFileSource(entry), options: COMPRESSION_PRESETS[level] },
           {
             onProgress: (done, total) =>
-              setProgress({ message: fmt(t.analyzing, { done, total }), value: total ? done / total : null }),
+              setProgress({ detail: fmt(t.analyzing, { done, total }), value: total ? done / total : null }),
           },
         );
         bytes = output.bytes;
       }
+      await minBusyTime(started);
       if (bytes.length >= entry.size) {
         setNotice(t.notReduced);
         return;
@@ -118,7 +121,7 @@ function CompressTool({ t }: { t: ToolUi<'compress'> }) {
         />
       ) : progress ? (
         <Busy
-          message={progress.message}
+          detail={progress.detail}
           progress={progress.value}
           onCancel={() => {
             cancelled.current = true;

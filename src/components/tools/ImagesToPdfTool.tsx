@@ -3,7 +3,7 @@ import type { ToolUi } from '../../i18n';
 import { fmt } from '../../i18n/format';
 import { baseName, pdfBlob, safeFileName, uid } from '../../lib/files';
 import { IMAGE_ACCEPT, prepareImage, UnsupportedImageError } from '../../lib/images';
-import { cancelAllTasks, runTask, TaskError } from '../../lib/pdf/client';
+import { cancelAllTasks, minBusyTime, runTask, startBusy, TaskError, throwIfCancelled } from '../../lib/pdf/client';
 import type { PageSizeName } from '../../lib/pdf/constants';
 import { Busy } from './Busy';
 import { Dropzone } from './Dropzone';
@@ -69,10 +69,13 @@ function ImagesToPdfTool({ t }: { t: ToolUi<'jpg-to-pdf'> }) {
 
   const convert = async () => {
     setError(null);
+    const started = startBusy();
     setBusy(true);
     try {
       const images = [];
       for (const item of items) {
+        // 이미지를 준비하는 도중에도 취소 버튼이 바로 듣도록 한 장마다 확인합니다.
+        throwIfCancelled(started);
         try {
           const prepared = await prepareImage(item.file);
           images.push({ data: prepared.data, type: prepared.type, rotation: item.rotation });
@@ -89,6 +92,7 @@ function ImagesToPdfTool({ t }: { t: ToolUi<'jpg-to-pdf'> }) {
         images,
         options: { pageSize, orientation, margin: MARGINS[margin] },
       });
+      await minBusyTime(started);
       const name = items.length === 1 ? `${safeFileName(baseName(items[0].file.name))}.pdf` : 'images.pdf';
       setResult([{ name, blob: pdfBlob(bytes) }]);
     } catch (err) {
@@ -113,7 +117,7 @@ function ImagesToPdfTool({ t }: { t: ToolUi<'jpg-to-pdf'> }) {
   if (result) {
     body = <ResultPanel files={result} onReset={reset} />;
   } else if (busy) {
-    body = <Busy message={ui.processing} onCancel={cancelAllTasks} />;
+    body = <Busy onCancel={cancelAllTasks} />;
   } else if (items.length === 0) {
     body = <Dropzone accept={IMAGE_ACCEPT} multiple onFiles={addFiles} button={ui.chooseImages} hint={ui.dropImages} />;
   } else {

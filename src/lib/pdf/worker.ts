@@ -1,5 +1,5 @@
 // PDF 처리 전용 Web Worker. 무거운 작업을 메인 스레드 밖에서 실행해 화면이 멈추지 않게 합니다.
-import { zipSync, type Zippable } from 'fflate';
+import { zipFiles } from '../zip';
 import { compressPdf, type ImageRecoder, type RecodeInput, type RecodeTarget } from './compress';
 import { serializeError } from './errors';
 import { stripJpegExif } from './jpeg';
@@ -90,42 +90,41 @@ type Handler<K extends TaskName> = (
 ) => Promise<TaskMap[K]['result']>;
 
 const handlers: { [K in TaskName]: Handler<K> } = {
-  merge: async ({ files }, { producer }) => merge(await Promise.all(files.map(toSource)), { producer }),
-  assemble: async ({ files, pages }, { producer }) =>
-    assemble(await Promise.all(files.map(toSource)), pages, { producer }),
-  split: async ({ file, groups }, { producer }) => split(await toSource(file), groups, { producer }),
+  merge: async ({ files }, { producer, progress }) =>
+    merge(await Promise.all(files.map(toSource)), { producer, onProgress: progress }),
+  assemble: async ({ files, pages }, { producer, progress }) =>
+    assemble(await Promise.all(files.map(toSource)), pages, { producer, onProgress: progress }),
+  split: async ({ file, groups }, { producer, progress }) =>
+    split(await toSource(file), groups, { producer, onProgress: progress }),
   deletePages: async ({ file, pages }, { producer }) => deletePages(await toSource(file), pages, { producer }),
   extractPages: async ({ file, pages }, { producer }) => extractPages(await toSource(file), pages, { producer }),
   rotatePages: async ({ file, rotations }) => rotatePages(await toSource(file), rotations),
   pageNumbers: async ({ file, options }) => addPageNumbers(await toSource(file), options),
   watermark: async ({ file, options }) => addWatermark(await toSource(file), options),
-  imagesToPdf: async ({ images, options }, { producer }) =>
+  imagesToPdf: async ({ images, options }, { producer, progress }) =>
     imagesToPdf(
       await Promise.all(
         images.map(async (image) => ({ bytes: await toBytes(image.data), type: image.type, rotation: image.rotation })),
       ),
       options,
-      { producer },
+      { producer, onProgress: progress },
     ),
-  pagesFromImages: async ({ pages }, { producer }) =>
+  pagesFromImages: async ({ pages }, { producer, progress }) =>
     pagesFromImages(
       await Promise.all(
         pages.map(async (page) => ({ jpeg: await toBytes(page.jpeg), width: page.width, height: page.height })),
       ),
-      { producer },
+      { producer, onProgress: progress },
     ),
   compress: async ({ file, options }, { progress }) =>
     compressPdf(await toSource(file), options, canvasRecoder, progress),
   protect: async ({ file, options }) => protectPdf(await toSource(file), options),
   unlock: async ({ file }) => unlockPdf(await toSource(file)),
-  zip: async ({ entries }) => {
-    const files: Zippable = {};
-    for (const entry of entries) {
-      // PDF/JPEG/PNG 는 이미 압축되어 있으므로 저장(store) 방식으로 빠르게 묶습니다.
-      files[entry.name] = [await toBytes(entry.data), { level: 0 }];
-    }
-    return zipSync(files);
-  },
+  zip: async ({ entries }, { progress }) =>
+    zipFiles(
+      entries.map((entry) => ({ name: entry.name, read: () => toBytes(entry.data) })),
+      progress,
+    ),
 };
 
 function transferablesOf(value: unknown, list: ArrayBuffer[] = []): ArrayBuffer[] {

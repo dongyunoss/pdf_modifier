@@ -2,7 +2,7 @@ import { useState } from 'preact/hooks';
 import type { ToolUi } from '../../i18n';
 import { fmt } from '../../i18n/format';
 import { baseName, pdfBlob, safeFileName } from '../../lib/files';
-import { cancelAllTasks, runTask } from '../../lib/pdf/client';
+import { cancelAllTasks, minBusyTime, runTask, startBusy } from '../../lib/pdf/client';
 import { Busy } from './Busy';
 import { FileCard, SingleFileGate, type ReadyEntry } from './FileGate';
 import { Icon } from './Icon';
@@ -19,7 +19,7 @@ type Props =
 
 /** 페이지 삭제 / 페이지 추출 (선택 방식이 같아 하나의 컴포넌트로 처리) */
 function PageSelectTool(props: Props) {
-  const { ui, errors } = useTool();
+  const { errors } = useTool();
   const [error, setError] = useState<string | null>(null);
   const [busy, setBusy] = useState(false);
   const [result, setResult] = useState<ResultFile[] | null>(null);
@@ -39,17 +39,21 @@ function PageSelectTool(props: Props) {
       setError(props.t.allSelected);
       return;
     }
+    const started = startBusy();
     setBusy(true);
     const base = safeFileName(baseName(entry.name));
     try {
       if (props.mode === 'delete') {
         const bytes = await runTask('deletePages', { file: toFileSource(entry), pages });
+        await minBusyTime(started);
         setResult([{ name: `${base}_pages-removed.pdf`, blob: pdfBlob(bytes) }]);
       } else if (separate) {
         const parts = await runTask('split', { file: toFileSource(entry), groups: pages.map((page) => [page]) });
+        await minBusyTime(started);
         setResult(parts.map((bytes, i) => ({ name: `${base}_page-${pages[i] + 1}.pdf`, blob: pdfBlob(bytes) })));
       } else {
         const bytes = await runTask('extractPages', { file: toFileSource(entry), pages });
+        await minBusyTime(started);
         setResult([{ name: `${base}_extracted.pdf`, blob: pdfBlob(bytes) }]);
       }
     } catch (err) {
@@ -75,7 +79,7 @@ function PageSelectTool(props: Props) {
           onReset={reset}
         />
       ) : busy ? (
-        <Busy message={ui.processing} onCancel={cancelAllTasks} />
+        <Busy onCancel={cancelAllTasks} />
       ) : (
         <SingleFileGate files={files}>
           {(entry) => (

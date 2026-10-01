@@ -2,7 +2,7 @@ import { useMemo, useState } from 'preact/hooks';
 import type { ToolUi } from '../../i18n';
 import { fmt } from '../../i18n/format';
 import { baseName, pdfBlob, safeFileName, uniqueNames } from '../../lib/files';
-import { cancelAllTasks, runTask } from '../../lib/pdf/client';
+import { cancelAllTasks, minBusyTime, runTask, startBusy } from '../../lib/pdf/client';
 import { chunkPages, formatPageRanges, parsePageRanges } from '../../lib/pdf/ranges';
 import { Busy } from './Busy';
 import { FileCard, SingleFileGate, type ReadyEntry } from './FileGate';
@@ -23,7 +23,7 @@ function groupsFor(mode: Mode, ranges: string, every: number, pageCount: number)
 }
 
 function SplitTool({ t }: { t: ToolUi<'split'> }) {
-  const { ui, errors } = useTool();
+  const { errors } = useTool();
   const [error, setError] = useState<string | null>(null);
   const [busy, setBusy] = useState(false);
   const [result, setResult] = useState<ResultFile[] | null>(null);
@@ -43,9 +43,11 @@ function SplitTool({ t }: { t: ToolUi<'split'> }) {
 
   const split = async (entry: ReadyEntry, groups: number[][]) => {
     setError(null);
+    const started = startBusy();
     setBusy(true);
     try {
       const parts = await runTask('split', { file: toFileSource(entry), groups });
+      await minBusyTime(started);
       const base = safeFileName(baseName(entry.name));
       const names = uniqueNames(groups.map((group) => `${base}_${formatPageRanges(group).replace(/, /g, '_')}.pdf`));
       setResult(parts.map((bytes, i) => ({ name: names[i], blob: pdfBlob(bytes) })));
@@ -71,7 +73,7 @@ function SplitTool({ t }: { t: ToolUi<'split'> }) {
           onReset={reset}
         />
       ) : busy ? (
-        <Busy message={ui.processing} onCancel={cancelAllTasks} />
+        <Busy onCancel={cancelAllTasks} />
       ) : (
         <SingleFileGate files={files}>
           {(entry) => (

@@ -2,6 +2,7 @@ import { useRef, useState } from 'preact/hooks';
 import type { ToolUi } from '../../i18n';
 import { fmt } from '../../i18n/format';
 import { baseName, safeFileName } from '../../lib/files';
+import { minBusyTime, startBusy } from '../../lib/pdf/client';
 import { canvasToBlob, releaseCanvas, renderPage } from '../../lib/pdfjs';
 import { Busy } from './Busy';
 import { FileCard, SingleFileGate, type ReadyEntry } from './FileGate';
@@ -39,6 +40,7 @@ function PdfToImagesTool({ t }: { t: ToolUi<'pdf-to-jpg'> }) {
       return;
     }
     cancelled.current = false;
+    const started = startBusy();
     const base = safeFileName(baseName(entry.name));
     const outputs: ResultFile[] = [];
     try {
@@ -50,6 +52,8 @@ function PdfToImagesTool({ t }: { t: ToolUi<'pdf-to-jpg'> }) {
         releaseCanvas(canvas);
         outputs.push({ name: `${base}_page-${pages[k] + 1}.${format}`, blob });
       }
+      await minBusyTime(started);
+      if (cancelled.current) return;
       setResult(outputs);
     } catch (err) {
       setError(describeError(err, errors));
@@ -74,8 +78,8 @@ function PdfToImagesTool({ t }: { t: ToolUi<'pdf-to-jpg'> }) {
         />
       ) : progress ? (
         <Busy
-          message={fmt(t.rendering, progress)}
-          progress={progress.done / progress.total}
+          detail={fmt(t.rendering, progress)}
+          progress={(progress.done - 1) / progress.total}
           onCancel={() => {
             cancelled.current = true;
           }}
