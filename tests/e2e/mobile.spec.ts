@@ -45,11 +45,11 @@ test('모바일: 손잡이를 끌어 페이지 순서를 바꾼다', async ({ pa
     await cdp.send('Input.dispatchTouchEvent', { type: 'touchMove', touchPoints: point(x, y) });
   }
   await cdp.send('Input.dispatchTouchEvent', { type: 'touchEnd', touchPoints: [] });
-  // 사람처럼 잠시 쉰 뒤 다음 탭 (크롬은 직전 터치 직후 ~100ms 안의 탭에 click 을 만들지 않음)
-  await page.waitForTimeout(300);
   await expect(page.getByRole('button', { name: '실행 취소' })).toBeEnabled();
 
-  await page.getByRole('button', { name: '변경 사항 저장' }).tap();
+  // 끌기를 끝낸 직후의 탭에는 크롬이 click 을 만들지 않을 때가 있고, 잠시 기다려도 느린 CI 에서는 보장되지 않습니다.
+  // 이 테스트에서 확인할 것은 끌기이므로 저장 버튼은 클릭으로 누릅니다. (버튼을 탭해서 실행하는 흐름은 위 합치기 테스트가 확인)
+  await page.getByRole('button', { name: '변경 사항 저장' }).click();
   const { bytes } = await downloadVia(page, '다운로드');
   const doc = await openPdf(bytes);
   expect(doc.getPages().map((p) => Math.round(p.getHeight()))).toEqual([402, 400, 401]);
