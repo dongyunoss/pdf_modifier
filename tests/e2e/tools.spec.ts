@@ -266,7 +266,7 @@ test('PDF 가 아닌 파일은 거절한다', async ({ page }) => {
 
 test('다른 언어 페이지와 SEO 메타데이터', async ({ page }) => {
   await page.goto('/en/merge-pdf/');
-  await expect(page).toHaveTitle(/^Merge PDF - Combine PDF Files into One for Free \| /);
+  await expect(page).toHaveTitle(/^Merge PDF - Combine PDF Files Free, No Sign-Up \| /);
   await expect(page.locator('html')).toHaveAttribute('lang', 'en');
   await expect(page.locator('link[rel=alternate][hreflang=ko]')).toHaveAttribute('href', /\/merge-pdf\/$/);
   await expect(page.locator('link[rel=alternate][hreflang=x-default]')).toHaveAttribute('href', /\/en\/merge-pdf\/$/);

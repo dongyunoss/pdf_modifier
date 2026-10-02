@@ -17,7 +17,7 @@ import UnlockTool from '../components/tools/UnlockTool';
 import WatermarkTool from '../components/tools/WatermarkTool';
 import type { ToolBaseProps } from '../components/tools/context';
 import { SITE } from '../config/site';
-import { fmt, getDictionary, langPrefix, LANGUAGES, toolPath, type Lang } from '../i18n';
+import { fmt, getDictionary, langPrefix, LANGUAGES, toolPath, withPromise, type Lang } from '../i18n';
 import BaseLayout from '../layouts/BaseLayout.astro';
 import { getTool, TOOLS, type ToolId } from '../tools/registry';
 
@@ -32,6 +32,8 @@ const tool = getTool(id);
 const content = dict.tools[id];
 const path = toolPath(lang, id);
 const url = (target: string) => new URL(target, `${SITE.url}/`).href;
+// 검색 결과에 보이는 설명: 도구 소개 한 문장 + 「무료·로그인 없음·업로드 없음」 약속
+const description = withPromise(lang, content.description);
 
 // 결과 화면의 "이어서 작업하기" 링크 (JPG→PDF 는 PDF 를 입력받지 않으므로 넘겨주기 제외)
 const related = tool.related.map((relatedId) => ({
@@ -52,12 +54,13 @@ const jsonLd = [
     '@type': 'WebApplication',
     name: content.name,
     url: url(path),
-    description: content.description,
+    description,
     applicationCategory: 'BusinessApplication',
     operatingSystem: 'Any',
     browserRequirements: 'Requires JavaScript',
     inLanguage: LANGUAGES[lang].htmlLang,
     isAccessibleForFree: true,
+    featureList: dict.promise.points,
     offers: { '@type': 'Offer', price: '0', priceCurrency: LANGUAGES[lang].currency },
   },
   {
@@ -83,7 +86,7 @@ const others = TOOLS.filter((item) => item.id !== id && item.category === tool.c
   .slice(0, 6);
 ---
 
-<BaseLayout lang={lang} title={content.title} description={content.description} path={path} jsonLd={jsonLd}>
+<BaseLayout lang={lang} title={content.title} description={description} path={path} jsonLd={jsonLd}>
   <div class="container">
     <nav class="breadcrumb" aria-label="breadcrumb">
       <a href={langPrefix(lang)}>{dict.nav.home}</a>
@@ -98,7 +101,7 @@ const others = TOOLS.filter((item) => item.id !== id && item.category === tool.c
         <p class="tool-tagline">{content.tagline}</p>
         <ul class="highlight-row">
           {
-            dict.toolPage.highlights.map((item) => (
+            dict.promise.points.map((item) => (
               <li>
                 <Icon name="check" size={14} />
                 {item}

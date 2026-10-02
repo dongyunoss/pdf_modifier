@@ -32,7 +32,8 @@ const { lang, title, description, path, jsonLd = [], noindex = false } = Astro.p
 const dict = getDictionary(lang);
 const fullTitle = `${title} | ${SITE.name}`;
 const canonical = new URL(path, `${SITE.url}/`).href;
-const ogImage = new URL('/og-image.png', `${SITE.url}/`).href;
+// 공유 미리보기 이미지는 언어마다 따로 만듭니다 (scripts/generate-images.mjs).
+const ogImage = new URL(`/og/${lang}.png`, `${SITE.url}/`).href;
 const alternates = LANGS.map((code) => ({
   hreflang: LANGUAGES[code].htmlLang,
   href: new URL(switchLangPath(path, code), `${SITE.url}/`).href,
@@ -85,6 +86,7 @@ const { cloudflareToken, gaId } = SITE.analytics;
     <meta property="og:image" content={ogImage} />
     <meta property="og:image:width" content="1200" />
     <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content={`${SITE.name} — ${dict.home.h1}`} />
     <meta property="og:locale" content={LANGUAGES[lang].ogLocale} />
     {
       LANGS.filter((code) => code !== lang).map((code) => (

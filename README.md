@@ -7,7 +7,8 @@
 - 13개 언어 지원(한국어·영어·일본어·중국어 간체/번체·스페인어·포르투갈어·프랑스어·독일어·이탈리아어·인도네시아어·베트남어·터키어), 도구별 SEO 페이지 자동 생성
 - 처음 들어온 방문자는 **브라우저 언어에 맞는 페이지로 자동 이동** (검색엔진 크롤러는 제외, 언어 메뉴에서 고른 언어는 기억)
 - 애드센스 광고 자리, `ads.txt`, 개인정보처리방침·이용약관·소개 페이지 포함 (애드센스 심사 대비)
-- 사이트맵, `robots.txt`, hreflang, Open Graph, 구조화 데이터(JSON-LD) 자동 생성
+- 사이트맵(`lastmod`), `robots.txt`, hreflang, Open Graph(언어별 공유 이미지), 구조화 데이터(JSON-LD) 자동 생성
+- 제목·설명·본문에 **"모든 기능 무료 · 로그인 없음"** 을 강조하고, 내용을 바꾸면 IndexNow 로 빙·네이버 등에 자동 알림 ([docs/SEARCH.md](docs/SEARCH.md))
 
 ## 제공 기능 (13개 도구)
 
@@ -47,7 +48,8 @@
   해시가 붙은 파일은 1년 캐시(`public/_headers`)되어 재방문 시 거의 전송되지 않습니다.
 - **실제 비용**: 도메인 비용(연 1~2만 원 수준)만 발생합니다.
 
-자세한 배포 방법은 **[docs/DEPLOY.md](docs/DEPLOY.md)**, 광고 수익화·검색 노출 방법은 **[docs/MONETIZATION.md](docs/MONETIZATION.md)** 를 참고하세요.
+자세한 배포 방법은 **[docs/DEPLOY.md](docs/DEPLOY.md)**, 광고 수익화 방법은 **[docs/MONETIZATION.md](docs/MONETIZATION.md)**,
+검색엔진 등록과 갱신 알림은 **[docs/SEARCH.md](docs/SEARCH.md)** 를 참고하세요.
 
 ## 빠른 시작
 
@@ -67,7 +69,8 @@ npm run dev               # http://localhost:4321
 | `npm test` | PDF 처리 로직 단위 테스트 (Vitest) |
 | `npm run check` | 타입 검사 (astro check) |
 | `npm run test:e2e` | 실제 브라우저로 모든 도구를 조작하는 E2E 테스트 (Playwright, 빌드 후 실행) |
-| `npm run generate:images` | 사이트 이름을 바꾼 뒤 공유 이미지(`og-image.png`)·아이콘 다시 생성 |
+| `npm run generate:images` | 문구나 사이트 이름을 바꾼 뒤 언어별 공유 이미지(`public/og/`)·아이콘 다시 생성 |
+| `npm run indexnow` | 공개된 사이트맵의 모든 주소를 IndexNow 로 알림 (`main` 에서는 자동 실행, [docs/SEARCH.md](docs/SEARCH.md)) |
 | `npm run build:demo` | 13개 도구를 한 페이지에 모은 체험판을 `dist-demo/` 에 생성 (샘플 문서 포함, claude.ai 아티팩트용 `artifact.html` 도 함께 생성) |
 
 > E2E 테스트는 `npx playwright install chromium` 으로 브라우저를 설치한 뒤 실행하세요.
@@ -93,6 +96,7 @@ npm run dev               # http://localhost:4321
 ```
 src/
 ├─ config/site.ts          사이트 설정 (환경 변수 → 설정값)
+├─ config/content.ts       페이지 내용을 바꾼 날짜(사이트맵 lastmod·IndexNow), IndexNow 키
 ├─ i18n/
 │  ├─ languages.ts         지원 언어 목록 (주소 접두사, hreflang, 로케일, 브라우저 언어 매칭)
 │  ├─ ko.ts, en.ts, ja.ts …  언어별 UI 문구와 도구별 SEO 콘텐츠(제목·설명·사용법·FAQ) — ko.ts 가 기준

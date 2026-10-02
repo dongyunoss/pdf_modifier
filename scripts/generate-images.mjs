@@ -1,62 +1,111 @@
-// SNS 공유용 대표 이미지(public/og-image.png)와 홈 화면 아이콘(public/apple-touch-icon.png)을 만듭니다.
-// 사이트 이름(PUBLIC_SITE_NAME)을 바꾼 뒤 한 번 실행하세요:  npm run generate:images
+// 언어별 공유 미리보기 이미지(public/og/<언어>.png)와 홈 화면 아이콘(public/apple-touch-icon.png)을 만듭니다.
+// 이미지 문구는 각 언어 사전의 home.h1 과 promise.points 입니다. 문구나 사이트 이름(PUBLIC_SITE_NAME)을 바꾼 뒤 실행하세요:
+//   npm run generate:images
 // 크로미움이 필요합니다: npx playwright install chromium  (또는 PW_CHROMIUM_PATH 로 실행 파일 지정)
+// 글꼴은 컴퓨터에 설치된 Noto Sans(KR·JP·SC·TC 포함)를 우선 쓰고, 없으면 운영체제 기본 글꼴로 그립니다.
 import { chromium } from '@playwright/test';
-import { readFileSync } from 'node:fs';
+import { mkdirSync, readFileSync } from 'node:fs';
 import { dirname, join } from 'node:path';
 import { fileURLToPath } from 'node:url';
-import { loadEnv } from 'vite';
+import { loadEnv, runnerImport } from 'vite';
 
 const root = join(dirname(fileURLToPath(import.meta.url)), '..');
 const env = loadEnv('production', root, '');
 const siteName = env.PUBLIC_SITE_NAME || 'PDF Modifier';
+const siteHost = new URL(env.PUBLIC_SITE_URL || 'https://pdfmodifier.app').hostname;
 const favicon = readFileSync(join(root, 'public', 'favicon.svg'), 'utf8');
+
+const { module: i18n } = await runnerImport(join(root, 'src/i18n/index.ts'));
+const { module: icons } = await runnerImport(join(root, 'src/components/icon-paths.ts'));
+const { LANGS, LANGUAGES, DEFAULT_LANG, getDictionary } = i18n;
 
 const escape = (text) => text.replace(/[&<>"]/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' })[c]);
 
-const tools = [
-  ['합치기', '#e5484d', '<path d="M4 4h6v7H4z"/><path d="M14 4h6v7h-6z"/><path d="M7 11v1a3 3 0 0 0 3 3h4a3 3 0 0 0 3-3v-1"/><path d="M12 15v5"/><path d="m9.5 17.5 2.5 2.5 2.5-2.5"/>'],
-  ['분할', '#e5484d', '<path d="M7 3h10v7H7z"/><path d="M7 14h10v7H7z"/><path d="M3 12h2"/><path d="M8 12h2"/><path d="M14 12h2"/><path d="M19 12h2"/>'],
-  ['페이지 편집', '#e5484d', '<rect x="4" y="4" width="7" height="7" rx="1"/><rect x="13" y="4" width="7" height="7" rx="1"/><rect x="4" y="13" width="7" height="7" rx="1"/><rect x="13" y="13" width="7" height="7" rx="1"/>'],
-  ['압축', '#16a34a', '<path d="M4 9h5V4"/><path d="M20 9h-5V4"/><path d="M4 15h5v5"/><path d="M20 15h-5v5"/>'],
-  ['JPG ↔ PDF', '#d97706', '<rect x="3" y="4" width="18" height="16" rx="2"/><circle cx="9" cy="10" r="2"/><path d="m21 16-5-5-9 9"/>'],
-  ['워터마크', '#7c3aed', '<path d="M12 3s6 6.5 6 11a6 6 0 0 1-12 0c0-4.5 6-11 6-11z"/>'],
-  ['페이지 번호', '#7c3aed', '<path d="M5 9h14"/><path d="M5 15h14"/><path d="M10 4 8 20"/><path d="m16 4-2 16"/>'],
-  ['암호', '#0284c7', '<rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/>'],
+/** 한자 모양이 언어마다 다르므로 언어별 글꼴을 앞에 둡니다. */
+const FONTS = {
+  ko: "'Noto Sans KR', 'Noto Sans CJK KR', 'Apple SD Gothic Neo', 'Malgun Gothic'",
+  ja: "'Noto Sans JP', 'Noto Sans CJK JP', 'Hiragino Sans', 'Yu Gothic'",
+  'zh-cn': "'Noto Sans SC', 'Noto Sans CJK SC', 'PingFang SC', 'Microsoft YaHei'",
+  'zh-tw': "'Noto Sans TC', 'Noto Sans CJK TC', 'PingFang TC', 'Microsoft JhengHei'",
+};
+const fontFor = (lang) => `'Noto Sans', ${FONTS[lang] ? `${FONTS[lang]}, ` : ''}'Segoe UI', Roboto, Arial, sans-serif`;
+
+// 오른쪽 타일: 대표 도구 9개 (색은 사이트의 분류 색)
+const TILES = [
+  ['merge', '#e5484d'],
+  ['split', '#e5484d'],
+  ['organize', '#e5484d'],
+  ['compress', '#16a34a'],
+  ['jpg-to-pdf', '#d97706'],
+  ['pdf-to-jpg', '#d97706'],
+  ['watermark', '#7c3aed'],
+  ['page-numbers', '#7c3aed'],
+  ['protect', '#0284c7'],
 ];
 
-const ogHtml = `<!doctype html><html><head><meta charset="utf-8"><style>
+const check = icons.ICON_PATHS.check;
+
+function ogHtml(lang) {
+  const dict = getDictionary(lang);
+  return `<!doctype html><html lang="${LANGUAGES[lang].htmlLang}"><head><meta charset="utf-8"><style>
   * { box-sizing: border-box; margin: 0; }
-  body { width: 1200px; height: 630px; font-family: 'Apple SD Gothic Neo', 'Noto Sans KR', 'Noto Sans CJK KR', 'Malgun Gothic', sans-serif;
-    background: radial-gradient(circle at 85% 15%, #ffe4e4 0, transparent 45%), linear-gradient(135deg, #ffffff 0%, #f4f5f8 100%);
-    color: #161a21; display: flex; align-items: center; padding: 72px; gap: 56px; }
-  .left { flex: 1; }
-  .brand { display: flex; align-items: center; gap: 18px; font-size: 40px; font-weight: 800; }
-  .brand svg { width: 72px; height: 72px; }
-  h1 { font-size: 64px; line-height: 1.18; margin: 36px 0 22px; letter-spacing: -1px; }
-  p { font-size: 30px; color: #5a6272; }
-  .badges { display: flex; gap: 12px; margin-top: 32px; }
-  .badge { padding: 10px 20px; border-radius: 999px; background: #fff; border: 2px solid #e1e4ea; font-size: 24px; font-weight: 700; }
-  .grid { display: grid; grid-template-columns: repeat(2, 170px); gap: 16px; }
-  .tile { background: #fff; border: 2px solid #e8ebf0; border-radius: 22px; padding: 18px; display: grid; gap: 10px; box-shadow: 0 8px 20px rgb(16 24 40 / 8%); }
-  .tile svg { width: 44px; height: 44px; }
-  .tile span { font-size: 22px; font-weight: 700; }
+  body { width: 1200px; height: 630px; font-family: ${fontFor(lang)};
+    background: radial-gradient(circle at 88% 12%, #ffe4e4 0, transparent 42%), linear-gradient(135deg, #ffffff 0%, #f4f5f8 100%);
+    color: #161a21; display: flex; align-items: center; gap: 56px; padding: 64px 72px; }
+  .left { flex: 1; min-width: 0; display: flex; flex-direction: column; height: 100%; }
+  .brand { display: flex; align-items: center; gap: 16px; font-size: 34px; font-weight: 800; }
+  .brand svg { width: 60px; height: 60px; }
+  .main { flex: 1; display: flex; flex-direction: column; justify-content: center; }
+  h1 { font-size: 64px; line-height: 1.16; font-weight: 800; letter-spacing: -0.02em; overflow-wrap: anywhere; }
+  /* 한국어·중국어는 띄어쓰기와 문장 부호에서만 줄을 바꿉니다 (띄어쓰기가 없는 일본어는 글자 단위). */
+  h1:lang(ko), h1:lang(zh) { word-break: keep-all; }
+  .points { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 30px; padding: 0; list-style: none; }
+  .points li { display: flex; align-items: center; gap: 8px; padding: 10px 18px 10px 14px; border-radius: 999px;
+    background: #fff; border: 2px solid #d9efe0; color: #15803d; font-size: 25px; font-weight: 700; white-space: nowrap; }
+  .points svg { width: 26px; height: 26px; flex: none; }
+  .host { font-size: 24px; font-weight: 600; color: #8a92a1; }
+  .grid { display: grid; grid-template-columns: repeat(3, 104px); gap: 16px; flex: none; }
+  .tile { display: grid; place-items: center; height: 104px; border-radius: 26px; background: #fff; border: 2px solid #e8ebf0;
+    box-shadow: 0 8px 20px rgb(16 24 40 / 8%); }
+  .tile svg { width: 50px; height: 50px; }
 </style></head><body>
   <div class="left">
     <div class="brand">${favicon}<span>${escape(siteName)}</span></div>
-    <h1>PDF 합치기·분할·편집<br>브라우저에서 무료로</h1>
-    <p>설치 없음 · 회원가입 없음 · 파일 업로드 없음</p>
-    <div class="badges"><span class="badge">100% 무료</span><span class="badge">Free PDF Tools</span></div>
+    <div class="main">
+      <h1>${escape(dict.home.h1)}</h1>
+      <ul class="points">${dict.promise.points
+        .map(
+          (point) =>
+            `<li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">${check}</svg>${escape(point)}</li>`,
+        )
+        .join('')}</ul>
+    </div>
+    <div class="host">${escape(siteHost)}</div>
   </div>
-  <div class="grid">
-    ${tools
-      .map(
-        ([name, color, path]) =>
-          `<div class="tile"><svg viewBox="0 0 24 24" fill="none" stroke="${color}" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">${path}</svg><span>${name}</span></div>`,
-      )
-      .join('')}
-  </div>
+  <div class="grid">${TILES.map(
+    ([id, color]) =>
+      `<div class="tile"><svg viewBox="0 0 24 24" fill="none" stroke="${color}" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">${icons.ICON_PATHS[id]}</svg></div>`,
+  ).join('')}</div>
 </body></html>`;
+}
+
+/** 제목이 길면 글자 크기를 줄여 이미지 안에 맞춥니다. */
+async function fitText(page) {
+  await page.evaluate(() => {
+    const h1 = document.querySelector('h1');
+    const main = document.querySelector('.main');
+    const points = document.querySelector('.points');
+    let size = 64;
+    const overflowing = () =>
+      h1.scrollWidth > h1.clientWidth ||
+      h1.offsetHeight + points.offsetHeight + 30 > main.clientHeight - 40 ||
+      h1.offsetHeight > size * 1.16 * 3 + 1;
+    while (size > 36 && overflowing()) {
+      size -= 2;
+      h1.style.fontSize = `${size}px`;
+    }
+  });
+}
 
 const iconHtml = `<!doctype html><html><head><style>*{margin:0} body{width:180px;height:180px;background:#e5484d;display:grid;place-items:center}
 svg{width:150px;height:150px}</style></head><body>${favicon.replace('rx="8"', 'rx="0"')}</body></html>`;
@@ -64,10 +113,17 @@ svg{width:150px;height:150px}</style></head><body>${favicon.replace('rx="8"', 'r
 const executablePath = process.env.PW_CHROMIUM_PATH;
 const browser = await chromium.launch(executablePath ? { executablePath } : {});
 const page = await browser.newPage({ viewport: { width: 1200, height: 630 } });
-await page.setContent(ogHtml);
-await page.screenshot({ path: join(root, 'public', 'og-image.png') });
+mkdirSync(join(root, 'public', 'og'), { recursive: true });
+for (const lang of LANGS) {
+  await page.setContent(ogHtml(lang));
+  await page.evaluate(() => document.fonts.ready);
+  await fitText(page);
+  await page.screenshot({ path: join(root, 'public', 'og', `${lang}.png`) });
+  // 예전 주소(/og-image.png)를 기억하는 공유 링크를 위해 기본 언어 이미지를 한 장 더 둡니다.
+  if (lang === DEFAULT_LANG) await page.screenshot({ path: join(root, 'public', 'og-image.png') });
+}
 await page.setViewportSize({ width: 180, height: 180 });
 await page.setContent(iconHtml);
 await page.screenshot({ path: join(root, 'public', 'apple-touch-icon.png') });
 await browser.close();
-console.log('generated public/og-image.png, public/apple-touch-icon.png');
+console.log(`generated public/og/{${LANGS.join(',')}}.png, public/og-image.png, public/apple-touch-icon.png`);

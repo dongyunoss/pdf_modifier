@@ -80,6 +80,10 @@ export function Dropzone({ accept, multiple, onFiles, button, hint, compact }: D
           <p class="dropzone-hint">
             {ui.or} {hint}
           </p>
+          <p class="dropzone-promise">
+            <Icon name="check" size={16} />
+            {ui.startPromise}
+          </p>
           <p class="dropzone-privacy">
             <Icon name="shield" size={16} />
             {ui.localOnly}

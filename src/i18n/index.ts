@@ -30,6 +30,15 @@ export function getDictionary(lang: Lang): Dictionary {
   return dictionaries[lang];
 }
 
+/** 문장 사이를 띄어 쓰지 않는 언어 (한국어는 띄어 씁니다) */
+const UNSPACED_SENTENCES: ReadonlySet<Lang> = new Set(['ja', 'zh-cn', 'zh-tw']);
+
+/** 설명 문장 뒤에 "무료·로그인 없음·업로드 없음" 약속 문장을 붙입니다 (검색 결과·공유 미리보기의 설명). */
+export function withPromise(lang: Lang, text: string): string {
+  const gap = UNSPACED_SENTENCES.has(lang) ? '' : ' ';
+  return `${text}${gap}${dictionaries[lang].promise.sentence}`;
+}
+
 /** 언어별 URL 접두사: 기본 언어(한국어)는 루트, 나머지는 /en/, /ja/ 처럼 */
 export function langPrefix(lang: Lang): string {
   return lang === DEFAULT_LANG ? '/' : `/${lang}/`;

@@ -4,7 +4,7 @@ export const tr: Dictionary = {
   site: {
     tagline: 'Ücretsiz çevrimiçi PDF düzenleyici',
     description:
-      'PDF dosyalarını ücretsiz birleştirin, bölün, düzenleyin, sıkıştırın ve dönüştürün; üyelik ve kurulum gerekmez. Dosyalarınız cihazınızdan hiç çıkmaz: her şey tarayıcınızda güvenle işlenir.',
+      'PDF dosyalarını ücretsiz birleştirin, bölün, düzenleyin, sıkıştırın ve dönüştürün; üyelik ve kurulum gerekmez, kullanım sınırı da yoktur. Dosyalarınız cihazınızdan hiç çıkmaz: her şey tarayıcınızda güvenle işlenir.',
   },
   nav: {
     allTools: 'Tüm araçlar',
@@ -25,10 +25,9 @@ export const tr: Dictionary = {
     security: 'Güvenlik',
   },
   home: {
-    title: 'Ücretsiz PDF Düzenleyici - Birleştir, Böl, Düzenle, Sıkıştır ve Dönüştür',
-    h1: 'İhtiyacınız olan tüm PDF araçları tarayıcınızda',
+    title: 'Ücretsiz PDF Düzenleyici - Üye Olmadan Birleştir, Böl, Sıkıştır',
+    h1: 'Tüm PDF araçları ücretsiz, üye olmadan',
     lead: 'PDF’leri birleştirin, bölün, yeniden sıralayın, sıkıştırın, dönüştürün, filigran ekleyin ve şifreyle koruyun. Tüm araçlar ücretsizdir ve dosyalarınız kendi cihazınızda işlenir; asla yüklenmez.',
-    badges: ['%100 ücretsiz', 'Üyelik yok', 'Yükleme yok', 'Bilgisayar ve telefon'],
     toolsTitle: 'Tüm PDF araçları',
     whyTitle: 'Neden güvenebilirsiniz',
     why: [
@@ -49,11 +48,28 @@ export const tr: Dictionary = {
         body: 'Windows, macOS, Android ya da iPhone — yalnızca güncel bir tarayıcı yeterli. Kurulacak bir şey yok.',
       },
     ],
+    compare: {
+      title: 'Ücretsiz, gizli şart yok',
+      lead: 'Dosyalarınız asla bir sunucuya gönderilmez, bu yüzden bu siteyi çalıştırmanın maliyeti neredeyse sıfırdır. Bu nedenle tüm araçlar ücretsizdir ve reklamlarla finanse edilir; ücretli bir paket yoktur.',
+      item: 'Ne elde edersiniz',
+      others: 'Yaygın çevrimiçi PDF siteleri',
+      rows: [
+        { label: 'Üyelik / giriş', others: 'Dosya kaydetmek veya kullanmaya devam etmek için sık sık istenir', us: 'Gerekmez' },
+        { label: 'Günlük kullanım', others: 'Ücretsiz sürümler genellikle günde birkaç işlemle sınırlıdır', us: 'Sınırsız' },
+        { label: 'Yalnızca ücretli özellikler', others: 'Gelişmiş araçlar abonelik gerektirir', us: 'Yok — her şey ücretsiz' },
+        { label: 'Sonuçta filigran', others: 'Bazı ücretsiz sürümler ekler', us: 'Asla eklenmez' },
+        { label: 'Dosyaların işlendiği yer', others: 'Şirketin sunucularına yüklenir', us: 'Kendi cihazınızda (yükleme yok)' },
+      ],
+    },
     faqTitle: 'Sık sorulan sorular',
     faq: [
       {
         q: 'Gerçekten ücretsiz mi?',
         a: 'Evet. Tüm özellikler ücretsizdir; filigran ya da kullanım sınırı yoktur. Site, sayfada gösterilen reklamlarla ayakta kalır.',
+      },
+      {
+        q: 'Üye olmam veya giriş yapmam gerekiyor mu?',
+        a: 'Hayır. Hesap sistemi yoktur; üye olmanız gerekmez ve e-posta adresinizi asla sormayız. Sayfayı açın, tüm araçlar hemen kullanıma hazır.',
       },
       {
         q: 'Dosyalarım bir sunucuda saklanıyor mu?',
@@ -69,11 +85,14 @@ export const tr: Dictionary = {
       },
     ],
   },
+  promise: {
+    points: ['Tamamen ücretsiz', 'Üyelik yok', 'Sınır yok', 'Yükleme yok'],
+    sentence: 'Ücretsiz, üye olmadan ve sınırsız; dosyalarınız asla yüklenmez.',
+  },
   toolPage: {
     howToTitle: '{tool} nasıl kullanılır',
     faqTitle: 'Sık sorulan sorular',
     relatedTitle: 'İlgili araçlar',
-    highlights: ['Ücretsiz', 'Yükleme yok', 'Kurulum yok'],
   },
   footer: {
     tagline: 'Tarayıcıda çalışan ücretsiz PDF araçları',
@@ -96,6 +115,7 @@ export const tr: Dictionary = {
     chooseImages: 'Görsel seçin',
     addFiles: 'Dosya ekle',
     localOnly: 'Dosyalar bu tarayıcıda işlenir ve asla yüklenmez.',
+    startPromise: 'Hemen başlayın — ücretsiz, üye olmadan, sınırsız.',
     loading: 'Yükleniyor…',
     processing: 'İşleniyor…',
     processingPercent: 'İşleniyor… %{percent}',
@@ -179,9 +199,9 @@ export const tr: Dictionary = {
   tools: {
     merge: {
       name: 'PDF Birleştir',
-      title: 'PDF Birleştir - PDF Dosyalarını Ücretsiz Olarak Tek Dosyada Birleştirin',
+      title: 'PDF Birleştir - Ücretsiz ve Üye Olmadan',
       description:
-        'Birden fazla PDF dosyasını istediğiniz sırayla tek bir belgede birleştirin. Ücretsiz, üyelik gerektirmez ve dosyalarınız tarayıcınızda işlenir; asla yüklenmez.',
+        'Birden fazla PDF dosyasını istediğiniz sırayla tek bir belgede birleştirin.',
       tagline: 'Birden fazla PDF’i istediğiniz sırayla tek dosyada birleştirin.',
       steps: [
         'PDF dosyalarını seçin veya kutuya sürükleyip bırakın.',
@@ -213,9 +233,9 @@ export const tr: Dictionary = {
     },
     split: {
       name: 'PDF Böl',
-      title: 'PDF Böl - PDF Sayfalarını Ayırın veya Sayfa Aralıklarını Çıkarın',
+      title: 'PDF Böl - Ücretsiz ve Üye Olmadan',
       description:
-        'Bir PDF’i sayfa aralıklarına, her N sayfada bir ya da tek tek sayfalara bölün. Ücretsiz ve anında; dosyanız yüklenmeden her şey tarayıcınızda çalışır.',
+        'Bir PDF’i sayfa aralıklarına, her N sayfada bir ya da tek tek sayfalara bölün.',
       tagline: 'Bir PDF’i aralıklara veya düzenli aralıklarla birden çok dosyaya bölün.',
       steps: [
         'Bölmek istediğiniz PDF’i seçin.',
@@ -251,9 +271,9 @@ export const tr: Dictionary = {
     },
     organize: {
       name: 'PDF Düzenle',
-      title: 'PDF Düzenle - Sayfaları Sıralayın, Döndürün, Silin ve Ekleyin',
+      title: 'PDF Düzenle - Sayfaları Sıralayın, Ücretsiz ve Üye Olmadan',
       description:
-        'Sayfa önizlemelerini görün; sayfaları sürükleyerek yeniden sıralayın, döndürün, silin veya çoğaltın, boş sayfa ekleyin ya da başka PDF’lerden sayfa ekleyin. Ücretsiz ve dosyalarınız asla yüklenmez.',
+        'Sayfa önizlemelerini görün; sayfaları sürükleyerek yeniden sıralayın, döndürün, silin veya çoğaltın, boş sayfa ekleyin ya da başka PDF’lerden sayfa ekleyin.',
       tagline: 'Canlı önizlemeyle sayfaları sıralayın, döndürün, silin, çoğaltın ve ekleyin.',
       steps: [
         'Bir PDF seçin. Birden fazla belgenin sayfalarını birleştirmek için başka dosyalar ekleyin.',
@@ -292,9 +312,9 @@ export const tr: Dictionary = {
     },
     rotate: {
       name: 'PDF Döndür',
-      title: 'PDF Döndür - PDF Sayfalarını 90° veya 180° Döndürün',
+      title: 'PDF Döndür - Ücretsiz ve Üye Olmadan',
       description:
-        'Tüm sayfaları veya yalnızca seçtiklerinizi 90° ya da 180° döndürüp kaydedin. Yan taranmış belgeleri düzeltmek için idealdir. Ücretsiz ve gizli; yükleme yok.',
+        'Tüm sayfaları veya yalnızca seçtiklerinizi 90° ya da 180° döndürüp kaydedin.',
       tagline: 'Belgenin tamamını veya seçtiğiniz sayfaları doğru yöne çevirin.',
       steps: [
         'Döndürmek istediğiniz PDF’i seçin.',
@@ -326,9 +346,9 @@ export const tr: Dictionary = {
     },
     'delete-pages': {
       name: 'PDF Sayfalarını Sil',
-      title: 'PDF Sayfalarını Sil - PDF’ten Sayfa Kaldırın',
+      title: 'PDF Sayfalarını Sil - Ücretsiz ve Üye Olmadan',
       description:
-        'Önizlemelerden ihtiyacınız olmayan sayfaları seçip PDF’ten kaldırın. Sayfa numaralarını yazarak da seçebilirsiniz. Ücretsiz ve dosyanız tarayıcınızdan hiç çıkmaz.',
+        'Önizlemelerden ihtiyacınız olmayan sayfaları seçip PDF’ten kaldırın.',
       tagline: 'İstenmeyen sayfaları PDF’ten temizce kaldırın.',
       steps: [
         'Bir PDF dosyası seçin.',
@@ -358,9 +378,9 @@ export const tr: Dictionary = {
     },
     'extract-pages': {
       name: 'PDF Sayfalarını Çıkar',
-      title: 'PDF Sayfalarını Çıkar - Seçilen Sayfaları Yeni PDF Olarak Kaydedin',
+      title: 'PDF Sayfalarını Çıkar - Ücretsiz ve Üye Olmadan',
       description:
-        'İhtiyacınız olan sayfaları seçin ve yeni bir PDF olarak kaydedin; tek dosyada birlikte veya ayrı ayrı. Ücretsiz ve anında, kurulum gerektirmez.',
+        'İhtiyacınız olan sayfaları seçin ve yeni bir PDF olarak kaydedin; tek dosyada birlikte veya ayrı ayrı.',
       tagline: 'İhtiyacınız olan sayfaları seçip yeni bir PDF olarak kaydedin.',
       steps: [
         'Bir PDF dosyası seçin.',
@@ -392,9 +412,9 @@ export const tr: Dictionary = {
     },
     compress: {
       name: 'PDF Sıkıştır',
-      title: 'PDF Sıkıştır - PDF Dosya Boyutunu Çevrimiçi Küçültün',
+      title: 'PDF Sıkıştır - Ücretsiz ve Üye Olmadan Boyutu Küçültün',
       description:
-        'PDF içindeki görselleri optimize ederek dosya boyutunu küçültün; e-posta ekleri ve yükleme sınırları için idealdir. Metin net ve aranabilir kalır. Ücretsiz, doğrudan tarayıcınızda.',
+        'PDF içindeki görselleri optimize ederek dosya boyutunu küçültün; e-posta ekleri ve yükleme sınırları için idealdir.',
       tagline: 'Boyutu küçültmek için PDF içindeki fotoğrafları ve taramaları optimize edin.',
       steps: [
         'Sıkıştırmak istediğiniz PDF’i seçin.',
@@ -439,9 +459,9 @@ export const tr: Dictionary = {
     },
     'jpg-to-pdf': {
       name: 'JPG’den PDF’e',
-      title: 'JPG’den PDF’e - Görselleri ve Fotoğrafları PDF’e Dönüştürün',
+      title: 'JPG’den PDF’e - Ücretsiz ve Üye Olmadan Dönüştürün',
       description:
-        'JPG, PNG, WebP ve diğer görselleri PDF’e dönüştürün. Birçok görseli tek dosyada birleştirip sırayı, sayfa boyutunu, yönü ve kenar boşluklarını seçin. Ücretsiz ve hızlı, yükleme yok.',
+        'JPG, PNG, WebP ve diğer görselleri PDF’e dönüştürün.',
       tagline: 'Fotoğrafları ve görselleri istediğiniz sırayla tek bir PDF yapın.',
       steps: [
         'Dönüştürmek istediğiniz görselleri (JPG, PNG ve diğerleri) seçin.',
@@ -482,9 +502,9 @@ export const tr: Dictionary = {
     },
     'pdf-to-jpg': {
       name: 'PDF’den JPG’ye',
-      title: 'PDF’den JPG’ye - PDF Sayfalarını Yüksek Kaliteli Görsellere Dönüştürün',
+      title: 'PDF’den JPG’ye - Ücretsiz ve Üye Olmadan Dönüştürün',
       description:
-        'Her PDF sayfasını JPG veya PNG görseline dönüştürün. Çözünürlüğü (DPI) seçin ve birden çok sayfayı tek seferde ZIP olarak indirin. Ücretsiz, kurulum gerektirmez.',
+        'Her PDF sayfasını JPG veya PNG görseline dönüştürün.',
       tagline: 'PDF sayfalarını JPG veya PNG görsel olarak kaydedin.',
       steps: [
         'Dönüştürmek istediğiniz PDF’i seçin.',
@@ -519,9 +539,9 @@ export const tr: Dictionary = {
     },
     watermark: {
       name: 'Filigran Ekle',
-      title: 'PDF’e Filigran Ekle - Metin veya Logo Filigranı',
+      title: 'PDF’e Filigran Ekle - Ücretsiz ve Üye Olmadan',
       description:
-        'PDF sayfalarına “GİZLİ” veya “ÖRNEK” gibi bir metin ya da logonuzu ekleyin. Opaklığı, boyutu, açıyı ve döşemeyi canlı önizlemeyle ayarlayın. Ücretsiz.',
+        'PDF sayfalarına “GİZLİ” veya “ÖRNEK” gibi bir metin ya da logonuzu ekleyin.',
       tagline: 'Sayfalara istediğiniz opaklık ve açıyla metin veya logo ekleyin.',
       steps: [
         'Filigran eklenecek PDF’i seçin.',
@@ -568,9 +588,9 @@ export const tr: Dictionary = {
     },
     'page-numbers': {
       name: 'Sayfa Numarası Ekle',
-      title: 'PDF’e Sayfa Numarası Ekle - Sayfaları Otomatik Numaralandırın',
+      title: 'PDF’e Sayfa Numarası Ekle - Ücretsiz ve Üye Olmadan',
       description:
-        'PDF’e otomatik olarak sayfa numarası ekleyin. Altı konumdan birini, biçimi (1, 1 / 10, Page 1…), başlangıç numarasını ve yazı boyutunu seçin; gerekirse kapak sayfasını atlayın.',
+        'PDF’e otomatik olarak sayfa numarası ekleyin.',
       tagline: 'Sayfalarınızı seçtiğiniz konum ve biçimde numaralandırın.',
       steps: [
         'Bir PDF dosyası seçin.',
@@ -617,9 +637,9 @@ export const tr: Dictionary = {
     },
     protect: {
       name: 'PDF Koru',
-      title: 'PDF Koru - PDF’e Şifre Ekleyin (AES-256)',
+      title: 'PDF Koru - Ücretsiz ve Üye Olmadan Şifre Ekleyin',
       description:
-        'Güçlü AES-256 şifrelemesiyle bir PDF’e açılış şifresi ekleyin ve isterseniz yazdırma, kopyalama ve düzenlemeyi kısıtlayın. Dosyanız asla yüklenmez.',
+        'Güçlü AES-256 şifrelemesiyle bir PDF’e açılış şifresi ekleyin ve isterseniz yazdırma, kopyalama ve düzenlemeyi kısıtlayın.',
       tagline: 'Bir PDF’i AES-256 şifrelemesiyle parola korumasına alın.',
       steps: [
         'Korumak istediğiniz PDF’i seçin.',
@@ -658,9 +678,9 @@ export const tr: Dictionary = {
     },
     unlock: {
       name: 'PDF Kilidini Aç',
-      title: 'PDF Kilidini Aç - PDF Şifresini ve Kısıtlamalarını Kaldırın',
+      title: 'PDF Kilidini Aç - Ücretsiz ve Üye Olmadan Şifreyi Kaldırın',
       description:
-        'Açabildiğiniz bir PDF’in şifresini kaldırın; her seferinde yazmanız gerekmesin. Yazdırma ve kopyalama kısıtlamaları da kaldırılır. Ücretsiz ve dosyanız asla yüklenmez.',
+        'Açabildiğiniz bir PDF’in şifresini kaldırın; her seferinde yazmanız gerekmesin.',
       tagline: 'Bildiğiniz şifreyi kaldırın, yazdırma ve kopyalama kısıtlamalarını açın.',
       steps: [
         'Korunan PDF dosyasını seçin.',

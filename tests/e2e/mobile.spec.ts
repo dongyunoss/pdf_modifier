@@ -2,7 +2,7 @@ import { makePdf } from '../unit/helpers';
 import { downloadVia, expect, openPdf, pdfFile, test, upload } from './fixtures';
 
 test('모바일: 가로 스크롤 없이 표시되고 합치기가 동작한다', async ({ page }) => {
-  for (const path of ['/', '/organize-pdf/', '/en/add-watermark-to-pdf/']) {
+  for (const path of ['/', '/de/', '/vi/', '/organize-pdf/', '/en/add-watermark-to-pdf/']) {
     await page.goto(path);
     const overflow = await page.evaluate(() => document.documentElement.scrollWidth - window.innerWidth);
     expect(overflow, `horizontal overflow on ${path}`).toBeLessThanOrEqual(0);
@@ -13,6 +13,17 @@ test('모바일: 가로 스크롤 없이 표시되고 합치기가 동작한다'
   await page.getByRole('button', { name: 'PDF 합치기' }).tap();
   const { bytes } = await downloadVia(page, '다운로드');
   expect((await openPdf(bytes)).getPageCount()).toBe(3);
+});
+
+test('모바일: 홈의 비교표는 항목마다 카드처럼 위아래로 쌓인다', async ({ page }) => {
+  await page.goto('/de/');
+  const table = page.locator('.compare-table');
+  const width = (await table.boundingBox())!.width;
+  // 긴 독일어 낱말도 중간에서 끊기지 않도록 항목 이름과 우리 쪽 칸이 카드 너비를 다 씁니다.
+  for (const cell of [table.locator('tbody th').first(), table.locator('td.compare-us').first()]) {
+    expect((await cell.boundingBox())!.width).toBeGreaterThan(width * 0.8);
+  }
+  await expect(table.locator('td').first()).toBeVisible();
 });
 
 test('모바일: 손잡이를 끌어 페이지 순서를 바꾼다', async ({ page }) => {

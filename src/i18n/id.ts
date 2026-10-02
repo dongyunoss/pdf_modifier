@@ -4,7 +4,7 @@ export const id: Dictionary = {
   site: {
     tagline: 'Editor PDF online gratis',
     description:
-      'Gabungkan, pisahkan, atur, kompres, dan konversi file PDF secara gratis, tanpa daftar dan tanpa instalasi. File Anda tidak pernah meninggalkan perangkat: semuanya diproses dengan aman di browser.',
+      'Gabungkan, pisahkan, atur, kompres, dan konversi file PDF secara gratis, tanpa daftar, tanpa batas, dan tanpa instalasi. File Anda tidak pernah meninggalkan perangkat: semuanya diproses dengan aman di browser.',
   },
   nav: {
     allTools: 'Semua alat',
@@ -25,10 +25,9 @@ export const id: Dictionary = {
     security: 'Keamanan',
   },
   home: {
-    title: 'Editor PDF Gratis - Gabungkan, Pisahkan, Atur, Kompres & Konversi',
-    h1: 'Semua alat PDF yang Anda butuhkan, langsung di browser',
+    title: 'Editor PDF Gratis Tanpa Daftar - Gabungkan, Pisahkan, Kompres & Konversi',
+    h1: 'Semua alat PDF gratis, tanpa daftar',
     lead: 'Gabungkan, pisahkan, susun ulang, kompres, konversi, beri watermark, dan lindungi PDF dengan kata sandi. Semua alat gratis, dan file Anda diproses di perangkat Anda sendiri — tidak pernah diunggah.',
-    badges: ['100% gratis', 'Tanpa daftar', 'Tanpa unggah', 'Komputer & ponsel'],
     toolsTitle: 'Semua alat PDF',
     whyTitle: 'Mengapa bisa dipercaya',
     why: [
@@ -49,11 +48,28 @@ export const id: Dictionary = {
         body: 'Windows, macOS, Android, atau iPhone — Anda hanya perlu browser modern. Tidak ada yang perlu dipasang.',
       },
     ],
+    compare: {
+      title: 'Gratis, tanpa syarat tersembunyi',
+      lead: 'File Anda tidak pernah dikirim ke server, jadi biaya menjalankan situs ini hampir nol. Karena itu semua alat gratis dan didanai iklan — tidak ada paket berbayar.',
+      item: 'Yang Anda dapatkan',
+      others: 'Situs PDF online pada umumnya',
+      rows: [
+        { label: 'Daftar / login', others: 'Sering diwajibkan untuk menyimpan file atau terus memakai', us: 'Tidak perlu' },
+        { label: 'Pemakaian harian', others: 'Versi gratis sering hanya beberapa kali sehari', us: 'Tanpa batas' },
+        { label: 'Fitur khusus berbayar', others: 'Alat lanjutan hanya untuk pelanggan berbayar', us: 'Tidak ada — semua gratis' },
+        { label: 'Watermark pada hasil', others: 'Sebagian versi gratis menambahkannya', us: 'Tidak pernah ditambahkan' },
+        { label: 'Tempat file diproses', others: 'Diunggah ke server perusahaan', us: 'Di perangkat Anda (tanpa unggah)' },
+      ],
+    },
     faqTitle: 'Pertanyaan umum',
     faq: [
       {
         q: 'Benarkah gratis?',
         a: 'Ya. Semua fitur gratis, tanpa watermark dan tanpa batas pemakaian. Situs ini didanai oleh iklan yang tampil di halaman.',
+      },
+      {
+        q: 'Apakah saya perlu mendaftar atau login?',
+        a: 'Tidak. Tidak ada akun, jadi tidak perlu mendaftar dan kami tidak pernah meminta email Anda. Buka halamannya dan semua alat langsung siap dipakai.',
       },
       {
         q: 'Apakah file saya disimpan di server?',
@@ -69,11 +85,14 @@ export const id: Dictionary = {
       },
     ],
   },
+  promise: {
+    points: ['Semua gratis', 'Tanpa daftar', 'Tanpa batas', 'Tanpa unggah'],
+    sentence: 'Gratis, tanpa daftar dan tanpa batas, dan file Anda tidak pernah diunggah.',
+  },
   toolPage: {
     howToTitle: 'Cara menggunakan {tool}',
     faqTitle: 'Pertanyaan umum',
     relatedTitle: 'Alat terkait',
-    highlights: ['Gratis', 'Tanpa unggah', 'Tanpa instalasi'],
   },
   footer: {
     tagline: 'Alat PDF gratis yang berjalan di browser',
@@ -96,6 +115,7 @@ export const id: Dictionary = {
     chooseImages: 'Pilih gambar',
     addFiles: 'Tambah file',
     localOnly: 'File diproses di browser ini dan tidak pernah diunggah.',
+    startPromise: 'Langsung pakai — gratis, tanpa daftar, tanpa batas.',
     loading: 'Memuat…',
     processing: 'Memproses…',
     processingPercent: 'Memproses… {percent}%',
@@ -179,9 +199,9 @@ export const id: Dictionary = {
   tools: {
     merge: {
       name: 'Gabungkan PDF',
-      title: 'Gabungkan PDF - Satukan Beberapa File PDF Secara Gratis',
+      title: 'Gabungkan PDF Gratis Tanpa Daftar - Satukan Beberapa File PDF',
       description:
-        'Satukan beberapa file PDF menjadi satu dokumen dengan urutan yang Anda inginkan. Gratis, tanpa daftar, dan file diproses di browser — tidak pernah diunggah.',
+        'Satukan beberapa file PDF menjadi satu dokumen dengan urutan yang Anda inginkan.',
       tagline: 'Satukan beberapa PDF menjadi satu file dengan urutan apa pun.',
       steps: [
         'Pilih file PDF atau letakkan ke dalam kotak.',
@@ -213,9 +233,9 @@ export const id: Dictionary = {
     },
     split: {
       name: 'Pisahkan PDF',
-      title: 'Pisahkan PDF - Pisahkan Halaman atau Ambil Rentang Halaman',
+      title: 'Pisahkan PDF Gratis Tanpa Daftar - Pisahkan Halaman PDF',
       description:
-        'Pisahkan PDF berdasarkan rentang halaman, setiap N halaman, atau per halaman. Gratis dan instan — semua berjalan di browser tanpa mengunggah file Anda.',
+        'Pisahkan PDF berdasarkan rentang halaman, setiap N halaman, atau per halaman.',
       tagline: 'Bagi satu PDF menjadi beberapa file berdasarkan rentang atau interval tetap.',
       steps: [
         'Pilih PDF yang ingin dipisahkan.',
@@ -251,9 +271,9 @@ export const id: Dictionary = {
     },
     organize: {
       name: 'Atur PDF',
-      title: 'Atur PDF - Susun Ulang, Putar, Hapus & Sisipkan Halaman',
+      title: 'Atur PDF Gratis Tanpa Daftar - Susun Ulang & Hapus Halaman',
       description:
-        'Lihat pratinjau halaman lalu seret untuk menyusun ulang, memutar, menghapus, atau menduplikat halaman, menambah halaman kosong, atau menyisipkan halaman dari PDF lain. Gratis, dan file Anda tidak pernah diunggah.',
+        'Lihat pratinjau halaman lalu seret untuk menyusun ulang, memutar, menghapus, atau menduplikat halaman, menambah halaman kosong, atau menyisipkan halaman dari PDF lain.',
       tagline: 'Susun ulang, putar, hapus, duplikat, dan sisipkan halaman dengan pratinjau langsung.',
       steps: [
         'Pilih sebuah PDF. Tambahkan file lain untuk mencampur halaman dari beberapa dokumen.',
@@ -292,9 +312,9 @@ export const id: Dictionary = {
     },
     rotate: {
       name: 'Putar PDF',
-      title: 'Putar PDF - Putar Halaman PDF 90° atau 180°',
+      title: 'Putar PDF Gratis Tanpa Daftar - Putar Halaman 90° atau 180°',
       description:
-        'Putar semua halaman atau hanya yang Anda pilih sebesar 90° atau 180°, lalu simpan hasilnya. Cocok untuk memperbaiki hasil pindaian yang miring. Gratis dan privat — tanpa unggah.',
+        'Putar semua halaman atau hanya yang Anda pilih sebesar 90° atau 180°, lalu simpan hasilnya.',
       tagline: 'Putar seluruh dokumen atau halaman tertentu ke posisi yang benar.',
       steps: [
         'Pilih PDF yang ingin diputar.',
@@ -326,9 +346,9 @@ export const id: Dictionary = {
     },
     'delete-pages': {
       name: 'Hapus Halaman PDF',
-      title: 'Hapus Halaman PDF - Buang Halaman dari PDF',
+      title: 'Hapus Halaman PDF Gratis Tanpa Daftar',
       description:
-        'Pilih halaman yang tidak diperlukan dari pratinjau lalu hapus dari PDF Anda. Anda juga bisa mengetik nomor halaman untuk memilihnya. Gratis, dan file Anda tidak pernah keluar dari browser.',
+        'Pilih halaman yang tidak diperlukan dari pratinjau lalu hapus dari PDF Anda.',
       tagline: 'Buang halaman yang tidak diinginkan dari PDF dengan rapi.',
       steps: [
         'Pilih file PDF.',
@@ -358,9 +378,9 @@ export const id: Dictionary = {
     },
     'extract-pages': {
       name: 'Ekstrak Halaman PDF',
-      title: 'Ekstrak Halaman PDF - Simpan Halaman Terpilih sebagai PDF Baru',
+      title: 'Ekstrak Halaman PDF Gratis Tanpa Daftar',
       description:
-        'Pilih halaman yang Anda perlukan lalu simpan sebagai PDF baru, digabung dalam satu file atau dipisah. Gratis dan instan, tanpa instalasi.',
+        'Pilih halaman yang Anda perlukan lalu simpan sebagai PDF baru, digabung dalam satu file atau dipisah.',
       tagline: 'Pilih halaman yang dibutuhkan dan simpan sebagai PDF baru.',
       steps: [
         'Pilih file PDF.',
@@ -392,9 +412,9 @@ export const id: Dictionary = {
     },
     compress: {
       name: 'Kompres PDF',
-      title: 'Kompres PDF - Perkecil Ukuran File PDF Secara Online',
+      title: 'Kompres PDF Gratis Tanpa Daftar - Perkecil Ukuran File',
       description:
-        'Perkecil ukuran file PDF dengan mengoptimalkan gambar di dalamnya — cocok untuk lampiran email dan batas unggah. Teks tetap tajam dan bisa dicari. Gratis, langsung di browser.',
+        'Perkecil ukuran file PDF dengan mengoptimalkan gambar di dalamnya — cocok untuk lampiran email dan batas unggah.',
       tagline: 'Optimalkan foto dan hasil pindaian di dalam PDF untuk memperkecil ukurannya.',
       steps: [
         'Pilih PDF yang ingin dikompres.',
@@ -439,9 +459,9 @@ export const id: Dictionary = {
     },
     'jpg-to-pdf': {
       name: 'JPG ke PDF',
-      title: 'JPG ke PDF - Ubah Gambar dan Foto Menjadi PDF',
+      title: 'JPG ke PDF Gratis Tanpa Daftar - Ubah Gambar Jadi PDF',
       description:
-        'Ubah gambar JPG, PNG, WebP, dan lainnya menjadi PDF. Gabungkan banyak gambar dalam satu file dan atur urutan, ukuran halaman, orientasi, serta margin. Gratis dan cepat, tanpa unggah.',
+        'Ubah gambar JPG, PNG, WebP, dan lainnya menjadi PDF.',
       tagline: 'Jadikan foto dan gambar satu PDF dengan urutan yang Anda inginkan.',
       steps: [
         'Pilih gambar (JPG, PNG, dan lainnya) yang ingin diubah.',
@@ -482,9 +502,9 @@ export const id: Dictionary = {
     },
     'pdf-to-jpg': {
       name: 'PDF ke JPG',
-      title: 'PDF ke JPG - Ubah Halaman PDF Menjadi Gambar Berkualitas Tinggi',
+      title: 'PDF ke JPG Gratis Tanpa Daftar - Ubah Halaman Jadi Gambar',
       description:
-        'Ubah setiap halaman PDF menjadi gambar JPG atau PNG. Pilih resolusi (DPI) dan unduh banyak halaman sekaligus dalam ZIP. Gratis, tanpa perlu memasang apa pun.',
+        'Ubah setiap halaman PDF menjadi gambar JPG atau PNG.',
       tagline: 'Simpan halaman PDF sebagai gambar JPG atau PNG.',
       steps: [
         'Pilih PDF yang ingin diubah.',
@@ -519,9 +539,9 @@ export const id: Dictionary = {
     },
     watermark: {
       name: 'Tambahkan Watermark',
-      title: 'Tambahkan Watermark ke PDF - Watermark Teks atau Logo',
+      title: 'Tambahkan Watermark ke PDF Gratis Tanpa Daftar',
       description:
-        'Bubuhkan teks seperti “RAHASIA” atau “CONTOH”, atau logo Anda, ke halaman PDF. Atur opasitas, ukuran, sudut, dan pola ubin dengan pratinjau langsung. Gratis.',
+        'Bubuhkan teks seperti “RAHASIA” atau “CONTOH”, atau logo Anda, ke halaman PDF.',
       tagline: 'Bubuhkan teks atau logo ke halaman dengan opasitas dan sudut sesuai keinginan.',
       steps: [
         'Pilih PDF yang ingin diberi watermark.',
@@ -568,9 +588,9 @@ export const id: Dictionary = {
     },
     'page-numbers': {
       name: 'Tambahkan Nomor Halaman',
-      title: 'Tambahkan Nomor Halaman ke PDF - Beri Nomor Halaman Otomatis',
+      title: 'Tambahkan Nomor Halaman ke PDF Gratis Tanpa Daftar',
       description:
-        'Tambahkan nomor halaman ke PDF secara otomatis. Pilih salah satu dari enam posisi, format (1, 1 / 10, Page 1…), nomor awal, dan ukuran huruf, serta lewati sampul bila perlu.',
+        'Tambahkan nomor halaman ke PDF secara otomatis.',
       tagline: 'Beri nomor halaman dengan posisi dan format pilihan Anda.',
       steps: [
         'Pilih file PDF.',
@@ -617,9 +637,9 @@ export const id: Dictionary = {
     },
     protect: {
       name: 'Lindungi PDF',
-      title: 'Lindungi PDF - Pasang Kata Sandi pada PDF (AES-256)',
+      title: 'Lindungi PDF dengan Kata Sandi Gratis Tanpa Daftar',
       description:
-        'Lindungi PDF dengan kata sandi pembuka menggunakan enkripsi AES-256 yang kuat, dan bila perlu batasi pencetakan, penyalinan, serta pengeditan. File Anda tidak pernah diunggah.',
+        'Lindungi PDF dengan kata sandi pembuka menggunakan enkripsi AES-256 yang kuat, dan bila perlu batasi pencetakan, penyalinan, serta pengeditan.',
       tagline: 'Kunci PDF dengan kata sandi menggunakan enkripsi AES-256.',
       steps: [
         'Pilih PDF yang ingin dilindungi.',
@@ -658,9 +678,9 @@ export const id: Dictionary = {
     },
     unlock: {
       name: 'Buka Kunci PDF',
-      title: 'Buka Kunci PDF - Hapus Kata Sandi dan Batasan PDF',
+      title: 'Buka Kunci PDF Gratis Tanpa Daftar - Hapus Kata Sandi',
       description:
-        'Hapus kata sandi dari PDF yang bisa Anda buka agar tidak perlu mengetiknya setiap kali. Batasan cetak dan salin juga dihapus. Gratis, dan file Anda tidak pernah diunggah.',
+        'Hapus kata sandi dari PDF yang bisa Anda buka agar tidak perlu mengetiknya setiap kali.',
       tagline: 'Hapus kata sandi yang Anda ketahui dan lepaskan batasan cetak/salin.',
       steps: [
         'Pilih file PDF yang dilindungi.',

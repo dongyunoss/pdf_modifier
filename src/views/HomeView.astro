@@ -17,12 +17,15 @@ const { lang } = Astro.props;
 const dict = getDictionary(lang);
 const path = langPrefix(lang);
 const whyIcons: IconName[] = ['shield', 'zap', 'gem', 'devices'];
+const compare = dict.home.compare;
 
 const jsonLd = [
   {
     '@context': 'https://schema.org',
     '@type': 'WebSite',
     name: SITE.name,
+    // 검색 결과에 보이는 사이트 이름 후보 (도메인 표기 포함)
+    alternateName: [SITE.name.replace(/\s+/g, ''), new URL(SITE.url).hostname],
     url: new URL(path, `${SITE.url}/`).href,
     inLanguage: LANGUAGES[lang].htmlLang,
     description: dict.site.description,
@@ -56,10 +59,10 @@ const jsonLd = [
       <p class="hero-lead">{dict.home.lead}</p>
       <ul class="badge-row">
         {
-          dict.home.badges.map((badge) => (
+          dict.promise.points.map((point) => (
             <li class="badge">
               <Icon name="check" size={16} />
-              {badge}
+              {point}
             </li>
           ))
         }
@@ -88,6 +91,36 @@ const jsonLd = [
   <div class="container">
     <AdSlot slot="content" label={dict.ui.ad} />
   </div>
+
+  <section class="container section" aria-labelledby="compare-title">
+    <h2 id="compare-title">{compare.title}</h2>
+    <p class="section-lead">{compare.lead}</p>
+    <table class="compare-table">
+      <thead>
+        <tr>
+          <th scope="col">{compare.item}</th>
+          <th scope="col">{compare.others}</th>
+          <th scope="col" class="compare-us">{SITE.name}</th>
+        </tr>
+      </thead>
+      <tbody>
+        {
+          compare.rows.map((row) => (
+            <tr>
+              <th scope="row">{row.label}</th>
+              <td data-label={compare.others}>{row.others}</td>
+              <td data-label={SITE.name} class="compare-us">
+                <span class="compare-yes">
+                  <Icon name="check" size={16} />
+                  {row.us}
+                </span>
+              </td>
+            </tr>
+          ))
+        }
+      </tbody>
+    </table>
+  </section>
 
   <section class="container section" aria-labelledby="why-title">
     <h2 id="why-title">{fmt(dict.home.whyTitle, { site: SITE.name })}</h2>

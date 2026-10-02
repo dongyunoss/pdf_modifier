@@ -4,7 +4,7 @@ export const vi: Dictionary = {
   site: {
     tagline: 'Trình chỉnh sửa PDF trực tuyến miễn phí',
     description:
-      'Gộp, tách, sắp xếp, nén và chuyển đổi tệp PDF miễn phí, không cần đăng ký, không cần cài đặt. Tệp của bạn không bao giờ rời khỏi thiết bị: mọi thứ được xử lý an toàn ngay trong trình duyệt.',
+      'Gộp, tách, sắp xếp, nén và chuyển đổi tệp PDF miễn phí, không cần đăng ký, không giới hạn, không cần cài đặt. Tệp của bạn không bao giờ rời khỏi thiết bị: mọi thứ được xử lý an toàn ngay trong trình duyệt.',
   },
   nav: {
     allTools: 'Tất cả công cụ',
@@ -25,10 +25,9 @@ export const vi: Dictionary = {
     security: 'Bảo mật',
   },
   home: {
-    title: 'Trình chỉnh sửa PDF miễn phí - Gộp, tách, sắp xếp, nén và chuyển đổi',
-    h1: 'Mọi công cụ PDF bạn cần, ngay trong trình duyệt',
+    title: 'Trình chỉnh sửa PDF miễn phí, không cần đăng ký - Gộp, tách, nén',
+    h1: 'Mọi công cụ PDF đều miễn phí, không cần đăng ký',
     lead: 'Gộp, tách, sắp xếp lại, nén, chuyển đổi, thêm hình mờ và đặt mật khẩu cho PDF. Mọi công cụ đều miễn phí, và tệp được xử lý ngay trên thiết bị của bạn — không bao giờ bị tải lên.',
-    badges: ['Miễn phí 100%', 'Không cần đăng ký', 'Không tải lên', 'Máy tính và điện thoại'],
     toolsTitle: 'Tất cả công cụ PDF',
     whyTitle: 'Vì sao bạn có thể yên tâm',
     why: [
@@ -49,11 +48,28 @@ export const vi: Dictionary = {
         body: 'Windows, macOS, Android hay iPhone — bạn chỉ cần một trình duyệt hiện đại. Không cần cài đặt gì.',
       },
     ],
+    compare: {
+      title: 'Miễn phí, không điều kiện ẩn',
+      lead: 'Tệp của bạn không bao giờ được gửi lên máy chủ, nên chi phí vận hành trang này gần như bằng không. Vì vậy mọi công cụ đều miễn phí và được duy trì bằng quảng cáo — không có gói trả phí.',
+      item: 'Bạn nhận được',
+      others: 'Các trang PDF trực tuyến thông thường',
+      rows: [
+        { label: 'Đăng ký / đăng nhập', others: 'Thường bắt buộc để lưu tệp hoặc tiếp tục sử dụng', us: 'Không cần' },
+        { label: 'Số lần dùng mỗi ngày', others: 'Bản miễn phí thường chỉ cho vài lần mỗi ngày', us: 'Không giới hạn' },
+        { label: 'Tính năng chỉ dành cho bản trả phí', others: 'Công cụ nâng cao cần đăng ký trả phí', us: 'Không có — tất cả miễn phí' },
+        { label: 'Hình mờ trên kết quả', others: 'Một số bản miễn phí có thêm hình mờ', us: 'Không bao giờ thêm' },
+        { label: 'Nơi xử lý tệp', others: 'Tải lên máy chủ của công ty', us: 'Trên thiết bị của bạn (không tải lên)' },
+      ],
+    },
     faqTitle: 'Câu hỏi thường gặp',
     faq: [
       {
         q: 'Có thật sự miễn phí không?',
         a: 'Có. Mọi tính năng đều miễn phí, không chèn hình mờ và không giới hạn sử dụng. Trang web được duy trì nhờ quảng cáo hiển thị trên trang.',
+      },
+      {
+        q: 'Tôi có cần đăng ký hoặc đăng nhập không?',
+        a: 'Không. Trang không có tài khoản nên bạn không cần đăng ký và chúng tôi không bao giờ hỏi email của bạn. Chỉ cần mở trang là dùng được mọi công cụ.',
       },
       {
         q: 'Tệp của tôi có bị lưu trên máy chủ không?',
@@ -69,11 +85,14 @@ export const vi: Dictionary = {
       },
     ],
   },
+  promise: {
+    points: ['Miễn phí hoàn toàn', 'Không cần đăng ký', 'Không giới hạn', 'Không tải lên'],
+    sentence: 'Miễn phí, không cần đăng ký, không giới hạn và tệp của bạn không bao giờ bị tải lên.',
+  },
   toolPage: {
     howToTitle: 'Cách dùng công cụ {tool}',
     faqTitle: 'Câu hỏi thường gặp',
     relatedTitle: 'Công cụ liên quan',
-    highlights: ['Miễn phí', 'Không tải lên', 'Không cần cài đặt'],
   },
   footer: {
     tagline: 'Công cụ PDF miễn phí chạy ngay trong trình duyệt',
@@ -96,6 +115,7 @@ export const vi: Dictionary = {
     chooseImages: 'Chọn hình ảnh',
     addFiles: 'Thêm tệp',
     localOnly: 'Tệp được xử lý trong trình duyệt này và không bao giờ bị tải lên.',
+    startPromise: 'Dùng ngay — miễn phí, không cần đăng ký, không giới hạn.',
     loading: 'Đang tải…',
     processing: 'Đang xử lý…',
     processingPercent: 'Đang xử lý… {percent}%',
@@ -179,9 +199,9 @@ export const vi: Dictionary = {
   tools: {
     merge: {
       name: 'Gộp PDF',
-      title: 'Gộp PDF - Ghép nhiều tệp PDF thành một miễn phí',
+      title: 'Gộp PDF miễn phí, không cần đăng ký - Ghép nhiều tệp thành một',
       description:
-        'Ghép nhiều tệp PDF thành một tài liệu theo thứ tự bạn muốn. Miễn phí, không cần đăng ký, tệp được xử lý trong trình duyệt và không bao giờ bị tải lên.',
+        'Ghép nhiều tệp PDF thành một tài liệu theo thứ tự bạn muốn.',
       tagline: 'Ghép nhiều PDF thành một tệp theo bất kỳ thứ tự nào.',
       steps: [
         'Chọn các tệp PDF hoặc thả chúng vào khung.',
@@ -213,9 +233,9 @@ export const vi: Dictionary = {
     },
     split: {
       name: 'Tách PDF',
-      title: 'Tách PDF - Tách trang hoặc trích khoảng trang từ PDF',
+      title: 'Tách PDF miễn phí, không cần đăng ký - Tách trang PDF',
       description:
-        'Tách PDF theo khoảng trang, cứ N trang một lần hoặc từng trang riêng lẻ. Miễn phí và tức thì — mọi thứ chạy trong trình duyệt mà không cần tải tệp lên.',
+        'Tách PDF theo khoảng trang, cứ N trang một lần hoặc từng trang riêng lẻ.',
       tagline: 'Chia một PDF thành nhiều tệp theo khoảng trang hoặc theo khoảng cách đều.',
       steps: [
         'Chọn tệp PDF bạn muốn tách.',
@@ -251,9 +271,9 @@ export const vi: Dictionary = {
     },
     organize: {
       name: 'Sắp xếp PDF',
-      title: 'Sắp xếp PDF - Sắp xếp lại, xoay, xóa và chèn trang',
+      title: 'Sắp xếp PDF miễn phí, không cần đăng ký - Sắp xếp, xóa trang',
       description:
-        'Xem trước các trang rồi kéo để sắp xếp lại, xoay, xóa hoặc nhân bản trang, thêm trang trống hoặc chèn trang từ PDF khác. Miễn phí, và tệp không bao giờ bị tải lên.',
+        'Xem trước các trang rồi kéo để sắp xếp lại, xoay, xóa hoặc nhân bản trang, thêm trang trống hoặc chèn trang từ PDF khác.',
       tagline: 'Sắp xếp lại, xoay, xóa, nhân bản và chèn trang với bản xem trước trực tiếp.',
       steps: [
         'Chọn một tệp PDF. Thêm tệp khác để kết hợp trang từ nhiều tài liệu.',
@@ -292,9 +312,9 @@ export const vi: Dictionary = {
     },
     rotate: {
       name: 'Xoay PDF',
-      title: 'Xoay PDF - Xoay trang PDF 90° hoặc 180°',
+      title: 'Xoay PDF miễn phí, không cần đăng ký - Xoay trang 90° hoặc 180°',
       description:
-        'Xoay tất cả các trang hoặc chỉ những trang bạn chọn 90° hay 180° rồi lưu lại. Rất hợp để sửa các bản scan bị xoay ngang. Miễn phí và riêng tư — không tải lên.',
+        'Xoay tất cả các trang hoặc chỉ những trang bạn chọn 90° hay 180° rồi lưu lại.',
       tagline: 'Xoay toàn bộ tài liệu hoặc các trang đã chọn về đúng chiều.',
       steps: [
         'Chọn tệp PDF bạn muốn xoay.',
@@ -326,9 +346,9 @@ export const vi: Dictionary = {
     },
     'delete-pages': {
       name: 'Xóa trang PDF',
-      title: 'Xóa trang PDF - Loại bỏ trang khỏi PDF',
+      title: 'Xóa trang PDF miễn phí, không cần đăng ký',
       description:
-        'Chọn những trang không cần trong bản xem trước và xóa chúng khỏi PDF. Bạn cũng có thể nhập số trang để chọn. Miễn phí, và tệp không bao giờ rời khỏi trình duyệt.',
+        'Chọn những trang không cần trong bản xem trước và xóa chúng khỏi PDF.',
       tagline: 'Loại bỏ gọn gàng những trang không cần trong PDF.',
       steps: [
         'Chọn một tệp PDF.',
@@ -358,9 +378,9 @@ export const vi: Dictionary = {
     },
     'extract-pages': {
       name: 'Trích xuất trang PDF',
-      title: 'Trích xuất trang PDF - Lưu các trang đã chọn thành PDF mới',
+      title: 'Trích xuất trang PDF miễn phí, không cần đăng ký',
       description:
-        'Chọn những trang bạn cần và lưu thành PDF mới, gộp trong một tệp hoặc tách riêng. Miễn phí, tức thì và không cần cài đặt.',
+        'Chọn những trang bạn cần và lưu thành PDF mới, gộp trong một tệp hoặc tách riêng.',
       tagline: 'Chọn những trang cần thiết và lưu thành PDF mới.',
       steps: [
         'Chọn một tệp PDF.',
@@ -392,9 +412,9 @@ export const vi: Dictionary = {
     },
     compress: {
       name: 'Nén PDF',
-      title: 'Nén PDF - Giảm dung lượng tệp PDF trực tuyến',
+      title: 'Nén PDF miễn phí, không cần đăng ký - Giảm dung lượng tệp',
       description:
-        'Giảm dung lượng PDF bằng cách tối ưu hình ảnh bên trong — lý tưởng cho tệp đính kèm email và giới hạn tải lên. Chữ vẫn sắc nét và tìm kiếm được. Miễn phí, ngay trong trình duyệt.',
+        'Giảm dung lượng PDF bằng cách tối ưu hình ảnh bên trong — lý tưởng cho tệp đính kèm email và giới hạn tải lên.',
       tagline: 'Tối ưu ảnh chụp và bản scan trong PDF để giảm dung lượng.',
       steps: [
         'Chọn tệp PDF bạn muốn nén.',
@@ -439,9 +459,9 @@ export const vi: Dictionary = {
     },
     'jpg-to-pdf': {
       name: 'JPG sang PDF',
-      title: 'JPG sang PDF - Chuyển hình ảnh và ảnh chụp thành PDF',
+      title: 'JPG sang PDF miễn phí, không cần đăng ký - Chuyển ảnh thành PDF',
       description:
-        'Chuyển ảnh JPG, PNG, WebP và các định dạng khác thành PDF. Ghép nhiều ảnh vào một tệp và chọn thứ tự, khổ giấy, hướng trang và lề. Miễn phí, nhanh chóng, không tải lên.',
+        'Chuyển ảnh JPG, PNG, WebP và các định dạng khác thành PDF.',
       tagline: 'Biến ảnh chụp và hình ảnh thành một PDF theo thứ tự bạn muốn.',
       steps: [
         'Chọn các hình ảnh (JPG, PNG, v.v.) cần chuyển đổi.',
@@ -482,9 +502,9 @@ export const vi: Dictionary = {
     },
     'pdf-to-jpg': {
       name: 'PDF sang JPG',
-      title: 'PDF sang JPG - Chuyển trang PDF thành ảnh chất lượng cao',
+      title: 'PDF sang JPG miễn phí, không cần đăng ký - Chuyển trang thành ảnh',
       description:
-        'Chuyển từng trang PDF thành ảnh JPG hoặc PNG. Chọn độ phân giải (DPI) và tải nhiều trang cùng lúc dưới dạng ZIP. Miễn phí, không cần cài đặt.',
+        'Chuyển từng trang PDF thành ảnh JPG hoặc PNG.',
       tagline: 'Lưu các trang PDF thành ảnh JPG hoặc PNG.',
       steps: [
         'Chọn tệp PDF bạn muốn chuyển đổi.',
@@ -519,9 +539,9 @@ export const vi: Dictionary = {
     },
     watermark: {
       name: 'Thêm hình mờ',
-      title: 'Thêm hình mờ vào PDF - Hình mờ bằng chữ hoặc logo',
+      title: 'Thêm hình mờ vào PDF miễn phí, không cần đăng ký',
       description:
-        'Đóng chữ như “MẬT” hay “BẢN MẪU”, hoặc logo của bạn lên các trang PDF. Điều chỉnh độ mờ, kích thước, góc và kiểu lặp với bản xem trước trực tiếp. Miễn phí.',
+        'Đóng chữ như “MẬT” hay “BẢN MẪU”, hoặc logo của bạn lên các trang PDF.',
       tagline: 'Đóng chữ hoặc logo lên trang với độ mờ và góc tùy ý.',
       steps: [
         'Chọn tệp PDF cần thêm hình mờ.',
@@ -568,9 +588,9 @@ export const vi: Dictionary = {
     },
     'page-numbers': {
       name: 'Đánh số trang',
-      title: 'Đánh số trang PDF - Thêm số trang tự động',
+      title: 'Đánh số trang PDF miễn phí, không cần đăng ký',
       description:
-        'Tự động thêm số trang vào PDF. Chọn một trong sáu vị trí, định dạng (1, 1 / 10, Page 1…), số bắt đầu và cỡ chữ, đồng thời có thể bỏ qua trang bìa.',
+        'Tự động thêm số trang vào PDF.',
       tagline: 'Đánh số trang theo vị trí và định dạng bạn chọn.',
       steps: [
         'Chọn một tệp PDF.',
@@ -617,9 +637,9 @@ export const vi: Dictionary = {
     },
     protect: {
       name: 'Bảo vệ PDF',
-      title: 'Bảo vệ PDF - Đặt mật khẩu cho PDF (AES-256)',
+      title: 'Bảo vệ PDF bằng mật khẩu miễn phí, không cần đăng ký',
       description:
-        'Bảo vệ PDF bằng mật khẩu mở tệp với mã hóa AES-256 mạnh mẽ, và tùy chọn hạn chế in, sao chép, chỉnh sửa. Tệp của bạn không bao giờ bị tải lên.',
+        'Bảo vệ PDF bằng mật khẩu mở tệp với mã hóa AES-256 mạnh mẽ, và tùy chọn hạn chế in, sao chép, chỉnh sửa.',
       tagline: 'Khóa PDF bằng mật khẩu với mã hóa AES-256.',
       steps: [
         'Chọn tệp PDF bạn muốn bảo vệ.',
@@ -658,9 +678,9 @@ export const vi: Dictionary = {
     },
     unlock: {
       name: 'Mở khóa PDF',
-      title: 'Mở khóa PDF - Gỡ mật khẩu và hạn chế khỏi PDF',
+      title: 'Mở khóa PDF miễn phí, không cần đăng ký - Gỡ mật khẩu',
       description:
-        'Gỡ mật khẩu khỏi PDF mà bạn mở được để không phải nhập mỗi lần. Đồng thời gỡ bỏ hạn chế in và sao chép. Miễn phí, và tệp không bao giờ bị tải lên.',
+        'Gỡ mật khẩu khỏi PDF mà bạn mở được để không phải nhập mỗi lần.',
       tagline: 'Gỡ mật khẩu bạn đã biết và bỏ hạn chế in, sao chép.',
       steps: [
         'Chọn tệp PDF được bảo vệ.',

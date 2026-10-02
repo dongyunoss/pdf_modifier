@@ -4,7 +4,7 @@ export const it: Dictionary = {
   site: {
     tagline: 'Editor PDF online gratuito',
     description:
-      'Unisci, dividi, organizza, comprimi e converti file PDF gratis, senza registrazione e senza installare nulla. I tuoi file non lasciano mai il dispositivo: tutto viene elaborato in modo sicuro nel browser.',
+      'Unisci, dividi, organizza, comprimi e converti file PDF gratis, senza registrazione, senza limiti e senza installare nulla. I tuoi file non lasciano mai il dispositivo: tutto viene elaborato in modo sicuro nel browser.',
   },
   nav: {
     allTools: 'Tutti gli strumenti',
@@ -25,10 +25,9 @@ export const it: Dictionary = {
     security: 'Sicurezza',
   },
   home: {
-    title: 'Editor PDF gratuito - Unisci, dividi, organizza, comprimi e converti',
-    h1: 'Tutti gli strumenti PDF che ti servono, nel browser',
+    title: 'Editor PDF gratis e senza registrazione - Unisci, dividi, comprimi',
+    h1: 'Tutti gli strumenti PDF, gratis e senza registrazione',
     lead: 'Unisci, dividi, riordina, comprimi, converti, aggiungi filigrane e proteggi i PDF con password. Tutti gli strumenti sono gratuiti e i file vengono elaborati sul tuo dispositivo: non vengono mai caricati.',
-    badges: ['100% gratuito', 'Senza registrazione', 'Nessun caricamento', 'Computer e smartphone'],
     toolsTitle: 'Tutti gli strumenti PDF',
     whyTitle: 'Perché fidarsi',
     why: [
@@ -49,11 +48,28 @@ export const it: Dictionary = {
         body: 'Windows, macOS, Android o iPhone: basta un browser aggiornato. Non c’è nulla da installare.',
       },
     ],
+    compare: {
+      title: 'Gratis, senza condizioni nascoste',
+      lead: 'I tuoi file non vengono mai inviati a un server, quindi gestire questo sito non costa quasi nulla. Per questo tutti gli strumenti sono gratuiti e finanziati dalla pubblicità: non esiste un piano a pagamento.',
+      item: 'Cosa ottieni',
+      others: 'Siti PDF online comuni',
+      rows: [
+        { label: 'Registrazione / accesso', others: 'Spesso richiesti per salvare i file o continuare a usarli', us: 'Non serve' },
+        { label: 'Uso giornaliero', others: 'I piani gratuiti spesso consentono poche operazioni al giorno', us: 'Illimitato' },
+        { label: 'Funzioni a pagamento', others: 'Gli strumenti avanzati richiedono un abbonamento', us: 'Nessuna: tutto è gratis' },
+        { label: 'Filigrana sul risultato', others: 'Alcune versioni gratuite la aggiungono', us: 'Mai aggiunta' },
+        { label: 'Dove vengono elaborati i file', others: 'Caricati sui server dell’azienda', us: 'Sul tuo dispositivo (nessun caricamento)' },
+      ],
+    },
     faqTitle: 'Domande frequenti',
     faq: [
       {
         q: 'È davvero gratuito?',
         a: 'Sì. Tutte le funzioni sono gratuite, senza filigrane e senza limiti di utilizzo. Il sito è sostenuto dagli annunci mostrati nella pagina.',
+      },
+      {
+        q: 'Devo registrarmi o accedere?',
+        a: 'No. Non ci sono account, quindi non devi registrarti e non ti chiediamo mai l’e-mail. Apri la pagina e tutti gli strumenti sono pronti all’uso.',
       },
       {
         q: 'I miei file vengono salvati su un server?',
@@ -69,11 +85,14 @@ export const it: Dictionary = {
       },
     ],
   },
+  promise: {
+    points: ['Tutto gratis', 'Senza registrazione', 'Senza limiti', 'Nessun caricamento'],
+    sentence: 'Gratis, senza registrazione né limiti, e i tuoi file non vengono mai caricati.',
+  },
   toolPage: {
     howToTitle: 'Come usare «{tool}»',
     faqTitle: 'Domande frequenti',
     relatedTitle: 'Strumenti correlati',
-    highlights: ['Gratuito', 'Nessun caricamento', 'Nessuna installazione'],
   },
   footer: {
     tagline: 'Strumenti PDF gratuiti che funzionano nel browser',
@@ -96,6 +115,7 @@ export const it: Dictionary = {
     chooseImages: 'Seleziona immagini',
     addFiles: 'Aggiungi file',
     localOnly: 'I file vengono elaborati in questo browser e non vengono mai caricati.',
+    startPromise: 'Inizia subito: gratis, senza registrazione e senza limiti.',
     loading: 'Caricamento…',
     processing: 'Elaborazione…',
     processingPercent: 'Elaborazione… {percent}%',
@@ -179,9 +199,9 @@ export const it: Dictionary = {
   tools: {
     merge: {
       name: 'Unisci PDF',
-      title: 'Unisci PDF - Combina più file PDF in uno solo gratis',
+      title: 'Unisci PDF gratis e senza registrazione',
       description:
-        'Combina più file PDF in un unico documento nell’ordine che preferisci. Gratis, senza registrazione, e i file vengono elaborati nel browser: non vengono mai caricati.',
+        'Combina più file PDF in un unico documento nell’ordine che preferisci.',
       tagline: 'Combina più PDF in un unico file, nell’ordine che preferisci.',
       steps: [
         'Seleziona i file PDF o trascinali nel riquadro.',
@@ -213,9 +233,9 @@ export const it: Dictionary = {
     },
     split: {
       name: 'Dividi PDF',
-      title: 'Dividi PDF - Separa le pagine o estrai intervalli di pagine',
+      title: 'Dividi PDF gratis e senza registrazione',
       description:
-        'Dividi un PDF per intervalli di pagine, ogni N pagine o in pagine singole. Gratis e immediato: tutto viene eseguito nel browser senza caricare il file.',
+        'Dividi un PDF per intervalli di pagine, ogni N pagine o in pagine singole.',
       tagline: 'Dividi un PDF in più file per intervalli o a intervalli regolari.',
       steps: [
         'Seleziona il PDF da dividere.',
@@ -251,9 +271,9 @@ export const it: Dictionary = {
     },
     organize: {
       name: 'Organizza PDF',
-      title: 'Organizza PDF - Riordina, ruota, elimina e inserisci pagine',
+      title: 'Organizza PDF gratis e senza registrazione - Riordina le pagine',
       description:
-        'Guarda le anteprime delle pagine e trascinale per riordinarle, ruotale, eliminale o duplicale, aggiungi pagine vuote o inserisci pagine da altri PDF. Gratis, e i tuoi file non vengono mai caricati.',
+        'Guarda le anteprime delle pagine e trascinale per riordinarle, ruotale, eliminale o duplicale, aggiungi pagine vuote o inserisci pagine da altri PDF.',
       tagline: 'Riordina, ruota, elimina, duplica e inserisci pagine con anteprima dal vivo.',
       steps: [
         'Seleziona un PDF. Aggiungi altri file per combinare pagine di più documenti.',
@@ -292,9 +312,9 @@ export const it: Dictionary = {
     },
     rotate: {
       name: 'Ruota PDF',
-      title: 'Ruota PDF - Ruota le pagine di un PDF di 90° o 180°',
+      title: 'Ruota PDF gratis e senza registrazione',
       description:
-        'Ruota tutte le pagine o solo quelle che scegli di 90° o 180° e salva il risultato. Perfetto per correggere scansioni storte. Gratis e privato: nessun caricamento.',
+        'Ruota tutte le pagine o solo quelle che scegli di 90° o 180° e salva il risultato.',
       tagline: 'Raddrizza l’intero documento o solo le pagine che scegli.',
       steps: [
         'Seleziona il PDF da ruotare.',
@@ -326,9 +346,9 @@ export const it: Dictionary = {
     },
     'delete-pages': {
       name: 'Elimina pagine PDF',
-      title: 'Elimina pagine PDF - Rimuovi pagine da un PDF',
+      title: 'Elimina pagine PDF gratis e senza registrazione',
       description:
-        'Scegli dalle anteprime le pagine che non ti servono e rimuovile dal PDF. Puoi anche digitare i numeri di pagina. Gratis, e il file non lascia mai il browser.',
+        'Scegli dalle anteprime le pagine che non ti servono e rimuovile dal PDF.',
       tagline: 'Rimuovi in modo pulito le pagine inutili da un PDF.',
       steps: [
         'Seleziona un file PDF.',
@@ -358,9 +378,9 @@ export const it: Dictionary = {
     },
     'extract-pages': {
       name: 'Estrai pagine PDF',
-      title: 'Estrai pagine PDF - Salva le pagine scelte in un nuovo PDF',
+      title: 'Estrai pagine PDF gratis e senza registrazione',
       description:
-        'Seleziona le pagine che ti servono e salvale in un nuovo PDF, tutte in un unico file o separate. Gratis e immediato, senza installazione.',
+        'Seleziona le pagine che ti servono e salvale in un nuovo PDF, tutte in un unico file o separate.',
       tagline: 'Scegli le pagine che ti servono e salvale in un nuovo PDF.',
       steps: [
         'Seleziona un file PDF.',
@@ -392,9 +412,9 @@ export const it: Dictionary = {
     },
     compress: {
       name: 'Comprimi PDF',
-      title: 'Comprimi PDF - Riduci le dimensioni di un PDF online',
+      title: 'Comprimi PDF gratis e senza registrazione - Riduci le dimensioni',
       description:
-        'Riduci le dimensioni dei PDF ottimizzando le immagini contenute: ideale per allegati email e limiti di caricamento. Il testo resta nitido e ricercabile. Gratis, direttamente nel browser.',
+        'Riduci le dimensioni dei PDF ottimizzando le immagini contenute: ideale per allegati email e limiti di caricamento.',
       tagline: 'Ottimizza foto e scansioni di un PDF per ridurne le dimensioni.',
       steps: [
         'Seleziona il PDF da comprimere.',
@@ -439,9 +459,9 @@ export const it: Dictionary = {
     },
     'jpg-to-pdf': {
       name: 'Da JPG a PDF',
-      title: 'Da JPG a PDF - Converti immagini e foto in PDF',
+      title: 'Da JPG a PDF gratis e senza registrazione',
       description:
-        'Converti immagini JPG, PNG, WebP e altre in PDF. Unisci molte immagini in un solo file e scegli ordine, formato della pagina, orientamento e margini. Gratis e veloce, senza caricamenti.',
+        'Converti immagini JPG, PNG, WebP e altre in PDF.',
       tagline: 'Trasforma foto e immagini in un unico PDF, nell’ordine che preferisci.',
       steps: [
         'Seleziona le immagini (JPG, PNG e altre) da convertire.',
@@ -482,9 +502,9 @@ export const it: Dictionary = {
     },
     'pdf-to-jpg': {
       name: 'Da PDF a JPG',
-      title: 'Da PDF a JPG - Converti le pagine PDF in immagini di alta qualità',
+      title: 'Da PDF a JPG gratis e senza registrazione',
       description:
-        'Converti ogni pagina di un PDF in un’immagine JPG o PNG. Scegli la risoluzione (DPI) e scarica più pagine insieme in un archivio ZIP. Gratis, senza installare nulla.',
+        'Converti ogni pagina di un PDF in un’immagine JPG o PNG.',
       tagline: 'Salva le pagine di un PDF come immagini JPG o PNG.',
       steps: [
         'Seleziona il PDF da convertire.',
@@ -519,9 +539,9 @@ export const it: Dictionary = {
     },
     watermark: {
       name: 'Aggiungi filigrana',
-      title: 'Aggiungi filigrana al PDF - Testo o logo',
+      title: 'Aggiungi filigrana al PDF gratis e senza registrazione',
       description:
-        'Applica alle pagine del PDF un testo come «RISERVATO» o «CAMPIONE», oppure il tuo logo. Regola opacità, dimensione, angolazione e ripetizione con l’anteprima dal vivo. Gratis.',
+        'Applica alle pagine del PDF un testo come «RISERVATO» o «CAMPIONE», oppure il tuo logo.',
       tagline: 'Applica un testo o un logo alle pagine con l’opacità e l’angolazione che preferisci.',
       steps: [
         'Seleziona il PDF a cui aggiungere la filigrana.',
@@ -568,9 +588,9 @@ export const it: Dictionary = {
     },
     'page-numbers': {
       name: 'Aggiungi numeri di pagina',
-      title: 'Numera pagine PDF - Aggiungi numeri di pagina automaticamente',
+      title: 'Numera pagine PDF gratis e senza registrazione',
       description:
-        'Aggiungi automaticamente i numeri di pagina a un PDF. Scegli una delle sei posizioni, un formato (1, 1 / 10, Page 1…), il numero iniziale e la dimensione del carattere, e salta la copertina se serve.',
+        'Aggiungi automaticamente i numeri di pagina a un PDF.',
       tagline: 'Numera le pagine con la posizione e il formato che scegli.',
       steps: [
         'Seleziona un file PDF.',
@@ -617,9 +637,9 @@ export const it: Dictionary = {
     },
     protect: {
       name: 'Proteggi PDF',
-      title: 'Proteggi PDF - Aggiungi una password al PDF (AES-256)',
+      title: 'Proteggi PDF con password gratis e senza registrazione',
       description:
-        'Proteggi un PDF con una password di apertura e una robusta cifratura AES-256 e, se vuoi, limita stampa, copia e modifica. Il tuo file non viene mai caricato.',
+        'Proteggi un PDF con una password di apertura e una robusta cifratura AES-256 e, se vuoi, limita stampa, copia e modifica.',
       tagline: 'Blocca un PDF con una password usando la cifratura AES-256.',
       steps: [
         'Seleziona il PDF da proteggere.',
@@ -658,9 +678,9 @@ export const it: Dictionary = {
     },
     unlock: {
       name: 'Sblocca PDF',
-      title: 'Sblocca PDF - Rimuovi password e restrizioni da un PDF',
+      title: 'Sblocca PDF gratis e senza registrazione - Rimuovi la password',
       description:
-        'Rimuovi la password da un PDF che puoi aprire, così non dovrai digitarla ogni volta. Rimuove anche le restrizioni di stampa e copia. Gratis, e il tuo file non viene mai caricato.',
+        'Rimuovi la password da un PDF che puoi aprire, così non dovrai digitarla ogni volta.',
       tagline: 'Rimuovi una password nota e togli le restrizioni di stampa e copia.',
       steps: [
         'Seleziona il file PDF protetto.',

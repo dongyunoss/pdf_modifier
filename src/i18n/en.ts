@@ -4,7 +4,7 @@ export const en: Dictionary = {
   site: {
     tagline: 'Free online PDF editor',
     description:
-      'Merge, split, organize, compress and convert PDF files for free — no sign-up, no install. Files never leave your device: everything runs securely in your browser.',
+      'Merge, split, organize, compress and convert PDF files for free — no sign-up, no limits, no install. Files never leave your device: everything runs securely in your browser.',
   },
   nav: {
     allTools: 'All tools',
@@ -25,10 +25,9 @@ export const en: Dictionary = {
     security: 'Security',
   },
   home: {
-    title: 'Free PDF Editor - Merge, Split, Organize, Compress & Convert',
-    h1: 'Every PDF tool you need, right in your browser',
+    title: 'Free PDF Editor, No Sign-Up - Merge, Split, Compress & Convert',
+    h1: 'Every PDF tool, free — no sign-up needed',
     lead: 'Merge, split, reorder, compress, convert, watermark and password-protect PDFs. Every tool is free, and your files are processed on your own device — they are never uploaded.',
-    badges: ['100% free', 'No sign-up', 'No uploads', 'Desktop & mobile'],
     toolsTitle: 'All PDF tools',
     whyTitle: 'Why people trust it',
     why: [
@@ -49,11 +48,28 @@ export const en: Dictionary = {
         body: 'Windows, macOS, Android or iPhone — all you need is a modern browser. Nothing to install.',
       },
     ],
+    compare: {
+      title: 'Free, with no strings attached',
+      lead: 'Your files are never sent to a server, so running this site costs almost nothing. That’s why every tool is free and paid for by ads — there is no paid plan.',
+      item: 'What you get',
+      others: 'Typical online PDF sites',
+      rows: [
+        { label: 'Sign-up / login', others: 'Often required to save files or keep using the tools', us: 'Not needed' },
+        { label: 'Daily usage', others: 'Free plans often allow only a few tasks a day', us: 'Unlimited' },
+        { label: 'Paid-only features', others: 'Advanced tools are locked behind a subscription', us: 'None — every tool is free' },
+        { label: 'Watermark on results', others: 'Some free versions add one', us: 'Never added' },
+        { label: 'Where files are processed', others: 'Uploaded to the company’s servers', us: 'On your device (no uploads)' },
+      ],
+    },
     faqTitle: 'Frequently asked questions',
     faq: [
       {
         q: 'Is it really free?',
         a: 'Yes. Every feature is free, with no watermarks and no usage limits. The site is supported by the ads shown on the page.',
+      },
+      {
+        q: 'Do I need to sign up or log in?',
+        a: 'No. There are no accounts, so there’s nothing to sign up for and we never ask for your email. Open the page and every tool is ready to use.',
       },
       {
         q: 'Are my files stored on a server?',
@@ -69,11 +85,14 @@ export const en: Dictionary = {
       },
     ],
   },
+  promise: {
+    points: ['Every tool free', 'No sign-up', 'No limits', 'No uploads'],
+    sentence: 'Free with no sign-up and no limits — your files are never uploaded.',
+  },
   toolPage: {
     howToTitle: 'How to use {tool}',
     faqTitle: 'Frequently asked questions',
     relatedTitle: 'Related tools',
-    highlights: ['Free', 'No uploads', 'No install'],
   },
   footer: {
     tagline: 'Free PDF tools that run in your browser',
@@ -96,6 +115,7 @@ export const en: Dictionary = {
     chooseImages: 'Select images',
     addFiles: 'Add files',
     localOnly: 'Files are processed in this browser and never uploaded.',
+    startPromise: 'Start right away — free, no sign-up, no limits.',
     loading: 'Loading…',
     processing: 'Processing…',
     processingPercent: 'Processing… {percent}%',
@@ -179,9 +199,9 @@ export const en: Dictionary = {
   tools: {
     merge: {
       name: 'Merge PDF',
-      title: 'Merge PDF - Combine PDF Files into One for Free',
+      title: 'Merge PDF - Combine PDF Files Free, No Sign-Up',
       description:
-        'Combine multiple PDF files into one document in the order you want. Free, no sign-up, and your files are processed in your browser — never uploaded.',
+        'Combine multiple PDF files into one document in the order you want.',
       tagline: 'Combine several PDFs into one file, in any order.',
       steps: [
         'Select PDF files or drop them into the box.',
@@ -213,9 +233,9 @@ export const en: Dictionary = {
     },
     split: {
       name: 'Split PDF',
-      title: 'Split PDF - Separate PDF Pages or Extract Page Ranges',
+      title: 'Split PDF - Separate PDF Pages Free, No Sign-Up',
       description:
-        'Split a PDF by page ranges, every N pages, or into single pages. Free and instant — everything runs in your browser without uploading your file.',
+        'Split a PDF by page ranges, every N pages, or into single pages.',
       tagline: 'Divide a PDF into several files by ranges or at regular intervals.',
       steps: [
         'Select the PDF you want to split.',
@@ -251,9 +271,9 @@ export const en: Dictionary = {
     },
     organize: {
       name: 'Organize PDF',
-      title: 'Organize PDF - Reorder, Rotate, Delete & Insert Pages',
+      title: 'Organize PDF - Reorder & Delete Pages Free, No Sign-Up',
       description:
-        'See page previews and drag to reorder, rotate, delete or duplicate pages, add blank pages, or insert pages from other PDFs. Free, and your files are never uploaded.',
+        'See page previews and drag to reorder, rotate, delete or duplicate pages, add blank pages, or insert pages from other PDFs.',
       tagline: 'Reorder, rotate, delete, duplicate and insert pages with live previews.',
       steps: [
         'Select a PDF. Add more files to mix pages from several documents.',
@@ -292,9 +312,9 @@ export const en: Dictionary = {
     },
     rotate: {
       name: 'Rotate PDF',
-      title: 'Rotate PDF - Turn PDF Pages 90° or 180°',
+      title: 'Rotate PDF - Turn PDF Pages Free, No Sign-Up',
       description:
-        'Rotate all pages or just the ones you choose by 90° or 180° and save the result. Perfect for fixing sideways scans. Free and private — no uploads.',
+        'Rotate all pages or just the ones you choose by 90° or 180° and save the result.',
       tagline: 'Turn the whole document or selected pages the right way up.',
       steps: [
         'Select the PDF you want to rotate.',
@@ -326,9 +346,9 @@ export const en: Dictionary = {
     },
     'delete-pages': {
       name: 'Delete PDF Pages',
-      title: 'Delete PDF Pages - Remove Pages from a PDF',
+      title: 'Delete PDF Pages - Remove Pages Free, No Sign-Up',
       description:
-        'Pick the pages you don’t need from the previews and remove them from your PDF. You can also type page numbers to select them. Free, and your file never leaves your browser.',
+        'Pick the pages you don’t need from the previews and remove them from your PDF.',
       tagline: 'Remove unwanted pages from a PDF cleanly.',
       steps: [
         'Select a PDF file.',
@@ -358,9 +378,9 @@ export const en: Dictionary = {
     },
     'extract-pages': {
       name: 'Extract PDF Pages',
-      title: 'Extract PDF Pages - Save Selected Pages as a New PDF',
+      title: 'Extract PDF Pages - Save Selected Pages Free, No Sign-Up',
       description:
-        'Select the pages you need and save them as a new PDF, either combined in one file or as separate files. Free and instant, with no installation.',
+        'Select the pages you need and save them as a new PDF, either combined in one file or as separate files.',
       tagline: 'Pick the pages you need and save them as a new PDF.',
       steps: [
         'Select a PDF file.',
@@ -392,9 +412,9 @@ export const en: Dictionary = {
     },
     compress: {
       name: 'Compress PDF',
-      title: 'Compress PDF - Reduce PDF File Size Online',
+      title: 'Compress PDF - Reduce PDF File Size Free, No Sign-Up',
       description:
-        'Shrink PDF files by optimizing the images inside them — ideal for email attachments and upload limits. Text stays sharp and searchable. Free, right in your browser.',
+        'Shrink PDF files by optimizing the images inside them — ideal for email attachments and upload limits.',
       tagline: 'Optimize photos and scans inside a PDF to reduce its size.',
       steps: [
         'Select the PDF you want to compress.',
@@ -439,9 +459,9 @@ export const en: Dictionary = {
     },
     'jpg-to-pdf': {
       name: 'JPG to PDF',
-      title: 'JPG to PDF - Convert Images and Photos to PDF',
+      title: 'JPG to PDF - Convert Images to PDF Free, No Sign-Up',
       description:
-        'Convert JPG, PNG, WebP and other images to PDF. Combine many images into one file and choose the order, page size, orientation and margins. Free and fast, with no uploads.',
+        'Convert JPG, PNG, WebP and other images to PDF.',
       tagline: 'Turn photos and images into a single PDF in the order you want.',
       steps: [
         'Select the images (JPG, PNG and more) to convert.',
@@ -482,9 +502,9 @@ export const en: Dictionary = {
     },
     'pdf-to-jpg': {
       name: 'PDF to JPG',
-      title: 'PDF to JPG - Convert PDF Pages to High-Quality Images',
+      title: 'PDF to JPG - Convert PDF Pages to Images Free, No Sign-Up',
       description:
-        'Convert each PDF page to a JPG or PNG image. Choose the resolution (DPI) and download multiple pages at once as a ZIP. Free, with nothing to install.',
+        'Convert each PDF page to a JPG or PNG image.',
       tagline: 'Save PDF pages as JPG or PNG images.',
       steps: [
         'Select the PDF you want to convert.',
@@ -519,9 +539,9 @@ export const en: Dictionary = {
     },
     watermark: {
       name: 'Add Watermark',
-      title: 'Add Watermark to PDF - Text or Logo Watermarks',
+      title: 'Add Watermark to PDF - Text or Logo, Free, No Sign-Up',
       description:
-        'Stamp text such as “CONFIDENTIAL” or “SAMPLE”, or your logo, onto PDF pages. Adjust opacity, size, angle and tiling with a live preview. Free.',
+        'Stamp text such as “CONFIDENTIAL” or “SAMPLE”, or your logo, onto PDF pages.',
       tagline: 'Stamp text or a logo onto pages with the opacity and angle you like.',
       steps: [
         'Select the PDF to watermark.',
@@ -568,9 +588,9 @@ export const en: Dictionary = {
     },
     'page-numbers': {
       name: 'Add Page Numbers',
-      title: 'Add Page Numbers to PDF - Number Pages Automatically',
+      title: 'Add Page Numbers to PDF - Free, No Sign-Up',
       description:
-        'Add page numbers to a PDF automatically. Choose one of six positions, a format (1, 1 / 10, Page 1…), the starting number and font size, and skip the cover page if needed.',
+        'Add page numbers to a PDF automatically.',
       tagline: 'Number your pages with the position and format you choose.',
       steps: [
         'Select a PDF file.',
@@ -617,9 +637,9 @@ export const en: Dictionary = {
     },
     protect: {
       name: 'Protect PDF',
-      title: 'Protect PDF - Add a Password to PDF (AES-256)',
+      title: 'Protect PDF - Add a Password Free, No Sign-Up',
       description:
-        'Protect a PDF with an open password using strong AES-256 encryption, and optionally restrict printing, copying and editing. Your file is never uploaded.',
+        'Protect a PDF with an open password using strong AES-256 encryption, and optionally restrict printing, copying and editing.',
       tagline: 'Lock a PDF with a password using AES-256 encryption.',
       steps: [
         'Select the PDF to protect.',
@@ -658,9 +678,9 @@ export const en: Dictionary = {
     },
     unlock: {
       name: 'Unlock PDF',
-      title: 'Unlock PDF - Remove PDF Password and Restrictions',
+      title: 'Unlock PDF - Remove a PDF Password Free, No Sign-Up',
       description:
-        'Remove the password from a PDF you can open, so you don’t have to type it every time. Also removes printing and copying restrictions. Free, and your file is never uploaded.',
+        'Remove the password from a PDF you can open, so you don’t have to type it every time.',
       tagline: 'Remove a known password and lift print/copy restrictions.',
       steps: [
         'Select the protected PDF file.',

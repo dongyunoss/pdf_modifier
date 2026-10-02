@@ -3,6 +3,7 @@ import preact from '@astrojs/preact';
 import sitemap from '@astrojs/sitemap';
 import { defineConfig } from 'astro/config';
 import { loadEnv } from 'vite';
+import { CONTENT_UPDATED } from './src/config/content.ts';
 import { DEFAULT_LANG, LANGS, LANGUAGES } from './src/i18n/languages.ts';
 
 // .env 파일과 호스팅 플랫폼(Cloudflare Pages 등)의 환경변수를 모두 읽습니다.
@@ -23,6 +24,8 @@ export default defineConfig({
         locales: Object.fromEntries(LANGS.map((code) => [code, LANGUAGES[code].htmlLang])),
       },
       filter: (page) => !/\/404\/?$/.test(page),
+      // 페이지 내용을 크게 바꾼 날짜 (src/config/content.ts). 검색엔진이 다시 읽어 갈 페이지를 고르는 데 씁니다.
+      lastmod: new Date(CONTENT_UPDATED),
     }),
   ],
   vite: {

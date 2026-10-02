@@ -4,7 +4,7 @@ export const de: Dictionary = {
   site: {
     tagline: 'Kostenloser Online-PDF-Editor',
     description:
-      'PDF-Dateien kostenlos zusammenfügen, teilen, organisieren, komprimieren und umwandeln – ohne Anmeldung und ohne Installation. Ihre Dateien verlassen nie Ihr Gerät: Alles wird sicher in Ihrem Browser verarbeitet.',
+      'PDF-Dateien kostenlos zusammenfügen, teilen, organisieren, komprimieren und umwandeln – ohne Anmeldung, ohne Limits und ohne Installation. Ihre Dateien verlassen nie Ihr Gerät: Alles wird sicher in Ihrem Browser verarbeitet.',
   },
   nav: {
     allTools: 'Alle Tools',
@@ -25,10 +25,9 @@ export const de: Dictionary = {
     security: 'Sicherheit',
   },
   home: {
-    title: 'Kostenloser PDF-Editor – Zusammenfügen, teilen, organisieren, komprimieren und umwandeln',
-    h1: 'Alle PDF-Tools, die Sie brauchen – direkt im Browser',
+    title: 'Kostenloser PDF-Editor ohne Anmeldung – Zusammenfügen, teilen, komprimieren',
+    h1: 'Alle PDF-Tools kostenlos – ohne Anmeldung',
     lead: 'PDFs zusammenfügen, teilen, neu anordnen, komprimieren, umwandeln, mit Wasserzeichen versehen und mit einem Passwort schützen. Alle Tools sind kostenlos, und Ihre Dateien werden auf Ihrem eigenen Gerät verarbeitet – sie werden nie hochgeladen.',
-    badges: ['100 % kostenlos', 'Ohne Anmeldung', 'Kein Upload', 'Computer und Smartphone'],
     toolsTitle: 'Alle PDF-Tools',
     whyTitle: 'Warum Sie uns vertrauen können',
     why: [
@@ -49,11 +48,28 @@ export const de: Dictionary = {
         body: 'Windows, macOS, Android oder iPhone – Sie brauchen nur einen aktuellen Browser. Nichts zu installieren.',
       },
     ],
+    compare: {
+      title: 'Kostenlos – ohne versteckte Bedingungen',
+      lead: 'Ihre Dateien werden nie an einen Server gesendet, deshalb kostet der Betrieb dieser Seite fast nichts. Darum sind alle Tools kostenlos und werden durch Werbung finanziert – ein Bezahl-Abo gibt es nicht.',
+      item: 'Was Sie bekommen',
+      others: 'Übliche Online-PDF-Seiten',
+      rows: [
+        { label: 'Registrierung / Anmeldung', others: 'Oft nötig, um Dateien zu speichern oder weiterzuarbeiten', us: 'Nicht nötig' },
+        { label: 'Tägliche Nutzung', others: 'Gratis-Versionen erlauben oft nur wenige Aufgaben pro Tag', us: 'Unbegrenzt' },
+        { label: 'Kostenpflichtige Funktionen', others: 'Erweiterte Tools nur im Abo', us: 'Keine – alles kostenlos' },
+        { label: 'Wasserzeichen im Ergebnis', others: 'Manche Gratis-Versionen fügen eines hinzu', us: 'Nie' },
+        { label: 'Wo Dateien verarbeitet werden', others: 'Auf die Server des Anbieters hochgeladen', us: 'Auf Ihrem Gerät (kein Upload)' },
+      ],
+    },
     faqTitle: 'Häufige Fragen',
     faq: [
       {
         q: 'Ist das wirklich kostenlos?',
         a: 'Ja. Alle Funktionen sind kostenlos, ohne Wasserzeichen und ohne Nutzungsgrenzen. Die Seite finanziert sich durch die angezeigte Werbung.',
+      },
+      {
+        q: 'Muss ich mich registrieren oder anmelden?',
+        a: 'Nein. Es gibt keine Konten – Sie müssen sich nirgends registrieren, und wir fragen nie nach Ihrer E-Mail-Adresse. Seite öffnen, und alle Tools sind sofort einsatzbereit.',
       },
       {
         q: 'Werden meine Dateien auf einem Server gespeichert?',
@@ -69,11 +85,14 @@ export const de: Dictionary = {
       },
     ],
   },
+  promise: {
+    points: ['Alles kostenlos', 'Ohne Anmeldung', 'Ohne Limits', 'Kein Upload'],
+    sentence: 'Kostenlos, ohne Anmeldung und ohne Limits – Ihre Dateien werden nie hochgeladen.',
+  },
   toolPage: {
     howToTitle: 'So funktioniert „{tool}“',
     faqTitle: 'Häufige Fragen',
     relatedTitle: 'Ähnliche Tools',
-    highlights: ['Kostenlos', 'Kein Upload', 'Keine Installation'],
   },
   footer: {
     tagline: 'Kostenlose PDF-Tools, die im Browser laufen',
@@ -96,6 +115,7 @@ export const de: Dictionary = {
     chooseImages: 'Bilder auswählen',
     addFiles: 'Dateien hinzufügen',
     localOnly: 'Die Dateien werden in diesem Browser verarbeitet und nie hochgeladen.',
+    startPromise: 'Sofort loslegen – kostenlos, ohne Anmeldung, ohne Limits.',
     loading: 'Wird geladen…',
     processing: 'Wird verarbeitet…',
     processingPercent: 'Wird verarbeitet… {percent} %',
@@ -179,9 +199,9 @@ export const de: Dictionary = {
   tools: {
     merge: {
       name: 'PDF zusammenfügen',
-      title: 'PDF zusammenfügen – Mehrere PDF-Dateien kostenlos zu einer kombinieren',
+      title: 'PDF zusammenfügen – kostenlos und ohne Anmeldung',
       description:
-        'Fügen Sie mehrere PDF-Dateien in der gewünschten Reihenfolge zu einem Dokument zusammen. Kostenlos, ohne Anmeldung, und Ihre Dateien werden im Browser verarbeitet – nie hochgeladen.',
+        'Fügen Sie mehrere PDF-Dateien in der gewünschten Reihenfolge zu einem Dokument zusammen.',
       tagline: 'Mehrere PDFs in beliebiger Reihenfolge zu einer Datei kombinieren.',
       steps: [
         'Wählen Sie PDF-Dateien aus oder ziehen Sie sie in das Feld.',
@@ -213,9 +233,9 @@ export const de: Dictionary = {
     },
     split: {
       name: 'PDF teilen',
-      title: 'PDF teilen – PDF-Seiten trennen oder Seitenbereiche extrahieren',
+      title: 'PDF teilen – kostenlos und ohne Anmeldung',
       description:
-        'Teilen Sie eine PDF-Datei nach Seitenbereichen, alle N Seiten oder in einzelne Seiten. Kostenlos und sofort – alles läuft in Ihrem Browser, ohne dass Ihre Datei hochgeladen wird.',
+        'Teilen Sie eine PDF-Datei nach Seitenbereichen, alle N Seiten oder in einzelne Seiten.',
       tagline: 'Eine PDF nach Bereichen oder in festen Abständen in mehrere Dateien aufteilen.',
       steps: [
         'Wählen Sie die PDF-Datei aus, die Sie teilen möchten.',
@@ -251,9 +271,9 @@ export const de: Dictionary = {
     },
     organize: {
       name: 'PDF organisieren',
-      title: 'PDF organisieren – Seiten sortieren, drehen, löschen und einfügen',
+      title: 'PDF organisieren – Seiten sortieren, kostenlos und ohne Anmeldung',
       description:
-        'Sehen Sie Seitenvorschauen und ziehen Sie Seiten, um sie neu anzuordnen, zu drehen, zu löschen oder zu duplizieren, fügen Sie leere Seiten oder Seiten aus anderen PDFs ein. Kostenlos, und Ihre Dateien werden nie hochgeladen.',
+        'Sehen Sie Seitenvorschauen und ziehen Sie Seiten, um sie neu anzuordnen, zu drehen, zu löschen oder zu duplizieren, fügen Sie leere Seiten oder Seiten aus anderen PDFs ein.',
       tagline: 'Seiten mit Live-Vorschau sortieren, drehen, löschen, duplizieren und einfügen.',
       steps: [
         'Wählen Sie eine PDF-Datei aus. Fügen Sie weitere Dateien hinzu, um Seiten aus mehreren Dokumenten zu kombinieren.',
@@ -292,9 +312,9 @@ export const de: Dictionary = {
     },
     rotate: {
       name: 'PDF drehen',
-      title: 'PDF drehen – PDF-Seiten um 90° oder 180° drehen',
+      title: 'PDF drehen – kostenlos und ohne Anmeldung',
       description:
-        'Drehen Sie alle Seiten oder nur ausgewählte Seiten um 90° oder 180° und speichern Sie das Ergebnis. Ideal, um schief eingescannte Dokumente zu korrigieren. Kostenlos und privat – ohne Upload.',
+        'Drehen Sie alle Seiten oder nur ausgewählte Seiten um 90° oder 180° und speichern Sie das Ergebnis.',
       tagline: 'Das ganze Dokument oder ausgewählte Seiten richtig herum drehen.',
       steps: [
         'Wählen Sie die PDF-Datei aus, die Sie drehen möchten.',
@@ -326,9 +346,9 @@ export const de: Dictionary = {
     },
     'delete-pages': {
       name: 'PDF-Seiten löschen',
-      title: 'PDF-Seiten löschen – Seiten aus einer PDF entfernen',
+      title: 'PDF-Seiten löschen – kostenlos und ohne Anmeldung',
       description:
-        'Wählen Sie in den Vorschauen die Seiten aus, die Sie nicht brauchen, und entfernen Sie sie aus Ihrer PDF. Sie können die Seiten auch über Seitenzahlen auswählen. Kostenlos, und Ihre Datei verlässt nie Ihren Browser.',
+        'Wählen Sie in den Vorschauen die Seiten aus, die Sie nicht brauchen, und entfernen Sie sie aus Ihrer PDF.',
       tagline: 'Unerwünschte Seiten sauber aus einer PDF entfernen.',
       steps: [
         'Wählen Sie eine PDF-Datei aus.',
@@ -358,9 +378,9 @@ export const de: Dictionary = {
     },
     'extract-pages': {
       name: 'PDF-Seiten extrahieren',
-      title: 'PDF-Seiten extrahieren – Ausgewählte Seiten als neue PDF speichern',
+      title: 'PDF-Seiten extrahieren – kostenlos und ohne Anmeldung',
       description:
-        'Wählen Sie die benötigten Seiten aus und speichern Sie sie als neue PDF – zusammen in einer Datei oder als einzelne Dateien. Kostenlos und sofort, ohne Installation.',
+        'Wählen Sie die benötigten Seiten aus und speichern Sie sie als neue PDF – zusammen in einer Datei oder als einzelne Dateien.',
       tagline: 'Die benötigten Seiten auswählen und als neue PDF speichern.',
       steps: [
         'Wählen Sie eine PDF-Datei aus.',
@@ -392,9 +412,9 @@ export const de: Dictionary = {
     },
     compress: {
       name: 'PDF komprimieren',
-      title: 'PDF komprimieren – PDF-Dateigröße online verkleinern',
+      title: 'PDF komprimieren – kostenlos und ohne Anmeldung verkleinern',
       description:
-        'Verkleinern Sie PDF-Dateien, indem die enthaltenen Bilder optimiert werden – ideal für E-Mail-Anhänge und Upload-Grenzen. Text bleibt scharf und durchsuchbar. Kostenlos, direkt im Browser.',
+        'Verkleinern Sie PDF-Dateien, indem die enthaltenen Bilder optimiert werden – ideal für E-Mail-Anhänge und Upload-Grenzen.',
       tagline: 'Fotos und Scans in einer PDF optimieren, um die Dateigröße zu verringern.',
       steps: [
         'Wählen Sie die PDF-Datei aus, die Sie komprimieren möchten.',
@@ -439,9 +459,9 @@ export const de: Dictionary = {
     },
     'jpg-to-pdf': {
       name: 'JPG in PDF',
-      title: 'JPG in PDF – Bilder und Fotos in PDF umwandeln',
+      title: 'JPG in PDF umwandeln – kostenlos und ohne Anmeldung',
       description:
-        'Wandeln Sie JPG, PNG, WebP und andere Bilder in PDF um. Kombinieren Sie viele Bilder in einer Datei und wählen Sie Reihenfolge, Seitenformat, Ausrichtung und Ränder. Kostenlos und schnell, ohne Upload.',
+        'Wandeln Sie JPG, PNG, WebP und andere Bilder in PDF um.',
       tagline: 'Fotos und Bilder in der gewünschten Reihenfolge zu einer PDF machen.',
       steps: [
         'Wählen Sie die Bilder (JPG, PNG und mehr) aus, die Sie umwandeln möchten.',
@@ -482,9 +502,9 @@ export const de: Dictionary = {
     },
     'pdf-to-jpg': {
       name: 'PDF in JPG',
-      title: 'PDF in JPG – PDF-Seiten in hochwertige Bilder umwandeln',
+      title: 'PDF in JPG umwandeln – kostenlos und ohne Anmeldung',
       description:
-        'Wandeln Sie jede PDF-Seite in ein JPG- oder PNG-Bild um. Wählen Sie die Auflösung (DPI) und laden Sie mehrere Seiten auf einmal als ZIP herunter. Kostenlos, ohne Installation.',
+        'Wandeln Sie jede PDF-Seite in ein JPG- oder PNG-Bild um.',
       tagline: 'PDF-Seiten als JPG- oder PNG-Bilder speichern.',
       steps: [
         'Wählen Sie die PDF-Datei aus, die Sie umwandeln möchten.',
@@ -519,9 +539,9 @@ export const de: Dictionary = {
     },
     watermark: {
       name: 'Wasserzeichen hinzufügen',
-      title: 'Wasserzeichen zu PDF hinzufügen – Text- oder Logo-Wasserzeichen',
+      title: 'Wasserzeichen zu PDF hinzufügen – kostenlos und ohne Anmeldung',
       description:
-        'Stempeln Sie Text wie „VERTRAULICH“ oder „MUSTER“ oder Ihr Logo auf PDF-Seiten. Passen Sie Deckkraft, Größe, Winkel und Kachelung mit Live-Vorschau an. Kostenlos.',
+        'Stempeln Sie Text wie „VERTRAULICH“ oder „MUSTER“ oder Ihr Logo auf PDF-Seiten.',
       tagline: 'Text oder Logo mit gewünschter Deckkraft und gewünschtem Winkel auf die Seiten setzen.',
       steps: [
         'Wählen Sie die PDF-Datei aus, die ein Wasserzeichen erhalten soll.',
@@ -568,9 +588,9 @@ export const de: Dictionary = {
     },
     'page-numbers': {
       name: 'Seitenzahlen hinzufügen',
-      title: 'Seitenzahlen zu PDF hinzufügen – Seiten automatisch nummerieren',
+      title: 'Seitenzahlen zu PDF hinzufügen – kostenlos und ohne Anmeldung',
       description:
-        'Fügen Sie einer PDF automatisch Seitenzahlen hinzu. Wählen Sie eine von sechs Positionen, ein Format (1, 1 / 10, Page 1 …), die Startnummer und die Schriftgröße und lassen Sie bei Bedarf das Deckblatt aus.',
+        'Fügen Sie einer PDF automatisch Seitenzahlen hinzu.',
       tagline: 'Seiten mit der gewählten Position und dem gewählten Format nummerieren.',
       steps: [
         'Wählen Sie eine PDF-Datei aus.',
@@ -617,9 +637,9 @@ export const de: Dictionary = {
     },
     protect: {
       name: 'PDF schützen',
-      title: 'PDF schützen – PDF mit Passwort versehen (AES-256)',
+      title: 'PDF mit Passwort schützen – kostenlos und ohne Anmeldung',
       description:
-        'Schützen Sie eine PDF mit einem Öffnungspasswort und starker AES-256-Verschlüsselung und schränken Sie bei Bedarf Drucken, Kopieren und Bearbeiten ein. Ihre Datei wird nie hochgeladen.',
+        'Schützen Sie eine PDF mit einem Öffnungspasswort und starker AES-256-Verschlüsselung und schränken Sie bei Bedarf Drucken, Kopieren und Bearbeiten ein.',
       tagline: 'Eine PDF mit AES-256-Verschlüsselung per Passwort sperren.',
       steps: [
         'Wählen Sie die PDF-Datei aus, die Sie schützen möchten.',
@@ -658,9 +678,9 @@ export const de: Dictionary = {
     },
     unlock: {
       name: 'PDF entsperren',
-      title: 'PDF entsperren – Passwort und Einschränkungen aus einer PDF entfernen',
+      title: 'PDF entsperren – Passwort entfernen, kostenlos und ohne Anmeldung',
       description:
-        'Entfernen Sie das Passwort einer PDF, die Sie öffnen können, damit Sie es nicht jedes Mal eingeben müssen. Auch Druck- und Kopierbeschränkungen werden aufgehoben. Kostenlos, und Ihre Datei wird nie hochgeladen.',
+        'Entfernen Sie das Passwort einer PDF, die Sie öffnen können, damit Sie es nicht jedes Mal eingeben müssen.',
       tagline: 'Ein bekanntes Passwort entfernen und Druck- sowie Kopiersperren aufheben.',
       steps: [
         'Wählen Sie die geschützte PDF-Datei aus.',

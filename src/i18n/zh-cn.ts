@@ -4,7 +4,7 @@ export const zhCn: Dictionary = {
   site: {
     tagline: '免费在线 PDF 编辑器',
     description:
-      '免费合并、拆分、整理、压缩和转换 PDF 文件，无需注册，无需安装。文件不会上传到服务器，全部在浏览器中安全处理。',
+      '免费合并、拆分、整理、压缩和转换 PDF 文件，无需注册，无需安装，不限次数。文件不会上传到服务器，全部在浏览器中安全处理。',
   },
   nav: {
     allTools: '全部工具',
@@ -25,10 +25,9 @@ export const zhCn: Dictionary = {
     security: '安全',
   },
   home: {
-    title: '免费 PDF 编辑器 - 合并、拆分、整理、压缩和转换',
-    h1: '所需的 PDF 工具，尽在浏览器中',
+    title: '免费 PDF 编辑器 - 无需注册，合并、拆分、整理、压缩和转换',
+    h1: '所有 PDF 工具免费使用，无需注册',
     lead: '合并、拆分、重新排序、压缩、转换、添加水印、设置密码……所有工具全部免费，文件在您自己的设备上处理，绝不会被上传。',
-    badges: ['完全免费', '无需注册', '不上传文件', '电脑和手机均可用'],
     toolsTitle: '全部 PDF 工具',
     whyTitle: '为什么值得信赖',
     why: [
@@ -49,11 +48,28 @@ export const zhCn: Dictionary = {
         body: 'Windows、macOS、Android 或 iPhone，只要有现代浏览器即可使用，无需安装任何软件。',
       },
     ],
+    compare: {
+      title: '免费，没有附加条件',
+      lead: '文件不会发送到服务器，所以运营成本几乎为零。因此我们没有付费套餐，只靠广告就能免费提供全部功能。',
+      item: '项目',
+      others: '常见的在线 PDF 网站',
+      rows: [
+        { label: '注册·登录', others: '保存文件或继续使用时常常要求注册', us: '无需注册' },
+        { label: '每日使用次数', others: '免费版常常每天只能用几次', us: '不限次数' },
+        { label: '付费专属功能', others: '高级功能仅限付费套餐', us: '没有——全部功能免费' },
+        { label: '结果文件水印', others: '部分免费版会添加水印', us: '不添加' },
+        { label: '文件在哪里处理', others: '上传到公司的服务器', us: '在您的设备上（不上传）' },
+      ],
+    },
     faqTitle: '常见问题',
     faq: [
       {
         q: '真的免费吗？',
         a: '是的。所有功能都免费，不加水印，也没有使用限制。本网站依靠页面上展示的广告维持运营。',
+      },
+      {
+        q: '需要注册或登录吗？',
+        a: '不需要。本站没有账号系统，无需登录，也不会要求您提供邮箱等个人信息。打开页面即可使用所有工具。',
       },
       {
         q: '我的文件会保存在服务器上吗？',
@@ -69,11 +85,14 @@ export const zhCn: Dictionary = {
       },
     ],
   },
+  promise: {
+    points: ['全部功能免费', '无需注册', '不限次数', '不上传文件'],
+    sentence: '免费、无需注册、不限次数，文件不会上传到服务器。',
+  },
   toolPage: {
     howToTitle: '如何使用{tool}',
     faqTitle: '常见问题',
     relatedTitle: '相关工具',
-    highlights: ['免费', '不上传文件', '无需安装'],
   },
   footer: {
     tagline: '在浏览器中运行的免费 PDF 工具',
@@ -96,6 +115,7 @@ export const zhCn: Dictionary = {
     chooseImages: '选择图片',
     addFiles: '添加文件',
     localOnly: '文件在此浏览器中处理，不会上传。',
+    startPromise: '无需注册、免费、不限次数，立即开始使用。',
     loading: '正在加载…',
     processing: '正在处理…',
     processingPercent: '正在处理… {percent}%',
@@ -179,9 +199,9 @@ export const zhCn: Dictionary = {
   tools: {
     merge: {
       name: '合并 PDF',
-      title: '合并 PDF - 免费将多个 PDF 文件合并为一个',
+      title: '合并 PDF - 免费、无需注册，将多个 PDF 合并为一个',
       description:
-        '按您想要的顺序将多个 PDF 文件合并成一个文档。免费、无需注册，文件在浏览器中处理，绝不上传。',
+        '按您想要的顺序将多个 PDF 文件合并成一个文档。',
       tagline: '按任意顺序把多个 PDF 合并成一个文件。',
       steps: [
         '选择 PDF 文件，或将文件拖放到框中。',
@@ -213,9 +233,9 @@ export const zhCn: Dictionary = {
     },
     split: {
       name: '拆分 PDF',
-      title: '拆分 PDF - 按页码范围分割 PDF 文件',
+      title: '拆分 PDF - 免费、无需注册，按页码范围分割 PDF',
       description:
-        '按页码范围、每 N 页或逐页拆分 PDF。免费即用，所有操作在浏览器中完成，无需上传文件。',
+        '按页码范围、每 N 页或逐页拆分 PDF。',
       tagline: '按范围或固定页数把一个 PDF 分成多个文件。',
       steps: [
         '选择要拆分的 PDF。',
@@ -251,9 +271,9 @@ export const zhCn: Dictionary = {
     },
     organize: {
       name: '整理 PDF',
-      title: '整理 PDF 页面 - 重新排序、旋转、删除和插入页面',
+      title: '整理 PDF 页面 - 免费、无需注册，排序、旋转、删除页面',
       description:
-        '查看页面预览，拖动即可重新排序，还能旋转、删除、复制页面，添加空白页，或插入其他 PDF 的页面。免费使用，文件绝不上传。',
+        '查看页面预览，拖动即可重新排序，还能旋转、删除、复制页面，添加空白页，或插入其他 PDF 的页面。',
       tagline: '在实时预览中重新排序、旋转、删除、复制和插入页面。',
       steps: [
         '选择一个 PDF。添加更多文件即可混合多个文档的页面。',
@@ -292,9 +312,9 @@ export const zhCn: Dictionary = {
     },
     rotate: {
       name: '旋转 PDF',
-      title: '旋转 PDF - 将 PDF 页面旋转 90° 或 180°',
+      title: '旋转 PDF - 免费、无需注册，将页面旋转 90° 或 180°',
       description:
-        '将全部页面或选定页面旋转 90° 或 180° 并保存，非常适合修正扫描方向错误的文件。免费且保护隐私，无需上传。',
+        '将全部页面或选定页面旋转 90° 或 180° 并保存，非常适合修正扫描方向错误的文件。',
       tagline: '把整个文档或选定页面转到正确的方向。',
       steps: [
         '选择要旋转的 PDF。',
@@ -326,9 +346,9 @@ export const zhCn: Dictionary = {
     },
     'delete-pages': {
       name: '删除 PDF 页面',
-      title: '删除 PDF 页面 - 从 PDF 中移除页面',
+      title: '删除 PDF 页面 - 免费、无需注册，移除不需要的页面',
       description:
-        '在预览中选出不需要的页面，从 PDF 中删除。也可以输入页码来选择。免费使用，文件不会离开您的浏览器。',
+        '在预览中选出不需要的页面，从 PDF 中删除。',
       tagline: '干净利落地删除 PDF 中不需要的页面。',
       steps: [
         '选择一个 PDF 文件。',
@@ -358,9 +378,9 @@ export const zhCn: Dictionary = {
     },
     'extract-pages': {
       name: '提取 PDF 页面',
-      title: '提取 PDF 页面 - 将所选页面保存为新的 PDF',
+      title: '提取 PDF 页面 - 免费、无需注册，将所选页面另存为 PDF',
       description:
-        '选择需要的页面并保存为新的 PDF，可以合并成一个文件，也可以每页单独保存。免费、即时，无需安装。',
+        '选择需要的页面并保存为新的 PDF，可以合并成一个文件，也可以每页单独保存。',
       tagline: '挑选需要的页面，保存为新的 PDF。',
       steps: [
         '选择一个 PDF 文件。',
@@ -392,9 +412,9 @@ export const zhCn: Dictionary = {
     },
     compress: {
       name: '压缩 PDF',
-      title: '压缩 PDF - 在线减小 PDF 文件大小',
+      title: '压缩 PDF - 免费、无需注册，在线减小 PDF 文件大小',
       description:
-        '通过优化 PDF 中的图片来减小文件大小，非常适合邮件附件和上传大小限制。文字依然清晰且可搜索。在浏览器中免费使用。',
+        '通过优化 PDF 中的图片来减小文件大小，非常适合邮件附件和上传大小限制。',
       tagline: '优化 PDF 中的照片和扫描图像，减小文件大小。',
       steps: [
         '选择要压缩的 PDF。',
@@ -439,9 +459,9 @@ export const zhCn: Dictionary = {
     },
     'jpg-to-pdf': {
       name: 'JPG 转 PDF',
-      title: 'JPG 转 PDF - 将图片和照片转换为 PDF',
+      title: 'JPG 转 PDF - 免费、无需注册，将图片和照片转为 PDF',
       description:
-        '将 JPG、PNG、WebP 等图片转换为 PDF。可把多张图片合并为一个文件，并选择顺序、页面尺寸、方向和边距。免费快速，无需上传。',
+        '将 JPG、PNG、WebP 等图片转换为 PDF。',
       tagline: '按您想要的顺序把照片和图片做成一个 PDF。',
       steps: [
         '选择要转换的图片（JPG、PNG 等）。',
@@ -482,9 +502,9 @@ export const zhCn: Dictionary = {
     },
     'pdf-to-jpg': {
       name: 'PDF 转 JPG',
-      title: 'PDF 转 JPG - 将 PDF 页面转换为高清图片',
+      title: 'PDF 转 JPG - 免费、无需注册，将页面转为高清图片',
       description:
-        '将 PDF 的每一页转换为 JPG 或 PNG 图片。可选择分辨率（DPI），并将多页一次打包为 ZIP 下载。免费使用，无需安装。',
+        '将 PDF 的每一页转换为 JPG 或 PNG 图片。',
       tagline: '把 PDF 页面保存为 JPG 或 PNG 图片。',
       steps: [
         '选择要转换的 PDF。',
@@ -519,9 +539,9 @@ export const zhCn: Dictionary = {
     },
     watermark: {
       name: '添加水印',
-      title: 'PDF 加水印 - 添加文字或 Logo 水印',
+      title: 'PDF 加水印 - 免费、无需注册，添加文字或 Logo 水印',
       description:
-        '在 PDF 页面上加上“机密”“样本”等文字或您的 Logo。可在实时预览中调整透明度、大小、角度和平铺方式。免费使用。',
+        '在 PDF 页面上加上“机密”“样本”等文字或您的 Logo。',
       tagline: '以您喜欢的透明度和角度在页面上加盖文字或 Logo。',
       steps: [
         '选择要加水印的 PDF。',
@@ -568,9 +588,9 @@ export const zhCn: Dictionary = {
     },
     'page-numbers': {
       name: '添加页码',
-      title: 'PDF 添加页码 - 自动为页面编号',
+      title: 'PDF 添加页码 - 免费、无需注册，自动为页面编号',
       description:
-        '自动为 PDF 添加页码。可选择 6 种位置、格式（1、1 / 10、Page 1 等）、起始编号和字号，还可以跳过封面。',
+        '自动为 PDF 添加页码。',
       tagline: '按您选择的位置和格式为页面编号。',
       steps: [
         '选择一个 PDF 文件。',
@@ -617,9 +637,9 @@ export const zhCn: Dictionary = {
     },
     protect: {
       name: '加密 PDF',
-      title: '加密 PDF - 为 PDF 设置密码（AES-256）',
+      title: '加密 PDF - 免费、无需注册，为 PDF 设置密码',
       description:
-        '使用强大的 AES-256 加密为 PDF 设置打开密码，还可以选择限制打印、复制和编辑。文件绝不上传。',
+        '使用强大的 AES-256 加密为 PDF 设置打开密码，还可以选择限制打印、复制和编辑。',
       tagline: '用 AES-256 加密为 PDF 加上密码。',
       steps: [
         '选择要加密的 PDF。',
@@ -658,9 +678,9 @@ export const zhCn: Dictionary = {
     },
     unlock: {
       name: '解锁 PDF',
-      title: '解锁 PDF - 移除 PDF 密码和限制',
+      title: '解锁 PDF - 免费、无需注册，移除 PDF 密码和限制',
       description:
-        '移除您能打开的 PDF 的密码，免去每次输入的麻烦，同时解除打印和复制限制。免费使用，文件绝不上传。',
+        '移除您能打开的 PDF 的密码，免去每次输入的麻烦，同时解除打印和复制限制。',
       tagline: '移除已知密码，解除打印和复制限制。',
       steps: [
         '选择受保护的 PDF 文件。',

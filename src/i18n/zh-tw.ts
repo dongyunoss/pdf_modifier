@@ -4,7 +4,7 @@ export const zhTw: Dictionary = {
   site: {
     tagline: '免費線上 PDF 編輯器',
     description:
-      '免費合併、分割、整理、壓縮和轉換 PDF 檔案，不需註冊，也不用安裝。檔案不會上傳到伺服器，全部在瀏覽器中安全處理。',
+      '免費合併、分割、整理、壓縮和轉換 PDF 檔案，免註冊、免安裝，不限次數。檔案不會上傳到伺服器，全部在瀏覽器中安全處理。',
   },
   nav: {
     allTools: '所有工具',
@@ -25,10 +25,9 @@ export const zhTw: Dictionary = {
     security: '安全性',
   },
   home: {
-    title: '免費 PDF 編輯器 - 合併、分割、整理、壓縮與轉換',
-    h1: '需要的 PDF 工具，在瀏覽器裡一次備齊',
+    title: '免費 PDF 編輯器 - 免註冊，合併、分割、整理、壓縮與轉換',
+    h1: '所有 PDF 工具免費使用，免註冊',
     lead: '合併、分割、重新排序、壓縮、轉換、加入浮水印、設定密碼……所有工具都免費，檔案在您自己的裝置上處理，絕不會被上傳。',
-    badges: ['完全免費', '不需註冊', '不上傳檔案', '電腦與手機皆可用'],
     toolsTitle: '所有 PDF 工具',
     whyTitle: '值得信賴的理由',
     why: [
@@ -49,11 +48,28 @@ export const zhTw: Dictionary = {
         body: 'Windows、macOS、Android 或 iPhone，只要有新版瀏覽器就能使用，不需要安裝任何軟體。',
       },
     ],
+    compare: {
+      title: '免費，沒有附加條件',
+      lead: '檔案不會傳送到伺服器，所以營運成本幾乎為零。因此我們沒有付費方案，只靠廣告就能免費提供所有功能。',
+      item: '項目',
+      others: '常見的線上 PDF 網站',
+      rows: [
+        { label: '註冊·登入', others: '儲存檔案或繼續使用時常常要求註冊', us: '不需要' },
+        { label: '每日使用次數', others: '免費版常常每天只能用幾次', us: '不限次數' },
+        { label: '付費專屬功能', others: '進階功能僅限付費方案', us: '沒有——所有功能免費' },
+        { label: '結果檔案浮水印', others: '部分免費版會加上浮水印', us: '不會加上' },
+        { label: '檔案在哪裡處理', others: '上傳到公司的伺服器', us: '在您的裝置上（不上傳）' },
+      ],
+    },
     faqTitle: '常見問題',
     faq: [
       {
         q: '真的免費嗎？',
         a: '是的。所有功能都免費，不會加上浮水印，也沒有使用限制。本站靠頁面上顯示的廣告維持營運。',
+      },
+      {
+        q: '需要註冊或登入嗎？',
+        a: '不需要。本站沒有帳號系統，不必登入，也不會要求您提供電子郵件等個人資料。打開頁面就能使用所有工具。',
       },
       {
         q: '我的檔案會存放在伺服器上嗎？',
@@ -69,11 +85,14 @@ export const zhTw: Dictionary = {
       },
     ],
   },
+  promise: {
+    points: ['所有功能免費', '免註冊', '不限次數', '不上傳檔案'],
+    sentence: '免費、免註冊、不限次數，檔案不會上傳到伺服器。',
+  },
   toolPage: {
     howToTitle: '如何使用{tool}',
     faqTitle: '常見問題',
     relatedTitle: '相關工具',
-    highlights: ['免費', '不上傳檔案', '不需安裝'],
   },
   footer: {
     tagline: '在瀏覽器中執行的免費 PDF 工具',
@@ -96,6 +115,7 @@ export const zhTw: Dictionary = {
     chooseImages: '選擇圖片',
     addFiles: '新增檔案',
     localOnly: '檔案在這個瀏覽器中處理，不會上傳。',
+    startPromise: '免註冊、免費、不限次數，立即開始使用。',
     loading: '載入中…',
     processing: '處理中…',
     processingPercent: '處理中… {percent}%',
@@ -179,9 +199,9 @@ export const zhTw: Dictionary = {
   tools: {
     merge: {
       name: '合併 PDF',
-      title: '合併 PDF - 免費將多個 PDF 檔案合併成一個',
+      title: '合併 PDF - 免費、免註冊，將多個 PDF 合併成一個',
       description:
-        '依您想要的順序將多個 PDF 檔案合併成一份文件。免費、不需註冊，檔案在瀏覽器中處理，絕不上傳。',
+        '依您想要的順序將多個 PDF 檔案合併成一份文件。',
       tagline: '依任意順序將多個 PDF 合併成一個檔案。',
       steps: [
         '選擇 PDF 檔案，或將檔案拖放到框中。',
@@ -213,9 +233,9 @@ export const zhTw: Dictionary = {
     },
     split: {
       name: '分割 PDF',
-      title: '分割 PDF - 依頁碼範圍拆分 PDF 檔案',
+      title: '分割 PDF - 免費、免註冊，依頁碼範圍拆分 PDF',
       description:
-        '依頁碼範圍、每 N 頁或逐頁分割 PDF。免費、立即可用，所有作業都在瀏覽器中完成，不必上傳檔案。',
+        '依頁碼範圍、每 N 頁或逐頁分割 PDF。',
       tagline: '依範圍或固定頁數將一個 PDF 分成多個檔案。',
       steps: [
         '選擇要分割的 PDF。',
@@ -251,9 +271,9 @@ export const zhTw: Dictionary = {
     },
     organize: {
       name: '整理 PDF',
-      title: '整理 PDF 頁面 - 重新排序、旋轉、刪除及插入頁面',
+      title: '整理 PDF 頁面 - 免費、免註冊，排序、旋轉、刪除頁面',
       description:
-        '一邊看頁面預覽，一邊拖曳重新排序，還能旋轉、刪除、複製頁面，加入空白頁或插入其他 PDF 的頁面。免費使用，檔案絕不上傳。',
+        '一邊看頁面預覽，一邊拖曳重新排序，還能旋轉、刪除、複製頁面，加入空白頁或插入其他 PDF 的頁面。',
       tagline: '在即時預覽中重新排序、旋轉、刪除、複製和插入頁面。',
       steps: [
         '選擇一個 PDF。新增更多檔案就能混合多份文件的頁面。',
@@ -292,9 +312,9 @@ export const zhTw: Dictionary = {
     },
     rotate: {
       name: '旋轉 PDF',
-      title: '旋轉 PDF - 將 PDF 頁面旋轉 90° 或 180°',
+      title: '旋轉 PDF - 免費、免註冊，將頁面旋轉 90° 或 180°',
       description:
-        '將所有頁面或選擇的頁面旋轉 90° 或 180° 後儲存，最適合修正方向錯誤的掃描檔。免費又保護隱私，不必上傳。',
+        '將所有頁面或選擇的頁面旋轉 90° 或 180° 後儲存，最適合修正方向錯誤的掃描檔。',
       tagline: '把整份文件或選擇的頁面轉到正確方向。',
       steps: [
         '選擇要旋轉的 PDF。',
@@ -326,9 +346,9 @@ export const zhTw: Dictionary = {
     },
     'delete-pages': {
       name: '刪除 PDF 頁面',
-      title: '刪除 PDF 頁面 - 從 PDF 移除頁面',
+      title: '刪除 PDF 頁面 - 免費、免註冊，移除不需要的頁面',
       description:
-        '從預覽中選出不需要的頁面，從 PDF 中刪除。也可以輸入頁碼來選取。免費使用，檔案不會離開您的瀏覽器。',
+        '從預覽中選出不需要的頁面，從 PDF 中刪除。',
       tagline: '乾淨俐落地刪除 PDF 中不需要的頁面。',
       steps: [
         '選擇一個 PDF 檔案。',
@@ -358,9 +378,9 @@ export const zhTw: Dictionary = {
     },
     'extract-pages': {
       name: '擷取 PDF 頁面',
-      title: '擷取 PDF 頁面 - 將選取的頁面儲存成新的 PDF',
+      title: '擷取 PDF 頁面 - 免費、免註冊，將選取頁面另存成 PDF',
       description:
-        '選取需要的頁面並儲存成新的 PDF，可以合成一個檔案，也可以每頁分開儲存。免費、立即可用，不需安裝。',
+        '選取需要的頁面並儲存成新的 PDF，可以合成一個檔案，也可以每頁分開儲存。',
       tagline: '挑出需要的頁面，儲存成新的 PDF。',
       steps: [
         '選擇一個 PDF 檔案。',
@@ -392,9 +412,9 @@ export const zhTw: Dictionary = {
     },
     compress: {
       name: '壓縮 PDF',
-      title: '壓縮 PDF - 線上縮小 PDF 檔案大小',
+      title: '壓縮 PDF - 免費、免註冊，線上縮小 PDF 檔案大小',
       description:
-        '最佳化 PDF 中的圖片來縮小檔案，非常適合電子郵件附件和上傳大小限制。文字依然清晰且可搜尋。在瀏覽器中免費使用。',
+        '最佳化 PDF 中的圖片來縮小檔案，非常適合電子郵件附件和上傳大小限制。',
       tagline: '最佳化 PDF 中的照片和掃描影像，縮小檔案大小。',
       steps: [
         '選擇要壓縮的 PDF。',
@@ -439,9 +459,9 @@ export const zhTw: Dictionary = {
     },
     'jpg-to-pdf': {
       name: 'JPG 轉 PDF',
-      title: 'JPG 轉 PDF - 將圖片和照片轉換成 PDF',
+      title: 'JPG 轉 PDF - 免費、免註冊，將圖片和照片轉成 PDF',
       description:
-        '將 JPG、PNG、WebP 等圖片轉換成 PDF。可以把多張圖片合成一個檔案，並選擇順序、頁面大小、方向和邊界。免費快速，不必上傳。',
+        '將 JPG、PNG、WebP 等圖片轉換成 PDF。',
       tagline: '依您想要的順序把照片和圖片做成一個 PDF。',
       steps: [
         '選擇要轉換的圖片（JPG、PNG 等）。',
@@ -482,9 +502,9 @@ export const zhTw: Dictionary = {
     },
     'pdf-to-jpg': {
       name: 'PDF 轉 JPG',
-      title: 'PDF 轉 JPG - 將 PDF 頁面轉換成高畫質圖片',
+      title: 'PDF 轉 JPG - 免費、免註冊，將頁面轉成高畫質圖片',
       description:
-        '將 PDF 的每一頁轉換成 JPG 或 PNG 圖片。可選擇解析度（DPI），並將多頁打包成 ZIP 一次下載。免費使用，不需安裝。',
+        '將 PDF 的每一頁轉換成 JPG 或 PNG 圖片。',
       tagline: '將 PDF 頁面儲存成 JPG 或 PNG 圖片。',
       steps: [
         '選擇要轉換的 PDF。',
@@ -519,9 +539,9 @@ export const zhTw: Dictionary = {
     },
     watermark: {
       name: '加入浮水印',
-      title: 'PDF 加浮水印 - 加入文字或標誌浮水印',
+      title: 'PDF 加浮水印 - 免費、免註冊，加入文字或標誌浮水印',
       description:
-        '在 PDF 頁面上加入「機密」「樣本」等文字或您的標誌。可在即時預覽中調整透明度、大小、角度和並排方式。免費使用。',
+        '在 PDF 頁面上加入「機密」「樣本」等文字或您的標誌。',
       tagline: '以您喜歡的透明度和角度，在頁面上加入文字或標誌。',
       steps: [
         '選擇要加入浮水印的 PDF。',
@@ -568,9 +588,9 @@ export const zhTw: Dictionary = {
     },
     'page-numbers': {
       name: '加入頁碼',
-      title: 'PDF 加入頁碼 - 自動為頁面編號',
+      title: 'PDF 加入頁碼 - 免費、免註冊，自動為頁面編號',
       description:
-        '自動為 PDF 加入頁碼。可選擇 6 種位置、格式（1、1 / 10、Page 1 等）、起始號碼和字型大小，也能略過封面。',
+        '自動為 PDF 加入頁碼。',
       tagline: '依您選擇的位置和格式為頁面編號。',
       steps: [
         '選擇一個 PDF 檔案。',
@@ -617,9 +637,9 @@ export const zhTw: Dictionary = {
     },
     protect: {
       name: '保護 PDF',
-      title: '保護 PDF - 為 PDF 設定密碼（AES-256）',
+      title: '保護 PDF - 免費、免註冊，為 PDF 設定密碼',
       description:
-        '使用強大的 AES-256 加密為 PDF 設定開啟密碼，還能選擇限制列印、複製和編輯。檔案絕不上傳。',
+        '使用強大的 AES-256 加密為 PDF 設定開啟密碼，還能選擇限制列印、複製和編輯。',
       tagline: '用 AES-256 加密為 PDF 加上密碼。',
       steps: [
         '選擇要保護的 PDF。',
@@ -658,9 +678,9 @@ export const zhTw: Dictionary = {
     },
     unlock: {
       name: '解鎖 PDF',
-      title: '解鎖 PDF - 移除 PDF 密碼和限制',
+      title: '解鎖 PDF - 免費、免註冊，移除 PDF 密碼和限制',
       description:
-        '移除您能開啟的 PDF 的密碼，省去每次輸入的麻煩，同時解除列印和複製限制。免費使用，檔案絕不上傳。',
+        '移除您能開啟的 PDF 的密碼，省去每次輸入的麻煩，同時解除列印和複製限制。',
       tagline: '移除已知的密碼，並解除列印和複製限制。',
       steps: [
         '選擇受保護的 PDF 檔案。',
