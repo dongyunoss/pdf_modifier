@@ -1,0 +1,28 @@
+name: IndexNow
+
+# 페이지 내용 날짜(src/config/content.ts 의 CONTENT_UPDATED)가 바뀐 채로 main 에 올라오면,
+# 새 배포가 공개될 때까지 기다렸다가 사이트맵의 모든 주소를 IndexNow 로 빙·네이버·얀덱스 등에 알립니다.
+# Actions 탭의 "Run workflow" 로 언제든 다시 보낼 수도 있습니다.
+on:
+  push:
+    branches: [main]
+    paths: [src/config/content.ts]
+  workflow_dispatch:
+
+concurrency:
+  group: indexnow
+  cancel-in-progress: true
+
+jobs:
+  submit:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version-file: .nvmrc
+
+      - name: Notify search engines via IndexNow
+        run: node scripts/indexnow.mjs --wait
