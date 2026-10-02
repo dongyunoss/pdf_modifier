@@ -9,8 +9,13 @@ import { dirname, join } from 'node:path';
 import { fileURLToPath } from 'node:url';
 
 const ENDPOINT = process.env.INDEXNOW_ENDPOINT || 'https://api.indexnow.org/indexnow';
-const WAIT_MINUTES = 25;
+const WAIT_MINUTES = 20;
 const POLL_SECONDS = 30;
+/**
+ * 거절되었을 때 다시 보내기 전에 기다리는 시간(분). 키를 처음 쓰거나 막 공개했을 때는 검색엔진이 키 파일을
+ * 확인하는 동안 403 SiteVerificationNotCompleted 가 오므로, 잠시 뒤 다시 보내면 됩니다. (합계 15분)
+ */
+const RETRY_MINUTES = [1, 2, 3, 4, 5];
 /** IndexNow 한 번에 보낼 수 있는 최대 주소 수 */
 const BATCH = 10_000;
 
@@ -70,17 +75,26 @@ async function waitForDeploy() {
 }
 
 async function submit(urlList) {
-  const response = await fetch(ENDPOINT, {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json; charset=utf-8' },
-    body: JSON.stringify({ host, key, keyLocation, urlList }),
-  });
-  // 200: 접수됨, 202: 접수됨(키 확인 대기 중). 나머지는 실패입니다 (403 키 불일치, 422 다른 호스트 주소, 429 너무 잦은 요청).
-  if (response.status !== 200 && response.status !== 202) {
+  for (let attempt = 0; ; attempt++) {
+    const response = await fetch(ENDPOINT, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json; charset=utf-8' },
+      body: JSON.stringify({ host, key, keyLocation, urlList }),
+    });
+    // 200: 접수됨, 202: 접수됨(키 확인 대기 중). 나머지는 실패입니다 (403 키 불일치·확인 전, 422 다른 호스트 주소, 429 너무 잦은 요청).
+    if (response.status === 200 || response.status === 202) {
+      console.log(`IndexNow 에 주소 ${urlList.length}개를 보냈습니다 (HTTP ${response.status}).`);
+      return;
+    }
     const body = (await response.text()).slice(0, 500);
-    throw new Error(`IndexNow 가 거절했습니다: HTTP ${response.status} ${body}`);
+    const temporary =
+      response.status === 429 || response.status >= 500 || body.includes('SiteVerificationNotCompleted');
+    if (!temporary || attempt >= RETRY_MINUTES.length) {
+      throw new Error(`IndexNow 가 거절했습니다: HTTP ${response.status} ${body}`);
+    }
+    console.log(`IndexNow 응답 HTTP ${response.status} ${body} — ${RETRY_MINUTES[attempt]}분 뒤 다시 보냅니다.`);
+    await new Promise((resolve) => setTimeout(resolve, RETRY_MINUTES[attempt] * 60_000));
   }
-  console.log(`IndexNow 에 주소 ${urlList.length}개를 보냈습니다 (HTTP ${response.status}).`);
 }
 
 try {

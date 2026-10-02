@@ -38,6 +38,8 @@
    사이트맵의 모든 주소(지금은 13개 언어 221개)를 [IndexNow](https://www.indexnow.org) 로 보냅니다.
    한 번 보내면 **빙·네이버·얀덱스·Seznam·Yep** 이 함께 받습니다.
    - 결과: GitHub 저장소 → **Actions → IndexNow** 실행 기록 (`IndexNow 에 주소 221개를 보냈습니다`)
+   - 키를 처음 쓸 때는 검색엔진이 키 파일을 확인하는 동안 `403 SiteVerificationNotCompleted` 가 올 수 있습니다.
+     스크립트가 몇 분 간격으로 다시 보내므로 그대로 두면 됩니다.
    - 다시 보내기: 같은 화면의 **Run workflow**
    - 직접 보내기: `npm run indexnow` (지금 공개된 사이트맵 기준, `npm run indexnow -- --dry-run` 이면 주소만 출력)
 

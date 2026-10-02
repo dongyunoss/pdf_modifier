@@ -16,7 +16,8 @@ concurrency:
 jobs:
   submit:
     runs-on: ubuntu-latest
-    timeout-minutes: 30
+    # 배포 대기(최대 20분) + 키 확인 대기 후 다시 보내기(최대 15분)
+    timeout-minutes: 45
     steps:
       - uses: actions/checkout@v4
 
