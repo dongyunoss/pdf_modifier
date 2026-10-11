@@ -86,7 +86,7 @@ export const vi: Dictionary = {
     ],
   },
   promise: {
-    points: ['Miễn phí hoàn toàn', 'Không cần đăng ký', 'Không giới hạn', 'Không tải lên'],
+    points: ['Miễn phí hoàn toàn', 'Không cần đăng ký', 'Không giới hạn', 'Không lo lộ tệp'],
     sentence: 'Miễn phí, không cần đăng ký, không giới hạn và tệp của bạn không bao giờ bị tải lên.',
   },
   toolPage: {

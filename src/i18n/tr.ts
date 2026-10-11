@@ -86,7 +86,7 @@ export const tr: Dictionary = {
     ],
   },
   promise: {
-    points: ['Tamamen ücretsiz', 'Üyelik yok', 'Sınır yok', 'Yükleme yok'],
+    points: ['Tamamen ücretsiz', 'Üyelik yok', 'Sınır yok', 'Sızıntı endişesi yok'],
     sentence: 'Ücretsiz, üye olmadan ve sınırsız; dosyalarınız asla yüklenmez.',
   },
   toolPage: {

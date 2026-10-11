@@ -86,7 +86,7 @@ export const zhCn: Dictionary = {
     ],
   },
   promise: {
-    points: ['全部功能免费', '无需注册', '不限次数', '不上传文件'],
+    points: ['全部功能免费', '无需注册', '不限次数', '不怕文件泄露'],
     sentence: '免费、无需注册、不限次数，文件不会上传到服务器。',
   },
   toolPage: {

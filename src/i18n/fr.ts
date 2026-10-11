@@ -86,7 +86,7 @@ export const fr: Dictionary = {
     ],
   },
   promise: {
-    points: ['Tout est gratuit', 'Sans inscription', 'Sans limite', 'Aucun téléversement'],
+    points: ['Tout est gratuit', 'Sans inscription', 'Sans limite', 'Aucun risque de fuite'],
     sentence: 'Gratuit, sans inscription ni limite, et vos fichiers ne sont jamais téléversés.',
   },
   toolPage: {

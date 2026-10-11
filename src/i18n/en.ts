@@ -86,7 +86,7 @@ export const en: Dictionary = {
     ],
   },
   promise: {
-    points: ['Every tool free', 'No sign-up', 'No limits', 'No uploads'],
+    points: ['Every tool free', 'No sign-up', 'No limits', 'Files stay private'],
     sentence: 'Free with no sign-up and no limits — your files are never uploaded.',
   },
   toolPage: {

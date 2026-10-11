@@ -86,7 +86,7 @@ export const de: Dictionary = {
     ],
   },
   promise: {
-    points: ['Alles kostenlos', 'Ohne Anmeldung', 'Ohne Limits', 'Kein Upload'],
+    points: ['Alles kostenlos', 'Ohne Anmeldung', 'Ohne Limits', 'Keine Datenlecks'],
     sentence: 'Kostenlos, ohne Anmeldung und ohne Limits – Ihre Dateien werden nie hochgeladen.',
   },
   toolPage: {

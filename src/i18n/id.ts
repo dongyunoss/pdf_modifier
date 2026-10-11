@@ -86,7 +86,7 @@ export const id: Dictionary = {
     ],
   },
   promise: {
-    points: ['Semua gratis', 'Tanpa daftar', 'Tanpa batas', 'Tanpa unggah'],
+    points: ['Semua gratis', 'Tanpa daftar', 'Tanpa batas', 'File aman, tidak bocor'],
     sentence: 'Gratis, tanpa daftar dan tanpa batas, dan file Anda tidak pernah diunggah.',
   },
   toolPage: {

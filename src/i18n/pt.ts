@@ -86,7 +86,7 @@ export const pt: Dictionary = {
     ],
   },
   promise: {
-    points: ['Tudo grátis', 'Sem cadastro', 'Sem limites', 'Sem upload'],
+    points: ['Tudo grátis', 'Sem cadastro', 'Sem limites', 'Sem risco de vazamento'],
     sentence: 'Grátis, sem cadastro e sem limites, e seus arquivos nunca são enviados.',
   },
   toolPage: {

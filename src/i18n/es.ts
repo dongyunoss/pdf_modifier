@@ -86,7 +86,7 @@ export const es: Dictionary = {
     ],
   },
   promise: {
-    points: ['Todo gratis', 'Sin registro', 'Sin límites', 'Sin subir archivos'],
+    points: ['Todo gratis', 'Sin registro', 'Sin límites', 'Archivos sin riesgo de fuga'],
     sentence: 'Gratis, sin registro ni límites, y tus archivos nunca se suben.',
   },
   toolPage: {

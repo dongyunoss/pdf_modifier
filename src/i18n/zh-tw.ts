@@ -86,7 +86,7 @@ export const zhTw: Dictionary = {
     ],
   },
   promise: {
-    points: ['所有功能免費', '免註冊', '不限次數', '不上傳檔案'],
+    points: ['所有功能免費', '免註冊', '不限次數', '不怕檔案外洩'],
     sentence: '免費、免註冊、不限次數，檔案不會上傳到伺服器。',
   },
   toolPage: {
