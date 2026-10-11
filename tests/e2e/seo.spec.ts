@@ -35,13 +35,13 @@ test('도구 페이지: 제목·설명·구조화 데이터·업로드 영역에
   await expect(page.locator('meta[property="og:description"]')).toHaveAttribute('content', description!);
   await expect(page.locator('meta[property="og:image"]')).toHaveAttribute('content', /\/og\/en\.png$/);
 
-  await expect(page.locator('.highlight-row li')).toHaveText(['Every tool free', 'No sign-up', 'No limits', 'No uploads']);
+  await expect(page.locator('.highlight-row li')).toHaveText(['Every tool free', 'No sign-up', 'No limits', 'Files stay private']);
   await expect(page.locator('.dropzone')).toContainText('Start right away — free, no sign-up, no limits.');
 
   const app = await jsonLd(page, 'WebApplication');
   expect(app.description).toBe(description);
   expect(app.isAccessibleForFree).toBe(true);
-  expect(app.featureList).toEqual(['Every tool free', 'No sign-up', 'No limits', 'No uploads']);
+  expect(app.featureList).toEqual(['Every tool free', 'No sign-up', 'No limits', 'Files stay private']);
 });
 
 test('검색엔진 알림에 필요한 파일을 내려준다', async ({ request }) => {
