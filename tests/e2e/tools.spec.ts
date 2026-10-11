@@ -138,7 +138,7 @@ test('PDF 페이지 추출: 범위를 입력해 페이지마다 따로 저장한
   await page.getByLabel('페이지 번호로 선택').fill('2, 4-5');
   await page.getByRole('button', { name: '적용' }).click();
   await expect(page.getByText('3쪽 선택됨')).toBeVisible();
-  await page.getByText('페이지마다 따로').click();
+  await page.locator('.tool-area').getByText('페이지마다 따로').click();
   await page.getByRole('button', { name: '3쪽 추출' }).click();
   const { bytes } = await downloadVia(page, 'ZIP 파일로 모두 받기');
   expect(Object.keys(unzip(bytes)).sort()).toEqual(['book_page-2.pdf', 'book_page-4.pdf', 'book_page-5.pdf']);
@@ -213,7 +213,7 @@ test('PDF 워터마크: 한글 문구를 넣는다', async ({ page }) => {
   await upload(page, [pdfFile('contract.pdf', await makePdf(2))]);
   await page.getByLabel('워터마크 문구').fill('대외비 문서');
   await expect(page.locator('.preview-stamp')).toHaveCount(1);
-  await page.getByText('바둑판').click();
+  await page.locator('.tool-area').getByText('바둑판').click();
   await expect.poll(() => page.locator('.preview-stamp').count()).toBeGreaterThan(3);
   await page.getByRole('button', { name: '워터마크 적용' }).click();
   const { bytes } = await downloadVia(page, '다운로드');
@@ -224,7 +224,7 @@ test('PDF 페이지 번호: 2쪽부터 번호를 넣는다', async ({ page }) =>
   await page.goto('/add-page-numbers-to-pdf/');
   await upload(page, [pdfFile('thesis.pdf', await makePdf(3))]);
   await page.getByRole('radio', { name: '1 / 3' }).check({ force: true });
-  await page.getByText('직접 입력').click();
+  await page.locator('.tool-area').getByText('직접 입력').click();
   await page.getByLabel('적용 페이지').fill('2-');
   await page.getByRole('button', { name: '페이지 번호 넣기' }).click();
   const { bytes } = await downloadVia(page, '다운로드');

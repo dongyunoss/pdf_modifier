@@ -1,0 +1,10 @@
+---
+import { getGuideSet } from '../../guides';
+import GuideView from '../../views/GuideView.astro';
+
+export function getStaticPaths() {
+  return getGuideSet('ko')!.guides.map((guide) => ({ params: { slug: guide.slug } }));
+}
+---
+
+<GuideView lang="ko" slug={Astro.params.slug!} />

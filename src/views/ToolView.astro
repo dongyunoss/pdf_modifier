@@ -1,6 +1,8 @@
 ---
 import AdSlot from '../components/AdSlot.astro';
 import Faq from '../components/Faq.astro';
+import GuideCard from '../components/GuideCard.astro';
+import RichSections from '../components/RichSections.astro';
 import Icon from '../components/Icon.astro';
 import ToolCard from '../components/ToolCard.astro';
 import CompressTool from '../components/tools/CompressTool';
@@ -17,6 +19,7 @@ import UnlockTool from '../components/tools/UnlockTool';
 import WatermarkTool from '../components/tools/WatermarkTool';
 import type { ToolBaseProps } from '../components/tools/context';
 import { SITE } from '../config/site';
+import { getGuideSet, guidesForTool } from '../guides';
 import { fmt, getDictionary, langPrefix, LANGUAGES, toolPath, withPromise, type Lang } from '../i18n';
 import BaseLayout from '../layouts/BaseLayout.astro';
 import { getTool, TOOLS, type ToolId } from '../tools/registry';
@@ -47,6 +50,10 @@ const resultAd =
     : null;
 const base: ToolBaseProps = { lang, ui: dict.ui, errors: dict.errors, tool: { id, name: content.name }, related, resultAd };
 const t = dict.tools;
+// 직접 쓴 상세 설명과 관련 가이드 (한국어·영어)
+const guideSet = getGuideSet(lang);
+const details = guideSet?.toolDetails[id] ?? [];
+const relatedGuides = guidesForTool(lang, id).slice(0, 3);
 
 const jsonLd = [
   {
@@ -137,7 +144,29 @@ const others = TOOLS.filter((item) => item.id !== id && item.category === tool.c
       </ol>
     </section>
 
+    {
+      guideSet && details.length > 0 && (
+        <section class="section tool-details" aria-labelledby="details-title">
+          <h2 id="details-title">{fmt(guideSet.ui.detailsTitle, { tool: content.name })}</h2>
+          <div class="prose">
+            <RichSections lang={lang} sections={details} heading="h3" />
+          </div>
+        </section>
+      )
+    }
+
     <AdSlot slot="content" label={dict.ui.ad} />
+
+    {
+      guideSet && relatedGuides.length > 0 && (
+        <section class="section" aria-labelledby="related-guides-title">
+          <h2 id="related-guides-title">{guideSet.ui.relatedGuides}</h2>
+          <div class="guide-list">
+            {relatedGuides.map((guide) => <GuideCard lang={lang} guide={guide} />)}
+          </div>
+        </section>
+      )
+    }
 
     <Faq title={dict.toolPage.faqTitle} items={content.faq} />
 

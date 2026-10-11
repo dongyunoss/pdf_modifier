@@ -1,0 +1,48 @@
+---
+// 가이드와 도구 상세 설명의 본문(Section[])을 그립니다. 문단 안의 {tool:id} 는 도구 링크가 됩니다.
+import type { Block, Section } from '../guides';
+import { getDictionary, toolPath, type Lang } from '../i18n';
+import { TOOLS, type ToolId } from '../tools/registry';
+
+interface Props {
+  lang: Lang;
+  sections: Section[];
+  /** 섹션 제목의 수준 (가이드 본문은 h2, 도구 페이지 안에서는 h3) */
+  heading?: 'h2' | 'h3';
+}
+
+const { lang, sections, heading = 'h2' } = Astro.props;
+const dict = getDictionary(lang);
+const Heading = heading;
+const toolIds = new Set<string>(TOOLS.map((tool) => tool.id));
+
+const escapeHtml = (value: string) =>
+  value.replace(/[&<>"']/g, (char) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' })[char]!);
+
+const inline = (text: string) =>
+  escapeHtml(text).replace(/\{tool:([a-z-]+)\}/g, (match, id: string) => {
+    if (!toolIds.has(id)) throw new Error(`알 수 없는 도구 링크: ${match}`);
+    return `<a href="${toolPath(lang, id as ToolId)}">${escapeHtml(dict.tools[id as ToolId].name)}</a>`;
+  });
+
+const render = (block: Block): string => {
+  if (typeof block === 'string') return `<p>${inline(block)}</p>`;
+  if ('list' in block) return `<ul>${block.list.map((item) => `<li>${inline(item)}</li>`).join('')}</ul>`;
+  if ('steps' in block) return `<ol class="guide-steps">${block.steps.map((item) => `<li>${inline(item)}</li>`).join('')}</ol>`;
+  if ('tip' in block) return `<p class="guide-tip">${inline(block.tip)}</p>`;
+  const head = block.table.head.map((cell) => `<th scope="col">${inline(cell)}</th>`).join('');
+  const rows = block.table.rows
+    .map((row) => `<tr>${row.map((cell, index) => (index === 0 ? `<th scope="row">${inline(cell)}</th>` : `<td>${inline(cell)}</td>`)).join('')}</tr>`)
+    .join('');
+  return `<div class="guide-table"><table><thead><tr>${head}</tr></thead><tbody>${rows}</tbody></table></div>`;
+};
+---
+
+{
+  sections.map((section) => (
+    <>
+      {section.title && <Heading>{section.title}</Heading>}
+      <Fragment set:html={section.blocks.map(render).join('')} />
+    </>
+  ))
+}

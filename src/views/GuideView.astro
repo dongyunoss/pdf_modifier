@@ -1,0 +1,116 @@
+---
+import AdSlot from '../components/AdSlot.astro';
+import GuideCard from '../components/GuideCard.astro';
+import Icon from '../components/Icon.astro';
+import RichSections from '../components/RichSections.astro';
+import { SITE } from '../config/site';
+import { getGuideSet, GUIDE_LANGS, guidePath, guidesPath, readingMinutes } from '../guides';
+import { fmt, getDictionary, langPrefix, LANGUAGES, toolPath, type Lang } from '../i18n';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { getTool } from '../tools/registry';
+
+interface Props {
+  lang: Lang;
+  slug: string;
+}
+
+const { lang, slug } = Astro.props;
+const dict = getDictionary(lang);
+const set = getGuideSet(lang)!;
+const guide = set.guides.find((item) => item.slug === slug)!;
+const path = guidePath(lang, slug);
+const url = (target: string) => new URL(target, `${SITE.url}/`).href;
+const formatDate = (date: string) =>
+  new Intl.DateTimeFormat(LANGUAGES[lang].locale, { dateStyle: 'long', timeZone: 'UTC' }).format(new Date(`${date}T00:00:00Z`));
+// 같은 대표 도구를 다루는 글을 먼저, 나머지는 목록 순서대로
+const others = set.guides
+  .filter((item) => item.slug !== slug)
+  .sort((a, b) => Number(b.tools.some((id) => guide.tools.includes(id))) - Number(a.tools.some((id) => guide.tools.includes(id))))
+  .slice(0, 3);
+
+const jsonLd = [
+  {
+    '@context': 'https://schema.org',
+    '@type': 'Article',
+    headline: guide.title,
+    description: guide.description,
+    url: url(path),
+    mainEntityOfPage: url(path),
+    inLanguage: LANGUAGES[lang].htmlLang,
+    datePublished: guide.published,
+    dateModified: guide.updated,
+    image: url(`/og/${lang}.png`),
+    author: { '@type': 'Organization', name: SITE.name, url: url(langPrefix(lang)) },
+    publisher: { '@type': 'Organization', name: SITE.name, url: url(langPrefix(lang)) },
+  },
+  {
+    '@context': 'https://schema.org',
+    '@type': 'BreadcrumbList',
+    itemListElement: [
+      { '@type': 'ListItem', position: 1, name: dict.nav.home, item: url(langPrefix(lang)) },
+      { '@type': 'ListItem', position: 2, name: set.ui.indexHeading, item: url(guidesPath(lang)) },
+      { '@type': 'ListItem', position: 3, name: guide.title, item: url(path) },
+    ],
+  },
+];
+---
+
+<BaseLayout
+  lang={lang}
+  title={guide.title}
+  description={guide.description}
+  path={path}
+  jsonLd={jsonLd}
+  langs={GUIDE_LANGS}
+  ogType="article"
+>
+  <div class="container">
+    <nav class="breadcrumb" aria-label="breadcrumb">
+      <a href={langPrefix(lang)}>{dict.nav.home}</a>
+      <span aria-hidden="true">/</span>
+      <a href={guidesPath(lang)}>{set.ui.indexHeading}</a>
+    </nav>
+
+    <article class="guide">
+      <header class="guide-header">
+        <h1>{guide.title}</h1>
+        <p class="guide-meta">
+          {`${set.ui.author} · `}
+          <time datetime={guide.updated}>{fmt(set.ui.updated, { date: formatDate(guide.updated) })}</time>
+          {` · ${fmt(set.ui.minutes, { n: readingMinutes(lang, guide.sections) })}`}
+        </p>
+      </header>
+
+      <div class="prose guide-body">
+        <RichSections lang={lang} sections={guide.sections.slice(0, 3)} />
+      </div>
+
+      <AdSlot slot="content" label={dict.ui.ad} />
+
+      <div class="prose guide-body">
+        <RichSections lang={lang} sections={guide.sections.slice(3)} />
+      </div>
+
+      <aside class="guide-tools" aria-labelledby="guide-tools-title">
+        <h2 id="guide-tools-title">{set.ui.toolsTitle}</h2>
+        <div class="guide-tool-links">
+          {
+            guide.tools.map((id) => (
+              <a class="btn btn-secondary" href={toolPath(lang, id)} data-category={getTool(id).category}>
+                <Icon name={id} size={18} />
+                {fmt(set.ui.tryTool, { tool: dict.tools[id].name })}
+              </a>
+            ))
+          }
+        </div>
+      </aside>
+    </article>
+
+    <section class="section" aria-labelledby="more-guides-title">
+      <h2 id="more-guides-title">{set.ui.moreGuides}</h2>
+      <div class="guide-list">
+        {others.map((item) => <GuideCard lang={lang} guide={item} />)}
+      </div>
+    </section>
+  </div>
+</BaseLayout>

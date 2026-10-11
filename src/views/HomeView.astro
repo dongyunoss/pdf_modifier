@@ -2,9 +2,11 @@
 import AdSlot from '../components/AdSlot.astro';
 import Faq from '../components/Faq.astro';
 import Icon from '../components/Icon.astro';
+import GuideCard from '../components/GuideCard.astro';
 import ToolCard from '../components/ToolCard.astro';
 import type { IconName } from '../components/icon-paths';
 import { SITE } from '../config/site';
+import { getGuideSet, guidesPath } from '../guides';
 import { fmt, getDictionary, langPrefix, LANGUAGES, toolPath, type Lang } from '../i18n';
 import BaseLayout from '../layouts/BaseLayout.astro';
 import { CATEGORY_ORDER, TOOLS } from '../tools/registry';
@@ -15,6 +17,7 @@ interface Props {
 
 const { lang } = Astro.props;
 const dict = getDictionary(lang);
+const guideSet = getGuideSet(lang);
 const path = langPrefix(lang);
 const whyIcons: IconName[] = ['shield', 'zap', 'gem', 'devices'];
 const compare = dict.home.compare;
@@ -138,6 +141,20 @@ const jsonLd = [
       }
     </div>
   </section>
+
+  {
+    guideSet && (
+      <section class="container section" aria-labelledby="guides-title">
+        <h2 id="guides-title">{guideSet.ui.homeTitle}</h2>
+        <div class="guide-list">
+          {guideSet.guides.slice(0, 4).map((guide) => <GuideCard lang={lang} guide={guide} />)}
+        </div>
+        <p class="section-more">
+          <a href={guidesPath(lang)}>{guideSet.ui.homeMore} →</a>
+        </p>
+      </section>
+    )
+  }
 
   <div class="container">
     <Faq title={dict.home.faqTitle} items={dict.home.faq} />

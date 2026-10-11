@@ -1,0 +1,54 @@
+---
+import GuideCard from '../components/GuideCard.astro';
+import { SITE } from '../config/site';
+import { getGuideSet, GUIDE_LANGS, guidePath, guidesPath } from '../guides';
+import { getDictionary, langPrefix, LANGUAGES, type Lang } from '../i18n';
+import BaseLayout from '../layouts/BaseLayout.astro';
+
+interface Props {
+  lang: Lang;
+}
+
+const { lang } = Astro.props;
+const dict = getDictionary(lang);
+const set = getGuideSet(lang)!;
+const path = guidesPath(lang);
+const url = (target: string) => new URL(target, `${SITE.url}/`).href;
+
+const jsonLd = [
+  {
+    '@context': 'https://schema.org',
+    '@type': 'CollectionPage',
+    name: set.ui.indexHeading,
+    description: set.ui.indexDescription,
+    url: url(path),
+    inLanguage: LANGUAGES[lang].htmlLang,
+    hasPart: set.guides.map((guide) => ({ '@type': 'Article', headline: guide.title, url: url(guidePath(lang, guide.slug)) })),
+  },
+  {
+    '@context': 'https://schema.org',
+    '@type': 'BreadcrumbList',
+    itemListElement: [
+      { '@type': 'ListItem', position: 1, name: dict.nav.home, item: url(langPrefix(lang)) },
+      { '@type': 'ListItem', position: 2, name: set.ui.indexHeading, item: url(path) },
+    ],
+  },
+];
+---
+
+<BaseLayout lang={lang} title={set.ui.indexTitle} description={set.ui.indexDescription} path={path} jsonLd={jsonLd} langs={GUIDE_LANGS}>
+  <div class="container">
+    <nav class="breadcrumb" aria-label="breadcrumb">
+      <a href={langPrefix(lang)}>{dict.nav.home}</a>
+      <span aria-hidden="true">/</span>
+      <span aria-current="page">{set.ui.indexHeading}</span>
+    </nav>
+    <header class="guides-header">
+      <h1>{set.ui.indexHeading}</h1>
+      <p class="lead">{set.ui.indexLead}</p>
+    </header>
+    <div class="guide-list">
+      {set.guides.map((guide) => <GuideCard lang={lang} guide={guide} />)}
+    </div>
+  </div>
+</BaseLayout>

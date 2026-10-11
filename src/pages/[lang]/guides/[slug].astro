@@ -1,0 +1,13 @@
+---
+import { getGuideSet, GUIDE_LANGS } from '../../../guides';
+import { DEFAULT_LANG, type Lang } from '../../../i18n';
+import GuideView from '../../../views/GuideView.astro';
+
+export function getStaticPaths() {
+  return GUIDE_LANGS.filter((lang) => lang !== DEFAULT_LANG).flatMap((lang) =>
+    getGuideSet(lang)!.guides.map((guide) => ({ params: { lang, slug: guide.slug } })),
+  );
+}
+---
+
+<GuideView lang={Astro.params.lang as Lang} slug={Astro.params.slug!} />

@@ -26,27 +26,32 @@ interface Props {
   /** 구조화 데이터 (JSON-LD) */
   jsonLd?: object[];
   noindex?: boolean;
+  /** 이 페이지가 있는 언어 (가이드처럼 일부 언어에만 있는 페이지). 없으면 모든 언어 */
+  langs?: readonly Lang[];
+  /** og:type (글은 article) */
+  ogType?: 'website' | 'article';
 }
 
-const { lang, title, description, path, jsonLd = [], noindex = false } = Astro.props;
+const { lang, title, description, path, jsonLd = [], noindex = false, langs = LANGS, ogType = 'website' } = Astro.props;
 const dict = getDictionary(lang);
 const fullTitle = `${title} | ${SITE.name}`;
 const canonical = new URL(path, `${SITE.url}/`).href;
 // 공유 미리보기 이미지는 언어마다 따로 만듭니다 (scripts/generate-images.mjs).
 const ogImage = new URL(`/og/${lang}.png`, `${SITE.url}/`).href;
-const alternates = LANGS.map((code) => ({
+const alternates = langs.map((code) => ({
   hreflang: LANGUAGES[code].htmlLang,
   href: new URL(switchLangPath(path, code), `${SITE.url}/`).href,
 }));
 // 지원하지 않는 언어 사용자에게는 영어 페이지를 보여 주도록 검색엔진에 알립니다.
-const xDefault = new URL(switchLangPath(path, FALLBACK_LANG), `${SITE.url}/`).href;
+const xDefaultLang = langs.includes(FALLBACK_LANG) ? FALLBACK_LANG : langs[0];
+const xDefault = new URL(switchLangPath(path, xDefaultLang), `${SITE.url}/`).href;
 // 처음 들어온 방문자를 브라우저 언어에 맞는 같은 페이지로 옮기는 스크립트 (src/i18n/auto-language.js)
 const autoLanguageConfig = {
   current: lang,
   path: neutralPath(path),
-  prefixes: Object.fromEntries(LANGS.map((code) => [code, langPrefix(code)])),
-  match: Object.fromEntries(LANGS.map((code) => [code, LANGUAGES[code].match])),
-  fallback: FALLBACK_LANG,
+  prefixes: Object.fromEntries(langs.map((code) => [code, langPrefix(code)])),
+  match: Object.fromEntries(langs.map((code) => [code, LANGUAGES[code].match])),
+  fallback: xDefaultLang,
   storageKey: LANG_STORAGE_KEY,
 };
 const autoLanguageSource = autoLanguage
@@ -78,7 +83,7 @@ const { cloudflareToken, gaId } = SITE.analytics;
     <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
     <link rel="sitemap" href="/sitemap-index.xml" />
 
-    <meta property="og:type" content="website" />
+    <meta property="og:type" content={ogType} />
     <meta property="og:site_name" content={SITE.name} />
     <meta property="og:title" content={fullTitle} />
     <meta property="og:description" content={description} />
@@ -89,7 +94,7 @@ const { cloudflareToken, gaId } = SITE.analytics;
     <meta property="og:image:alt" content={`${SITE.name} — ${dict.home.h1}`} />
     <meta property="og:locale" content={LANGUAGES[lang].ogLocale} />
     {
-      LANGS.filter((code) => code !== lang).map((code) => (
+      langs.filter((code) => code !== lang).map((code) => (
         <meta property="og:locale:alternate" content={LANGUAGES[code].ogLocale} />
       ))
     }
@@ -135,10 +140,10 @@ const { cloudflareToken, gaId } = SITE.analytics;
   </head>
   <body>
     <a class="skip-link" href="#main">{dict.nav.skipToContent}</a>
-    <Header lang={lang} path={path} />
+    <Header lang={lang} path={path} langs={langs} />
     <main id="main">
       <slot />
     </main>
-    <Footer lang={lang} path={path} />
+    <Footer lang={lang} path={path} langs={langs} />
   </body>
 </html>

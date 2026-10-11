@@ -2728,3 +2728,208 @@ body.is-sorting * {
     stroke-dashoffset: 0;
   }
 }
+
+/* ───────────────────────── 가이드 (직접 쓴 설명 글) ───────────────────────── */
+.guides-header {
+  max-width: 780px;
+  padding-block: 8px 24px;
+}
+
+.guides-header .lead {
+  color: var(--text-muted);
+  font-size: 1.05rem;
+}
+
+.guide-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(min(100%, 340px), 1fr));
+  gap: 16px;
+}
+
+.guide-card {
+  display: flex;
+  align-items: flex-start;
+  gap: 14px;
+  padding: 18px;
+  min-width: 0;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  text-decoration: none;
+  box-shadow: var(--shadow-sm);
+  transition:
+    transform 0.15s,
+    box-shadow 0.15s,
+    border-color 0.15s;
+}
+
+.guide-card:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow);
+  border-color: color-mix(in srgb, var(--cat-color, var(--brand)) 45%, var(--border));
+}
+
+.guide-card-icon {
+  display: grid;
+  place-items: center;
+  width: 42px;
+  height: 42px;
+  flex: none;
+  border-radius: var(--radius);
+  color: var(--cat-color, var(--brand));
+  background: color-mix(in srgb, var(--cat-color, var(--brand)) 12%, transparent);
+}
+
+.guide-card-body {
+  display: grid;
+  gap: 4px;
+  min-width: 0;
+}
+
+.guide-card-title {
+  font-weight: 700;
+  line-height: 1.4;
+  text-wrap: balance;
+}
+
+.guide-card-desc {
+  color: var(--text-muted);
+  font-size: 0.9rem;
+  line-height: 1.5;
+}
+
+.guide-card-meta {
+  margin-top: 4px;
+  color: var(--brand);
+  font-size: 0.85rem;
+  font-weight: 600;
+}
+
+.section-more {
+  margin-top: 16px;
+}
+
+.section-more a {
+  color: var(--brand);
+  font-weight: 600;
+}
+
+.guide {
+  max-width: 780px;
+}
+
+.guide-header h1 {
+  text-wrap: balance;
+}
+
+.guide-meta {
+  color: var(--text-subtle);
+  font-size: 0.9rem;
+}
+
+.guide-body {
+  padding-block: 8px;
+}
+
+.guide-body p,
+.guide-body li,
+.tool-details p,
+.tool-details li {
+  line-height: 1.75;
+}
+
+.prose h3 {
+  margin-top: 1.6em;
+  font-size: 1.08rem;
+}
+
+.tool-details .prose {
+  padding-top: 0;
+}
+
+.tool-details .prose > h3:first-child {
+  margin-top: 0.4em;
+}
+
+.guide-steps li + li {
+  margin-top: 6px;
+}
+
+.guide-tip {
+  padding: 12px 16px;
+  border-left: 4px solid var(--brand);
+  border-radius: var(--radius-sm);
+  background: var(--brand-soft);
+}
+
+.prose .guide-tip {
+  color: var(--text);
+}
+
+.guide-table {
+  overflow-x: auto;
+  margin: 1em 0;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+}
+
+.guide-table table {
+  width: 100%;
+  /* 좁은 화면에서는 칸이 찌그러지지 않게 표만 옆으로 밉니다. */
+  min-width: 520px;
+  border-collapse: collapse;
+  font-size: 0.92rem;
+}
+
+.guide-table th,
+.guide-table td {
+  padding: 10px 12px;
+  /* 낱말 중간에서 줄이 바뀌지 않게 (한국어는 띄어쓰기 단위로) */
+  overflow-wrap: normal;
+  word-break: keep-all;
+  text-align: left;
+  vertical-align: top;
+  border-bottom: 1px solid var(--border);
+}
+
+.guide-table thead th {
+  background: var(--surface-2);
+  white-space: nowrap;
+}
+
+.guide-table tbody tr:last-child > * {
+  border-bottom: 0;
+}
+
+.guide-table td {
+  color: var(--text-muted);
+}
+
+.guide-tools {
+  margin-block: 24px 8px;
+  padding: 20px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  background: var(--surface);
+}
+
+.guide-tools h2 {
+  margin-top: 0;
+  font-size: 1.05rem;
+}
+
+.guide-tool-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.guide-tool-links .icon {
+  color: var(--cat-color, var(--brand));
+}
+
+@media (max-width: 560px) {
+  .header-guides {
+    display: none;
+  }
+}

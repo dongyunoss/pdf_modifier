@@ -1,0 +1,25 @@
+---
+import { guidePath, readingMinutes, type Guide } from '../guides';
+import { getGuideSet } from '../guides';
+import { fmt, type Lang } from '../i18n';
+import { getTool } from '../tools/registry';
+import Icon from './Icon.astro';
+
+interface Props {
+  lang: Lang;
+  guide: Guide;
+}
+
+const { lang, guide } = Astro.props;
+const ui = getGuideSet(lang)!.ui;
+const main = guide.tools[0];
+---
+
+<a class="guide-card" href={guidePath(lang, guide.slug)} data-category={getTool(main).category}>
+  <span class="guide-card-icon" aria-hidden="true"><Icon name={main} size={22} /></span>
+  <span class="guide-card-body">
+    <span class="guide-card-title">{guide.title}</span>
+    <span class="guide-card-desc">{guide.description}</span>
+    <span class="guide-card-meta">{fmt(ui.minutes, { n: readingMinutes(lang, guide.sections) })} · {ui.readMore} →</span>
+  </span>
+</a>

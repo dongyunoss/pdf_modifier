@@ -1,17 +1,20 @@
 ---
 import { SITE } from '../config/site';
-import { getDictionary, LANGS, LANGUAGES, pagePath, switchLangPath, toolPath, type Lang } from '../i18n';
+import { getDictionary, langPrefix, LANGS, LANGUAGES, pagePath, switchLangPath, toolPath, type Lang } from '../i18n';
 import { TOOLS } from '../tools/registry';
+import { getGuideSet, guidesPath } from '../guides';
 import Icon from './Icon.astro';
 
 interface Props {
   lang: Lang;
   path: string;
+  langs?: readonly Lang[];
 }
 
-const { lang, path } = Astro.props;
+const { lang, path, langs = LANGS } = Astro.props;
 const dict = getDictionary(lang);
 const year = new Date().getFullYear();
+const guides = getGuideSet(lang);
 ---
 
 <footer class="site-footer">
@@ -49,6 +52,7 @@ const year = new Date().getFullYear();
     <nav aria-label={dict.footer.infoTitle}>
       <p class="footer-title">{dict.footer.infoTitle}</p>
       <ul class="footer-links">
+        {guides && <li><a href={guidesPath(lang)}>{guides.ui.nav}</a></li>}
         <li><a href={pagePath(lang, 'about')}>{dict.nav.about}</a></li>
         <li><a href={pagePath(lang, 'privacy')}>{dict.nav.privacy}</a></li>
         <li><a href={pagePath(lang, 'terms')}>{dict.nav.terms}</a></li>
@@ -64,7 +68,7 @@ const year = new Date().getFullYear();
           LANGS.map((code) => (
             <li>
               <a
-                href={switchLangPath(path, code)}
+                href={langs.includes(code) ? switchLangPath(path, code) : langPrefix(code)}
                 hreflang={LANGUAGES[code].htmlLang}
                 lang={LANGUAGES[code].htmlLang}
                 data-lang-choice={code}

@@ -6,7 +6,7 @@
  * IndexNow 로 모든 주소를 빙·네이버 등에 알립니다 (.github/workflows/indexnow.yml).
  * 오타 수정 같은 작은 변경에는 바꾸지 마세요. 구글은 lastmod 가 꾸준히 정확한 사이트의 값만 믿습니다.
  */
-export const CONTENT_UPDATED = '2026-10-02';
+export const CONTENT_UPDATED = '2026-10-11';
 
 /** IndexNow 키. 사이트 루트의 /<키>.txt 로 공개되어 이 사이트의 주소를 알릴 권한을 증명합니다 (공개되어도 되는 값). */
 export const INDEXNOW_KEY = 'd7555b6909ead30eb670a9ba0309de3b';
