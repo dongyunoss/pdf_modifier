@@ -2952,3 +2952,15 @@ body.is-sorting * {
 .update-log ul {
   margin: 4px 0 0;
 }
+
+/* 헤더의 「모든 도구」는 가장 중요한 메뉴라 브랜드 색으로 강조합니다. */
+.btn.tools-menu-button {
+  color: var(--brand);
+  background: var(--brand-soft);
+  font-weight: 700;
+}
+
+.btn.tools-menu-button:hover,
+.tools-menu[open] > .tools-menu-button {
+  background: color-mix(in srgb, var(--brand) 18%, transparent);
+}

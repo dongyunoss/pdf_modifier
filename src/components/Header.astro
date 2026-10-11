@@ -28,9 +28,8 @@ const langHref = (code: Lang) => (langs.includes(code) ? switchLangPath(path, co
     </a>
 
     <nav class="header-nav" aria-label={dict.nav.allTools}>
-      {guides && <a class="btn btn-ghost header-guides" href={guidesPath(lang)}>{guides.ui.nav}</a>}
-      <details class="menu">
-        <summary class="btn btn-ghost">
+      <details class="menu tools-menu">
+        <summary class="btn btn-ghost tools-menu-button">
           {dict.nav.allTools}
           <svg class="menu-caret" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" aria-hidden="true"><path d="m6 9 6 6 6-6"></path></svg>
         </summary>
@@ -51,6 +50,7 @@ const langHref = (code: Lang) => (langs.includes(code) ? switchLangPath(path, co
         </div>
       </details>
 
+      {guides && <a class="btn btn-ghost header-guides" href={guidesPath(lang)}>{guides.ui.nav}</a>}
       <details class="menu lang-menu">
         <summary class="btn btn-ghost" aria-label={`${dict.nav.language}: ${LANGUAGES[lang].name}`}>
           <Icon name="globe" size={18} />
