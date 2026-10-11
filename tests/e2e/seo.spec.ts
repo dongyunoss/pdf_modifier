@@ -12,7 +12,7 @@ test('홈: 무료·로그인 없음 약속과 비교표를 보여 준다', async
   await page.goto('/');
   await expect(page).toHaveTitle('PDF 편집기 - 로그인 없이 무료로 합치기·분할·압축·변환 | PDF Modifier');
   await expect(page.getByRole('heading', { level: 1 })).toHaveText('로그인 없이, 모든 PDF 도구를 무료로');
-  await expect(page.locator('.hero .badge')).toHaveText(['모든 기능 무료', '로그인 없음', '횟수 제한 없음', '파일 업로드 없음']);
+  await expect(page.locator('.hero .badge')).toHaveText(['모든 기능 무료', '로그인 없음', '횟수 제한 없음', '파일 유출 걱정 없음']);
 
   const table = page.getByRole('table');
   await expect(page.getByRole('heading', { name: '숨은 조건 없는 무료' })).toBeVisible();
