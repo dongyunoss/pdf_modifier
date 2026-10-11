@@ -3,9 +3,10 @@ import { langPrefix, type Lang } from '../i18n';
 import type { ToolId } from '../tools/registry';
 import { en } from './en';
 import { ko } from './ko';
-import type { Block, Guide, GuideSet, Section } from './types';
+import { DETAILS } from './details';
+import type { Block, Guide, GuideSet, Section, ToolDetailSet } from './types';
 
-export type { Block, Guide, GuideSet, Section } from './types';
+export type { Block, Guide, GuideSet, Section, ToolDetailSet } from './types';
 
 const sets: Partial<Record<Lang, GuideSet>> = { ko, en };
 
@@ -14,6 +15,12 @@ export const GUIDE_LANGS = Object.keys(sets) as Lang[];
 
 export function getGuideSet(lang: Lang): GuideSet | undefined {
   return sets[lang];
+}
+
+/** 도구 페이지의 「자세히 알아보기」 — 가이드가 있는 언어는 가이드 파일에서, 나머지는 details/ 에서 가져옵니다. */
+export function getToolDetails(lang: Lang): ToolDetailSet | undefined {
+  const set = sets[lang];
+  return set ? { title: set.ui.detailsTitle, sections: set.toolDetails } : DETAILS[lang];
 }
 
 export function guidesPath(lang: Lang): string {

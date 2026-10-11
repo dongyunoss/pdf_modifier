@@ -102,7 +102,7 @@ src/
 │  ├─ ko.ts, en.ts, ja.ts …  언어별 UI 문구와 도구별 SEO 콘텐츠(제목·설명·사용법·FAQ) — ko.ts 가 기준
 │  ├─ legal/               언어별 소개·개인정보처리방침·이용약관 문구
 │  └─ auto-language.js     첫 방문자를 브라우저 언어 페이지로 옮기는 스크립트 (<head>에 인라인)
-├─ guides/                 직접 쓴 가이드 글과 도구별 「자세히 알아보기」 (한국어 ko.ts·영어 en.ts만)
+├─ guides/                 가이드 글·소개 페이지 운영자/업데이트 기록(ko.ts·en.ts), 도구별 「자세히 알아보기」(13개 언어, details/)
 ├─ tools/registry.ts       도구 목록 (주소, 분류, 추천 도구)
 ├─ lib/
 │  ├─ pdf/                 PDF 처리 핵심 (Node 에서도 테스트 가능한 순수 함수)

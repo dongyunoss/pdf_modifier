@@ -24,6 +24,40 @@ export const en: GuideSet = {
     author: 'PDF Modifier',
   },
 
+  about: {
+    operator: {
+      title: 'Who runs this site',
+      blocks: [
+        'PDF Modifier is built and run by an independent developer in South Korea. It started from frustration with free PDF sites that demand sign-ups, cap daily use or require uploading files, and aims to be a set of tools with none of those conditions.',
+        { list: [
+          'All processing happens in your browser. There is no server that receives files, so we cannot store or look at them.',
+          'Tool explanations and guides are written against the tools’ real settings and behavior, and are updated when the tools change.',
+          'Ads pay for running the site and are kept away from places where they would get in your way, such as the file picker and the processing screen.',
+          'Bug reports and feature suggestions are welcome at the contact address below, and changes are listed in the update history.',
+        ] },
+      ],
+    },
+    updatesTitle: 'Update history',
+    updates: [
+      { date: '2026-10-11', items: [
+        'Published 12 PDF guides in English and Korean.',
+        'Added an in-depth "More about" section to every tool page in all 13 languages.',
+        'Reworded the privacy promise as "Files stay private" to explain more plainly that files never leave your device.',
+      ] },
+      { date: '2026-10-02', items: [
+        'Added a comparison with typical online PDF sites to the home page.',
+        'Made the free, no sign-up promise visible in search results and link previews, with a preview image for each language.',
+      ] },
+      { date: '2026-10-01', items: [
+        'Added a processing screen that shows progress and elapsed time.',
+        'Added Japanese, Chinese (Simplified and Traditional), Spanish, Portuguese, French, German, Italian, Indonesian, Vietnamese and Turkish, for 13 languages in total.',
+      ] },
+      { date: '2026-09-29', items: [
+        'Launched PDF Modifier with 13 tools: merge, split, organize, rotate, delete and extract pages, compress, JPG to PDF, PDF to JPG, watermark, page numbers, protect and unlock.',
+      ] },
+    ],
+  },
+
   guides: [
     {
       slug: 'reduce-pdf-file-size',
@@ -373,7 +407,7 @@ export const en: GuideSet = {
           blocks: [
             'If you scanned several people’s paperwork in one go, {tool:split} separates it. There are three modes.',
             { list: [
-              'Ranges: type "1-3, 4-6, 7-" and each range becomes its own PDF. Useful when each set has a different number of pages.',
+              '{ui:tools.split.ui.modeRanges}: type "1-3, 4-6, 7-" and each range becomes its own PDF. Useful when each set has a different number of pages.',
               'Every N pages: if every set is two pages long, enter 2 to cut every two pages.',
               'Every page: one PDF per page, handy for individual receipts.',
             ] },
@@ -474,6 +508,320 @@ export const en: GuideSet = {
         },
       ],
     },
+    {
+      slug: 'pdf-on-phone',
+      title: 'Merging and Compressing PDFs on a Phone: iPhone and Android, Step by Step',
+      description:
+        'How to merge and shrink PDFs in your phone’s browser without installing an app, and how to deal with the part that trips people up most: picking files and finding the result.',
+      tools: ['merge', 'compress', 'jpg-to-pdf'],
+      published: '2026-10-11',
+      updated: '2026-10-11',
+      sections: [
+        {
+          blocks: [
+            'Sometimes a document has to go out right now and there is no computer around. The tools on this site work in a phone browser exactly as they do on a desktop, so there is nothing to install. On a phone, though, people get stuck less on the tools themselves than on "where do I pick the file, and where did the result go?" This guide focuses on that.',
+          ],
+        },
+        {
+          title: 'Check which browser you are in',
+          blocks: [
+            'Links opened inside apps such as Instagram, Facebook, LinkedIn or a chat app open in that app’s built-in browser. Those browsers sometimes fail to pick files or to download results. Use the menu (often in a corner of the screen) to choose "Open in browser", then work in Safari, Chrome or Samsung Internet.',
+          ],
+        },
+        {
+          title: 'iPhone: picking files and finding downloads',
+          blocks: [
+            { steps: [
+              'Open the tool you need, such as {tool:merge}, in Safari.',
+              'Tap the button to choose a PDF. The Files app opens (if a menu appears first, tap "Choose Files"). PDFs you received by email or in a chat app need to be saved to Files first with "Save to Files" in the share menu.',
+              'When you tap download, Safari may ask for confirmation. Tap "Download".',
+              'The file is saved in the Files app, in the "Downloads" folder. You can also open it from the download icon next to Safari’s address bar.',
+            ] },
+          ],
+        },
+        {
+          title: 'Android: picking files and finding downloads',
+          blocks: [
+            { steps: [
+              'Open the tool in Chrome or Samsung Internet and tap the button to choose a PDF.',
+              'In the file picker, go to "Downloads" or your file manager and choose the PDF. Files received in a chat app usually need to be saved from the conversation first.',
+              'Results are saved to the "Download" folder, which you can reach from the Files app (or "My Files" on Samsung). Tapping the download notification opens the file directly.',
+            ] },
+          ],
+        },
+        {
+          title: 'Common jobs on a phone',
+          blocks: [
+            { list: [
+              'Document photos to PDF: in {tool:jpg-to-pdf} you can pick photos straight from your photo library. Choose Letter or A4 as the page size for a clean result.',
+              'Combining PDFs: in {tool:merge}, select several files at once and use the arrow buttons in the list to set the order.',
+              'Shrinking for email: if an attachment is too large, use "Recommended" in {tool:compress}. PDFs containing phone photos shrink a lot.',
+            ] },
+          ],
+        },
+        {
+          title: 'Worth knowing',
+          blocks: [
+            { list: [
+              'Files are processed on your phone, not sent to a server. Data use is limited to loading the tool the first time, and speed depends on your phone.',
+              'Switching to another app mid-task can pause the browser. Keep the screen on until the progress indicator finishes.',
+              'Files of several hundred megabytes, or documents with hundreds of pages, may exceed a phone’s memory. Use a computer, or split the document with {tool:split} first.',
+            ] },
+          ],
+        },
+      ],
+    },
+
+    {
+      slug: 'rotate-pdf-permanently',
+      title: 'Rotated a PDF but It’s Sideways Again? View Rotation vs. File Rotation',
+      description:
+        'Why a page you rotated in a PDF viewer comes back sideways, how to save the correct orientation into the file for good, and why phone photos end up on their side.',
+      tools: ['rotate', 'organize', 'jpg-to-pdf'],
+      published: '2026-10-11',
+      updated: '2026-10-11',
+      sections: [
+        {
+          blocks: [
+            'You rotate a sideways scan in your PDF viewer, send it off, and the recipient opens it to find it still on its side. It happens all the time, because there are two different kinds of rotation.',
+          ],
+        },
+        {
+          title: 'View rotation vs. file rotation',
+          blocks: [
+            { table: {
+              head: ['', 'View rotation', 'File rotation'],
+              rows: [
+                ['What changes', 'How the page is shown on your screen right now', 'The orientation value stored in the PDF'],
+                ['When reopened', 'Back to how it was', 'Stays rotated'],
+                ['When sent to others', 'They see the original orientation', 'They see it rotated too'],
+                ['Typical examples', 'A viewer’s "Rotate View" menu, rotate buttons in a browser’s PDF viewer', '{tool:rotate}, rotating pages in an editor and saving'],
+              ],
+            } },
+            'Features with "view" in the name, such as Adobe Acrobat Reader’s "View › Rotate View", usually only turn the display. Rotate buttons in Chrome’s or Edge’s PDF viewer may not be saved either, depending on the program and version. For a file you are sending to someone, rotate the file itself and save a new copy.',
+          ],
+        },
+        {
+          title: 'How rotation is stored in a PDF',
+          blocks: [
+            'Each PDF page carries a value saying whether to show it turned by 0°, 90°, 180° or 270°. File rotation only changes that value; the page content is not redrawn. That is why you can rotate as often as you like without losing quality, and the text stays selectable and searchable.',
+          ],
+        },
+        {
+          title: 'Fixing orientation for good',
+          blocks: [
+            { steps: [
+              'Open {tool:rotate} and choose your PDF.',
+              'Each tap or click turns a page 90° clockwise. If every page is turned the same way, use "Rotate all left" or "Rotate all right".',
+              'Press "Apply rotation", download the file and open it again to check.',
+            ] },
+            'If you also need to reorder pages or remove blank ones, {tool:organize} does it all in one pass.',
+          ],
+        },
+        {
+          title: 'Why phone photos end up sideways',
+          blocks: [
+            'Phone cameras store the image the same way whichever way you hold the phone, and add a note (the EXIF orientation tag) saying "show this turned by 90°". Photo apps read the note and show the picture upright, but a program that ignores it produces sideways pages in a PDF.',
+            '{tool:jpg-to-pdf} reads that tag and straightens each photo before placing it. If a page is still sideways, the phone probably recorded the wrong orientation because it was held flat; fix it afterwards with {tool:rotate}.',
+          ],
+        },
+        {
+          title: 'Getting orientation right when scanning',
+          blocks: [
+            { list: [
+              'Feed every page in the same direction. Collect landscape pages and scan them as a separate batch so they are easy to rotate together.',
+              'If your scanner has "auto-rotate" or "auto orientation", turn it on. It uses the direction of the text, so check pages that contain only photos or tables.',
+            ] },
+          ],
+        },
+      ],
+    },
+
+    {
+      slug: 'send-id-copy-safely',
+      title: 'How to Send a Copy of Your ID Safely: What to Cover, What to Add, How to Send It',
+      description:
+        'How to lower the risk when you must send a passport or driver’s license copy as a PDF: covering details, a purpose watermark, a password and cleaning up afterwards.',
+      tools: ['jpg-to-pdf', 'watermark', 'compress', 'protect'],
+      published: '2026-10-11',
+      updated: '2026-10-11',
+      sections: [
+        {
+          blocks: [
+            'Opening an account, starting a job or renting an apartment often means sending a copy of your ID. Once a copy is out there you cannot take it back, and it can be used for identity fraud, so a few precautions before you send it go a long way.',
+          ],
+        },
+        {
+          title: '1. Cover what the recipient doesn’t need, when you take the photo',
+          blocks: [
+            'If the recipient does not need certain details, such as a document number or your address, cover them. The most reliable way is to put a piece of paper or a sticky note over them before taking the photo. Painting over details in an editing app afterwards leaves the original photo on your phone, and semi-transparent markers can let the text show through.',
+            { tip: 'Some organizations must see the complete document, for example for identity verification required by law. Check the instructions before covering anything.' },
+          ],
+        },
+        {
+          title: '2. Turn the photos into a clean PDF',
+          blocks: [
+            'If you photographed the front and back, select both in {tool:jpg-to-pdf} to create a single PDF. Choosing Letter or A4 makes it easy for the recipient to print. Bright light without shadows, with the phone held parallel to the card, keeps the text sharp.',
+          ],
+        },
+        {
+          title: '3. Add the purpose and date as a watermark',
+          blocks: [
+            'In {tool:watermark}, add text such as "For account opening at Example Bank only – Oct 11, 2026", stating the recipient, purpose and date. If the copy turns up somewhere else, the stated purpose makes it much harder to misuse.',
+            { list: [
+              'The "Tiled" layout repeats the text across the whole page, so it cannot simply be cropped off.',
+              'An opacity of about 20–30% keeps the ID readable while the text stays visible.',
+              'Let the text run across the photo and name so that those parts cannot be cut out cleanly.',
+            ] },
+          ],
+        },
+        {
+          title: '4. Make the watermark hard to remove',
+          blocks: [
+            'A watermark is text drawn on top of the page, so PDF editing software can sometimes remove it. To make that much harder, send the watermarked file to {tool:compress} and turn on "Maximum compression (convert pages to images)". Each page becomes a single picture with the watermark baked in, and the file gets smaller too.',
+          ],
+        },
+        {
+          title: '5. Sending it, and cleaning up afterwards',
+          blocks: [
+            { list: [
+              'If you send it by email, add an open password with {tool:protect} and share the password by text message or phone.',
+              'Never post it in group chats or public forums; use a channel only the recipient can see.',
+              'Afterwards, delete the original photos and the PDF from your downloads, and empty "Recently Deleted" as well.',
+            ] },
+            'The tools on this site process photos and PDFs on your own device without sending them to a server. The more sensitive the file, the more it matters that it is not stored anywhere along the way.',
+          ],
+        },
+      ],
+    },
+
+    {
+      slug: 'page-numbers-skip-cover',
+      title: 'Adding Page Numbers Without Numbering the Cover Page',
+      description:
+        'How to skip the cover and table of contents and start numbering at 1 on the first content page, how to choose position and format, and what to check before you add numbers.',
+      tools: ['page-numbers', 'merge', 'organize'],
+      published: '2026-10-11',
+      updated: '2026-10-11',
+      sections: [
+        {
+          blocks: [
+            'Reports and application packets usually have an unnumbered cover, with the first content page as page 1. In a word processor that means fiddling with section breaks; with a finished PDF it takes a few clicks.',
+          ],
+        },
+        {
+          title: 'Before numbering: settle the order',
+          blocks: [
+            'Page numbers are drawn onto the pages, so if you reorder pages afterwards the numbers get shuffled with them. If you need to combine files, do it first with {tool:merge}, check for missing or blank pages in {tool:organize}, and add numbers last.',
+          ],
+        },
+        {
+          title: 'Skipping the cover page',
+          blocks: [
+            { steps: [
+              'Open {tool:page-numbers} and choose your PDF.',
+              'Switch the pages setting to "Custom" and enter "2-", meaning page 2 to the end. To skip a cover and a one-page table of contents, enter "3-".',
+              'Keep the starting number at 1. Numbers are counted only across the pages you selected, so the first content page becomes page 1.',
+              'Choose position and format, check the preview, then press "Add page numbers".',
+            ] },
+            'With a format that shows the total, such as "1 / 10", the total also counts only the numbered pages. An 11-page document with a cover shows "1 / 10" to "10 / 10" on its content pages.',
+          ],
+        },
+        {
+          title: 'Choosing position and format',
+          blocks: [
+            { table: {
+              head: ['Document', 'Suggested position', 'Suggested format'],
+              rows: [
+                ['Reports, papers, submissions', 'Bottom center', '1 or - 1 -'],
+                ['Packets of several documents', 'Bottom right', '1 / 10 (lets the recipient check nothing is missing)'],
+                ['Formal or legal documents', 'Bottom center or bottom right', 'Page 1 of 10'],
+                ['Printed slides for a meeting', 'Top right', '1'],
+              ],
+            } },
+            'Books printed double-sided sometimes put numbers on the outer edge, alternating between odd and even pages. This tool places numbers in the same position on every page, so for double-sided printing choose bottom center, which looks right on both sides.',
+          ],
+        },
+        {
+          title: 'If numbers are hidden or cut off',
+          blocks: [
+            { list: [
+              'If numbers overlap an existing footer, switch the margin to "Large" or move the numbers to the top.',
+              'If numbers are cut off when printing, they are too close to the edge your printer cannot reach. Use a margin of "Normal" or more.',
+              'Landscape pages mixed into the document are fine: numbers are placed according to how each page is displayed.',
+            ] },
+          ],
+        },
+      ],
+    },
+
+    {
+      slug: 'pdf-vs-jpg-submission',
+      title: 'PDF or JPG: Which Should You Use When Submitting Documents?',
+      description:
+        'When a form just says "attach your documents", how PDF and JPG differ, which to choose in common situations, and how to convert between them.',
+      tools: ['jpg-to-pdf', 'pdf-to-jpg', 'compress', 'merge'],
+      published: '2026-10-11',
+      updated: '2026-10-11',
+      sections: [
+        {
+          blocks: [
+            'When an application only says "attach supporting documents" without naming a format, it is not obvious whether to send a PDF or a photo (JPG). The two formats suit different jobs, and choosing the right one saves the reviewer time and saves you a "please resend" email.',
+          ],
+        },
+        {
+          title: 'How the formats differ',
+          blocks: [
+            { table: {
+              head: ['', 'PDF', 'JPG (image)'],
+              rows: [
+                ['Multiple pages', 'Many pages in one file', 'One file per page'],
+                ['Text', 'Selectable and searchable if the original was a document', 'Text is part of the picture, not searchable'],
+                ['Printing', 'Carries a paper size and prints as is', 'Has to be scaled when printing'],
+                ['Viewing', 'Opens on nearly every device but needs a viewer', 'Opens instantly anywhere'],
+                ['Size', 'Small for documents, large with many photos', 'The size of the photo'],
+              ],
+            } },
+          ],
+        },
+        {
+          title: 'Which one to choose',
+          blocks: [
+            { list: [
+              'Multi-page paperwork (contracts, several certificates): send one PDF. Loose images get out of order and are easy to miss. Combine them with {tool:merge}.',
+              'Originals made in Word, Google Docs or Excel: export to PDF. The text stays crisp and searchable.',
+              'One or two photos of a receipt or ID: follow the instructions, and if the portal only accepts PDF, convert with {tool:jpg-to-pdf}.',
+              'Portals that accept "images only": convert the PDF with {tool:pdf-to-jpg}. For text-heavy pages use 150 DPI or more, and PNG for the sharpest text.',
+              'Quickly showing someone in a chat: an image is easiest for them to view.',
+            ] },
+          ],
+        },
+        {
+          title: 'When you hit a size limit',
+          blocks: [
+            'Submission portals often limit the size of each file. PDFs built from photos grow quickly, so shrink them with "Recommended" in {tool:compress}. If you must upload images and they are too big, converting again at the next lower resolution is the quickest fix.',
+          ],
+        },
+        {
+          title: 'A checklist before you send',
+          blocks: [
+            { list: [
+              'Open the downloaded file yourself once. Empty or broken attachments are more common than you would think.',
+              'Check that every page is there and in order. The back of a two-sided certificate is the page most often forgotten.',
+              'Zoom in on photos to make sure the text is readable. A blurry or glare-covered photo is quicker to retake than to explain.',
+              'Send the original file, not a screenshot of it. Screenshots are low resolution and include clutter such as your phone’s status bar.',
+              'If you added a password, make sure the recipient gets it through a separate channel.',
+            ] },
+          ],
+        },
+        {
+          title: 'The file name is part of the submission',
+          blocks: [
+            'A file called "IMG_4821.jpg" forces the reviewer to open it to find out what it is. Names like "Jane_Smith_Employment_Letter.pdf", with your name and the document type, make the reviewer’s job easier and help them confirm nothing is missing.',
+          ],
+        },
+      ],
+    },
   ],
 
   toolDetails: {
@@ -523,7 +871,7 @@ export const en: GuideSet = {
           { table: {
             head: ['Mode', 'Example input', 'Result'],
             rows: [
-              ['Ranges', '1-3, 4-6, 7-', 'One PDF per range ("7-" means page 7 to the end)'],
+              ['{ui:tools.split.ui.modeRanges}', '1-3, 4-6, 7-', 'One PDF per range ("7-" means page 7 to the end)'],
               ['Every N pages', '2', 'A new PDF every two pages'],
               ['Every page', '-', 'One PDF per page'],
             ],
@@ -620,8 +968,8 @@ export const en: GuideSet = {
         title: 'Two ways to save',
         blocks: [
           { list: [
-            'As one PDF: the selected pages, in their original order, in a single new file.',
-            'One file per page: each selected page as its own PDF, downloadable together as a ZIP.',
+            '{ui:tools.extract-pages.ui.outputSingle}: the selected pages, in their original order, in a single new file.',
+            '{ui:tools.extract-pages.ui.outputSeparate}: each selected page as its own PDF, downloadable together as a ZIP.',
           ] },
           'Page data is copied unchanged, so text selection, links and image quality match the original.',
         ],

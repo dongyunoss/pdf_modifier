@@ -107,7 +107,8 @@ const { cloudflareToken, gaId } = SITE.analytics;
     {jsonLd.map((data) => <script type="application/ld+json" set:html={JSON.stringify(data)} />)}
 
     {
-      adClient && (
+      /* 내용이 없는 페이지(404 등 noindex)에는 광고 스크립트를 넣지 않습니다 (애드센스 정책) */
+      adClient && !noindex && (
         <script
           async
           src={`https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=${adClient}`}

@@ -51,6 +51,9 @@ const contact = () => {
 
 const special: Record<string, () => string> = { '{tools}': toolList, '{opensource}': openSourceList, '{contact}': contact };
 
+// 소개 페이지의 「문의」 앞에 끼워 넣을 내용 (운영자 소개·업데이트 기록, 가이드가 있는 언어만)
+const beforeContact = Astro.slots.has('before-contact') ? await Astro.slots.render('before-contact') : '';
+
 const render = (block: LegalBlock) => {
   if (typeof block !== 'string') return `<ul>${block.list.map((item) => `<li>${fill(item)}</li>`).join('')}</ul>`;
   const make = special[block];
@@ -61,6 +64,7 @@ const render = (block: LegalBlock) => {
 {
   text[page].map((section) => (
     <>
+      {section.blocks.includes('{contact}') && <Fragment set:html={beforeContact} />}
       {section.title && <h2>{section.title}</h2>}
       <Fragment set:html={section.blocks.map(render).join('')} />
     </>

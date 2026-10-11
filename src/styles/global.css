@@ -2933,3 +2933,22 @@ body.is-sorting * {
     display: none;
   }
 }
+
+/* 소개 페이지의 업데이트 기록 */
+.update-log {
+  display: grid;
+  gap: 14px;
+  padding-left: 0;
+  list-style: none;
+}
+
+.update-log > li > time {
+  display: block;
+  font-weight: 700;
+  color: var(--text);
+  font-variant-numeric: tabular-nums;
+}
+
+.update-log ul {
+  margin: 4px 0 0;
+}

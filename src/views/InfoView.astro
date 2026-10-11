@@ -1,6 +1,8 @@
 ---
 import { getDictionary, LANGUAGES, pagePath, type Lang, type StaticPage } from '../i18n';
 import BaseLayout from '../layouts/BaseLayout.astro';
+import RichSections from '../components/RichSections.astro';
+import { getGuideSet } from '../guides';
 import LegalPage from './legal/LegalPage.astro';
 
 interface Props {
@@ -15,6 +17,10 @@ const EFFECTIVE_DATE = Date.UTC(2026, 8, 29);
 const effectiveDate = new Intl.DateTimeFormat(LANGUAGES[lang].locale, { dateStyle: 'long', timeZone: 'UTC' }).format(
   EFFECTIVE_DATE,
 );
+
+const about = getGuideSet(lang)?.about;
+const formatDate = (date: string) =>
+  new Intl.DateTimeFormat(LANGUAGES[lang].locale, { dateStyle: 'long', timeZone: 'UTC' }).format(new Date(`${date}T00:00:00Z`));
 
 const titles: Record<StaticPage, string> = {
   about: dict.nav.about,
@@ -31,6 +37,27 @@ const descriptions: Record<StaticPage, string> = {
 <BaseLayout lang={lang} title={titles[page]} description={descriptions[page]} path={pagePath(lang, page)}>
   <article class="container prose">
     <h1>{titles[page]}</h1>
-    <LegalPage lang={lang} page={page} effectiveDate={effectiveDate} />
+    <LegalPage lang={lang} page={page} effectiveDate={effectiveDate}>
+      {
+        page === 'about' && about && (
+          <Fragment slot="before-contact">
+            <RichSections lang={lang} sections={[about.operator]} />
+            <h2>{about.updatesTitle}</h2>
+            <ul class="update-log">
+              {about.updates.map((entry) => (
+                <li>
+                  <time datetime={entry.date}>{formatDate(entry.date)}</time>
+                  <ul>
+                    {entry.items.map((item) => (
+                      <li>{item}</li>
+                    ))}
+                  </ul>
+                </li>
+              ))}
+            </ul>
+          </Fragment>
+        )
+      }
+    </LegalPage>
   </article>
 </BaseLayout>

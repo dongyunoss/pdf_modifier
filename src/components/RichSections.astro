@@ -2,6 +2,7 @@
 // 가이드와 도구 상세 설명의 본문(Section[])을 그립니다. 문단 안의 {tool:id} 는 도구 링크가 됩니다.
 import type { Block, Section } from '../guides';
 import { getDictionary, toolPath, type Lang } from '../i18n';
+import { uiLabel } from '../guides/labels';
 import { TOOLS, type ToolId } from '../tools/registry';
 
 interface Props {
@@ -20,10 +21,12 @@ const escapeHtml = (value: string) =>
   value.replace(/[&<>"']/g, (char) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' })[char]!);
 
 const inline = (text: string) =>
-  escapeHtml(text).replace(/\{tool:([a-z-]+)\}/g, (match, id: string) => {
-    if (!toolIds.has(id)) throw new Error(`알 수 없는 도구 링크: ${match}`);
-    return `<a href="${toolPath(lang, id as ToolId)}">${escapeHtml(dict.tools[id as ToolId].name)}</a>`;
-  });
+  escapeHtml(text)
+    .replace(/\{tool:([a-z-]+)\}/g, (match, id: string) => {
+      if (!toolIds.has(id)) throw new Error(`알 수 없는 도구 링크: ${match}`);
+      return `<a href="${toolPath(lang, id as ToolId)}">${escapeHtml(dict.tools[id as ToolId].name)}</a>`;
+    })
+    .replace(/\{ui:([\w.-]+)\}/g, (_match, path: string) => escapeHtml(uiLabel(lang, path)));
 
 const render = (block: Block): string => {
   if (typeof block === 'string') return `<p>${inline(block)}</p>`;
@@ -41,7 +44,7 @@ const render = (block: Block): string => {
 {
   sections.map((section) => (
     <>
-      {section.title && <Heading>{section.title}</Heading>}
+      {section.title && <Heading set:html={inline(section.title)} />}
       <Fragment set:html={section.blocks.map(render).join('')} />
     </>
   ))
