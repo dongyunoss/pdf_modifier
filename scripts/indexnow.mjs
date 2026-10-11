@@ -83,7 +83,10 @@ async function submit(urlList) {
     });
     // 200: 접수됨, 202: 접수됨(키 확인 대기 중). 나머지는 실패입니다 (403 키 불일치·확인 전, 422 다른 호스트 주소, 429 너무 잦은 요청).
     if (response.status === 200 || response.status === 202) {
-      console.log(`IndexNow 에 주소 ${urlList.length}개를 보냈습니다 (HTTP ${response.status}).`);
+      const message = `IndexNow 에 주소 ${urlList.length}개를 보냈습니다 (HTTP ${response.status}).`;
+      console.log(message);
+      // GitHub Actions 에서는 실행 기록 화면(및 API의 annotations)에 결과가 바로 보이도록 알림으로도 남깁니다.
+      if (process.env.GITHUB_ACTIONS) console.log(`::notice title=IndexNow::${message}`);
       return;
     }
     const body = (await response.text()).slice(0, 500);
@@ -115,6 +118,8 @@ try {
     for (let start = 0; start < own.length; start += BATCH) await submit(own.slice(start, start + BATCH));
   }
 } catch (error) {
-  console.error(error instanceof Error ? error.message : error);
+  const message = error instanceof Error ? error.message : String(error);
+  console.error(message);
+  if (process.env.GITHUB_ACTIONS) console.log(`::error title=IndexNow::${message.replace(/\r?\n/g, ' ')}`);
   process.exitCode = 1;
 }
