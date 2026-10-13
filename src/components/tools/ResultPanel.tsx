@@ -25,8 +25,19 @@ interface ResultPanelProps {
   onReset: () => void;
 }
 
+/**
+ * 작업 완료 화면 광고는 페이지를 연 뒤 처음 나온 결과 화면에서만 보여 줍니다.
+ * 같은 페이지에서 작업을 반복할 때마다 광고를 새로 불러오면 애드센스가 금지하는 "광고 새로고침"으로 볼 수 있기 때문입니다.
+ */
+let resultAdUsed = false;
+
 export function ResultPanel({ files, zipName = 'files.zip', summary, onReset }: ResultPanelProps) {
   const { ui, errors, lang, related, resultAd, navigate } = useTool();
+  const [showResultAd] = useState(() => {
+    if (!resultAd || resultAdUsed) return false;
+    resultAdUsed = true;
+    return true;
+  });
   const heading = useRef<HTMLHeadingElement>(null);
   const [zip, setZip] = useState<Blob | null>(null);
   const [zipping, setZipping] = useState(false);
@@ -196,8 +207,6 @@ export function ResultPanel({ files, zipName = 'files.zip', summary, onReset }: 
         {ui.startOver}
       </button>
 
-      {resultAd && <AdUnit config={resultAd} label={ui.ad} />}
-
       {related.length > 0 && (
         <nav class="result-next" aria-label={ui.continueWith}>
           <h3>{ui.continueWith}</h3>
@@ -223,6 +232,9 @@ export function ResultPanel({ files, zipName = 'files.zip', summary, onReset }: 
           </div>
         </nav>
       )}
+
+      {/* 버튼(다시 하기·이어서 작업하기)과 떨어진 맨 아래에 둡니다 — 실수 클릭 방지 (애드센스 정책) */}
+      {showResultAd && <AdUnit config={resultAd!} label={ui.ad} />}
     </section>
   );
 }
