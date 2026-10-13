@@ -15,8 +15,9 @@ export const SITE = {
       tool: clean(env.PUBLIC_ADSENSE_SLOT_TOOL),
       result: clean(env.PUBLIC_ADSENSE_SLOT_RESULT),
       content: clean(env.PUBLIC_ADSENSE_SLOT_CONTENT),
-      // 넓은 PC 화면에서 도구 페이지 오른쪽 빈 공간에 고정되는 세로형 광고 (src/components/SideAd.astro)
-      side: clean(env.PUBLIC_ADSENSE_SLOT_SIDE),
+      // 넓은 PC 화면에서 도구 페이지 오른쪽 빈 공간에 고정되는 세로형 광고 (src/components/SideAd.astro).
+      // 광고 단위 번호는 페이지에 그대로 공개되는 값이라 pdfmodifier.app 기본값을 코드에 둡니다.
+      side: clean(env.PUBLIC_ADSENSE_SLOT_SIDE) || '3903969373',
     },
   },
   analytics: {
