@@ -2964,3 +2964,37 @@ body.is-sorting * {
 .tools-menu[open] > .tools-menu-button {
   background: color-mix(in srgb, var(--brand) 18%, transparent);
 }
+
+/* ───────────────────────── 오른쪽 고정 광고 (넓은 PC 화면) ─────────────────────────
+   본문(최대 1120px) 오른쪽 빈 공간에 고정합니다. 조건은 SideAd.astro 의 matchMedia 와 같아야 합니다.
+   1520px: 160px 광고 + 간격이 본문을 가리지 않는 최소 폭, 1800px: 300px 광고가 들어가는 폭.
+   760px: 헤더 + 600px 광고가 화면 안에 다 보이는 최소 높이. */
+.side-ad {
+  display: none;
+}
+
+@media (min-width: 1520px) and (min-height: 760px) {
+  .side-ad {
+    display: block;
+    position: fixed;
+    top: calc(var(--header-h) + 24px);
+    left: calc(50% + 560px + 24px);
+    z-index: 1;
+  }
+
+  .side-ad .ad-label {
+    text-align: center;
+  }
+
+  .side-ad-unit {
+    display: inline-block;
+    width: 160px;
+    height: 600px;
+  }
+}
+
+@media (min-width: 1800px) and (min-height: 760px) {
+  .side-ad-unit {
+    width: 300px;
+  }
+}

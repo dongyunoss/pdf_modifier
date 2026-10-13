@@ -3,6 +3,7 @@ import AdSlot from '../components/AdSlot.astro';
 import Faq from '../components/Faq.astro';
 import GuideCard from '../components/GuideCard.astro';
 import RichSections from '../components/RichSections.astro';
+import SideAd from '../components/SideAd.astro';
 import Icon from '../components/Icon.astro';
 import ToolCard from '../components/ToolCard.astro';
 import CompressTool from '../components/tools/CompressTool';
@@ -119,6 +120,8 @@ const others = TOOLS.filter((item) => item.id !== id && item.category === tool.c
         </ul>
       </div>
     </header>
+
+    <SideAd label={dict.ui.ad} />
 
     <section class="tool-area" aria-label={content.name}>
       {id === 'merge' && <MergeTool client:load {...base} t={t.merge.ui} />}

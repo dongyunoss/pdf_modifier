@@ -15,6 +15,8 @@ export const SITE = {
       tool: clean(env.PUBLIC_ADSENSE_SLOT_TOOL),
       result: clean(env.PUBLIC_ADSENSE_SLOT_RESULT),
       content: clean(env.PUBLIC_ADSENSE_SLOT_CONTENT),
+      // 넓은 PC 화면에서 도구 페이지 오른쪽 빈 공간에 고정되는 세로형 광고 (src/components/SideAd.astro)
+      side: clean(env.PUBLIC_ADSENSE_SLOT_SIDE),
     },
   },
   analytics: {

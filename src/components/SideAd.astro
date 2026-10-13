@@ -1,0 +1,52 @@
+---
+// 넓은 PC 화면에서 본문 오른쪽 빈 공간에 고정되는 세로형 광고 (도구 페이지).
+// 도구를 가리지 않고, 파일을 처리하는 동안에도 화면에 보입니다.
+// 화면 폭이 1520px 이상일 때만 광고를 요청합니다(1800px 이상은 300×600, 그 아래는 160×600).
+// 좁은 화면과 휴대폰에서는 자리 자체가 없고 광고도 요청하지 않습니다.
+import { SITE } from '../config/site';
+
+interface Props {
+  label: string;
+}
+
+const { label } = Astro.props;
+const client = SITE.adsense.client;
+const slot = SITE.adsense.slots.side;
+const enabled = Boolean(client && slot);
+---
+
+{
+  enabled ? (
+    <aside class="side-ad" aria-label={label}>
+      <span class="ad-label">{label}</span>
+      <ins class="adsbygoogle side-ad-unit" data-ad-client={client} data-ad-slot={slot} />
+      <script is:inline>
+        (function () {
+          var unit = document.currentScript.previousElementSibling;
+          // CSS(.side-ad)의 표시 조건과 같아야 합니다.
+          var wide = window.matchMedia('(min-width: 1520px) and (min-height: 760px)');
+          var requested = false;
+          function load() {
+            if (requested || !wide.matches) return;
+            requested = true;
+            try {
+              (window.adsbygoogle = window.adsbygoogle || []).push({});
+            } catch (e) {
+              // 광고 차단기 등으로 실패해도 도구 사용에는 영향이 없어야 합니다.
+            }
+          }
+          load();
+          // 처음엔 좁았다가 창을 넓힌 경우 한 번만 요청합니다 (같은 자리를 다시 불러오지 않습니다).
+          if (wide.addEventListener) wide.addEventListener('change', load);
+        })();
+      </script>
+    </aside>
+  ) : (
+    import.meta.env.DEV && (
+      <aside class="side-ad" aria-hidden="true">
+        <span class="ad-label">{label}</span>
+        <span class="side-ad-unit ad-placeholder">AdSense · side</span>
+      </aside>
+    )
+  )
+}
