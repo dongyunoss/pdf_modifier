@@ -17,8 +17,8 @@ export default defineConfig({
     trace: 'retain-on-failure',
   },
   webServer: {
-    // --ignore-lock: AI 에이전트 환경에서 astro preview 가 백그라운드로 빠져 바로 종료되는 것을 막습니다.
-    command: 'npx astro preview --port 4321 --ignore-lock',
+    // 배포 환경의 public/_headers(Word·PPT 변환용 교차 출처 격리 헤더)를 흉내 내는 정적 서버
+    command: 'node scripts/serve-dist.mjs 4321',
     url: 'http://localhost:4321',
     reuseExistingServer: !process.env.CI,
     timeout: 120_000,

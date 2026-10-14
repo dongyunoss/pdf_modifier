@@ -10,18 +10,15 @@ const fixture = async (name: string, mimeType: string): Promise<UploadFile> => (
   buffer: await readFile(`tests/fixtures/${name}`),
 });
 
-/**
- * 배포 환경의 public/_headers 처럼 변환 화면과 엔진 파일에 교차 출처 격리 헤더를 붙입니다
- * (astro preview 는 _headers 를 읽지 않으므로).
- */
-async function applyHeaders(context: BrowserContext) {
-  const add = (pattern: RegExp, extra: Record<string, string>) =>
-    context.route(pattern, async (route) => {
-      const response = await route.fetch();
-      await route.fulfill({ response, headers: { ...response.headers(), ...extra } });
-    });
-  await add(/\/convert\//, { 'cross-origin-opener-policy': 'same-origin', 'cross-origin-embedder-policy': 'require-corp' });
-  await add(/\/office\/engine\//, { 'cross-origin-resource-policy': 'same-origin', 'cross-origin-embedder-policy': 'require-corp' });
+/** 헤더가 빠진 배포를 흉내 냅니다 (변환 화면의 교차 출처 격리 헤더 제거). */
+async function stripHeaders(context: BrowserContext) {
+  await context.route(/\/convert\//, async (route) => {
+    const response = await route.fetch();
+    const headers = { ...response.headers() };
+    delete headers['cross-origin-opener-policy'];
+    delete headers['cross-origin-embedder-policy'];
+    await route.fulfill({ response, headers });
+  });
 }
 
 // 처음 한 번 변환 엔진(약 50 MB)을 내려받고 시작하므로 넉넉히 기다립니다.
@@ -48,8 +45,7 @@ const collect = (page: Page) => {
 test.describe('Word·PPT → PDF', () => {
   test.describe.configure({ timeout: 240_000 });
 
-  test('Word: 도구 페이지에서 고르면 변환 화면으로 넘어가 한글 문서를 PDF 로 바꾼다', async ({ page, context }) => {
-    await applyHeaders(context);
+  test('Word: 도구 페이지에서 고르면 변환 화면으로 넘어가 한글 문서를 PDF 로 바꾼다', async ({ page }) => {
     const logs = collect(page);
     await page.goto('/word-to-pdf/');
     await expect(page.locator('.office-notes')).toContainText('MB');
@@ -69,8 +65,7 @@ test.describe('Word·PPT → PDF', () => {
     await expect(page.locator('.file-row')).toContainText('contract.pdf');
   });
 
-  test('PowerPoint: 변환 화면에서 바로 고르고, 잘못된 파일은 알려 준다', async ({ page, context }) => {
-    await applyHeaders(context);
+  test('PowerPoint: 변환 화면에서 바로 고르고, 잘못된 파일은 알려 준다', async ({ page }) => {
     const logs = collect(page);
     await page.goto('/en/convert/ppt-to-pdf/');
     await upload(page, [{ name: 'notes.txt', mimeType: 'text/plain', buffer: Buffer.from('hello') }]);
@@ -87,7 +82,8 @@ test.describe('Word·PPT → PDF', () => {
     expect(width).toBeGreaterThan(height);
   });
 
-  test('교차 출처 격리되지 않은 변환 화면에서는 지원하지 않는다고 안내한다', async ({ page }) => {
+  test('교차 출처 격리되지 않은 변환 화면에서는 지원하지 않는다고 안내한다', async ({ page, context }) => {
+    await stripHeaders(context);
     await page.goto('/convert/word-to-pdf/');
     await expect(page.getByText('이 브라우저에서는 변환할 수 없습니다.', { exact: false })).toBeVisible();
   });
