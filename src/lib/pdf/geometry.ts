@@ -94,3 +94,30 @@ export function rotatedOrigin(cx: number, cy: number, w: number, h: number, angl
     y: cy - ((w / 2) * sin + (h / 2) * cos),
   };
 }
+
+/**
+ * 서명·도장을 놓을 자리. 화면에 보이는 페이지(회전 적용 후) 기준 비율이라
+ * 미리보기 크기나 페이지 회전과 상관없이 같은 값을 PDF 생성에도 그대로 씁니다.
+ */
+export interface Placement {
+  /** 왼쪽 위 모서리 (0~1, 보이는 페이지의 왼쪽·위에서부터) */
+  x: number;
+  y: number;
+  /** 보이는 페이지 너비 대비 너비 (0~1). 높이는 이미지 비율로 정해집니다. */
+  width: number;
+}
+
+/**
+ * 보이는 페이지 기준 자리(Placement)를 pdf-lib drawImage 인자로 바꿉니다.
+ * 회전된 페이지에서도 이미지가 똑바로 보이도록 페이지 회전만큼 함께 돌립니다.
+ */
+export function placementBox(frame: PageFrame, place: Placement, imageWidth: number, imageHeight: number) {
+  const width = frame.displayWidth * place.width;
+  const height = (imageHeight / imageWidth) * width;
+  // 보이는 페이지 기준 왼쪽 아래 원점 좌표의 중심점
+  const cx = frame.displayWidth * place.x + width / 2;
+  const cy = frame.displayHeight * (1 - place.y) - height / 2;
+  const center = displayToPage(frame, cx, cy);
+  const origin = rotatedOrigin(center.x, center.y, width, height, frame.rotation);
+  return { x: origin.x, y: origin.y, width, height, rotate: frame.rotation };
+}

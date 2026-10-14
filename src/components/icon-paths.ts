@@ -19,6 +19,7 @@ export const ICON_PATHS = {
     '<path d="M14 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8z"/><path d="M14 3v5h5"/><circle cx="10" cy="12" r="1.5"/><path d="m19 18-4-4-7 7"/>',
   watermark: '<path d="M12 3s6 6.5 6 11a6 6 0 0 1-12 0c0-4.5 6-11 6-11z"/><path d="M9 15a3 3 0 0 0 3 3"/>',
   'page-numbers': '<path d="M5 9h14"/><path d="M5 15h14"/><path d="M10 4 8 20"/><path d="m16 4-2 16"/>',
+  sign: '<path d="M3 20h18"/><path d="M15.5 3.5a2.1 2.1 0 0 1 3 3L8 17l-4 1 1-4z"/>',
   protect: '<rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/>',
   unlock: '<rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V7a4 4 0 0 1 7.5-2"/>',
   // UI
@@ -42,6 +43,7 @@ export const ICON_PATHS = {
   'arrow-up': '<path d="M12 19V5"/><path d="m5 12 7-7 7 7"/>',
   'arrow-down': '<path d="M12 5v14"/><path d="m19 12-7 7-7-7"/>',
   'arrow-right': '<path d="M5 12h14"/><path d="m12 5 7 7-7 7"/>',
+  'arrow-left': '<path d="M19 12H5"/><path d="m12 19-7-7 7-7"/>',
   file: '<path d="M14 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8z"/><path d="M14 3v5h5"/>',
   grip: '<circle cx="9" cy="6" r="1.2"/><circle cx="15" cy="6" r="1.2"/><circle cx="9" cy="12" r="1.2"/><circle cx="15" cy="12" r="1.2"/><circle cx="9" cy="18" r="1.2"/><circle cx="15" cy="18" r="1.2"/>',
   sort: '<path d="M4 6h10"/><path d="M4 12h7"/><path d="M4 18h4"/><path d="M18 5v14"/><path d="m15 16 3 3 3-3"/>',

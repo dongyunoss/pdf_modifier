@@ -10,7 +10,7 @@
 - 사이트맵(`lastmod`), `robots.txt`, hreflang, Open Graph(언어별 공유 이미지), 구조화 데이터(JSON-LD) 자동 생성
 - 제목·설명·본문에 **"모든 기능 무료 · 로그인 없음"** 을 강조하고, 내용을 바꾸면 IndexNow 로 빙·네이버 등에 자동 알림 ([docs/SEARCH.md](docs/SEARCH.md))
 
-## 제공 기능 (13개 도구)
+## 제공 기능 (14개 도구)
 
 | 분류 | 도구 | 주소 |
 | --- | --- | --- |
@@ -25,6 +25,7 @@
 | | **PDF → JPG** — JPG/PNG, 72·150·300 DPI, ZIP 다운로드 | `/pdf-to-jpg/` |
 | 편집 | **워터마크** — 한글 포함 모든 언어 문구·로고 이미지, 투명도·각도·바둑판 배치, 실시간 미리보기 | `/add-watermark-to-pdf/` |
 | | **페이지 번호** — 6개 위치, 5가지 형식, 시작 번호, 표지 제외 | `/add-page-numbers-to-pdf/` |
+| | **PDF 서명** — 손으로 그리기·이름 입력·서명/도장 이미지(흰 배경 제거), 페이지를 눌러 놓고 끌어서 위치·크기 조절, 여러 페이지 | `/sign-pdf/` |
 | 보안 | **암호 설정** — AES-256 암호화, 인쇄·복사·편집 권한 제한 | `/protect-pdf/` |
 | | **암호 해제** — 알고 있는 암호로 잠금 해제, 권한 제한 제거 | `/unlock-pdf/` |
 
@@ -71,7 +72,7 @@ npm run dev               # http://localhost:4321
 | `npm run test:e2e` | 실제 브라우저로 모든 도구를 조작하는 E2E 테스트 (Playwright, 빌드 후 실행) |
 | `npm run generate:images` | 문구나 사이트 이름을 바꾼 뒤 언어별 공유 이미지(`public/og/`)·아이콘 다시 생성 |
 | `npm run indexnow` | 공개된 사이트맵의 모든 주소를 IndexNow 로 알림 (`main` 에서는 자동 실행, [docs/SEARCH.md](docs/SEARCH.md)) |
-| `npm run build:demo` | 13개 도구를 한 페이지에 모은 체험판을 `dist-demo/` 에 생성 (샘플 문서 포함, claude.ai 아티팩트용 `artifact.html` 도 함께 생성) |
+| `npm run build:demo` | 14개 도구를 한 페이지에 모은 체험판을 `dist-demo/` 에 생성 (샘플 문서 포함, claude.ai 아티팩트용 `artifact.html` 도 함께 생성) |
 
 > E2E 테스트는 `npx playwright install chromium` 으로 브라우저를 설치한 뒤 실행하세요.
 > 이미 설치된 크로미움을 쓰려면 `PW_CHROMIUM_PATH=/path/to/chrome npm run test:e2e`.

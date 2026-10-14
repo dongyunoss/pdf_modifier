@@ -300,6 +300,40 @@ export const it: ToolDetailSet = {
         ],
       },
     ],
+    sign: [
+      {
+        title: 'Quando usarlo',
+        blocks: [
+          { list: [
+            'Firmare un contratto o un consenso ricevuto via e-mail e rimandarlo subito, senza stampare, firmare e scansionare',
+            'Consegnare una domanda o una nota spese che richiede firma o timbro accanto al nome',
+            'Aggiungere la firma su ogni pagina di un contratto di più pagine',
+          ] },
+        ],
+      },
+      {
+        title: 'Tre modi per creare la firma',
+        blocks: [
+          { list: [
+            '{ui:tools.sign.ui.modeDraw}: disegnala con il mouse o con il dito. Sullo smartphone, firmare con il dito dà il risultato più naturale.',
+            '{ui:tools.sign.ui.modeType}: scrivi il tuo nome e scegli lo stile {ui:tools.sign.ui.styleScript}, {ui:tools.sign.ui.styleSerif} o {ui:tools.sign.ui.styleSans}.',
+            '{ui:tools.sign.ui.modeImage}: carica la foto di una firma o di un timbro su carta. Attiva «{ui:tools.sign.ui.removeBackground}» per rendere trasparente la carta e far risultare la firma naturale sulla pagina.',
+          ] },
+          'Quando la firma è pronta, fai clic sulla pagina per posizionarla lì. Trascinala per spostarla, trascina l’angolo in basso a destra per ridimensionarla e cambia pagina per metterla in più punti. Sulle pagine ruotate viene inserita esattamente come la vedi sullo schermo.',
+        ],
+      },
+      {
+        title: 'Buono a sapersi',
+        blocks: [
+          { list: [
+            'Questo strumento inserisce un’immagine della tua firma nella pagina. È una pratica diffusa per contratti e moduli di tutti i giorni; se è richiesta una firma digitale con certificato, segui la procedura indicata dall’ente.',
+            'Per evitare che altri modifichino il file firmato, limita la modifica o imposta una password di apertura con {tool:protect}.',
+            'Se i documenti da firmare sono divisi in più file, uniscili prima con {tool:merge} per firmarli in una volta sola.',
+            'La firma disegnata e le immagini caricate si usano solo in questo browser e scompaiono quando chiudi la pagina.',
+          ] },
+        ],
+      },
+    ],
     protect: [
       {
         title: 'Quando usarlo',

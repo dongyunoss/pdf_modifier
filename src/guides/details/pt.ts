@@ -300,6 +300,40 @@ export const pt: ToolDetailSet = {
         ],
       },
     ],
+    sign: [
+      {
+        title: 'Quando usar',
+        blocks: [
+          { list: [
+            'Assinar um contrato ou termo recebido por e-mail e devolver na hora, sem imprimir, assinar e escanear',
+            'Entregar um formulário ou pedido de reembolso que precisa de assinatura ou carimbo ao lado do nome',
+            'Adicionar a assinatura em todas as páginas de um contrato com várias páginas',
+          ] },
+        ],
+      },
+      {
+        title: 'Três jeitos de criar a assinatura',
+        blocks: [
+          { list: [
+            '{ui:tools.sign.ui.modeDraw}: desenhe com o mouse ou com o dedo. No celular, assinar com o dedo dá o resultado mais natural.',
+            '{ui:tools.sign.ui.modeType}: digite seu nome e escolha o estilo {ui:tools.sign.ui.styleScript}, {ui:tools.sign.ui.styleSerif} ou {ui:tools.sign.ui.styleSans}.',
+            '{ui:tools.sign.ui.modeImage}: envie uma foto de uma assinatura ou carimbo no papel. Ative "{ui:tools.sign.ui.removeBackground}" para deixar o papel transparente e a assinatura natural na página.',
+          ] },
+          'Com a assinatura pronta, clique na página para colocá-la ali. Arraste para mover, puxe o canto inferior direito para mudar o tamanho e troque de página para colocá-la em vários lugares. Em páginas giradas, ela entra exatamente como aparece na tela.',
+        ],
+      },
+      {
+        title: 'Bom saber',
+        blocks: [
+          { list: [
+            'Esta ferramenta coloca uma imagem da sua assinatura na página. Isso é muito usado em contratos e formulários do dia a dia; quando for exigida assinatura digital com certificado, siga o método indicado pela instituição.',
+            'Para impedir que outras pessoas alterem o arquivo assinado, restrinja a edição ou defina uma senha de abertura com {tool:protect}.',
+            'Se os documentos estão divididos em vários arquivos, junte tudo antes com {tool:merge} para assinar de uma vez.',
+            'A assinatura desenhada e as imagens enviadas são usadas só neste navegador e somem quando você fecha a página.',
+          ] },
+        ],
+      },
+    ],
     protect: [
       {
         title: 'Quando usar',

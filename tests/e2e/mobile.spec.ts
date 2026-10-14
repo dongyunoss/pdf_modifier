@@ -54,3 +54,34 @@ test('모바일: 손잡이를 끌어 페이지 순서를 바꾼다', async ({ pa
   const doc = await openPdf(bytes);
   expect(doc.getPages().map((p) => Math.round(p.getHeight()))).toEqual([402, 400, 401]);
 });
+
+test('모바일: 손가락으로 서명을 그려 페이지에 놓는다', async ({ page }) => {
+  await page.goto('/sign-pdf/');
+  await upload(page, [pdfFile('contract.pdf', await makePdf(2))]);
+  const pad = (await page.locator('.sign-pad-canvas').boundingBox())!;
+  // 손가락으로 서명하기
+  const cdp = await page.context().newCDPSession(page);
+  const point = (x: number, y: number) => [{ x, y, id: 1 }];
+  await cdp.send('Input.dispatchTouchEvent', { type: 'touchStart', touchPoints: point(pad.x + 40, pad.y + 100) });
+  for (let step = 1; step <= 12; step++) {
+    await cdp.send('Input.dispatchTouchEvent', { type: 'touchMove', touchPoints: point(pad.x + 40 + step * 15, pad.y + 100 - (step % 3) * 20) });
+  }
+  await cdp.send('Input.dispatchTouchEvent', { type: 'touchEnd', touchPoints: [] });
+  await expect(page.getByRole('button', { name: '되돌리기' })).toBeEnabled();
+
+  const sheet = page.locator('.sign-page');
+  await expect(sheet.locator('img')).toBeVisible();
+  // 오른쪽 끝을 눌러도 서명이 페이지 밖으로 나가지 않고, 화면이 가로로 밀리지 않습니다.
+  const box = (await sheet.boundingBox())!;
+  // 손가락으로 끈 뒤의 탭에는 크롬이 click 을 만들지 않을 때가 있어(위 페이지 순서 테스트 참고) 이후는 클릭으로 누릅니다.
+  await sheet.click({ position: { x: box.width - 4, y: box.height * 0.8 } });
+  await expect(page.locator('.sign-item')).toHaveCount(1);
+  const item = (await page.locator('.sign-item').boundingBox())!;
+  expect(item.x + item.width).toBeLessThanOrEqual(box.x + box.width + 1);
+  const overflow = await page.evaluate(() => document.documentElement.scrollWidth - window.innerWidth);
+  expect(overflow).toBeLessThanOrEqual(0);
+
+  await page.getByRole('button', { name: '서명 넣기' }).click();
+  const { bytes } = await downloadVia(page, '다운로드');
+  expect((await openPdf(bytes)).getPageCount()).toBe(2);
+});

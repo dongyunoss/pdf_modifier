@@ -8,7 +8,7 @@ import {
   type PageSizeName,
 } from './constants';
 import { PdfToolError } from './errors';
-import { displayToPage, getPageFrame, normalizeRotation, rotatedOrigin, watermarkCenters } from './geometry';
+import { displayToPage, getPageFrame, normalizeRotation, placementBox, rotatedOrigin, watermarkCenters, type Placement } from './geometry';
 import { readJpegInfo } from './jpeg';
 import { loadPdf, openPdf, type PdfSource, removeUnreachableObjects, savePdf, setProducer } from './load';
 
@@ -293,6 +293,40 @@ export async function addWatermark(source: PdfSource, options: WatermarkOptions)
       const origin = rotatedOrigin(center.x, center.y, width, height, angle);
       page.drawImage(image, { x: origin.x, y: origin.y, width, height, rotate: degrees(angle), opacity });
     }
+  }
+  return savePdf(doc);
+}
+
+// ────────────────────────────── 서명 넣기 ──────────────────────────────
+
+export interface SignatureOptions {
+  /** 서명·도장 이미지 (배경이 투명한 PNG 권장). 손글씨 서명과 입력한 이름도 브라우저에서 PNG 로 만들어 넘깁니다. */
+  images: Array<{ bytes: Uint8Array; type: 'png' | 'jpeg' }>;
+  /** 넣을 자리 (page: 0부터 시작하는 페이지 번호, image: images 의 번호) */
+  placements: Array<Placement & { page: number; image: number }>;
+}
+
+/** 서명·도장 이미지를 정한 자리에 넣습니다. 같은 이미지는 여러 번 넣어도 한 번만 저장됩니다. */
+export async function addSignatures(source: PdfSource, options: SignatureOptions): Promise<Uint8Array> {
+  if (options.placements.length === 0) throw new PdfToolError('NO_PAGES', 'no signature placements');
+  const doc = await loadPdf(source, 0);
+  const pages = doc.getPages();
+  const embedded: PDFImage[] = [];
+  for (const image of options.images) {
+    try {
+      embedded.push(image.type === 'png' ? await doc.embedPng(image.bytes) : await doc.embedJpg(image.bytes));
+    } catch (error) {
+      throw new PdfToolError('UNSUPPORTED_IMAGE', error instanceof Error ? error.message : String(error));
+    }
+  }
+  for (const place of options.placements) {
+    const page = pages[place.page];
+    if (!page) throw new PdfToolError('INVALID_RANGE', `page ${place.page + 1} out of range`);
+    const image = embedded[place.image];
+    if (!image) throw new PdfToolError('UNSUPPORTED_IMAGE', `image ${place.image} missing`);
+    const width = Math.min(1, Math.max(0.01, place.width));
+    const box = placementBox(getPageFrame(page), { x: place.x, y: place.y, width }, image.width, image.height);
+    page.drawImage(image, { x: box.x, y: box.y, width: box.width, height: box.height, rotate: degrees(box.rotate) });
   }
   return savePdf(doc);
 }

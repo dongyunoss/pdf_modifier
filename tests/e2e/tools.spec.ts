@@ -277,3 +277,95 @@ test('다른 언어 페이지와 SEO 메타데이터', async ({ page }) => {
   await expect(page).toHaveURL(/\/merge-pdf\/$/);
   await expect(page.getByRole('heading', { level: 1 })).toHaveText('PDF 합치기');
 });
+
+test.describe('PDF 서명', () => {
+  /** 서명 패드에 마우스로 짧은 서명을 그립니다. */
+  const drawSignature = async (page: import('@playwright/test').Page) => {
+    const box = (await page.locator('.sign-pad-canvas').boundingBox())!;
+    await page.mouse.move(box.x + box.width * 0.2, box.y + box.height * 0.6);
+    await page.mouse.down();
+    for (let step = 1; step <= 10; step++) {
+      await page.mouse.move(box.x + box.width * (0.2 + step * 0.05), box.y + box.height * (0.6 - Math.sin(step) * 0.2));
+    }
+    await page.mouse.up();
+  };
+  const doCount = async (bytes: Uint8Array, index: number) => ((await pageContent(bytes, index)).match(/ Do\b/g) ?? []).length;
+
+  test('직접 그린 서명을 여러 페이지에 놓는다', async ({ page }) => {
+    await page.goto('/sign-pdf/');
+    await upload(page, [pdfFile('contract.pdf', await makePdf(3))]);
+    const sheet = page.locator('.sign-page');
+    await expect(sheet.locator('img')).toBeVisible();
+
+    // 서명을 만들기 전에 페이지를 누르면 안내합니다.
+    await sheet.click();
+    await expect(page.getByText('먼저 서명을 만드세요.')).toBeVisible();
+
+    await drawSignature(page);
+    await sheet.click({ position: { x: 120, y: 200 } });
+    await expect(page.locator('.sign-item')).toHaveCount(1);
+
+    // 끌어서 옮기기
+    const item = page.locator('.sign-item').first();
+    const before = (await item.boundingBox())!;
+    await page.mouse.move(before.x + before.width / 2, before.y + before.height / 2);
+    await page.mouse.down();
+    await page.mouse.move(before.x + before.width / 2 + 60, before.y + before.height / 2 + 40, { steps: 5 });
+    await page.mouse.up();
+    const after = (await item.boundingBox())!;
+    expect(after.x - before.x).toBeGreaterThan(40);
+    expect(after.y - before.y).toBeGreaterThan(25);
+
+    // 오른쪽 아래 손잡이로 크기 줄이기
+    const handle = (await item.locator('.sign-handle').boundingBox())!;
+    await page.mouse.move(handle.x + handle.width / 2, handle.y + handle.height / 2);
+    await page.mouse.down();
+    await page.mouse.move(handle.x - 40, handle.y, { steps: 5 });
+    await page.mouse.up();
+    expect((await item.boundingBox())!.width).toBeLessThan(after.width - 25);
+
+    await page.getByRole('button', { name: '다음 페이지' }).click();
+    await expect(page.getByText('2 / 3쪽')).toBeVisible();
+    await expect(page.locator('.sign-item')).toHaveCount(0);
+    await sheet.click({ position: { x: 150, y: 260 } });
+    await expect(page.getByText('서명 2개를 놓았습니다.')).toBeVisible();
+
+    await page.getByRole('button', { name: '서명 넣기' }).click();
+    const { name, bytes } = await downloadVia(page, '다운로드');
+    expect(name).toBe('contract_signed.pdf');
+    expect([await doCount(bytes, 0), await doCount(bytes, 1), await doCount(bytes, 2)]).toEqual([1, 1, 0]);
+    expect(await pageContent(bytes, 0)).toContain(hexText('Page 1'));
+  });
+
+  test('이름을 입력해 만든 서명을 키보드로 옮기고 지운다', async ({ page }) => {
+    await page.goto('/sign-pdf/');
+    await upload(page, [pdfFile('form.pdf', await makePdf(1))]);
+    await page.getByRole('radio', { name: '입력', exact: true }).check({ force: true });
+    await page.getByLabel('이름').fill('Hong Gildong');
+    await expect(page.locator('.sign-preview-box img')).toBeVisible();
+
+    // 서명을 놓지 않고 적용하면 안내합니다.
+    await page.getByRole('button', { name: '서명 넣기' }).click();
+    await expect(page.getByText('페이지를 눌러 서명을 놓을 자리를 정하세요.')).toBeVisible();
+
+    const sheet = page.locator('.sign-page');
+    await sheet.click({ position: { x: 100, y: 100 } });
+    const item = page.locator('.sign-item');
+    await expect(item).toHaveCount(1);
+    const before = (await item.boundingBox())!;
+    await item.focus();
+    await page.keyboard.press('Shift+ArrowDown');
+    expect((await item.boundingBox())!.y).toBeGreaterThan(before.y + 5);
+    await page.keyboard.press('Delete');
+    await expect(item).toHaveCount(0);
+
+    await sheet.click({ position: { x: 100, y: 300 } });
+    await page.getByRole('button', { name: '이 서명 지우기' }).click();
+    await expect(item).toHaveCount(0);
+    await sheet.click({ position: { x: 100, y: 300 } });
+
+    await page.getByRole('button', { name: '서명 넣기' }).click();
+    const { bytes } = await downloadVia(page, '다운로드');
+    expect(await doCount(bytes, 0)).toBe(1);
+  });
+});

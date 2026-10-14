@@ -300,6 +300,40 @@ export const de: ToolDetailSet = {
         ],
       },
     ],
+    sign: [
+      {
+        title: 'Wann es sich lohnt',
+        blocks: [
+          { list: [
+            'Einen per E-Mail erhaltenen Vertrag oder eine Einwilligung unterschreiben und sofort zurückschicken – ohne Drucken, Unterschreiben und Einscannen',
+            'Einen Antrag oder eine Spesenabrechnung einreichen, die neben Ihrem Namen eine Unterschrift oder einen Stempel braucht',
+            'Jede Seite eines mehrseitigen Vertrags mit einer Unterschrift versehen',
+          ] },
+        ],
+      },
+      {
+        title: 'Drei Wege zur Unterschrift',
+        blocks: [
+          { list: [
+            '{ui:tools.sign.ui.modeDraw}: mit Maus oder Finger zeichnen. Auf dem Smartphone mit dem Finger unterschrieben wirkt sie am natürlichsten.',
+            '{ui:tools.sign.ui.modeType}: Namen eintippen und den Stil {ui:tools.sign.ui.styleScript}, {ui:tools.sign.ui.styleSerif} oder {ui:tools.sign.ui.styleSans} wählen.',
+            '{ui:tools.sign.ui.modeImage}: ein Foto einer Unterschrift oder eines Stempels auf Papier hochladen. Mit „{ui:tools.sign.ui.removeBackground}“ wird das Papier transparent, sodass die Unterschrift natürlich auf der Seite sitzt.',
+          ] },
+          'Ist die Unterschrift fertig, klicken Sie auf die Seite, um sie dort abzulegen. Ziehen Sie sie zum Verschieben, ziehen Sie die untere rechte Ecke zum Vergrößern oder Verkleinern und wechseln Sie die Seite, um sie an mehreren Stellen zu platzieren. Auf gedrehten Seiten landet sie genau so, wie Sie sie auf dem Bildschirm sehen.',
+        ],
+      },
+      {
+        title: 'Gut zu wissen',
+        blocks: [
+          { list: [
+            'Dieses Werkzeug setzt ein Bild Ihrer Unterschrift auf die Seite. Das ist bei alltäglichen Verträgen und Formularen üblich; wird eine zertifikatsbasierte elektronische Signatur verlangt, folgen Sie dem Verfahren der jeweiligen Stelle.',
+            'Damit niemand die unterschriebene Datei verändert, schränken Sie die Bearbeitung ein oder vergeben ein Öffnungspasswort mit {tool:protect}.',
+            'Sind die Unterlagen auf mehrere Dateien verteilt, fügen Sie sie zuerst mit {tool:merge} zusammen und unterschreiben dann in einem Durchgang.',
+            'Gezeichnete Unterschrift und hochgeladene Bilder werden nur in diesem Browser verwendet und verschwinden, wenn Sie die Seite schließen.',
+          ] },
+        ],
+      },
+    ],
     protect: [
       {
         title: 'Wann es hilft',

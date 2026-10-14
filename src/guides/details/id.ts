@@ -300,6 +300,40 @@ export const id: ToolDetailSet = {
         ],
       },
     ],
+    sign: [
+      {
+        title: 'Kapan dipakai',
+        blocks: [
+          { list: [
+            'Menandatangani kontrak atau surat persetujuan yang diterima lewat email lalu langsung mengirimkannya kembali, tanpa mencetak, menandatangani, dan memindai',
+            'Menyerahkan formulir pengajuan atau laporan biaya yang memerlukan tanda tangan atau stempel di samping nama',
+            'Menambahkan tanda tangan di setiap halaman kontrak yang terdiri dari banyak halaman',
+          ] },
+        ],
+      },
+      {
+        title: 'Tiga cara membuat tanda tangan',
+        blocks: [
+          { list: [
+            '{ui:tools.sign.ui.modeDraw}: gambar dengan mouse atau jari. Di ponsel, tanda tangan dengan jari memberi hasil paling alami.',
+            '{ui:tools.sign.ui.modeType}: ketik nama Anda lalu pilih gaya {ui:tools.sign.ui.styleScript}, {ui:tools.sign.ui.styleSerif}, atau {ui:tools.sign.ui.styleSans}.',
+            '{ui:tools.sign.ui.modeImage}: unggah foto tanda tangan atau stempel di atas kertas. Aktifkan "{ui:tools.sign.ui.removeBackground}" agar kertas menjadi transparan dan tanda tangan tampak alami di halaman.',
+          ] },
+          'Setelah tanda tangan siap, klik halaman untuk meletakkannya di sana. Seret untuk memindahkan, seret sudut kanan bawah untuk mengubah ukuran, dan pindah halaman untuk meletakkannya di beberapa tempat. Pada halaman yang diputar, tanda tangan diletakkan persis seperti yang terlihat di layar.',
+        ],
+      },
+      {
+        title: 'Perlu diketahui',
+        blocks: [
+          { list: [
+            'Alat ini menempelkan gambar tanda tangan Anda ke halaman. Cara ini umum dipakai untuk kontrak dan formulir sehari-hari; jika diminta tanda tangan elektronik bersertifikat, ikuti cara yang ditentukan lembaga tersebut.',
+            'Agar file yang sudah ditandatangani tidak diubah orang lain, batasi pengeditan atau pasang kata sandi pembuka dengan {tool:protect}.',
+            'Jika dokumen yang perlu ditandatangani terpisah di beberapa file, gabungkan dulu dengan {tool:merge} agar bisa ditandatangani sekaligus.',
+            'Tanda tangan yang digambar dan gambar yang diunggah hanya dipakai di browser ini dan hilang saat halaman ditutup.',
+          ] },
+        ],
+      },
+    ],
     protect: [
       {
         title: 'Kapan dipakai',

@@ -15,6 +15,7 @@ import PageSelectTool from '../components/tools/PageSelectTool';
 import PdfToImagesTool from '../components/tools/PdfToImagesTool';
 import ProtectTool from '../components/tools/ProtectTool';
 import RotateTool from '../components/tools/RotateTool';
+import SignTool from '../components/tools/SignTool';
 import SplitTool from '../components/tools/SplitTool';
 import UnlockTool from '../components/tools/UnlockTool';
 import WatermarkTool from '../components/tools/WatermarkTool';
@@ -135,6 +136,7 @@ const others = TOOLS.filter((item) => item.id !== id && item.category === tool.c
       {id === 'pdf-to-jpg' && <PdfToImagesTool client:load {...base} t={t['pdf-to-jpg'].ui} />}
       {id === 'watermark' && <WatermarkTool client:load {...base} t={t.watermark.ui} />}
       {id === 'page-numbers' && <PageNumbersTool client:load {...base} t={t['page-numbers'].ui} />}
+      {id === 'sign' && <SignTool client:load {...base} t={t.sign.ui} />}
       {id === 'protect' && <ProtectTool client:load {...base} t={t.protect.ui} />}
       {id === 'unlock' && <UnlockTool client:load {...base} t={t.unlock.ui} />}
     </section>

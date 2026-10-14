@@ -300,6 +300,40 @@ export const zhCn: ToolDetailSet = {
         ],
       },
     ],
+    sign: [
+      {
+        title: '适用场景',
+        blocks: [
+          { list: [
+            '在邮件收到的合同或同意书上签名后直接发回，无需打印、签字再扫描',
+            '提交申请表、报销单等需要在姓名旁签名或盖章的文件',
+            '在多页合同的每一页都加上签名',
+          ] },
+        ],
+      },
+      {
+        title: '制作签名的三种方式',
+        blocks: [
+          { list: [
+            '{ui:tools.sign.ui.modeDraw}：用鼠标或手指直接书写。在手机上用手指签名，效果最接近真实笔迹。',
+            '{ui:tools.sign.ui.modeType}：输入姓名，并在{ui:tools.sign.ui.styleScript}、{ui:tools.sign.ui.styleSerif}、{ui:tools.sign.ui.styleSans}中选择字体生成签名。',
+            '{ui:tools.sign.ui.modeImage}：上传写在纸上的签名或盖好的印章照片。开启“{ui:tools.sign.ui.removeBackground}”后，纸张的白色部分会变透明，签名能自然地融入文件。',
+          ] },
+          '签名做好后，点击页面即可放在该位置。拖动可移动，拖动右下角可调整大小，也可以翻页后放到多个位置。即使是旋转过的横向页面，也会按屏幕上看到的方向放置。',
+        ],
+      },
+      {
+        title: '小贴士',
+        blocks: [
+          { list: [
+            '本工具是把签名图片放到页面上。这种方式广泛用于日常合同和申请表；如果对方要求基于数字证书的电子签名，请按照该机构指定的方式办理。',
+            '如果不希望签好的文件被他人修改，可以用{tool:protect}限制编辑权限或设置打开密码。',
+            '如果要签的文件分散在多个文件中，先用{tool:merge}合成一个，就能一次签完。',
+            '手写的签名和上传的图片只在本浏览器中使用，关闭页面后就会消失。',
+          ] },
+        ],
+      },
+    ],
     protect: [
       {
         title: '适用场景',

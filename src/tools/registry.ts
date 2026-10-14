@@ -11,6 +11,7 @@ export const TOOL_IDS = [
   'pdf-to-jpg',
   'watermark',
   'page-numbers',
+  'sign',
   'protect',
   'unlock',
 ] as const;
@@ -40,6 +41,7 @@ export const TOOLS: ToolMeta[] = [
   { id: 'pdf-to-jpg', slug: 'pdf-to-jpg', category: 'convert', related: ['jpg-to-pdf', 'split', 'compress'] },
   { id: 'watermark', slug: 'add-watermark-to-pdf', category: 'edit', related: ['protect', 'page-numbers', 'compress'] },
   { id: 'page-numbers', slug: 'add-page-numbers-to-pdf', category: 'edit', related: ['watermark', 'merge', 'compress'] },
+  { id: 'sign', slug: 'sign-pdf', category: 'edit', related: ['protect', 'merge', 'compress'] },
   { id: 'protect', slug: 'protect-pdf', category: 'security', related: ['unlock', 'watermark', 'compress'] },
   { id: 'unlock', slug: 'unlock-pdf', category: 'security', related: ['protect', 'merge', 'compress'] },
 ];

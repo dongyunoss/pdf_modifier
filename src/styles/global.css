@@ -1972,6 +1972,207 @@ body.is-sorting * {
   white-space: nowrap;
 }
 
+/* ───────────────────────── 서명 ───────────────────────── */
+/* 서명은 종이 위에 쓰는 것이므로 패드와 페이지는 다크 모드에서도 흰 종이로 둡니다. */
+.sign-layout {
+  grid-template-columns: minmax(0, 340px) minmax(0, 1fr);
+}
+
+@media (max-width: 760px) {
+  .sign-layout {
+    grid-template-columns: 1fr;
+  }
+}
+
+.sign-pad {
+  position: relative;
+  border: 1.5px dashed var(--border-strong);
+  border-radius: var(--radius);
+  background: #fff;
+  overflow: hidden;
+}
+
+.sign-pad-canvas {
+  display: block;
+  width: 100%;
+  height: 170px;
+  touch-action: none;
+  cursor: crosshair;
+}
+
+.sign-pad-line {
+  position: absolute;
+  left: 8%;
+  right: 8%;
+  top: 72%;
+  border-top: 1px solid #d5d9e0;
+  pointer-events: none;
+}
+
+.sign-pad-hint {
+  position: absolute;
+  inset: 0 16px 40%;
+  display: grid;
+  place-items: end center;
+  text-align: center;
+  font-size: 0.9rem;
+  color: #8a92a1;
+  pointer-events: none;
+}
+
+.sign-preview {
+  margin: 0;
+  display: grid;
+  gap: 8px;
+}
+
+.sign-preview-box {
+  display: grid;
+  place-items: center;
+  min-height: 96px;
+  padding: 12px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  /* 투명한 부분이 보이도록 옅은 바둑판 무늬를 깝니다. */
+  background:
+    repeating-conic-gradient(#eef0f3 0% 25%, #fff 0% 50%) 0 0 / 16px 16px;
+}
+
+.sign-preview-box img {
+  max-height: 110px;
+  width: auto;
+}
+
+.sign-board {
+  display: grid;
+  gap: 10px;
+  min-width: 0;
+}
+
+.sign-board-head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px 16px;
+}
+
+.sign-board-head .field-label {
+  margin: 0;
+}
+
+.sign-nav {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.sign-nav-label {
+  min-width: 7ch;
+  text-align: center;
+  font-size: 0.92rem;
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
+}
+
+.btn-icon {
+  width: 34px;
+  padding: 0;
+}
+
+.sign-page {
+  position: relative;
+  width: 100%;
+  max-width: 620px;
+  margin-inline: auto;
+  background: #fff;
+  box-shadow: var(--shadow);
+  cursor: crosshair;
+  touch-action: manipulation;
+  user-select: none;
+  -webkit-user-select: none;
+}
+
+.sign-page > img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: fill;
+}
+
+.sign-page > .thumb-skeleton {
+  width: 100%;
+  height: 100%;
+  min-height: 360px;
+  border-radius: 0;
+}
+
+.sign-item {
+  position: absolute;
+  outline: 1.5px dashed var(--focus);
+  outline-offset: 2px;
+  cursor: move;
+  touch-action: none;
+}
+
+.sign-item:focus-visible {
+  outline: 2px solid var(--focus);
+}
+
+.sign-item > img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+}
+
+.sign-remove {
+  position: absolute;
+  top: -13px;
+  right: -13px;
+  display: grid;
+  place-items: center;
+  width: 24px;
+  height: 24px;
+  padding: 0;
+  border: 2px solid #fff;
+  border-radius: 50%;
+  background: #dc2626;
+  color: #fff;
+  box-shadow: 0 1px 3px rgb(16 24 40 / 30%);
+  cursor: pointer;
+}
+
+/* 손가락으로 누르기 쉽도록 실제로 눌리는 범위를 넓힙니다. */
+.sign-remove::before,
+.sign-handle::before {
+  content: '';
+  position: absolute;
+  inset: -8px;
+}
+
+.sign-handle {
+  position: absolute;
+  right: -8px;
+  bottom: -8px;
+  width: 14px;
+  height: 14px;
+  border: 2px solid #fff;
+  border-radius: 3px;
+  background: var(--focus);
+  box-shadow: 0 1px 3px rgb(16 24 40 / 30%);
+  cursor: nwse-resize;
+  touch-action: none;
+}
+
+.sign-count {
+  margin: 0;
+  text-align: center;
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: var(--success);
+}
+
 /* ───────────────────────── 암호 입력 ───────────────────────── */
 .password-card {
   display: grid;

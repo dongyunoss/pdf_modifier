@@ -94,6 +94,7 @@ export interface TextImageOptions {
   color: string;
   fontFamily?: string;
   bold?: boolean;
+  italic?: boolean;
 }
 
 const FONTS = {
@@ -129,7 +130,8 @@ export async function renderTextImage(text: string, options: TextImageOptions): 
   const canvas = document.createElement('canvas');
   const ctx = canvas.getContext('2d')!;
   let fontSize = 220;
-  const font = () => `${options.bold === false ? 400 : 700} ${fontSize}px ${options.fontFamily ?? DEFAULT_FONT_STACK}`;
+  const font = () =>
+    `${options.italic ? 'italic ' : ''}${options.bold === false ? 400 : 700} ${fontSize}px ${options.fontFamily ?? DEFAULT_FONT_STACK}`;
   ctx.font = font();
   let metrics = ctx.measureText(text);
   // 캔버스 최대 크기를 넘지 않도록 글자 크기를 줄입니다.

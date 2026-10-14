@@ -300,6 +300,40 @@ export const fr: ToolDetailSet = {
         ],
       },
     ],
+    sign: [
+      {
+        title: 'Quand l’utiliser',
+        blocks: [
+          { list: [
+            'Signer un contrat ou un formulaire de consentement reçu par e-mail et le renvoyer aussitôt, sans imprimer, signer puis scanner',
+            'Remettre une demande ou une note de frais qui exige une signature ou un tampon à côté de votre nom',
+            'Ajouter une signature sur chaque page d’un contrat de plusieurs pages',
+          ] },
+        ],
+      },
+      {
+        title: 'Trois façons de créer la signature',
+        blocks: [
+          { list: [
+            '{ui:tools.sign.ui.modeDraw} : tracez-la à la souris ou au doigt. Sur téléphone, signer au doigt donne le rendu le plus naturel.',
+            '{ui:tools.sign.ui.modeType} : tapez votre nom et choisissez le style {ui:tools.sign.ui.styleScript}, {ui:tools.sign.ui.styleSerif} ou {ui:tools.sign.ui.styleSans}.',
+            '{ui:tools.sign.ui.modeImage} : importez la photo d’une signature ou d’un tampon sur papier. Activez « {ui:tools.sign.ui.removeBackground} » pour rendre le papier transparent et intégrer la signature naturellement à la page.',
+          ] },
+          'Une fois la signature prête, cliquez sur la page pour la placer à cet endroit. Faites-la glisser pour la déplacer, tirez le coin inférieur droit pour la redimensionner et changez de page pour la placer à plusieurs endroits. Sur une page pivotée, elle est placée exactement comme vous la voyez à l’écran.',
+        ],
+      },
+      {
+        title: 'Bon à savoir',
+        blocks: [
+          { list: [
+            'Cet outil place une image de votre signature sur la page. C’est courant pour les contrats et formulaires du quotidien ; si une signature électronique avec certificat est exigée, suivez la méthode indiquée par l’organisme.',
+            'Pour empêcher d’autres personnes de modifier le fichier signé, limitez la modification ou ajoutez un mot de passe d’ouverture avec {tool:protect}.',
+            'Si les documents à signer sont répartis dans plusieurs fichiers, regroupez-les d’abord avec {tool:merge} pour tout signer en une fois.',
+            'La signature dessinée et les images importées ne servent que dans ce navigateur et disparaissent à la fermeture de la page.',
+          ] },
+        ],
+      },
+    ],
     protect: [
       {
         title: 'Quand l’utiliser',

@@ -300,6 +300,40 @@ export const zhTw: ToolDetailSet = {
         ],
       },
     ],
+    sign: [
+      {
+        title: '適用情境',
+        blocks: [
+          { list: [
+            '在電子郵件收到的合約或同意書上簽名後直接寄回，不必列印、簽名再掃描',
+            '繳交申請書、請款單等需要在姓名旁簽名或蓋章的文件',
+            '在多頁合約的每一頁都加上簽名',
+          ] },
+        ],
+      },
+      {
+        title: '製作簽名的三種方式',
+        blocks: [
+          { list: [
+            '{ui:tools.sign.ui.modeDraw}：用滑鼠或手指直接書寫。在手機上用手指簽名，效果最接近真實筆跡。',
+            '{ui:tools.sign.ui.modeType}：輸入姓名，並從{ui:tools.sign.ui.styleScript}、{ui:tools.sign.ui.styleSerif}、{ui:tools.sign.ui.styleSans}中選擇字體產生簽名。',
+            '{ui:tools.sign.ui.modeImage}：上傳寫在紙上的簽名或蓋好的印章照片。開啟「{ui:tools.sign.ui.removeBackground}」後，紙張的白色部分會變透明，簽名能自然地融入文件。',
+          ] },
+          '簽名做好後，點選頁面即可放在該位置。拖曳可移動，拖曳右下角可調整大小，也可以換頁後放到多個位置。即使是旋轉過的橫向頁面，也會依照螢幕上看到的方向放置。',
+        ],
+      },
+      {
+        title: '小提醒',
+        blocks: [
+          { list: [
+            '本工具是把簽名圖片放到頁面上。這種方式廣泛用於日常合約和申請書；如果對方要求以憑證為基礎的電子簽章，請依照該機構指定的方式辦理。',
+            '如果不希望簽好的檔案被他人修改，可以用{tool:protect}限制編輯權限或設定開啟密碼。',
+            '如果要簽的文件分散在多個檔案，先用{tool:merge}合併成一個，就能一次簽完。',
+            '手寫的簽名和上傳的圖片只在這個瀏覽器中使用，關閉頁面後就會消失。',
+          ] },
+        ],
+      },
+    ],
     protect: [
       {
         title: '適用情境',

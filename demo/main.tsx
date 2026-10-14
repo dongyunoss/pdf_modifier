@@ -12,6 +12,7 @@ import PageSelectTool from '../src/components/tools/PageSelectTool';
 import PdfToImagesTool from '../src/components/tools/PdfToImagesTool';
 import ProtectTool from '../src/components/tools/ProtectTool';
 import RotateTool from '../src/components/tools/RotateTool';
+import SignTool from '../src/components/tools/SignTool';
 import SplitTool from '../src/components/tools/SplitTool';
 import UnlockTool from '../src/components/tools/UnlockTool';
 import WatermarkTool from '../src/components/tools/WatermarkTool';
@@ -84,6 +85,8 @@ function renderTool(id: ToolId, base: ToolBaseProps): JSX.Element {
       return <WatermarkTool {...base} t={t.watermark.ui} />;
     case 'page-numbers':
       return <PageNumbersTool {...base} t={t['page-numbers'].ui} />;
+    case 'sign':
+      return <SignTool {...base} t={t.sign.ui} />;
     case 'protect':
       return <ProtectTool {...base} t={t.protect.ui} />;
     case 'unlock':

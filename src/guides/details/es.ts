@@ -300,6 +300,40 @@ export const es: ToolDetailSet = {
         ],
       },
     ],
+    sign: [
+      {
+        title: 'Cuándo usarlo',
+        blocks: [
+          { list: [
+            'Firmar un contrato o un consentimiento recibido por correo y devolverlo enseguida, sin imprimir, firmar y escanear',
+            'Entregar una solicitud o una hoja de gastos que necesita firma o sello junto a tu nombre',
+            'Añadir una firma en cada página de un contrato de varias páginas',
+          ] },
+        ],
+      },
+      {
+        title: 'Tres formas de crear la firma',
+        blocks: [
+          { list: [
+            '{ui:tools.sign.ui.modeDraw}: dibújala con el ratón o con el dedo. En el móvil, firmar con el dedo da el resultado más natural.',
+            '{ui:tools.sign.ui.modeType}: escribe tu nombre y elige el estilo {ui:tools.sign.ui.styleScript}, {ui:tools.sign.ui.styleSerif} o {ui:tools.sign.ui.styleSans}.',
+            '{ui:tools.sign.ui.modeImage}: sube una foto de una firma o un sello en papel. Activa «{ui:tools.sign.ui.removeBackground}» para que el papel se vuelva transparente y quede natural sobre la página.',
+          ] },
+          'Cuando la firma esté lista, haz clic en la página para colocarla ahí. Arrástrala para moverla, tira de la esquina inferior derecha para cambiar el tamaño y cambia de página para colocarla en varios sitios. En las páginas giradas se coloca tal como la ves en pantalla.',
+        ],
+      },
+      {
+        title: 'Conviene saber',
+        blocks: [
+          { list: [
+            'Esta herramienta coloca una imagen de tu firma en la página. Es lo habitual en contratos y formularios cotidianos; si se exige una firma digital con certificado, sigue el método que indique la entidad.',
+            'Para que nadie modifique el archivo firmado, limita la edición o añade una contraseña de apertura con {tool:protect}.',
+            'Si los documentos que debes firmar están en varios archivos, únelos antes con {tool:merge} para firmarlos de una vez.',
+            'La firma que dibujas y las imágenes que subes solo se usan en este navegador y desaparecen al cerrar la página.',
+          ] },
+        ],
+      },
+    ],
     protect: [
       {
         title: 'Cuándo usarla',

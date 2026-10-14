@@ -39,6 +39,10 @@ export const en: GuideSet = {
     },
     updatesTitle: 'Update history',
     updates: [
+      { date: '2026-10-14', items: [
+        'Added the Sign PDF tool for adding a signature or stamp to a PDF. You can draw it, type your name or upload an image.',
+        'Added the guide “How to Sign a PDF Without Printing or Scanning It”.',
+      ] },
       { date: '2026-10-11', items: [
         'Published 12 PDF guides in English and Korean.',
         'Added an in-depth "More about" section to every tool page in all 13 languages.',
@@ -822,6 +826,73 @@ export const en: GuideSet = {
         },
       ],
     },
+    {
+      slug: 'sign-pdf-without-printing',
+      title: 'How to Sign a PDF Without Printing or Scanning It',
+      description:
+        'How to add your signature or a stamp to a contract or form you received as a PDF, without printing and scanning, plus tips for a clean signature and what to check before sending.',
+      tools: ['sign', 'merge', 'protect', 'compress'],
+      published: '2026-10-14',
+      updated: '2026-10-14',
+      sections: [
+        {
+          blocks: [
+            'When a contract, consent form or application arrives as a PDF, the old routine was to print it, sign it, then scan it or take a photo and send it back. Without a printer, or away from your desk, that takes a while. Placing an image of your signature directly on the PDF gets it done in a few minutes, even on a phone.',
+          ],
+        },
+        {
+          title: '1. Get the document ready',
+          blocks: [
+            'If the papers you need to sign are split across several files, combine them first with {tool:merge} so you can sign once and send a single file back. Check which pages have a signature line or a name box before you start, so placing the signature is quick.',
+          ],
+        },
+        {
+          title: '2. Create your signature',
+          blocks: [
+            { table: {
+              head: ['Method', 'Best when', 'Tip'],
+              rows: [
+                ['Draw', 'You want it to look like your real signature', 'Drawing with a finger on a phone looks more natural than a mouse. Draw it large; you can shrink it when placing it.'],
+                ['Type', 'You have no set signature or need a neat printed name', 'Pick the script, serif or sans style that suits the document.'],
+                ['Upload an image', 'You want to use a stamp or a signature written on paper', 'Photograph it on white paper in good light, upload it and turn on “Remove white background”.'],
+              ],
+            } },
+            { tip: 'Black or blue ink both work well. Blue is easy to tell apart from a black-and-white copy, which is why many people use it for original signatures.' },
+          ],
+        },
+        {
+          title: '3. Place it on the signature line',
+          blocks: [
+            { steps: [
+              'Open {tool:sign} and choose your PDF.',
+              'Create your signature, then click the signature line in the page preview. The signature is placed where you click.',
+              'Drag the signature to line it up, and drag its bottom-right corner to fit the size of the box.',
+              'If other pages need a signature, switch pages and place it the same way, then press “Sign PDF”.',
+            ] },
+            'On a computer, click a placed signature once, then nudge it with the arrow keys and resize it with the + and - keys. Remove a misplaced signature with the × button at its top right.',
+          ],
+        },
+        {
+          title: 'Check before you send',
+          blocks: [
+            { list: [
+              'Open the downloaded file and make sure the signature sits on the line and does not cover any text.',
+              'To stop others from editing the signed file, restrict editing or add an open password with {tool:protect}.',
+              'If a large stamp photo made the file heavy, shrink it with {tool:compress} before sending.',
+              'If you keep a signature or stamp image file, store it carefully so no one else can reuse it.',
+            ] },
+            'This site never sends your signature or document to a server; everything is processed inside your browser, so even sensitive contracts are not left anywhere along the way.',
+          ],
+        },
+        {
+          title: 'Is a signature added this way valid?',
+          blocks: [
+            'In many places, including under the US ESIGN Act and the EU eIDAS Regulation, a signature cannot be denied legal effect solely because it is electronic, and everyday contracts, consent forms and applications are routinely exchanged as PDFs with a signature image.',
+            'Some documents, however, follow stricter rules, such as wills, certain court or government filings, or agreements that require a certificate-based digital signature. For high-value contracts or official submissions, check which method the other party accepts. This article is general information, not legal advice.',
+          ],
+        },
+      ],
+    },
   ],
 
   toolDetails: {
@@ -1120,6 +1191,40 @@ export const en: GuideSet = {
         title: 'Good to know',
         blocks: [
           'Add numbers last. Reordering pages after numbering scrambles them, so settle the order in {tool:merge} or {tool:organize} first.',
+        ],
+      },
+    ],
+    sign: [
+      {
+        title: 'When to use it',
+        blocks: [
+          { list: [
+            'Signing a contract or consent form you received by email and sending it straight back, with no printing, signing and scanning',
+            'Submitting an application or expense form that needs a signature or stamp next to your name',
+            'Adding a signature to every page of a multi-page agreement',
+          ] },
+        ],
+      },
+      {
+        title: 'Three ways to create a signature',
+        blocks: [
+          { list: [
+            '{ui:tools.sign.ui.modeDraw}: draw it with your mouse or finger. Drawing with a finger on a phone gives the most natural result.',
+            '{ui:tools.sign.ui.modeType}: type your name and pick a {ui:tools.sign.ui.styleScript}, {ui:tools.sign.ui.styleSerif} or {ui:tools.sign.ui.styleSans} style.',
+            '{ui:tools.sign.ui.modeImage}: upload a photo of a signature or stamp on paper. Turn on “{ui:tools.sign.ui.removeBackground}” to make the paper transparent so it sits naturally on the page.',
+          ] },
+          'Once your signature is ready, click the page to place it there. Drag it to move it, drag the bottom-right corner to resize it, and switch pages to place it in several spots. On rotated pages it is placed exactly as you see it on screen.',
+        ],
+      },
+      {
+        title: 'Good to know',
+        blocks: [
+          { list: [
+            'This tool places an image of your signature on the page. That is widely used for everyday contracts and forms; if a certificate-based digital signature is required, follow the method the organization specifies.',
+            'To stop others from editing the signed file, restrict editing or add an open password with {tool:protect}.',
+            'If the documents to sign are split across several files, combine them first with {tool:merge} so you can sign them in one go.',
+            'Your drawn signature and uploaded images are only used inside this browser and disappear when you close the page.',
+          ] },
         ],
       },
     ],

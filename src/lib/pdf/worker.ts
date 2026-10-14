@@ -6,6 +6,7 @@ import { stripJpegExif } from './jpeg';
 import type { PdfSource } from './load';
 import {
   addPageNumbers,
+  addSignatures,
   addWatermark,
   assemble,
   deletePages,
@@ -101,6 +102,7 @@ const handlers: { [K in TaskName]: Handler<K> } = {
   rotatePages: async ({ file, rotations }) => rotatePages(await toSource(file), rotations),
   pageNumbers: async ({ file, options }) => addPageNumbers(await toSource(file), options),
   watermark: async ({ file, options }) => addWatermark(await toSource(file), options),
+  sign: async ({ file, options }) => addSignatures(await toSource(file), options),
   imagesToPdf: async ({ images, options }, { producer, progress }) =>
     imagesToPdf(
       await Promise.all(

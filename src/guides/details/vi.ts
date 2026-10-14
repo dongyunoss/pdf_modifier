@@ -300,6 +300,40 @@ export const vi: ToolDetailSet = {
         ],
       },
     ],
+    sign: [
+      {
+        title: 'Khi nào nên dùng',
+        blocks: [
+          { list: [
+            'Ký hợp đồng hay giấy đồng ý nhận qua email rồi gửi lại ngay, không cần in ra, ký tay rồi quét lại',
+            'Nộp đơn đăng ký hoặc phiếu đề nghị thanh toán cần chữ ký hay con dấu bên cạnh tên',
+            'Thêm chữ ký vào từng trang của một hợp đồng nhiều trang',
+          ] },
+        ],
+      },
+      {
+        title: 'Ba cách tạo chữ ký',
+        blocks: [
+          { list: [
+            '{ui:tools.sign.ui.modeDraw}: vẽ bằng chuột hoặc ngón tay. Trên điện thoại, ký bằng ngón tay cho kết quả tự nhiên nhất.',
+            '{ui:tools.sign.ui.modeType}: nhập họ tên rồi chọn kiểu {ui:tools.sign.ui.styleScript}, {ui:tools.sign.ui.styleSerif} hoặc {ui:tools.sign.ui.styleSans}.',
+            '{ui:tools.sign.ui.modeImage}: tải lên ảnh chụp chữ ký hoặc con dấu trên giấy. Bật "{ui:tools.sign.ui.removeBackground}" để nền giấy trong suốt và chữ ký trông tự nhiên trên trang.',
+          ] },
+          'Khi chữ ký đã sẵn sàng, nhấp vào trang để đặt nó ở đó. Kéo để di chuyển, kéo góc dưới bên phải để đổi kích thước và chuyển trang để đặt ở nhiều chỗ. Với trang đã xoay, chữ ký được đặt đúng như bạn thấy trên màn hình.',
+        ],
+      },
+      {
+        title: 'Nên biết',
+        blocks: [
+          { list: [
+            'Công cụ này chèn hình chữ ký của bạn lên trang. Cách này phổ biến với hợp đồng và biểu mẫu thông thường; nếu bên kia yêu cầu chữ ký số dùng chứng thư số, hãy làm theo cách mà cơ quan đó quy định.',
+            'Để người khác không sửa được file đã ký, hãy giới hạn quyền chỉnh sửa hoặc đặt mật khẩu mở file bằng {tool:protect}.',
+            'Nếu giấy tờ cần ký nằm ở nhiều file, hãy gộp lại trước bằng {tool:merge} để ký một lần.',
+            'Chữ ký bạn vẽ và ảnh tải lên chỉ được dùng trong trình duyệt này và biến mất khi bạn đóng trang.',
+          ] },
+        ],
+      },
+    ],
     protect: [
       {
         title: 'Khi nào nên dùng',

@@ -300,6 +300,40 @@ export const tr: ToolDetailSet = {
         ],
       },
     ],
+    sign: [
+      {
+        title: 'Ne zaman kullanılır',
+        blocks: [
+          { list: [
+            'E-postayla gelen bir sözleşmeyi veya onay formunu imzalayıp yazdırmadan, imzalayıp taramadan hemen geri göndermek için',
+            'Adınızın yanında imza veya kaşe gereken bir başvuru ya da masraf formunu teslim ederken',
+            'Çok sayfalı bir sözleşmenin her sayfasına imza eklemek için',
+          ] },
+        ],
+      },
+      {
+        title: 'İmza oluşturmanın üç yolu',
+        blocks: [
+          { list: [
+            '{ui:tools.sign.ui.modeDraw}: fareyle veya parmağınızla çizin. Telefonda parmakla atılan imza en doğal sonucu verir.',
+            '{ui:tools.sign.ui.modeType}: adınızı yazın ve {ui:tools.sign.ui.styleScript}, {ui:tools.sign.ui.styleSerif} ya da {ui:tools.sign.ui.styleSans} stilini seçin.',
+            '{ui:tools.sign.ui.modeImage}: kâğıttaki bir imzanın veya kaşenin fotoğrafını yükleyin. "{ui:tools.sign.ui.removeBackground}" seçeneğini açarsanız kâğıt şeffaf olur ve imza sayfada doğal durur.',
+          ] },
+          'İmza hazır olunca yerleştirmek için sayfaya tıklayın. Taşımak için sürükleyin, boyutunu değiştirmek için sağ alt köşeyi çekin ve birden fazla yere koymak için sayfa değiştirin. Döndürülmüş sayfalarda imza, ekranda gördüğünüz yönde yerleştirilir.',
+        ],
+      },
+      {
+        title: 'Bilmekte fayda var',
+        blocks: [
+          { list: [
+            'Bu araç imzanızın görselini sayfaya ekler. Günlük sözleşme ve formlarda yaygın bir yöntemdir; sertifikaya dayalı elektronik imza isteniyorsa ilgili kurumun belirttiği yöntemi izleyin.',
+            'İmzalı dosyanın başkaları tarafından değiştirilmesini istemiyorsanız {tool:protect} ile düzenlemeyi kısıtlayın veya açılış parolası koyun.',
+            'İmzalanacak belgeler birkaç dosyaya dağılmışsa önce {tool:merge} ile birleştirip tek seferde imzalayın.',
+            'Çizdiğiniz imza ve yüklediğiniz görseller yalnızca bu tarayıcıda kullanılır ve sayfayı kapattığınızda kaybolur.',
+          ] },
+        ],
+      },
+    ],
     protect: [
       {
         title: 'Ne zaman kullanılır',

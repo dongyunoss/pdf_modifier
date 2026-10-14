@@ -7,6 +7,7 @@ import type {
   PageNumberOptions,
   PageSpec,
   ProtectOptions,
+  SignatureOptions,
   WatermarkOptions,
 } from './ops';
 
@@ -30,6 +31,7 @@ export interface TaskMap {
   rotatePages: { args: { file: FileSource; rotations: Array<{ page: number; rotate: number }> }; result: Uint8Array };
   pageNumbers: { args: { file: FileSource; options: PageNumberOptions }; result: Uint8Array };
   watermark: { args: { file: FileSource; options: WatermarkOptions }; result: Uint8Array };
+  sign: { args: { file: FileSource; options: SignatureOptions }; result: Uint8Array };
   imagesToPdf: {
     args: { images: Array<{ data: Blob | Uint8Array; type: 'jpeg' | 'png'; rotation?: number }>; options: ImagesToPdfOptions };
     result: Uint8Array;
