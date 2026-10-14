@@ -103,7 +103,7 @@ async function download(base: string, asset: PackedAsset, signal: AbortSignal, o
 }
 
 class Decoder {
-  private readonly worker: Worker = new DecodeWorker({ name: 'office-decode' });
+  private readonly worker: Worker = new DecodeWorker();
   private readonly pending = new Map<number, { resolve: (buffer: ArrayBuffer) => void; reject: (error: Error) => void }>();
   private sequence = 0;
   /** 워커가 죽었으면 그 이유 (이후 요청은 기다리지 않고 바로 실패) */
