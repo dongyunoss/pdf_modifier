@@ -2,7 +2,7 @@ import { makePdf } from '../unit/helpers';
 import { downloadVia, expect, openPdf, pdfFile, test, upload } from './fixtures';
 
 test('모바일: 가로 스크롤 없이 표시되고 합치기가 동작한다', async ({ page }) => {
-  for (const path of ['/', '/de/', '/vi/', '/organize-pdf/', '/en/add-watermark-to-pdf/']) {
+  for (const path of ['/', '/de/', '/vi/', '/organize-pdf/', '/en/add-watermark-to-pdf/', '/word-to-pdf/', '/fr/convert/ppt-to-pdf/']) {
     await page.goto(path);
     const overflow = await page.evaluate(() => document.documentElement.scrollWidth - window.innerWidth);
     expect(overflow, `horizontal overflow on ${path}`).toBeLessThanOrEqual(0);

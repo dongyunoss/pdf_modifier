@@ -23,7 +23,8 @@ export default defineConfig({
         defaultLocale: DEFAULT_LANG,
         locales: Object.fromEntries(LANGS.map((code) => [code, LANGUAGES[code].htmlLang])),
       },
-      filter: (page) => !/\/404\/?$/.test(page),
+      // 404 와 Word·PPT 변환 화면(/convert/…, noindex)은 사이트맵에서 뺍니다.
+      filter: (page) => !/\/404\/?$/.test(page) && !/\/convert\//.test(page),
       // 페이지 내용을 크게 바꾼 날짜 (src/config/content.ts). 검색엔진이 다시 읽어 갈 페이지를 고르는 데 씁니다.
       lastmod: new Date(CONTENT_UPDATED),
     }),

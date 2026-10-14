@@ -228,6 +228,65 @@ export const vi: ToolDetailSet = {
         ],
       },
     ],
+    'word-to-pdf': [
+      {
+        title: 'Khi nào nên dùng',
+        blocks: [
+          { list: [
+            'Nộp CV hoặc thư xin việc dạng PDF để hiển thị giống nhau trên mọi máy tính',
+            'Gửi hợp đồng hay báo cáo dạng PDF để khó bị chỉnh sửa',
+            'Chuyển file DOCX nhận được sang PDF trên máy tính hoặc điện thoại không có Word',
+          ] },
+        ],
+      },
+      {
+        title: 'Cách hoạt động',
+        blocks: [
+          'Công cụ này chạy trong trình duyệt một bộ chuyển đổi được xây dựng từ bộ ứng dụng văn phòng LibreOffice, biên dịch sang WebAssembly. Nhờ vậy tài liệu Word được chuyển sang PDF mà không phải tải lên máy chủ như các trang chuyển đổi khác.',
+          'Bộ chuyển đổi (khoảng 50 MB) chỉ tải một lần và được trình duyệt lưu lại, nên những lần sau bắt đầu trong vài giây. Nếu tài liệu có chữ Hàn, Nhật hoặc Trung, chỉ phông chữ cần thiết được tải thêm.',
+        ],
+      },
+      {
+        title: 'Nên biết',
+        blocks: [
+          { list: [
+            'Các phông như Calibri hay Cambria không có sẵn nên được thay bằng phông miễn phí cùng độ rộng (Carlito, Caladea). Dù vậy ngắt dòng vẫn có thể lệch một chút, hãy kiểm tra kết quả trước khi nộp.',
+            'Nếu tài liệu còn theo dõi thay đổi, dấu sửa đổi có thể hiện ra. Muốn bản cuối gọn gàng, hãy chấp nhận mọi thay đổi trong Word trước khi chuyển. Nhận xét (comment) không được đưa vào PDF.',
+            'Muốn gộp nhiều tài liệu thành một PDF, hãy chuyển xong rồi dùng {tool:merge}; nếu file quá nặng, giảm dung lượng bằng {tool:compress}.',
+          ] },
+        ],
+      },
+    ],
+    'ppt-to-pdf': [
+      {
+        title: 'Khi nào nên dùng',
+        blocks: [
+          { list: [
+            'Gửi slide cho giảng viên hoặc khách hàng có thể không có PowerPoint hay phông chữ của bạn',
+            'In tài liệu bài giảng hoặc ghi chú trên máy tính bảng',
+            'Chuyển file PPT nặng thành PDF dễ gửi qua email hơn',
+          ] },
+        ],
+      },
+      {
+        title: 'Cách hoạt động',
+        blocks: [
+          'Bộ chuyển đổi xây dựng từ LibreOffice, biên dịch sang WebAssembly, vẽ các slide thành PDF ngay trong trình duyệt. Không có gì bị tải lên, nên bài thuyết trình nội bộ hay chưa công bố vẫn ở trên thiết bị của bạn.',
+          'Mỗi slide thành một trang PDF, và kích thước slide (16:9, 4:3…) trở thành kích thước trang. Bộ chuyển đổi (khoảng 50 MB) chỉ tải một lần, sau đó bắt đầu ngay.',
+        ],
+      },
+      {
+        title: 'Nên biết',
+        blocks: [
+          { list: [
+            'Hiệu ứng được thể hiện ở trạng thái cuối, còn video và âm thanh không phát.',
+            'Ghi chú của người thuyết trình và slide ẩn không được đưa vào.',
+            'Phông như Calibri được thay bằng phông miễn phí tương tự nên độ rộng chữ có thể thay đổi một chút. Hãy kiểm tra các hộp văn bản đầy kín.',
+            'Muốn in tài liệu phát tay nhiều slide mỗi tờ, chọn "nhiều trang mỗi tờ" khi in. Giảm dung lượng bằng {tool:compress}; chuyển slide thành ảnh bằng {tool:pdf-to-jpg}.',
+          ] },
+        ],
+      },
+    ],
     'pdf-to-jpg': [
       {
         title: 'Khi nào nên dùng',

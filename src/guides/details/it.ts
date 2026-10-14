@@ -228,6 +228,65 @@ export const it: ToolDetailSet = {
         ],
       },
     ],
+    'word-to-pdf': [
+      {
+        title: 'Quando usarlo',
+        blocks: [
+          { list: [
+            'Inviare un curriculum o una lettera di presentazione in PDF, perché si veda uguale su qualsiasi computer',
+            'Spedire un contratto o una relazione in PDF per renderli meno modificabili',
+            'Trasformare in PDF un DOCX ricevuto, da un computer o uno smartphone senza Word',
+          ] },
+        ],
+      },
+      {
+        title: 'Come funziona',
+        blocks: [
+          'Questo strumento esegue nel browser un convertitore ricavato da LibreOffice, la suite per ufficio, compilato in WebAssembly. Per questo converte i documenti Word in PDF senza caricarli su un server, come fanno invece altri siti di conversione.',
+          'Il convertitore (circa 50 MB) viene scaricato una volta e conservato dal browser, quindi le conversioni successive partono in pochi secondi. Se il documento contiene coreano, giapponese o cinese, vengono scaricati in più solo i font necessari.',
+        ],
+      },
+      {
+        title: 'Buono a sapersi',
+        blocks: [
+          { list: [
+            'Font come Calibri o Cambria non sono inclusi: vengono usati font liberi della stessa larghezza (Carlito, Caladea). Gli a capo possono comunque spostarsi un po’, quindi controlla il risultato prima di inviarlo.',
+            'Se nel documento sono rimaste revisioni, i segni di modifica possono comparire. Per una versione finale pulita accetta tutte le modifiche in Word prima di convertire. I commenti non vengono inclusi nel PDF.',
+            'Per riunire più documenti in un PDF, convertili e poi usa {tool:merge}; se il file è pesante, riducilo con {tool:compress}.',
+          ] },
+        ],
+      },
+    ],
+    'ppt-to-pdf': [
+      {
+        title: 'Quando usarlo',
+        blocks: [
+          { list: [
+            'Inviare slide a un docente o a un cliente che magari non ha PowerPoint né i tuoi font',
+            'Stampare dispense o annotarle su un tablet',
+            'Trasformare un PPT pesante in un PDF più facile da inviare via e-mail',
+          ] },
+        ],
+      },
+      {
+        title: 'Come funziona',
+        blocks: [
+          'Un convertitore ricavato da LibreOffice e compilato in WebAssembly disegna le tue slide in un PDF direttamente nel browser. Non viene caricato nulla, quindi presentazioni interne o ancora riservate restano sul tuo dispositivo.',
+          'Ogni diapositiva diventa una pagina del PDF e il formato della diapositiva (16:9, 4:3 ecc.) diventa il formato della pagina. Il convertitore (circa 50 MB) si scarica una volta, poi parte subito.',
+        ],
+      },
+      {
+        title: 'Buono a sapersi',
+        blocks: [
+          { list: [
+            'Le animazioni compaiono nel loro stato finale e video e audio non vengono riprodotti.',
+            'Le note del relatore e le diapositive nascoste non vengono incluse.',
+            'Font come Calibri vengono sostituiti con font liberi simili, quindi la larghezza del testo può cambiare un po’. Controlla le caselle di testo piene fino al bordo.',
+            'Per dispense con più diapositive per foglio, scegli «più pagine per foglio» in stampa. Per ridurre le dimensioni usa {tool:compress}; per trasformare le slide in immagini, {tool:pdf-to-jpg}.',
+          ] },
+        ],
+      },
+    ],
     'pdf-to-jpg': [
       {
         title: 'Quando usarlo',

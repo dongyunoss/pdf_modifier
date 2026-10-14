@@ -8,9 +8,9 @@
     "node": ">=22.13.0"
   },
   "scripts": {
-    "predev": "node scripts/copy-pdfjs-assets.mjs",
+    "predev": "node scripts/copy-pdfjs-assets.mjs && node scripts/build-office-engine.mjs",
     "dev": "astro dev",
-    "prebuild": "node scripts/copy-pdfjs-assets.mjs",
+    "prebuild": "node scripts/copy-pdfjs-assets.mjs && node scripts/build-office-engine.mjs",
     "build": "astro build",
     "preview": "astro preview",
     "check": "astro check",
@@ -24,9 +24,16 @@
   "dependencies": {
     "@astrojs/preact": "^6.0.5",
     "@astrojs/sitemap": "^3.7.4",
+    "@bentopdf/libreoffice-wasm": "2.3.1",
     "@cantoo/pdf-lib": "^2.11.1",
+    "@expo-google-fonts/nanum-gothic": "0.4.0",
+    "@expo-google-fonts/nanum-myeongjo": "0.4.1",
+    "@expo-google-fonts/noto-sans-jp": "0.4.4",
+    "@expo-google-fonts/noto-sans-sc": "0.4.4",
+    "@expo-google-fonts/noto-sans-tc": "0.4.4",
     "astro": "^7.3.5",
     "fflate": "^0.8.3",
+    "fzstd": "0.1.1",
     "pdfjs-dist": "^6.3.289",
     "preact": "^10.29.8"
   },

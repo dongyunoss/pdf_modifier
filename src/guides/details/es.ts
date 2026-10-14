@@ -228,6 +228,65 @@ export const es: ToolDetailSet = {
         ],
       },
     ],
+    'word-to-pdf': [
+      {
+        title: 'Cuándo usarlo',
+        blocks: [
+          { list: [
+            'Entregar un currículum o una carta de presentación en PDF, para que se vea igual en cualquier ordenador',
+            'Enviar un contrato o un informe en PDF para que no se modifique fácilmente',
+            'Convertir a PDF un DOCX recibido desde un ordenador o móvil sin Word',
+          ] },
+        ],
+      },
+      {
+        title: 'Cómo funciona',
+        blocks: [
+          'Esta herramienta ejecuta en tu navegador un conversor creado a partir de LibreOffice, la suite ofimática, compilado a WebAssembly. Por eso convierte documentos de Word a PDF sin subirlos a un servidor, como hacen otras webs de conversión.',
+          'El conversor (unos 50 MB) se descarga una vez y el navegador lo guarda, así que las siguientes conversiones empiezan en segundos. Si el documento contiene coreano, japonés o chino, solo se descargan además las fuentes necesarias.',
+        ],
+      },
+      {
+        title: 'Conviene saber',
+        blocks: [
+          { list: [
+            'Fuentes como Calibri o Cambria no están incluidas, así que se usan fuentes libres del mismo ancho (Carlito, Caladea). Aun así, los saltos de línea pueden variar un poco: revisa el resultado antes de entregarlo.',
+            'Si el documento conserva control de cambios, pueden aparecer las marcas de revisión. Para una versión final limpia, acepta todos los cambios en Word antes de convertir. Los comentarios no se incluyen en el PDF.',
+            'Para juntar varios documentos en un PDF, conviértelos y usa {tool:merge}; si el archivo pesa mucho, redúcelo con {tool:compress}.',
+          ] },
+        ],
+      },
+    ],
+    'ppt-to-pdf': [
+      {
+        title: 'Cuándo usarlo',
+        blocks: [
+          { list: [
+            'Enviar diapositivas a un profesor o cliente que quizá no tenga PowerPoint ni tus fuentes',
+            'Imprimir apuntes de clase o anotarlos en una tableta',
+            'Convertir un PPT pesado en un PDF más fácil de enviar por correo',
+          ] },
+        ],
+      },
+      {
+        title: 'Cómo funciona',
+        blocks: [
+          'Un conversor creado a partir de LibreOffice y compilado a WebAssembly dibuja tus diapositivas en un PDF dentro del navegador. No se sube nada, así que las presentaciones internas o inéditas se quedan en tu dispositivo.',
+          'Cada diapositiva es una página del PDF y el tamaño de la diapositiva (16:9, 4:3, etc.) pasa a ser el tamaño de página. El conversor (unos 50 MB) se descarga una vez y después empieza al instante.',
+        ],
+      },
+      {
+        title: 'Conviene saber',
+        blocks: [
+          { list: [
+            'Las animaciones aparecen en su estado final, y el vídeo y el audio no se reproducen.',
+            'Las notas del orador y las diapositivas ocultas no se incluyen.',
+            'Fuentes como Calibri se sustituyen por fuentes libres parecidas, así que el ancho del texto puede cambiar un poco. Revisa los cuadros de texto llenos hasta el borde.',
+            'Para repartir varias diapositivas por hoja, elige «varias páginas por hoja» al imprimir. Para reducir el tamaño usa {tool:compress}; para pasar diapositivas a imágenes, {tool:pdf-to-jpg}.',
+          ] },
+        ],
+      },
+    ],
     'pdf-to-jpg': [
       {
         title: 'Cuándo usarla',

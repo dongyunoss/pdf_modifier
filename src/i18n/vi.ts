@@ -181,6 +181,20 @@ export const vi: Dictionary = {
     pageGridLabel: 'Các trang',
     selectPage: 'Chọn trang {n}',
     blankPage: 'Trang trống',
+    office: {
+      moving: 'Đang mở trang chuyển đổi…',
+      engineNote: 'Lần đầu sẽ tải bộ chuyển đổi (khoảng {size} MB). Những lần sau bắt đầu ngay.',
+      downloading: 'Đang tải bộ chuyển đổi · {done} / {total} MB',
+      preparing: 'Đang chuẩn bị bộ chuyển đổi…',
+      converting: 'Đang chuyển "{name}" ({n} / {total})',
+      fontNote: 'Nếu không có phông chữ dùng trong tài liệu, phông tương tự sẽ được dùng nên ngắt dòng và ngắt trang có thể hơi khác bản gốc.',
+      unsupported: 'Trình duyệt này không chạy được bộ chuyển đổi. Hãy mở trang bằng Chrome, Edge, Safari hoặc Firefox bản mới.',
+      memory: 'Thiết bị không đủ bộ nhớ. Hãy đóng các tab và ứng dụng khác rồi thử lại, hoặc chuyển đổi trên máy tính.',
+      network: 'Không tải được bộ chuyển đổi. Hãy kiểm tra kết nối Internet rồi thử lại.',
+      engine: 'Bộ chuyển đổi gặp sự cố. Hãy tải lại trang rồi thử lại.',
+      openFailed: 'Không chuyển được "{name}". File có thể đặt mật khẩu hoặc bị hỏng.',
+      timeout: 'Chuyển "{name}" mất quá nhiều thời gian nên đã dừng. Hãy chia nhỏ file hoặc dùng máy tính.',
+    },
   },
   errors: {
     INVALID_PDF: 'Không thể mở tệp PDF này. Tệp có thể bị hỏng hoặc không phải là PDF.',
@@ -498,6 +512,70 @@ export const vi: Dictionary = {
         action: 'Chuyển sang PDF',
         addImages: 'Thêm hình ảnh',
         imageCount: '{n} hình ảnh',
+      },
+    },
+    'word-to-pdf': {
+      name: 'Word sang PDF',
+      title: 'Chuyển Word sang PDF miễn phí, không cần đăng ký',
+      description:
+        'Chuyển tài liệu Word (DOCX, DOC, ODT, RTF) sang PDF, giữ nguyên bảng và hình ảnh.',
+      tagline: 'Chuyển tài liệu Word sang PDF, giữ nguyên bảng, hình ảnh và đầu trang. File không rời khỏi thiết bị của bạn.',
+      steps: [
+        'Chọn file Word (DOCX, DOC…) cần chuyển. Có thể chọn nhiều file cùng lúc.',
+        'Trang chuyển đổi mở ra, chuẩn bị bộ chuyển đổi rồi tự động chuyển sang PDF. Lần đầu sẽ lâu hơn một chút vì phải tải bộ chuyển đổi.',
+        'Tải file PDF về, hoặc chuyển ngay sang gộp, nén… bằng "Làm tiếp với".',
+      ],
+      faq: [
+        {
+          q: 'Tài liệu có bị tải lên máy chủ không?',
+          a: 'Không. Bộ chuyển đổi (LibreOffice) được tải vào trình duyệt và chạy ngay trên thiết bị, nên tài liệu không bao giờ rời khỏi máy. Lần tải đầu (khoảng 50 MB) mất một lúc; sau đó bắt đầu ngay.',
+        },
+        {
+          q: 'File PDF có giống hệt bản gốc không?',
+          a: 'Phần lớn tài liệu giữ nguyên bảng, hình ảnh, đầu trang, chân trang và số trang. Phông chữ dùng trong tài liệu (như Calibri) được thay bằng phông miễn phí tương tự nên ngắt dòng và ngắt trang có thể lệch một chút. Nếu cần giống hệt, chức năng "Lưu dưới dạng PDF" của Word là chính xác nhất.',
+        },
+        {
+          q: 'Dùng trên điện thoại được không?',
+          a: 'Được, với trình duyệt bản mới. Tuy nhiên bộ chuyển đổi dùng nhiều bộ nhớ nên có thể lỗi trên điện thoại cũ; tài liệu lớn chuyển trên máy tính sẽ nhanh và ổn định hơn.',
+        },
+      ],
+      ui: {
+        choose: 'Chọn file Word',
+        drop: 'Thả file Word vào đây (có thể nhiều file)',
+        formats: 'Chuyển file DOCX, DOC, ODT và RTF sang PDF.',
+        notAccepted: '"{name}" không phải tài liệu Word.',
+      },
+    },
+    'ppt-to-pdf': {
+      name: 'PowerPoint sang PDF',
+      title: 'Chuyển PowerPoint sang PDF miễn phí, không cần đăng ký',
+      description:
+        'Chuyển bài thuyết trình PowerPoint (PPTX, PPT, ODP) sang PDF, mỗi slide một trang.',
+      tagline: 'Mỗi slide trở thành một trang PDF. Bài thuyết trình không rời khỏi thiết bị của bạn.',
+      steps: [
+        'Chọn file PowerPoint (PPTX, PPT…) cần chuyển. Có thể chọn nhiều file cùng lúc.',
+        'Trang chuyển đổi mở ra, chuẩn bị bộ chuyển đổi rồi tự động chuyển sang PDF. Lần đầu sẽ lâu hơn một chút vì phải tải bộ chuyển đổi.',
+        'Tải file PDF về, hoặc chuyển ngay sang nén, gộp… bằng "Làm tiếp với".',
+      ],
+      faq: [
+        {
+          q: 'Bài thuyết trình có bị tải lên máy chủ không?',
+          a: 'Không. Bộ chuyển đổi (LibreOffice) được tải vào trình duyệt và chạy ngay trên thiết bị, nên file không bao giờ rời khỏi máy. Lần tải đầu (khoảng 50 MB) mất một lúc; sau đó bắt đầu ngay.',
+        },
+        {
+          q: 'Hiệu ứng và ghi chú của người thuyết trình thì sao?',
+          a: 'Mỗi slide thành một trang PDF, hiệu ứng được thể hiện ở trạng thái cuối cùng. Ghi chú của người thuyết trình và slide ẩn không được đưa vào PDF.',
+        },
+        {
+          q: 'Phông chữ trông khác bản gốc.',
+          a: 'Phông chữ trong bài thuyết trình (như Calibri) được thay bằng phông miễn phí tương tự nên độ rộng chữ có thể thay đổi một chút. Nếu cần giống hệt, chức năng "Lưu dưới dạng PDF" của PowerPoint là chính xác nhất.',
+        },
+      ],
+      ui: {
+        choose: 'Chọn file PowerPoint',
+        drop: 'Thả file PowerPoint vào đây (có thể nhiều file)',
+        formats: 'Chuyển file PPTX, PPT, PPSX và ODP sang PDF.',
+        notAccepted: '"{name}" không phải file PowerPoint.',
       },
     },
     'pdf-to-jpg': {

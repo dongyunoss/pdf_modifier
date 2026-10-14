@@ -181,6 +181,20 @@ export const de: Dictionary = {
     pageGridLabel: 'Seiten',
     selectPage: 'Seite {n} auswählen',
     blankPage: 'Leere Seite',
+    office: {
+      moving: 'Konverter wird geöffnet…',
+      engineNote: 'Beim ersten Mal wird der Konverter (etwa {size} MB) heruntergeladen. Danach startet er sofort.',
+      downloading: 'Konverter wird heruntergeladen · {done} / {total} MB',
+      preparing: 'Konverter wird vorbereitet…',
+      converting: '„{name}“ wird umgewandelt ({n} / {total})',
+      fontNote: 'Fehlt eine im Dokument verwendete Schrift, wird eine ähnliche genutzt – Zeilen- und Seitenumbrüche können leicht abweichen.',
+      unsupported: 'Dieser Browser kann den Konverter nicht ausführen. Öffnen Sie die Seite in einer aktuellen Version von Chrome, Edge, Safari oder Firefox.',
+      memory: 'Der Arbeitsspeicher des Geräts reicht nicht aus. Schließen Sie andere Tabs und Apps und versuchen Sie es erneut, oder wandeln Sie am Computer um.',
+      network: 'Der Konverter konnte nicht heruntergeladen werden. Prüfen Sie Ihre Internetverbindung und versuchen Sie es erneut.',
+      engine: 'Beim Konverter ist ein Problem aufgetreten. Laden Sie die Seite neu und versuchen Sie es erneut.',
+      openFailed: '„{name}“ konnte nicht umgewandelt werden. Die Datei ist eventuell passwortgeschützt oder beschädigt.',
+      timeout: 'Die Umwandlung von „{name}“ hat zu lange gedauert und wurde abgebrochen. Teilen Sie die Datei auf oder nutzen Sie einen Computer.',
+    },
   },
   errors: {
     INVALID_PDF: 'Diese PDF-Datei konnte nicht geöffnet werden. Sie ist möglicherweise beschädigt oder keine PDF-Datei.',
@@ -498,6 +512,70 @@ export const de: Dictionary = {
         action: 'In PDF umwandeln',
         addImages: 'Bilder hinzufügen',
         imageCount: '{n} Bilder',
+      },
+    },
+    'word-to-pdf': {
+      name: 'Word in PDF',
+      title: 'Word in PDF umwandeln – kostenlos und ohne Anmeldung',
+      description:
+        'Wandeln Sie Word-Dokumente (DOCX, DOC, ODT, RTF) mit Tabellen und Bildern in PDF um.',
+      tagline: 'Word-Dokumente samt Tabellen, Bildern und Kopfzeilen in PDF umwandeln. Ihre Dateien verlassen Ihr Gerät nicht.',
+      steps: [
+        'Wählen Sie die Word-Dateien (DOCX, DOC usw.) aus. Sie können mehrere auf einmal auswählen.',
+        'Der Konverter öffnet sich, wird vorbereitet und wandelt sie automatisch in PDF um. Beim ersten Mal dauert es wegen des Downloads etwas länger.',
+        'Laden Sie die PDFs herunter oder geben Sie sie mit „Weiter mit“ direkt an Zusammenfügen, Komprimieren usw. weiter.',
+      ],
+      faq: [
+        {
+          q: 'Werden meine Dokumente auf einen Server hochgeladen?',
+          a: 'Nein. Der Konverter (LibreOffice) wird in Ihren Browser geladen und läuft auf Ihrem Gerät, Ihre Dokumente verlassen es also nie. Der erste Download (etwa 50 MB) dauert einen Moment, danach startet er sofort.',
+        },
+        {
+          q: 'Sieht das PDF genau wie das Original aus?',
+          a: 'Die meisten Dokumente behalten Tabellen, Bilder, Kopf- und Fußzeilen sowie Seitenzahlen. Im Dokument verwendete Schriften (z. B. Calibri) werden durch ähnliche freie Schriften ersetzt, daher können sich Zeilen- und Seitenumbrüche leicht verschieben. Muss es exakt gleich sein, ist „Als PDF speichern“ in Word am genauesten.',
+        },
+        {
+          q: 'Funktioniert es auf dem Smartphone?',
+          a: 'Ja, in einem aktuellen Browser. Der Konverter braucht aber viel Arbeitsspeicher und kann auf älteren Smartphones scheitern; große Dokumente werden am Computer schneller und zuverlässiger umgewandelt.',
+        },
+      ],
+      ui: {
+        choose: 'Word-Dateien auswählen',
+        drop: 'Word-Dateien hier ablegen (mehrere möglich)',
+        formats: 'Wandelt DOCX-, DOC-, ODT- und RTF-Dateien in PDF um.',
+        notAccepted: '„{name}“ ist kein Word-Dokument.',
+      },
+    },
+    'ppt-to-pdf': {
+      name: 'PowerPoint in PDF',
+      title: 'PowerPoint in PDF umwandeln – kostenlos und ohne Anmeldung',
+      description:
+        'Wandeln Sie PowerPoint-Präsentationen (PPTX, PPT, ODP) Folie für Folie in PDF um.',
+      tagline: 'Jede Folie wird zu einer PDF-Seite. Ihre Präsentationen verlassen Ihr Gerät nicht.',
+      steps: [
+        'Wählen Sie die PowerPoint-Dateien (PPTX, PPT usw.) aus. Sie können mehrere auf einmal auswählen.',
+        'Der Konverter öffnet sich, wird vorbereitet und wandelt sie automatisch in PDF um. Beim ersten Mal dauert es wegen des Downloads etwas länger.',
+        'Laden Sie die PDFs herunter oder geben Sie sie mit „Weiter mit“ direkt an Komprimieren, Zusammenfügen usw. weiter.',
+      ],
+      faq: [
+        {
+          q: 'Werden meine Präsentationen auf einen Server hochgeladen?',
+          a: 'Nein. Der Konverter (LibreOffice) wird in Ihren Browser geladen und läuft auf Ihrem Gerät, Ihre Dateien verlassen es also nie. Der erste Download (etwa 50 MB) dauert einen Moment, danach startet er sofort.',
+        },
+        {
+          q: 'Was passiert mit Animationen und Notizen?',
+          a: 'Jede Folie wird zu einer PDF-Seite, Animationen erscheinen im Endzustand. Referentennotizen und ausgeblendete Folien werden nicht übernommen.',
+        },
+        {
+          q: 'Die Schriften sehen anders aus als im Original.',
+          a: 'In der Präsentation verwendete Schriften (z. B. Calibri) werden durch ähnliche freie Schriften ersetzt, daher kann sich die Textbreite leicht ändern. Muss es exakt gleich sein, ist „Als PDF speichern“ in PowerPoint am genauesten.',
+        },
+      ],
+      ui: {
+        choose: 'PowerPoint-Dateien auswählen',
+        drop: 'PowerPoint-Dateien hier ablegen (mehrere möglich)',
+        formats: 'Wandelt PPTX-, PPT-, PPSX- und ODP-Dateien in PDF um.',
+        notAccepted: '„{name}“ ist keine PowerPoint-Datei.',
       },
     },
     'pdf-to-jpg': {

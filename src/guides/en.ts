@@ -40,6 +40,7 @@ export const en: GuideSet = {
     updatesTitle: 'Update history',
     updates: [
       { date: '2026-10-14', items: [
+        'Added Word to PDF and PowerPoint to PDF. They run LibreOffice (MPL-2.0), compiled to WebAssembly, inside your browser, so files are never uploaded.',
         'Added the Sign PDF tool for adding a signature or stamp to a PDF. You can draw it, type your name or upload an image.',
         'Added the guide “How to Sign a PDF Without Printing or Scanning It”.',
       ] },
@@ -1118,6 +1119,65 @@ export const en: GuideSet = {
             'Bright light without shadows, and the phone held parallel to the paper, make a big difference.',
             'Phone photos run to several megabytes each, so the PDF grows fast. Send the result straight to {tool:compress} from the result screen.',
             'The guide "How to turn phone photos of documents and receipts into a clean PDF" covers everything from taking the photo to submitting the file.',
+          ] },
+        ],
+      },
+    ],
+    'word-to-pdf': [
+      {
+        title: 'When to use it',
+        blocks: [
+          { list: [
+            'Submitting a résumé or cover letter as a PDF, so it looks the same on any computer',
+            'Sending a contract or report as a PDF so it can’t be edited easily',
+            'Turning a DOCX you received into a PDF on a computer or phone without Word',
+          ] },
+        ],
+      },
+      {
+        title: 'How it works',
+        blocks: [
+          'This tool runs a converter built from LibreOffice, the office suite, compiled to WebAssembly so it runs inside your browser. That is how it converts Word documents to PDF without uploading them to a server the way other converter sites do.',
+          'The converter (about 50 MB) is downloaded once and kept by your browser, so later conversions start within seconds. If a document contains Korean, Japanese or Chinese, only the matching fonts are downloaded in addition.',
+        ],
+      },
+      {
+        title: 'Good to know',
+        blocks: [
+          { list: [
+            'Fonts such as Calibri or Cambria are not included, so similar free fonts with the same width (Carlito, Caladea) are used. Line breaks can still shift slightly, so check the result before you submit it.',
+            'If tracked changes are still in the document, the revision marks may appear. For a clean final copy, accept all changes in Word before converting. Comments are not included in the PDF.',
+            'To combine several documents into one PDF, convert them and then use {tool:merge}; if the file is large, shrink it with {tool:compress}.',
+          ] },
+        ],
+      },
+    ],
+    'ppt-to-pdf': [
+      {
+        title: 'When to use it',
+        blocks: [
+          { list: [
+            'Sending slides to a teacher or client who may not have PowerPoint or your fonts',
+            'Printing lecture slides or annotating them on a tablet',
+            'Turning a large PPT into a PDF that is easier to email',
+          ] },
+        ],
+      },
+      {
+        title: 'How it works',
+        blocks: [
+          'A converter built from LibreOffice and compiled to WebAssembly draws your slides into a PDF inside your browser. Nothing is uploaded, so internal decks and unreleased presentations stay on your device.',
+          'Each slide becomes one PDF page, and the slide size (16:9, 4:3 and so on) becomes the page size. The converter (about 50 MB) is downloaded once, and later conversions start right away.',
+        ],
+      },
+      {
+        title: 'Good to know',
+        blocks: [
+          { list: [
+            'Animations appear in their final state, and video and audio don’t play.',
+            'Speaker notes and hidden slides are not included.',
+            'Fonts such as Calibri are replaced with similar free fonts, so text width can change slightly. Check text boxes that are filled to the edge.',
+            'For handouts with several slides per sheet, choose “multiple pages per sheet” when printing. To shrink the result use {tool:compress}; to turn slides into images use {tool:pdf-to-jpg}.',
           ] },
         ],
       },

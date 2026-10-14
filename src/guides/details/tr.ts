@@ -228,6 +228,65 @@ export const tr: ToolDetailSet = {
         ],
       },
     ],
+    'word-to-pdf': [
+      {
+        title: 'Ne zaman kullanılır',
+        blocks: [
+          { list: [
+            'Özgeçmiş veya ön yazıyı her bilgisayarda aynı görünmesi için PDF olarak göndermek',
+            'Sözleşme ya da raporu kolayca değiştirilemeyecek şekilde PDF olarak iletmek',
+            'Gelen bir DOCX dosyasını Word olmayan bir bilgisayarda ya da telefonda PDF’ye çevirmek',
+          ] },
+        ],
+      },
+      {
+        title: 'Nasıl çalışır',
+        blocks: [
+          'Bu araç, ofis paketi LibreOffice’ten WebAssembly’ye derlenmiş bir dönüştürücüyü tarayıcınızda çalıştırır. Bu sayede Word belgelerini, diğer dönüştürme sitelerinin yaptığı gibi bir sunucuya yüklemeden PDF’ye çevirir.',
+          'Dönüştürücü (yaklaşık 50 MB) bir kez indirilir ve tarayıcıda saklanır; sonraki dönüştürmeler birkaç saniyede başlar. Belgede Korece, Japonca veya Çince varsa yalnızca gereken yazı tipleri ayrıca indirilir.',
+        ],
+      },
+      {
+        title: 'Bilmekte fayda var',
+        blocks: [
+          { list: [
+            'Calibri veya Cambria gibi yazı tipleri dahil değildir; yerlerine aynı genişlikte ücretsiz yazı tipleri (Carlito, Caladea) kullanılır. Yine de satır sonları biraz kayabilir, göndermeden önce sonucu kontrol edin.',
+            'Belgede hâlâ değişiklik izleme varsa düzeltme işaretleri görünebilir. Temiz bir son sürüm için dönüştürmeden önce Word’de tüm değişiklikleri kabul edin. Açıklamalar (yorumlar) PDF’ye eklenmez.',
+            'Birden fazla belgeyi tek PDF’de toplamak için önce dönüştürün, sonra {tool:merge} kullanın; dosya büyükse {tool:compress} ile küçültün.',
+          ] },
+        ],
+      },
+    ],
+    'ppt-to-pdf': [
+      {
+        title: 'Ne zaman kullanılır',
+        blocks: [
+          { list: [
+            'PowerPoint’i ya da yazı tiplerinizi olmayabilecek bir öğretmene veya müşteriye slayt göndermek',
+            'Ders notlarını yazdırmak ya da tablette not alarak incelemek',
+            'Büyük bir PPT dosyasını e-postayla gönderilmesi kolay bir PDF’ye çevirmek',
+          ] },
+        ],
+      },
+      {
+        title: 'Nasıl çalışır',
+        blocks: [
+          'LibreOffice’ten WebAssembly’ye derlenmiş bir dönüştürücü, slaytlarınızı doğrudan tarayıcıda PDF’ye çizer. Hiçbir şey yüklenmez; şirket içi veya henüz yayımlanmamış sunumlar cihazınızda kalır.',
+          'Her slayt PDF’nin bir sayfası olur ve slayt boyutu (16:9, 4:3 vb.) sayfa boyutu olur. Dönüştürücü (yaklaşık 50 MB) bir kez indirilir, sonrasında hemen başlar.',
+        ],
+      },
+      {
+        title: 'Bilmekte fayda var',
+        blocks: [
+          { list: [
+            'Animasyonlar son hâlleriyle görünür; video ve ses oynatılmaz.',
+            'Konuşmacı notları ve gizli slaytlar eklenmez.',
+            'Calibri gibi yazı tipleri benzer ücretsiz yazı tipleriyle değiştirildiği için metin genişliği biraz değişebilir. Kenarına kadar dolu metin kutularını kontrol edin.',
+            'Sayfa başına birden fazla slayt içeren el notları için yazdırırken "sayfa başına birden çok sayfa" seçeneğini kullanın. Boyutu küçültmek için {tool:compress}, slaytları görsele çevirmek için {tool:pdf-to-jpg} kullanın.',
+          ] },
+        ],
+      },
+    ],
     'pdf-to-jpg': [
       {
         title: 'Ne zaman kullanılır',

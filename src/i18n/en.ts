@@ -181,6 +181,20 @@ export const en: Dictionary = {
     pageGridLabel: 'Pages',
     selectPage: 'Select page {n}',
     blankPage: 'Blank page',
+    office: {
+      moving: 'Opening the converter…',
+      engineNote: 'The first time, the converter (about {size} MB) is downloaded. After that it starts right away.',
+      downloading: 'Downloading the converter · {done} / {total} MB',
+      preparing: 'Starting the converter…',
+      converting: 'Converting “{name}” ({n} / {total})',
+      fontNote: 'If a font used in the document isn’t available, a similar font is used, so line and page breaks may differ slightly.',
+      unsupported: 'This browser can’t run the converter. Please open this page in a recent Chrome, Edge, Safari or Firefox.',
+      memory: 'Your device ran out of memory. Close other tabs and apps and try again, or convert on a computer.',
+      network: 'The converter couldn’t be downloaded. Check your internet connection and try again.',
+      engine: 'Something went wrong with the converter. Reload the page and try again.',
+      openFailed: '“{name}” couldn’t be converted. It may be password-protected or damaged.',
+      timeout: 'Converting “{name}” took too long and was stopped. Try splitting the file or using a computer.',
+    },
   },
   errors: {
     INVALID_PDF: 'This PDF could not be opened. The file may be damaged or not a PDF.',
@@ -498,6 +512,70 @@ export const en: Dictionary = {
         action: 'Convert to PDF',
         addImages: 'Add images',
         imageCount: '{n} images',
+      },
+    },
+    'word-to-pdf': {
+      name: 'Word to PDF',
+      title: 'Word to PDF - Convert DOCX to PDF Free, No Sign-Up',
+      description:
+        'Convert Word documents (DOCX, DOC, ODT, RTF) to PDF with tables and images intact.',
+      tagline: 'Turn Word documents into PDFs with tables, images and headers intact. Your files never leave your device.',
+      steps: [
+        'Choose the Word files (DOCX, DOC and more) to convert. You can pick several at once.',
+        'The converter opens, gets ready and turns them into PDFs automatically. The first time takes a little longer while the converter downloads.',
+        'Download the PDFs, or pass them straight to merge, compress and more with “Continue with”.',
+      ],
+      faq: [
+        {
+          q: 'Are my documents uploaded to a server?',
+          a: 'No. The converter (LibreOffice) is downloaded into your browser and runs on your device, so your documents never leave it. The first download (about 50 MB) takes a moment; after that it starts right away.',
+        },
+        {
+          q: 'Will the PDF look exactly like the original?',
+          a: 'Most documents keep their tables, images, headers, footers and page numbers. Fonts used in the document (such as Calibri) are replaced with similar free fonts, so line and page breaks can shift slightly. If it must match exactly, Word’s own “Save as PDF” is the most accurate.',
+        },
+        {
+          q: 'Does it work on a phone?',
+          a: 'Yes, in a recent browser. The converter uses a lot of memory, though, so it may fail on older phones, and large documents are faster and more reliable on a computer.',
+        },
+      ],
+      ui: {
+        choose: 'Choose Word files',
+        drop: 'Drop Word files here (you can add several)',
+        formats: 'Converts DOCX, DOC, ODT and RTF files to PDF.',
+        notAccepted: '“{name}” is not a Word document.',
+      },
+    },
+    'ppt-to-pdf': {
+      name: 'PowerPoint to PDF',
+      title: 'PPT to PDF - Convert PowerPoint to PDF Free, No Sign-Up',
+      description:
+        'Convert PowerPoint presentations (PPTX, PPT, ODP) to PDF, slide by slide.',
+      tagline: 'Turn each slide into a PDF page. Your presentations never leave your device.',
+      steps: [
+        'Choose the PowerPoint files (PPTX, PPT and more) to convert. You can pick several at once.',
+        'The converter opens, gets ready and turns them into PDFs automatically. The first time takes a little longer while the converter downloads.',
+        'Download the PDFs, or pass them straight to compress, merge and more with “Continue with”.',
+      ],
+      faq: [
+        {
+          q: 'Are my presentations uploaded to a server?',
+          a: 'No. The converter (LibreOffice) is downloaded into your browser and runs on your device, so your files never leave it. The first download (about 50 MB) takes a moment; after that it starts right away.',
+        },
+        {
+          q: 'What happens to animations and speaker notes?',
+          a: 'Each slide becomes one PDF page, with animations shown in their final state. Speaker notes and hidden slides are not included.',
+        },
+        {
+          q: 'The fonts look different from the original.',
+          a: 'Fonts used in the presentation (such as Calibri) are replaced with similar free fonts, so text width can change slightly. If it must match exactly, PowerPoint’s own “Save as PDF” is the most accurate.',
+        },
+      ],
+      ui: {
+        choose: 'Choose PowerPoint files',
+        drop: 'Drop PowerPoint files here (you can add several)',
+        formats: 'Converts PPTX, PPT, PPSX and ODP files to PDF.',
+        notAccepted: '“{name}” is not a PowerPoint file.',
       },
     },
     'pdf-to-jpg': {

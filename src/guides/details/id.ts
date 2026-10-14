@@ -228,6 +228,65 @@ export const id: ToolDetailSet = {
         ],
       },
     ],
+    'word-to-pdf': [
+      {
+        title: 'Kapan dipakai',
+        blocks: [
+          { list: [
+            'Mengirim CV atau surat lamaran dalam PDF agar tampil sama di komputer mana pun',
+            'Mengirim kontrak atau laporan sebagai PDF agar tidak mudah diubah',
+            'Mengubah DOCX yang diterima menjadi PDF di komputer atau ponsel tanpa Word',
+          ] },
+        ],
+      },
+      {
+        title: 'Cara kerjanya',
+        blocks: [
+          'Alat ini menjalankan pengonversi di browser Anda yang dibuat dari LibreOffice, paket aplikasi perkantoran, yang dikompilasi ke WebAssembly. Karena itu dokumen Word bisa diubah ke PDF tanpa diunggah ke server seperti situs konversi lain.',
+          'Pengonversi (sekitar 50 MB) diunduh sekali dan disimpan browser, sehingga konversi berikutnya dimulai dalam hitungan detik. Jika dokumen berisi huruf Korea, Jepang, atau Tionghoa, hanya font yang diperlukan yang diunduh tambahan.',
+        ],
+      },
+      {
+        title: 'Perlu diketahui',
+        blocks: [
+          { list: [
+            'Font seperti Calibri atau Cambria tidak disertakan, jadi dipakai font gratis dengan lebar yang sama (Carlito, Caladea). Pergantian baris tetap bisa sedikit bergeser, jadi periksa hasilnya sebelum dikirim.',
+            'Jika dokumen masih memuat lacak perubahan, tanda revisi bisa ikut tampil. Untuk versi akhir yang bersih, terima semua perubahan di Word sebelum mengonversi. Komentar tidak dimasukkan ke PDF.',
+            'Untuk menggabungkan beberapa dokumen menjadi satu PDF, konversi dulu lalu gunakan {tool:merge}; jika filenya besar, perkecil dengan {tool:compress}.',
+          ] },
+        ],
+      },
+    ],
+    'ppt-to-pdf': [
+      {
+        title: 'Kapan dipakai',
+        blocks: [
+          { list: [
+            'Mengirim slide ke dosen atau klien yang mungkin tidak punya PowerPoint atau font Anda',
+            'Mencetak materi kuliah atau memberi catatan di tablet',
+            'Mengubah PPT berukuran besar menjadi PDF yang lebih mudah dikirim lewat email',
+          ] },
+        ],
+      },
+      {
+        title: 'Cara kerjanya',
+        blocks: [
+          'Pengonversi yang dibuat dari LibreOffice dan dikompilasi ke WebAssembly menggambar slide Anda menjadi PDF langsung di browser. Tidak ada yang diunggah, jadi presentasi internal atau yang belum dirilis tetap di perangkat Anda.',
+          'Setiap slide menjadi satu halaman PDF, dan ukuran slide (16:9, 4:3, dll.) menjadi ukuran halaman. Pengonversi (sekitar 50 MB) diunduh sekali, lalu berikutnya langsung dimulai.',
+        ],
+      },
+      {
+        title: 'Perlu diketahui',
+        blocks: [
+          { list: [
+            'Animasi tampil dalam keadaan akhirnya, sedangkan video dan audio tidak diputar.',
+            'Catatan pembicara dan slide tersembunyi tidak dimasukkan.',
+            'Font seperti Calibri diganti dengan font gratis yang mirip, sehingga lebar teks bisa sedikit berubah. Periksa kotak teks yang penuh sampai tepi.',
+            'Untuk handout berisi beberapa slide per lembar, pilih "beberapa halaman per lembar" saat mencetak. Untuk memperkecil ukuran gunakan {tool:compress}; untuk mengubah slide menjadi gambar gunakan {tool:pdf-to-jpg}.',
+          ] },
+        ],
+      },
+    ],
     'pdf-to-jpg': [
       {
         title: 'Kapan dipakai',

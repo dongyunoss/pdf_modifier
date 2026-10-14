@@ -8,6 +8,8 @@ export const TOOL_IDS = [
   'extract-pages',
   'compress',
   'jpg-to-pdf',
+  'word-to-pdf',
+  'ppt-to-pdf',
   'pdf-to-jpg',
   'watermark',
   'page-numbers',
@@ -38,6 +40,8 @@ export const TOOLS: ToolMeta[] = [
   { id: 'extract-pages', slug: 'extract-pdf-pages', category: 'organize', related: ['split', 'merge', 'compress'] },
   { id: 'compress', slug: 'compress-pdf', category: 'optimize', related: ['merge', 'protect', 'split'] },
   { id: 'jpg-to-pdf', slug: 'jpg-to-pdf', category: 'convert', related: ['merge', 'compress', 'organize'] },
+  { id: 'word-to-pdf', slug: 'word-to-pdf', category: 'convert', related: ['merge', 'compress', 'sign'] },
+  { id: 'ppt-to-pdf', slug: 'ppt-to-pdf', category: 'convert', related: ['compress', 'merge', 'pdf-to-jpg'] },
   { id: 'pdf-to-jpg', slug: 'pdf-to-jpg', category: 'convert', related: ['jpg-to-pdf', 'split', 'compress'] },
   { id: 'watermark', slug: 'add-watermark-to-pdf', category: 'edit', related: ['protect', 'page-numbers', 'compress'] },
   { id: 'page-numbers', slug: 'add-page-numbers-to-pdf', category: 'edit', related: ['watermark', 'merge', 'compress'] },
@@ -45,6 +49,17 @@ export const TOOLS: ToolMeta[] = [
   { id: 'protect', slug: 'protect-pdf', category: 'security', related: ['unlock', 'watermark', 'compress'] },
   { id: 'unlock', slug: 'unlock-pdf', category: 'security', related: ['protect', 'merge', 'compress'] },
 ];
+
+/**
+ * Word·PPT → PDF 처럼 LibreOffice 엔진으로 변환하는 도구.
+ * 엔진이 교차 출처 격리(COOP/COEP)를 요구하므로 실제 변환은 별도 화면(/convert/<slug>/)에서 합니다.
+ */
+export const OFFICE_TOOLS = { 'word-to-pdf': 'word', 'ppt-to-pdf': 'ppt' } as const satisfies Partial<Record<ToolId, 'word' | 'ppt'>>;
+export type OfficeToolId = keyof typeof OFFICE_TOOLS;
+export const isOfficeTool = (id: ToolId): id is OfficeToolId => id in OFFICE_TOOLS;
+
+/** PDF 를 입력으로 받지 않는 도구 (결과 PDF 를 넘겨줄 수 없음) */
+export const NON_PDF_INPUT: ReadonlySet<ToolId> = new Set(['jpg-to-pdf', 'word-to-pdf', 'ppt-to-pdf']);
 
 export const CATEGORY_ORDER: ToolCategory[] = ['organize', 'optimize', 'convert', 'edit', 'security'];
 

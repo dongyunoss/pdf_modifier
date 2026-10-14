@@ -228,6 +228,65 @@ export const fr: ToolDetailSet = {
         ],
       },
     ],
+    'word-to-pdf': [
+      {
+        title: 'Quand l’utiliser',
+        blocks: [
+          { list: [
+            'Envoyer un CV ou une lettre de motivation en PDF, pour qu’il s’affiche pareil sur tous les ordinateurs',
+            'Transmettre un contrat ou un rapport en PDF pour limiter les modifications',
+            'Transformer en PDF un DOCX reçu, sur un ordinateur ou un téléphone sans Word',
+          ] },
+        ],
+      },
+      {
+        title: 'Comment ça marche',
+        blocks: [
+          'Cet outil exécute dans votre navigateur un convertisseur issu de LibreOffice, la suite bureautique, compilé en WebAssembly. C’est ainsi qu’il convertit vos documents Word en PDF sans les envoyer sur un serveur, contrairement aux autres sites de conversion.',
+          'Le convertisseur (environ 50 Mo) est téléchargé une fois et conservé par le navigateur : les conversions suivantes démarrent en quelques secondes. Si le document contient du coréen, du japonais ou du chinois, seules les polices nécessaires sont téléchargées en plus.',
+        ],
+      },
+      {
+        title: 'Bon à savoir',
+        blocks: [
+          { list: [
+            'Les polices comme Calibri ou Cambria ne sont pas incluses : des polices libres de même largeur (Carlito, Caladea) les remplacent. Les retours à la ligne peuvent tout de même bouger un peu, vérifiez le résultat avant de l’envoyer.',
+            'Si le suivi des modifications est encore présent, les marques de révision peuvent apparaître. Pour une version finale propre, acceptez toutes les modifications dans Word avant de convertir. Les commentaires ne sont pas inclus dans le PDF.',
+            'Pour réunir plusieurs documents dans un seul PDF, convertissez-les puis utilisez {tool:merge} ; si le fichier est lourd, réduisez-le avec {tool:compress}.',
+          ] },
+        ],
+      },
+    ],
+    'ppt-to-pdf': [
+      {
+        title: 'Quand l’utiliser',
+        blocks: [
+          { list: [
+            'Envoyer des diapositives à un enseignant ou un client qui n’a peut-être ni PowerPoint ni vos polices',
+            'Imprimer un support de cours ou l’annoter sur une tablette',
+            'Transformer un PPT volumineux en PDF plus facile à envoyer par e-mail',
+          ] },
+        ],
+      },
+      {
+        title: 'Comment ça marche',
+        blocks: [
+          'Un convertisseur issu de LibreOffice et compilé en WebAssembly dessine vos diapositives dans un PDF, directement dans le navigateur. Rien n’est envoyé : vos présentations internes ou confidentielles restent sur votre appareil.',
+          'Chaque diapositive devient une page du PDF, et le format de la diapositive (16:9, 4:3…) devient le format de page. Le convertisseur (environ 50 Mo) est téléchargé une fois, puis démarre tout de suite.',
+        ],
+      },
+      {
+        title: 'Bon à savoir',
+        blocks: [
+          { list: [
+            'Les animations apparaissent dans leur état final, et la vidéo et le son ne sont pas lus.',
+            'Les notes du présentateur et les diapositives masquées ne sont pas incluses.',
+            'Les polices comme Calibri sont remplacées par des polices libres proches : la largeur du texte peut un peu changer. Vérifiez les zones de texte remplies jusqu’au bord.',
+            'Pour des polycopiés avec plusieurs diapositives par feuille, choisissez « plusieurs pages par feuille » à l’impression. Pour réduire la taille, utilisez {tool:compress} ; pour transformer les diapositives en images, {tool:pdf-to-jpg}.',
+          ] },
+        ],
+      },
+    ],
     'pdf-to-jpg': [
       {
         title: 'Quand l’utiliser',

@@ -1972,6 +1972,28 @@ body.is-sorting * {
   white-space: nowrap;
 }
 
+/* ───────────────────────── Word·PPT → PDF ───────────────────────── */
+.office-notes {
+  display: grid;
+  gap: 6px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  font-size: 0.875rem;
+  color: var(--text-muted);
+}
+
+.office-notes li {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+}
+
+.office-notes svg {
+  flex: none;
+  margin-top: 2px;
+}
+
 /* ───────────────────────── 서명 ───────────────────────── */
 /* 서명은 종이 위에 쓰는 것이므로 패드와 페이지는 다크 모드에서도 흰 종이로 둡니다. */
 .sign-layout {

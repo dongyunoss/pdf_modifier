@@ -7,6 +7,7 @@ import SideAd from '../components/SideAd.astro';
 import Icon from '../components/Icon.astro';
 import ToolCard from '../components/ToolCard.astro';
 import CompressTool from '../components/tools/CompressTool';
+import OfficeToPdfTool from '../components/tools/OfficeToPdfTool';
 import ImagesToPdfTool from '../components/tools/ImagesToPdfTool';
 import MergeTool from '../components/tools/MergeTool';
 import OrganizeTool from '../components/tools/OrganizeTool';
@@ -22,9 +23,9 @@ import WatermarkTool from '../components/tools/WatermarkTool';
 import type { ToolBaseProps } from '../components/tools/context';
 import { SITE } from '../config/site';
 import { getGuideSet, getToolDetails, guidesForTool } from '../guides';
-import { fmt, getDictionary, langPrefix, LANGUAGES, toolPath, withPromise, type Lang } from '../i18n';
+import { convertPath, fmt, getDictionary, langPrefix, LANGUAGES, toolPath, withPromise, type Lang } from '../i18n';
 import BaseLayout from '../layouts/BaseLayout.astro';
-import { getTool, TOOLS, type ToolId } from '../tools/registry';
+import { getTool, NON_PDF_INPUT, OFFICE_TOOLS, TOOLS, type ToolId } from '../tools/registry';
 
 interface Props {
   lang: Lang;
@@ -40,11 +41,11 @@ const url = (target: string) => new URL(target, `${SITE.url}/`).href;
 // 검색 결과에 보이는 설명: 도구 소개 한 문장 + 「무료·로그인 없음·업로드 없음」 약속
 const description = withPromise(lang, content.description);
 
-// 결과 화면의 "이어서 작업하기" 링크 (JPG→PDF 는 PDF 를 입력받지 않으므로 넘겨주기 제외)
+// 결과 화면의 "이어서 작업하기" 링크 (JPG·Word·PPT→PDF 는 PDF 를 입력받지 않으므로 넘겨주기 제외)
 const related = tool.related.map((relatedId) => ({
   href: toolPath(lang, relatedId),
   name: dict.tools[relatedId].name,
-  acceptsPdf: relatedId !== 'jpg-to-pdf',
+  acceptsPdf: !NON_PDF_INPUT.has(relatedId),
 }));
 const resultAd =
   SITE.adsense.client && SITE.adsense.slots.result
@@ -133,6 +134,12 @@ const others = TOOLS.filter((item) => item.id !== id && item.category === tool.c
       {id === 'extract-pages' && <PageSelectTool client:load {...base} mode="extract" t={t['extract-pages'].ui} />}
       {id === 'compress' && <CompressTool client:load {...base} t={t.compress.ui} />}
       {id === 'jpg-to-pdf' && <ImagesToPdfTool client:load {...base} t={t['jpg-to-pdf'].ui} />}
+      {id === 'word-to-pdf' && (
+        <OfficeToPdfTool client:load {...base} kind={OFFICE_TOOLS[id]} convertUrl={convertPath(lang, id)} t={t['word-to-pdf'].ui} />
+      )}
+      {id === 'ppt-to-pdf' && (
+        <OfficeToPdfTool client:load {...base} kind={OFFICE_TOOLS[id]} convertUrl={convertPath(lang, id)} t={t['ppt-to-pdf'].ui} />
+      )}
       {id === 'pdf-to-jpg' && <PdfToImagesTool client:load {...base} t={t['pdf-to-jpg'].ui} />}
       {id === 'watermark' && <WatermarkTool client:load {...base} t={t.watermark.ui} />}
       {id === 'page-numbers' && <PageNumbersTool client:load {...base} t={t['page-numbers'].ui} />}

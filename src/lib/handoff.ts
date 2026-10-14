@@ -85,3 +85,35 @@ export async function receiveHandoff(): Promise<File[]> {
   const file = await takeHandoff();
   return file ? [file] : [];
 }
+
+// ────────────── Word·PPT 변환: 도구 페이지 → 변환 화면 ──────────────
+// 변환 엔진은 교차 출처 격리된 별도 화면(/convert/…)에서만 돌아가므로, 고른 파일을 그 화면으로 넘깁니다.
+const OFFICE_KEY = 'office';
+
+interface OfficeRecord {
+  files: Array<{ name: string; blob: Blob }>;
+  createdAt: number;
+}
+
+export async function saveOfficeFiles(files: File[]): Promise<boolean> {
+  try {
+    const record: OfficeRecord = { files: files.map((file) => ({ name: file.name, blob: file })), createdAt: Date.now() };
+    await run('readwrite', (store) => store.put(record, OFFICE_KEY));
+    return true;
+  } catch {
+    return false;
+  }
+}
+
+/** 변환 화면으로 넘어온 파일을 꺼내고 저장소에서 지웁니다. */
+export async function takeOfficeFiles(): Promise<File[]> {
+  try {
+    const record = await run<OfficeRecord | undefined>('readonly', (store) => store.get(OFFICE_KEY));
+    if (!record) return [];
+    await run('readwrite', (store) => store.delete(OFFICE_KEY));
+    if (Date.now() - record.createdAt > MAX_AGE_MS) return [];
+    return record.files.map((item) => new File([item.blob], item.name, { type: item.blob.type }));
+  } catch {
+    return [];
+  }
+}

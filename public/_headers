@@ -13,3 +13,19 @@
 # pdf.js 폰트/CMap/wasm 리소스 (버전이 바뀔 때만 교체됨)
 /pdfjs/*
   Cache-Control: public, max-age=2592000
+
+# Word·PPT → PDF 변환 화면: 변환 엔진(LibreOffice WebAssembly)이 여러 스레드(SharedArrayBuffer)를 쓰려면
+# 교차 출처 격리가 필요합니다. 이 화면에는 광고를 넣지 않습니다 (src/views/OfficeConvertView.astro).
+/convert/*
+  Cross-Origin-Opener-Policy: same-origin
+  Cross-Origin-Embedder-Policy: require-corp
+
+/:lang/convert/*
+  Cross-Origin-Opener-Policy: same-origin
+  Cross-Origin-Embedder-Policy: require-corp
+
+# 변환 엔진 파일: 폴더 이름에 버전이 들어 있어 내용이 바뀌지 않으므로 1년간 캐시 (두 번째 방문부터 내려받지 않음)
+/office/engine/*
+  Cache-Control: public, max-age=31536000, immutable
+  Cross-Origin-Resource-Policy: same-origin
+  Cross-Origin-Embedder-Policy: require-corp

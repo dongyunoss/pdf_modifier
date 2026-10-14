@@ -181,6 +181,20 @@ export const pt: Dictionary = {
     pageGridLabel: 'Páginas',
     selectPage: 'Selecionar página {n}',
     blankPage: 'Página em branco',
+    office: {
+      moving: 'Abrindo o conversor…',
+      engineNote: 'Na primeira vez, o conversor (cerca de {size} MB) é baixado. Depois ele começa na hora.',
+      downloading: 'Baixando o conversor · {done} / {total} MB',
+      preparing: 'Preparando o conversor…',
+      converting: 'Convertendo "{name}" ({n} / {total})',
+      fontNote: 'Se uma fonte do documento não estiver disponível, uma parecida é usada, então as quebras de linha e de página podem mudar um pouco.',
+      unsupported: 'Este navegador não consegue rodar o conversor. Abra a página em uma versão recente do Chrome, Edge, Safari ou Firefox.',
+      memory: 'O aparelho ficou sem memória. Feche outras abas e apps e tente de novo, ou converta em um computador.',
+      network: 'Não foi possível baixar o conversor. Verifique sua conexão com a internet e tente de novo.',
+      engine: 'Houve um problema com o conversor. Recarregue a página e tente de novo.',
+      openFailed: 'Não foi possível converter "{name}". Ele pode estar protegido por senha ou danificado.',
+      timeout: 'A conversão de "{name}" demorou demais e foi interrompida. Tente dividir o arquivo ou use um computador.',
+    },
   },
   errors: {
     INVALID_PDF: 'Não foi possível abrir este PDF. O arquivo pode estar corrompido ou não ser um PDF.',
@@ -498,6 +512,70 @@ export const pt: Dictionary = {
         action: 'Converter para PDF',
         addImages: 'Adicionar imagens',
         imageCount: '{n} imagens',
+      },
+    },
+    'word-to-pdf': {
+      name: 'Word para PDF',
+      title: 'Word para PDF grátis e sem cadastro - converter DOCX em PDF',
+      description:
+        'Converta documentos do Word (DOCX, DOC, ODT, RTF) em PDF mantendo tabelas e imagens.',
+      tagline: 'Transforme documentos do Word em PDF com tabelas, imagens e cabeçalhos intactos. Seus arquivos não saem do aparelho.',
+      steps: [
+        'Escolha os arquivos do Word (DOCX, DOC e outros) que deseja converter. Dá para escolher vários de uma vez.',
+        'O conversor abre, se prepara e transforma tudo em PDF automaticamente. Na primeira vez demora um pouco mais enquanto ele é baixado.',
+        'Baixe os PDFs ou passe-os direto para juntar, comprimir e mais com "Continuar com".',
+      ],
+      faq: [
+        {
+          q: 'Meus documentos são enviados para um servidor?',
+          a: 'Não. O conversor (LibreOffice) é baixado no seu navegador e roda no seu aparelho, então os documentos nunca saem dele. O primeiro download (cerca de 50 MB) leva um tempinho; depois começa na hora.',
+        },
+        {
+          q: 'O PDF fica igual ao original?',
+          a: 'A maioria dos documentos mantém tabelas, imagens, cabeçalhos, rodapés e números de página. As fontes do documento (como Calibri) são trocadas por fontes livres parecidas, então quebras de linha e de página podem mudar um pouco. Se precisar ficar idêntico, o "Salvar como PDF" do próprio Word é o mais preciso.',
+        },
+        {
+          q: 'Funciona no celular?',
+          a: 'Sim, em um navegador recente. Mas o conversor usa bastante memória e pode falhar em celulares antigos; documentos grandes são convertidos mais rápido e com mais segurança no computador.',
+        },
+      ],
+      ui: {
+        choose: 'Escolher arquivos do Word',
+        drop: 'Solte aqui os arquivos do Word (pode adicionar vários)',
+        formats: 'Converte arquivos DOCX, DOC, ODT e RTF em PDF.',
+        notAccepted: '"{name}" não é um documento do Word.',
+      },
+    },
+    'ppt-to-pdf': {
+      name: 'PowerPoint para PDF',
+      title: 'PowerPoint para PDF grátis e sem cadastro - converter PPT em PDF',
+      description:
+        'Converta apresentações do PowerPoint (PPTX, PPT, ODP) em PDF, slide por slide.',
+      tagline: 'Cada slide vira uma página do PDF. Suas apresentações não saem do aparelho.',
+      steps: [
+        'Escolha os arquivos do PowerPoint (PPTX, PPT e outros) que deseja converter. Dá para escolher vários de uma vez.',
+        'O conversor abre, se prepara e transforma tudo em PDF automaticamente. Na primeira vez demora um pouco mais enquanto ele é baixado.',
+        'Baixe os PDFs ou passe-os direto para comprimir, juntar e mais com "Continuar com".',
+      ],
+      faq: [
+        {
+          q: 'Minhas apresentações são enviadas para um servidor?',
+          a: 'Não. O conversor (LibreOffice) é baixado no seu navegador e roda no seu aparelho, então os arquivos nunca saem dele. O primeiro download (cerca de 50 MB) leva um tempinho; depois começa na hora.',
+        },
+        {
+          q: 'O que acontece com animações e anotações do orador?',
+          a: 'Cada slide vira uma página do PDF, com as animações no estado final. Anotações do orador e slides ocultos não entram no PDF.',
+        },
+        {
+          q: 'As fontes parecem diferentes do original.',
+          a: 'As fontes da apresentação (como Calibri) são trocadas por fontes livres parecidas, então a largura do texto pode mudar um pouco. Se precisar ficar idêntico, o "Salvar como PDF" do próprio PowerPoint é o mais preciso.',
+        },
+      ],
+      ui: {
+        choose: 'Escolher arquivos do PowerPoint',
+        drop: 'Solte aqui os arquivos do PowerPoint (pode adicionar vários)',
+        formats: 'Converte arquivos PPTX, PPT, PPSX e ODP em PDF.',
+        notAccepted: '"{name}" não é um arquivo do PowerPoint.',
       },
     },
     'pdf-to-jpg': {

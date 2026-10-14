@@ -48,6 +48,11 @@ export function toolPath(lang: Lang, id: ToolId): string {
   return `${langPrefix(lang)}${getTool(id).slug}/`;
 }
 
+/** Word·PPT 변환 화면 (교차 출처 격리된 페이지, 검색 노출 안 함) */
+export function convertPath(lang: Lang, id: ToolId): string {
+  return `${langPrefix(lang)}convert/${getTool(id).slug}/`;
+}
+
 export type StaticPage = 'about' | 'privacy' | 'terms';
 
 export function pagePath(lang: Lang, page?: StaticPage): string {

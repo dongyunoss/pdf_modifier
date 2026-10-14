@@ -1,0 +1,15 @@
+---
+import { OFFICE_TOOLS, TOOLS, type OfficeToolId } from '../../tools/registry';
+import OfficeConvertView from '../../views/OfficeConvertView.astro';
+
+export function getStaticPaths() {
+  return TOOLS.filter((tool) => tool.id in OFFICE_TOOLS).map((tool) => ({
+    params: { tool: tool.slug },
+    props: { id: tool.id as OfficeToolId },
+  }));
+}
+
+const { id } = Astro.props;
+---
+
+<OfficeConvertView lang="ko" id={id} />

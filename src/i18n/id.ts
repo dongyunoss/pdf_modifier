@@ -181,6 +181,20 @@ export const id: Dictionary = {
     pageGridLabel: 'Halaman',
     selectPage: 'Pilih halaman {n}',
     blankPage: 'Halaman kosong',
+    office: {
+      moving: 'Membuka pengonversi…',
+      engineNote: 'Pertama kali, pengonversi (sekitar {size} MB) akan diunduh. Setelah itu langsung bisa dipakai.',
+      downloading: 'Mengunduh pengonversi · {done} / {total} MB',
+      preparing: 'Menyiapkan pengonversi…',
+      converting: 'Mengonversi "{name}" ({n} / {total})',
+      fontNote: 'Jika font di dokumen tidak tersedia, font yang mirip akan dipakai sehingga pergantian baris dan halaman bisa sedikit berbeda.',
+      unsupported: 'Browser ini tidak bisa menjalankan pengonversi. Buka halaman ini di Chrome, Edge, Safari, atau Firefox versi terbaru.',
+      memory: 'Memori perangkat tidak cukup. Tutup tab dan aplikasi lain lalu coba lagi, atau konversi di komputer.',
+      network: 'Pengonversi tidak dapat diunduh. Periksa koneksi internet Anda lalu coba lagi.',
+      engine: 'Terjadi masalah pada pengonversi. Muat ulang halaman lalu coba lagi.',
+      openFailed: '"{name}" tidak dapat dikonversi. File mungkin dilindungi kata sandi atau rusak.',
+      timeout: 'Konversi "{name}" terlalu lama dan dihentikan. Coba pecah file atau gunakan komputer.',
+    },
   },
   errors: {
     INVALID_PDF: 'PDF ini tidak dapat dibuka. File mungkin rusak atau bukan PDF.',
@@ -498,6 +512,70 @@ export const id: Dictionary = {
         action: 'Ubah ke PDF',
         addImages: 'Tambah gambar',
         imageCount: '{n} gambar',
+      },
+    },
+    'word-to-pdf': {
+      name: 'Word ke PDF',
+      title: 'Word ke PDF Gratis Tanpa Daftar - Ubah DOCX ke PDF',
+      description:
+        'Ubah dokumen Word (DOCX, DOC, ODT, RTF) ke PDF lengkap dengan tabel dan gambar.',
+      tagline: 'Ubah dokumen Word ke PDF dengan tabel, gambar, dan header tetap utuh. File Anda tidak keluar dari perangkat.',
+      steps: [
+        'Pilih file Word (DOCX, DOC, dan lainnya) yang ingin diubah. Anda bisa memilih beberapa sekaligus.',
+        'Pengonversi terbuka, bersiap, lalu mengubahnya ke PDF secara otomatis. Pertama kali butuh waktu sedikit lebih lama untuk mengunduh pengonversi.',
+        'Unduh PDF-nya, atau langsung teruskan ke gabung, kompres, dan lainnya lewat "Lanjutkan dengan".',
+      ],
+      faq: [
+        {
+          q: 'Apakah dokumen saya diunggah ke server?',
+          a: 'Tidak. Pengonversi (LibreOffice) diunduh ke browser dan berjalan di perangkat Anda, jadi dokumen tidak pernah keluar. Unduhan pertama (sekitar 50 MB) butuh sebentar; setelah itu langsung bisa dipakai.',
+        },
+        {
+          q: 'Apakah PDF-nya sama persis dengan aslinya?',
+          a: 'Sebagian besar dokumen tetap mempertahankan tabel, gambar, header, footer, dan nomor halaman. Font di dokumen (misalnya Calibri) diganti dengan font gratis yang mirip, sehingga pergantian baris dan halaman bisa sedikit bergeser. Jika harus sama persis, "Simpan sebagai PDF" di Word adalah yang paling akurat.',
+        },
+        {
+          q: 'Bisakah dipakai di ponsel?',
+          a: 'Bisa, di browser terbaru. Namun pengonversi memakai banyak memori sehingga bisa gagal di ponsel lama; dokumen besar lebih cepat dan andal dikonversi di komputer.',
+        },
+      ],
+      ui: {
+        choose: 'Pilih file Word',
+        drop: 'Letakkan file Word di sini (bisa beberapa)',
+        formats: 'Mengubah file DOCX, DOC, ODT, dan RTF ke PDF.',
+        notAccepted: '"{name}" bukan dokumen Word.',
+      },
+    },
+    'ppt-to-pdf': {
+      name: 'PowerPoint ke PDF',
+      title: 'PowerPoint ke PDF Gratis Tanpa Daftar - Ubah PPT ke PDF',
+      description:
+        'Ubah presentasi PowerPoint (PPTX, PPT, ODP) ke PDF, satu slide per halaman.',
+      tagline: 'Setiap slide menjadi satu halaman PDF. Presentasi Anda tidak keluar dari perangkat.',
+      steps: [
+        'Pilih file PowerPoint (PPTX, PPT, dan lainnya) yang ingin diubah. Anda bisa memilih beberapa sekaligus.',
+        'Pengonversi terbuka, bersiap, lalu mengubahnya ke PDF secara otomatis. Pertama kali butuh waktu sedikit lebih lama untuk mengunduh pengonversi.',
+        'Unduh PDF-nya, atau langsung teruskan ke kompres, gabung, dan lainnya lewat "Lanjutkan dengan".',
+      ],
+      faq: [
+        {
+          q: 'Apakah presentasi saya diunggah ke server?',
+          a: 'Tidak. Pengonversi (LibreOffice) diunduh ke browser dan berjalan di perangkat Anda, jadi file tidak pernah keluar. Unduhan pertama (sekitar 50 MB) butuh sebentar; setelah itu langsung bisa dipakai.',
+        },
+        {
+          q: 'Bagaimana dengan animasi dan catatan pembicara?',
+          a: 'Setiap slide menjadi satu halaman PDF, dengan animasi dalam keadaan akhirnya. Catatan pembicara dan slide tersembunyi tidak dimasukkan.',
+        },
+        {
+          q: 'Font-nya terlihat berbeda dari aslinya.',
+          a: 'Font di presentasi (misalnya Calibri) diganti dengan font gratis yang mirip, sehingga lebar teks bisa sedikit berubah. Jika harus sama persis, "Simpan sebagai PDF" di PowerPoint adalah yang paling akurat.',
+        },
+      ],
+      ui: {
+        choose: 'Pilih file PowerPoint',
+        drop: 'Letakkan file PowerPoint di sini (bisa beberapa)',
+        formats: 'Mengubah file PPTX, PPT, PPSX, dan ODP ke PDF.',
+        notAccepted: '"{name}" bukan file PowerPoint.',
       },
     },
     'pdf-to-jpg': {

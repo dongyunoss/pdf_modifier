@@ -6,6 +6,7 @@ import CompressTool from '../src/components/tools/CompressTool';
 import { Icon } from '../src/components/tools/Icon';
 import ImagesToPdfTool from '../src/components/tools/ImagesToPdfTool';
 import MergeTool from '../src/components/tools/MergeTool';
+import OfficeToPdfTool from '../src/components/tools/OfficeToPdfTool';
 import OrganizeTool from '../src/components/tools/OrganizeTool';
 import PageNumbersTool from '../src/components/tools/PageNumbersTool';
 import PageSelectTool from '../src/components/tools/PageSelectTool';
@@ -21,7 +22,7 @@ import { ko } from '../src/i18n/ko';
 import { configureFileActions } from '../src/lib/files';
 import { handOffInPage } from '../src/lib/handoff';
 import '../src/styles/global.css';
-import { getTool, TOOLS, type ToolId } from '../src/tools/registry';
+import { getTool, NON_PDF_INPUT, TOOLS, type ToolId } from '../src/tools/registry';
 import './demo.css';
 import './pdfjs-assets';
 import { getSamples } from './sample';
@@ -79,6 +80,11 @@ function renderTool(id: ToolId, base: ToolBaseProps): JSX.Element {
       return <CompressTool {...base} t={t.compress.ui} />;
     case 'jpg-to-pdf':
       return <ImagesToPdfTool {...base} t={t['jpg-to-pdf'].ui} />;
+    // Word·PPT 변환은 교차 출처 격리된 변환 화면이 필요해 체험판에서는 안내만 보여 줍니다 (convertUrl 없음).
+    case 'word-to-pdf':
+      return <OfficeToPdfTool {...base} kind="word" t={t['word-to-pdf'].ui} />;
+    case 'ppt-to-pdf':
+      return <OfficeToPdfTool {...base} kind="ppt" t={t['ppt-to-pdf'].ui} />;
     case 'pdf-to-jpg':
       return <PdfToImagesTool {...base} t={t['pdf-to-jpg'].ui} />;
     case 'watermark':
@@ -109,7 +115,7 @@ function Demo() {
 
   /** 도구를 열면서 샘플 문서를 넣어 줍니다 (합치기는 두 개). */
   const openWithSample = async (id: ToolId) => {
-    if (id !== 'jpg-to-pdf') {
+    if (!NON_PDF_INPUT.has(id)) {
       setPreparing(true);
       try {
         const { report, appendix } = await getSamples();

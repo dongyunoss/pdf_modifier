@@ -228,6 +228,65 @@ export const de: ToolDetailSet = {
         ],
       },
     ],
+    'word-to-pdf': [
+      {
+        title: 'Wann es sich lohnt',
+        blocks: [
+          { list: [
+            'Lebenslauf oder Anschreiben als PDF einreichen, damit es auf jedem Computer gleich aussieht',
+            'Einen Vertrag oder Bericht als PDF verschicken, damit er nicht so leicht geändert wird',
+            'Ein erhaltenes DOCX auf einem Computer oder Smartphone ohne Word in PDF umwandeln',
+          ] },
+        ],
+      },
+      {
+        title: 'So funktioniert es',
+        blocks: [
+          'Dieses Werkzeug führt in Ihrem Browser einen Konverter aus, der aus dem Office-Paket LibreOffice nach WebAssembly übersetzt wurde. So wandelt es Word-Dokumente in PDF um, ohne sie wie andere Konverter-Websites auf einen Server hochzuladen.',
+          'Der Konverter (etwa 50 MB) wird einmal heruntergeladen und vom Browser gespeichert, spätere Umwandlungen starten daher in Sekunden. Enthält ein Dokument Koreanisch, Japanisch oder Chinesisch, werden nur die passenden Schriften zusätzlich geladen.',
+        ],
+      },
+      {
+        title: 'Gut zu wissen',
+        blocks: [
+          { list: [
+            'Schriften wie Calibri oder Cambria sind nicht enthalten; stattdessen werden freie Schriften mit gleicher Breite (Carlito, Caladea) verwendet. Zeilenumbrüche können sich trotzdem leicht verschieben – prüfen Sie das Ergebnis vor dem Einreichen.',
+            'Enthält das Dokument noch Änderungsverfolgung, können die Überarbeitungsmarkierungen erscheinen. Für eine saubere Endfassung nehmen Sie alle Änderungen in Word an, bevor Sie umwandeln. Kommentare kommen nicht ins PDF.',
+            'Um mehrere Dokumente zu einem PDF zusammenzufassen, wandeln Sie sie um und nutzen dann {tool:merge}; ist die Datei groß, verkleinern Sie sie mit {tool:compress}.',
+          ] },
+        ],
+      },
+    ],
+    'ppt-to-pdf': [
+      {
+        title: 'Wann es sich lohnt',
+        blocks: [
+          { list: [
+            'Folien an Lehrkräfte oder Kunden schicken, die vielleicht weder PowerPoint noch Ihre Schriften haben',
+            'Vorlesungsfolien drucken oder auf dem Tablet beschriften',
+            'Eine große PPT in ein PDF verwandeln, das sich leichter per E-Mail verschicken lässt',
+          ] },
+        ],
+      },
+      {
+        title: 'So funktioniert es',
+        blocks: [
+          'Ein aus LibreOffice nach WebAssembly übersetzter Konverter zeichnet Ihre Folien direkt im Browser in ein PDF. Nichts wird hochgeladen, interne oder noch unveröffentlichte Präsentationen bleiben also auf Ihrem Gerät.',
+          'Jede Folie wird zu einer PDF-Seite, und das Folienformat (16:9, 4:3 usw.) wird zum Seitenformat. Der Konverter (etwa 50 MB) wird einmal geladen und startet danach sofort.',
+        ],
+      },
+      {
+        title: 'Gut zu wissen',
+        blocks: [
+          { list: [
+            'Animationen erscheinen im Endzustand, Video und Ton werden nicht abgespielt.',
+            'Referentennotizen und ausgeblendete Folien werden nicht übernommen.',
+            'Schriften wie Calibri werden durch ähnliche freie Schriften ersetzt, die Textbreite kann sich daher leicht ändern. Prüfen Sie randvolle Textfelder.',
+            'Für Handzettel mit mehreren Folien pro Blatt wählen Sie beim Drucken „mehrere Seiten pro Blatt“. Zum Verkleinern nutzen Sie {tool:compress}, um Folien in Bilder umzuwandeln {tool:pdf-to-jpg}.',
+          ] },
+        ],
+      },
+    ],
     'pdf-to-jpg': [
       {
         title: 'Wann es hilft',

@@ -100,6 +100,32 @@ async function submit(urlList) {
   }
 }
 
+/**
+ * Word·PPT 변환 화면이 배포 환경에서 교차 출처 격리(COOP/COEP)되는지 확인합니다 (public/_headers).
+ * 빠지면 변환 엔진이 돌지 않으므로 실행 기록에 경고로 남깁니다. IndexNow 알림 결과에는 영향을 주지 않습니다.
+ */
+async function checkOfficeConverter() {
+  const report = (level, message) => {
+    console.log(message);
+    if (process.env.GITHUB_ACTIONS) console.log(`::${level} title=Word·PPT 변환::${message}`);
+  };
+  try {
+    const page = await fetch(`${site}/convert/word-to-pdf/`, { cache: 'no-store' });
+    const coop = page.headers.get('cross-origin-opener-policy');
+    const coep = page.headers.get('cross-origin-embedder-policy');
+    const manifest = await (await fetch(`${site}/office/manifest.json`, { cache: 'no-store' })).json();
+    const worker = await fetch(`${site}${manifest.base}${manifest.worker}`, { method: 'HEAD', cache: 'no-store' });
+    const workerCoep = worker.headers.get('cross-origin-embedder-policy');
+    const ok = page.ok && coop === 'same-origin' && coep === 'require-corp' && worker.ok && workerCoep === 'require-corp';
+    report(
+      ok ? 'notice' : 'warning',
+      `변환 화면 HTTP ${page.status} COOP=${coop} COEP=${coep}; 엔진 ${manifest.version} 워커 HTTP ${worker.status} COEP=${workerCoep}${ok ? ' — 정상' : ' — 헤더를 확인하세요'}`,
+    );
+  } catch (error) {
+    report('warning', `변환 화면을 확인하지 못했습니다: ${error instanceof Error ? error.message : String(error)}`);
+  }
+}
+
 try {
   let urls;
   if (args.has('--wait')) {
@@ -116,6 +142,7 @@ try {
     console.log(`(--dry-run: ${own.length}개, 보내지 않음)`);
   } else {
     for (let start = 0; start < own.length; start += BATCH) await submit(own.slice(start, start + BATCH));
+    await checkOfficeConverter();
   }
 } catch (error) {
   const message = error instanceof Error ? error.message : String(error);

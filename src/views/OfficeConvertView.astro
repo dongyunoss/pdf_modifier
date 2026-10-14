@@ -1,0 +1,49 @@
+---
+// Word·PPT → PDF 변환 화면. 변환 엔진(LibreOffice WebAssembly)이 여러 스레드를 쓰려면 이 페이지가
+// 교차 출처 격리(COOP/COEP, public/_headers)되어야 하는데, 그러면 광고를 넣을 수 없으므로 도구 페이지와 나눴습니다.
+// 검색 결과에는 도구 페이지만 나오도록 noindex 입니다.
+import Icon from '../components/Icon.astro';
+import OfficeToPdfTool from '../components/tools/OfficeToPdfTool';
+import type { ToolBaseProps } from '../components/tools/context';
+import { convertPath, getDictionary, langPrefix, toolPath, type Lang } from '../i18n';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { getTool, NON_PDF_INPUT, OFFICE_TOOLS, type OfficeToolId } from '../tools/registry';
+
+interface Props {
+  lang: Lang;
+  id: OfficeToolId;
+}
+
+const { lang, id } = Astro.props;
+const dict = getDictionary(lang);
+const tool = getTool(id);
+const content = dict.tools[id];
+const related = tool.related.map((relatedId) => ({
+  href: toolPath(lang, relatedId),
+  name: dict.tools[relatedId].name,
+  acceptsPdf: !NON_PDF_INPUT.has(relatedId),
+}));
+const base: ToolBaseProps = { lang, ui: dict.ui, errors: dict.errors, tool: { id, name: content.name }, related, resultAd: null };
+---
+
+<BaseLayout lang={lang} title={content.title} description={content.description} path={convertPath(lang, id)} noindex>
+  <div class="container">
+    <nav class="breadcrumb" aria-label="breadcrumb">
+      <a href={langPrefix(lang)}>{dict.nav.home}</a>
+      <span aria-hidden="true">/</span>
+      <a href={toolPath(lang, id)}>{content.name}</a>
+    </nav>
+
+    <header class="tool-header" data-category={tool.category}>
+      <span class="tool-header-icon"><Icon name={id} size={30} /></span>
+      <div>
+        <h1>{content.name}</h1>
+        <p class="tool-tagline">{content.tagline}</p>
+      </div>
+    </header>
+
+    <section class="tool-area" aria-label={content.name}>
+      <OfficeToPdfTool client:load {...base} kind={OFFICE_TOOLS[id]} convertUrl={convertPath(lang, id)} t={dict.tools[id].ui} />
+    </section>
+  </div>
+</BaseLayout>

@@ -181,6 +181,20 @@ export const tr: Dictionary = {
     pageGridLabel: 'Sayfalar',
     selectPage: '{n}. sayfayı seç',
     blankPage: 'Boş sayfa',
+    office: {
+      moving: 'Dönüştürücü açılıyor…',
+      engineNote: 'İlk seferde dönüştürücü (yaklaşık {size} MB) indirilir. Sonrasında hemen başlar.',
+      downloading: 'Dönüştürücü indiriliyor · {done} / {total} MB',
+      preparing: 'Dönüştürücü hazırlanıyor…',
+      converting: '"{name}" dönüştürülüyor ({n} / {total})',
+      fontNote: 'Belgede kullanılan yazı tipi yoksa benzeri kullanılır; bu yüzden satır ve sayfa sonları özgün dosyadan biraz farklı olabilir.',
+      unsupported: 'Bu tarayıcı dönüştürücüyü çalıştıramıyor. Sayfayı güncel bir Chrome, Edge, Safari veya Firefox ile açın.',
+      memory: 'Cihazın belleği yetmedi. Diğer sekme ve uygulamaları kapatıp yeniden deneyin ya da bilgisayarda dönüştürün.',
+      network: 'Dönüştürücü indirilemedi. İnternet bağlantınızı kontrol edip yeniden deneyin.',
+      engine: 'Dönüştürücüde bir sorun oluştu. Sayfayı yenileyip yeniden deneyin.',
+      openFailed: '"{name}" dönüştürülemedi. Dosya parola korumalı veya bozuk olabilir.',
+      timeout: '"{name}" dönüştürmesi çok uzun sürdüğü için durduruldu. Dosyayı bölmeyi ya da bilgisayar kullanmayı deneyin.',
+    },
   },
   errors: {
     INVALID_PDF: 'Bu PDF açılamadı. Dosya bozuk olabilir veya bir PDF dosyası olmayabilir.',
@@ -498,6 +512,70 @@ export const tr: Dictionary = {
         action: 'PDF’e dönüştür',
         addImages: 'Görsel ekle',
         imageCount: '{n} görsel',
+      },
+    },
+    'word-to-pdf': {
+      name: 'Word’den PDF’ye',
+      title: 'Word’ü PDF’ye Çevir - Ücretsiz ve Üye Olmadan DOCX Dönüştür',
+      description:
+        'Word belgelerini (DOCX, DOC, ODT, RTF) tablo ve görselleriyle birlikte PDF’ye dönüştürün.',
+      tagline: 'Word belgelerini tablo, görsel ve üst bilgileriyle birlikte PDF’ye çevirin. Dosyalarınız cihazınızdan çıkmaz.',
+      steps: [
+        'Dönüştürmek istediğiniz Word dosyalarını (DOCX, DOC vb.) seçin. Birden fazlasını aynı anda seçebilirsiniz.',
+        'Dönüştürücü açılır, hazırlanır ve dosyaları otomatik olarak PDF’ye çevirir. İlk seferde dönüştürücü indirildiği için biraz daha uzun sürer.',
+        'PDF’leri indirin ya da "Devam et" ile birleştirme, sıkıştırma gibi araçlara doğrudan aktarın.',
+      ],
+      faq: [
+        {
+          q: 'Belgelerim bir sunucuya yükleniyor mu?',
+          a: 'Hayır. Dönüştürücü (LibreOffice) tarayıcınıza indirilir ve cihazınızda çalışır; belgeleriniz cihazınızdan hiç çıkmaz. İlk indirme (yaklaşık 50 MB) biraz sürer; sonrasında hemen başlar.',
+        },
+        {
+          q: 'PDF özgün belgeyle birebir aynı mı olur?',
+          a: 'Çoğu belge tablolarını, görsellerini, üst ve alt bilgilerini ve sayfa numaralarını korur. Belgede kullanılan yazı tipleri (ör. Calibri) benzer ücretsiz yazı tipleriyle değiştirildiği için satır ve sayfa sonları biraz kayabilir. Birebir aynı olması gerekiyorsa Word’ün kendi "PDF olarak kaydet" özelliği en doğru sonucu verir.',
+        },
+        {
+          q: 'Telefonda çalışır mı?',
+          a: 'Evet, güncel bir tarayıcıda çalışır. Ancak dönüştürücü çok bellek kullandığından eski telefonlarda başarısız olabilir; büyük belgeler bilgisayarda daha hızlı ve güvenilir şekilde dönüştürülür.',
+        },
+      ],
+      ui: {
+        choose: 'Word dosyası seç',
+        drop: 'Word dosyalarını buraya bırakın (birden fazla olabilir)',
+        formats: 'DOCX, DOC, ODT ve RTF dosyalarını PDF’ye çevirir.',
+        notAccepted: '"{name}" bir Word belgesi değil.',
+      },
+    },
+    'ppt-to-pdf': {
+      name: 'PowerPoint’ten PDF’ye',
+      title: 'PowerPoint’i PDF’ye Çevir - Ücretsiz ve Üye Olmadan PPT Dönüştür',
+      description:
+        'PowerPoint sunumlarını (PPTX, PPT, ODP) slayt slayt PDF’ye dönüştürün.',
+      tagline: 'Her slayt PDF’nin bir sayfası olur. Sunumlarınız cihazınızdan çıkmaz.',
+      steps: [
+        'Dönüştürmek istediğiniz PowerPoint dosyalarını (PPTX, PPT vb.) seçin. Birden fazlasını aynı anda seçebilirsiniz.',
+        'Dönüştürücü açılır, hazırlanır ve dosyaları otomatik olarak PDF’ye çevirir. İlk seferde dönüştürücü indirildiği için biraz daha uzun sürer.',
+        'PDF’leri indirin ya da "Devam et" ile sıkıştırma, birleştirme gibi araçlara doğrudan aktarın.',
+      ],
+      faq: [
+        {
+          q: 'Sunumlarım bir sunucuya yükleniyor mu?',
+          a: 'Hayır. Dönüştürücü (LibreOffice) tarayıcınıza indirilir ve cihazınızda çalışır; dosyalarınız cihazınızdan hiç çıkmaz. İlk indirme (yaklaşık 50 MB) biraz sürer; sonrasında hemen başlar.',
+        },
+        {
+          q: 'Animasyonlar ve konuşmacı notları ne oluyor?',
+          a: 'Her slayt PDF’nin bir sayfası olur ve animasyonlar son hâlleriyle yer alır. Konuşmacı notları ve gizli slaytlar PDF’ye eklenmez.',
+        },
+        {
+          q: 'Yazı tipleri özgün dosyadan farklı görünüyor.',
+          a: 'Sunumda kullanılan yazı tipleri (ör. Calibri) benzer ücretsiz yazı tipleriyle değiştirildiği için metin genişliği biraz değişebilir. Birebir aynı olması gerekiyorsa PowerPoint’in kendi "PDF olarak kaydet" özelliği en doğru sonucu verir.',
+        },
+      ],
+      ui: {
+        choose: 'PowerPoint dosyası seç',
+        drop: 'PowerPoint dosyalarını buraya bırakın (birden fazla olabilir)',
+        formats: 'PPTX, PPT, PPSX ve ODP dosyalarını PDF’ye çevirir.',
+        notAccepted: '"{name}" bir PowerPoint dosyası değil.',
       },
     },
     'pdf-to-jpg': {

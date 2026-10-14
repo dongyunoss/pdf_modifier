@@ -10,7 +10,7 @@
 - 사이트맵(`lastmod`), `robots.txt`, hreflang, Open Graph(언어별 공유 이미지), 구조화 데이터(JSON-LD) 자동 생성
 - 제목·설명·본문에 **"모든 기능 무료 · 로그인 없음"** 을 강조하고, 내용을 바꾸면 IndexNow 로 빙·네이버 등에 자동 알림 ([docs/SEARCH.md](docs/SEARCH.md))
 
-## 제공 기능 (14개 도구)
+## 제공 기능 (16개 도구)
 
 | 분류 | 도구 | 주소 |
 | --- | --- | --- |
@@ -22,6 +22,8 @@
 | | **PDF 페이지 추출** — 하나의 PDF 또는 페이지별 파일로 | `/extract-pdf-pages/` |
 | 최적화 | **PDF 압축** — 이미지 재압축(텍스트 유지) / 최대 압축(페이지 이미지화) | `/compress-pdf/` |
 | 변환 | **JPG → PDF** — JPG·PNG·WebP 등, 용지 크기·방향·여백, 사진 EXIF 방향 자동 반영 | `/jpg-to-pdf/` |
+| | **Word → PDF** — DOCX·DOC·ODT·RTF, 여러 파일 한 번에 ([아래 설명](#word·ppt--pdf-변환)) | `/word-to-pdf/` |
+| | **PPT → PDF** — PPTX·PPT·PPSX·ODP, 슬라이드 한 장 = PDF 한 쪽 | `/ppt-to-pdf/` |
 | | **PDF → JPG** — JPG/PNG, 72·150·300 DPI, ZIP 다운로드 | `/pdf-to-jpg/` |
 | 편집 | **워터마크** — 한글 포함 모든 언어 문구·로고 이미지, 투명도·각도·바둑판 배치, 실시간 미리보기 | `/add-watermark-to-pdf/` |
 | | **페이지 번호** — 6개 위치, 5가지 형식, 시작 번호, 표지 제외 | `/add-page-numbers-to-pdf/` |
@@ -31,6 +33,21 @@
 
 한국어가 기본(루트 주소)이고, 다른 언어는 같은 주소 앞에 언어 코드가 붙습니다 (예: `/en/merge-pdf/`, `/ja/merge-pdf/`, `/zh-cn/merge-pdf/`).
 작업을 마친 결과 파일은 **"이어서 작업하기"** 버튼으로 다른 도구에 바로 넘길 수 있어 한 방문당 페이지뷰(=광고 노출)가 늘어납니다.
+
+## Word·PPT → PDF 변환
+
+다른 도구는 pdf-lib·pdf.js 로 처리하지만, Word·PPT 를 PDF 로 그리려면 문서 프로그램이 필요합니다.
+그래서 **LibreOffice 를 WebAssembly 로 옮긴 엔진**(npm `@bentopdf/libreoffice-wasm`, MPL-2.0)을 브라우저에서 돌립니다. 파일은 여전히 서버로 가지 않습니다.
+
+- **엔진 준비** (`scripts/build-office-engine.mjs`, `npm run build` 전에 자동 실행): 13개 언어에 쓰지 않는 글꼴을 빼고(약 34 MB),
+  zstd 로 압축해 20 MiB 조각(호스팅 한도 25 MiB)으로 나눠 `public/office/engine/<버전>/` 에 둡니다. 내려받을 양은 약 47 MB 이고,
+  압축에 1~2분 걸려 결과를 `node_modules/.cache/office-engine` 에 보관합니다. 엔진 워커에 몇 가지 패치를 합니다(스레드 풀 4→16: 4개면 PPT 를 열 때 1분 넘게 멈춤,
+  미리 받은 파일 넘기기, 한·중·일 글꼴 넣기, 로그 끄기). 내용은 `public/office/engine/<버전>/NOTICE.txt` 에 적힙니다.
+- **한·중·일 글꼴**: 문서 본문에 한글이 있으면 나눔고딕·나눔명조(2.4 MB), 가나가 있으면 Noto Sans JP, 한자만 있으면 화면 언어에 맞는 Noto Sans SC/TC 를 함께 내려받습니다 (OFL).
+- **교차 출처 격리**: 엔진이 여러 스레드(SharedArrayBuffer)를 쓰므로 변환은 COOP/COEP 헤더가 붙은 **변환 화면 `/convert/<도구>/`** 에서만 합니다 (`public/_headers`).
+  이 헤더가 있으면 애드센스가 동작하지 않으므로, 검색에 나오는 도구 페이지(`/word-to-pdf/`, 광고 있음)에서 파일을 고르면 IndexedDB 로 넘겨 변환 화면(noindex, 광고 없음)으로 이동합니다.
+- **배포 확인**: IndexNow 워크플로가 배포 뒤 변환 화면의 COOP/COEP 헤더와 엔진 파일을 확인해 실행 기록에 남깁니다.
+- 처음 한 번 약 47 MB 를 내려받고(엔진 폴더는 1년 캐시), 엔진 시작에 몇 초, 문서 한 개 변환에 1~3초 걸립니다. 메모리를 많이 써서 오래된 휴대폰에서는 실패할 수 있습니다.
 
 ## 서버 비용을 최소화한 구조
 
@@ -72,7 +89,7 @@ npm run dev               # http://localhost:4321
 | `npm run test:e2e` | 실제 브라우저로 모든 도구를 조작하는 E2E 테스트 (Playwright, 빌드 후 실행) |
 | `npm run generate:images` | 문구나 사이트 이름을 바꾼 뒤 언어별 공유 이미지(`public/og/`)·아이콘 다시 생성 |
 | `npm run indexnow` | 공개된 사이트맵의 모든 주소를 IndexNow 로 알림 (`main` 에서는 자동 실행, [docs/SEARCH.md](docs/SEARCH.md)) |
-| `npm run build:demo` | 14개 도구를 한 페이지에 모은 체험판을 `dist-demo/` 에 생성 (샘플 문서 포함, claude.ai 아티팩트용 `artifact.html` 도 함께 생성) |
+| `npm run build:demo` | 16개 도구를 한 페이지에 모은 체험판을 `dist-demo/` 에 생성 (샘플 문서 포함, claude.ai 아티팩트용 `artifact.html` 도 함께 생성) |
 
 > E2E 테스트는 `npx playwright install chromium` 으로 브라우저를 설치한 뒤 실행하세요.
 > 이미 설치된 크로미움을 쓰려면 `PW_CHROMIUM_PATH=/path/to/chrome npm run test:e2e`.

@@ -181,6 +181,20 @@ export const zhTw: Dictionary = {
     pageGridLabel: '頁面',
     selectPage: '選取第 {n} 頁',
     blankPage: '空白頁',
+    office: {
+      moving: '正在開啟轉換頁面…',
+      engineNote: '第一次使用需下載轉換引擎（約 {size} MB），之後就能直接開始。',
+      downloading: '正在下載轉換引擎 · {done} / {total} MB',
+      preparing: '正在準備轉換引擎…',
+      converting: '正在轉換「{name}」（{n} / {total}）',
+      fontNote: '如果文件中使用的字型無法取得，會換成相近的字型，換行和分頁可能與原檔略有不同。',
+      unsupported: '這個瀏覽器無法進行轉換。請用最新版 Chrome、Edge、Safari 或 Firefox 重新開啟。',
+      memory: '裝置記憶體不足，無法完成轉換。請關閉其他分頁和 App 後再試，或改用電腦轉換。',
+      network: '無法下載轉換引擎。請確認網路連線後再試一次。',
+      engine: '轉換引擎發生問題。請重新整理頁面後再試一次。',
+      openFailed: '無法轉換「{name}」。檔案可能設有密碼或已損壞。',
+      timeout: '「{name}」轉換時間過長，已停止。請分割檔案或改用電腦再試。',
+    },
   },
   errors: {
     INVALID_PDF: '無法開啟這個 PDF。檔案可能已損毀，或不是 PDF 檔案。',
@@ -498,6 +512,70 @@ export const zhTw: Dictionary = {
         action: '轉換成 PDF',
         addImages: '新增圖片',
         imageCount: '{n} 張圖片',
+      },
+    },
+    'word-to-pdf': {
+      name: 'Word 轉 PDF',
+      title: 'Word 轉 PDF - 免費、免註冊，線上把 Word 文件轉成 PDF',
+      description:
+        '將 Word 文件（DOCX、DOC、ODT、RTF）連同表格和圖片原樣轉換成 PDF。',
+      tagline: '把 Word 文件連同表格、圖片和頁首原樣轉成 PDF。檔案不會離開你的裝置。',
+      steps: [
+        '選擇要轉換的 Word 檔案（DOCX、DOC 等），可以一次選多個。',
+        '開啟轉換頁面後會準備引擎並自動轉成 PDF。第一次使用需要下載引擎，會稍等一下。',
+        '下載完成的 PDF，或透過「繼續處理」直接交給合併、壓縮等工具。',
+      ],
+      faq: [
+        {
+          q: '文件會上傳到伺服器嗎？',
+          a: '不會。轉換引擎（LibreOffice）會下載到瀏覽器裡，在這台裝置內完成轉換，文件不會離開裝置。第一次下載引擎（約 50 MB）需要一點時間，之後就能直接開始。',
+        },
+        {
+          q: '轉換結果和原檔完全一樣嗎？',
+          a: '大部分文件的表格、圖片、頁首頁尾和頁碼都會原樣保留。不過文件中使用的字型（如微軟正黑體）會換成相近的免費字型，換行和分頁可能略有變化。如果需要完全一致，用 Word 內建的「另存為 PDF」最準確。',
+        },
+        {
+          q: '手機也能用嗎？',
+          a: '使用最新瀏覽器的手機也能轉換。不過轉換引擎會用到較多記憶體，較舊的手機可能失敗，大型文件建議用電腦轉換，更快也更穩定。',
+        },
+      ],
+      ui: {
+        choose: '選擇 Word 檔案',
+        drop: '將 Word 檔案拖曳到這裡（可多個）',
+        formats: '將 DOCX、DOC、ODT、RTF 檔案轉換成 PDF。',
+        notAccepted: '「{name}」不是 Word 文件。',
+      },
+    },
+    'ppt-to-pdf': {
+      name: 'PPT 轉 PDF',
+      title: 'PPT 轉 PDF - 免費、免註冊，線上把 PowerPoint 轉成 PDF',
+      description:
+        '將 PowerPoint 簡報（PPTX、PPT、ODP）依投影片原樣轉換成 PDF。',
+      tagline: '每張投影片轉成 PDF 的一頁。檔案不會離開你的裝置。',
+      steps: [
+        '選擇要轉換的 PowerPoint 檔案（PPTX、PPT 等），可以一次選多個。',
+        '開啟轉換頁面後會準備引擎並自動轉成 PDF。第一次使用需要下載引擎，會稍等一下。',
+        '下載完成的 PDF，或透過「繼續處理」直接交給壓縮、合併等工具。',
+      ],
+      faq: [
+        {
+          q: '簡報會上傳到伺服器嗎？',
+          a: '不會。轉換引擎（LibreOffice）會下載到瀏覽器裡，在這台裝置內完成轉換，檔案不會離開裝置。第一次下載引擎（約 50 MB）需要一點時間，之後就能直接開始。',
+        },
+        {
+          q: '動畫和講者備忘稿會怎樣？',
+          a: '每張投影片成為 PDF 的一頁，動畫以全部顯示後的最終狀態呈現。講者備忘稿和隱藏的投影片不會放進 PDF。',
+        },
+        {
+          q: '字型看起來和原檔不一樣。',
+          a: '簡報中使用的字型（如微軟正黑體）會換成相近的免費字型，文字寬度可能略有變化。如果需要完全一致，用 PowerPoint 內建的「另存為 PDF」最準確。',
+        },
+      ],
+      ui: {
+        choose: '選擇 PowerPoint 檔案',
+        drop: '將 PowerPoint 檔案拖曳到這裡（可多個）',
+        formats: '將 PPTX、PPT、PPSX、ODP 檔案轉換成 PDF。',
+        notAccepted: '「{name}」不是 PowerPoint 檔案。',
       },
     },
     'pdf-to-jpg': {
