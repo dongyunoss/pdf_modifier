@@ -578,6 +578,38 @@ export const vi: Dictionary = {
         notAccepted: '"{name}" không phải file PowerPoint.',
       },
     },
+    'hwp-to-pdf': {
+      name: 'HWP sang PDF',
+      title: 'Chuyển HWP sang PDF miễn phí, không cần đăng ký',
+      description:
+        'Chuyển tài liệu của phần mềm soạn thảo Hàn Quốc Hangul (HWP, HWPX) sang PDF, giữ nguyên bảng và hình ảnh, không cần Hancom Office.',
+      tagline: 'Chuyển tài liệu HWP, HWPX sang PDF đúng từng trang mà không cần Hancom Office. File không rời khỏi thiết bị của bạn.',
+      steps: [
+        'Chọn file Hangul (HWP, HWPX) cần chuyển. Có thể chọn nhiều file cùng lúc.',
+        'Bộ chuyển đổi và phông chữ được tải một lần, sau đó từng trang được chuyển thành trang PDF.',
+        'Tải file PDF về, hoặc chuyển ngay sang gộp, nén… bằng "Làm tiếp với".',
+      ],
+      faq: [
+        {
+          q: 'Tài liệu có bị tải lên máy chủ không?',
+          a: 'Không. Bộ đọc HWP (rhwp) được tải vào trình duyệt và chuyển đổi ngay trên thiết bị, nên tài liệu không bao giờ rời khỏi máy. Bộ chuyển đổi và phông chữ (khoảng 6 MB) chỉ tải một lần; sau đó bắt đầu ngay.',
+        },
+        {
+          q: 'File PDF có giống hệt bản gốc không?',
+          a: 'Ngắt dòng và ngắt trang hầu như giữ nguyên như trong Hancom Office, còn các phông như Hamchorom Batang hay Malgun Gothic được thay bằng Nanum Myeongjo và Nanum Gothic có dáng tương tự. Chữ được giữ dưới dạng chữ nên có thể tìm kiếm và sao chép trong PDF.',
+        },
+        {
+          q: 'Có file nào không chuyển được không?',
+          a: 'Tài liệu có mật khẩu không mở được, và tài liệu lưu ở chế độ phân phối (chỉ đọc) cũng có thể không mở được. Các đối tượng quá phức tạp hoặc phông chữ đặc biệt có thể trông hơi khác, hãy kiểm tra kết quả trước khi nộp.',
+        },
+      ],
+      ui: {
+        choose: 'Chọn file HWP',
+        drop: 'Thả file Hangul (HWP, HWPX) vào đây (có thể nhiều file)',
+        formats: 'Chuyển file HWP và HWPX sang PDF. Không cần Hancom Office.',
+        notAccepted: '"{name}" không phải file Hangul (HWP).',
+      },
+    },
     'pdf-to-jpg': {
       name: 'PDF sang JPG',
       title: 'PDF sang JPG miễn phí, không cần đăng ký - Chuyển trang thành ảnh',

@@ -578,6 +578,38 @@ export const id: Dictionary = {
         notAccepted: '"{name}" bukan file PowerPoint.',
       },
     },
+    'hwp-to-pdf': {
+      name: 'HWP ke PDF',
+      title: 'HWP ke PDF Gratis Tanpa Daftar - Ubah File Hangul ke PDF',
+      description:
+        'Ubah dokumen pengolah kata Korea Hangul (HWP, HWPX) ke PDF lengkap dengan tabel dan gambar, tanpa Hancom Office.',
+      tagline: 'Ubah dokumen HWP dan HWPX ke PDF halaman demi halaman tanpa Hancom Office. File Anda tidak keluar dari perangkat.',
+      steps: [
+        'Pilih file Hangul (HWP, HWPX) yang ingin diubah. Anda bisa memilih beberapa sekaligus.',
+        'Pengonversi dan font diunduh sekali, lalu setiap halaman diubah menjadi halaman PDF.',
+        'Unduh PDF-nya, atau langsung teruskan ke gabung, kompres, dan lainnya lewat "Lanjutkan dengan".',
+      ],
+      faq: [
+        {
+          q: 'Apakah dokumen saya diunggah ke server?',
+          a: 'Tidak. Mesin pembaca HWP (rhwp) diunduh ke browser dan mengonversi di perangkat Anda, jadi dokumen tidak pernah keluar. Mesin dan font (sekitar 6 MB) diunduh sekali; setelah itu langsung bisa dipakai.',
+        },
+        {
+          q: 'Apakah PDF-nya sama persis dengan aslinya?',
+          a: 'Pergantian baris dan halaman hampir selalu sama seperti di Hancom Office, sedangkan font seperti Hamchorom Batang atau Malgun Gothic diganti dengan Nanum Myeongjo dan Nanum Gothic yang mirip. Teks tetap berupa teks, jadi bisa dicari dan disalin di PDF.',
+        },
+        {
+          q: 'Adakah file yang tidak bisa dikonversi?',
+          a: 'Dokumen berkata sandi tidak bisa dibuka, dan dokumen yang disimpan untuk distribusi (hanya baca) mungkin juga tidak. Objek yang sangat rumit atau font yang tidak biasa bisa tampak sedikit berbeda, jadi periksa hasilnya sebelum dikirim.',
+        },
+      ],
+      ui: {
+        choose: 'Pilih file HWP',
+        drop: 'Letakkan file Hangul (HWP, HWPX) di sini (bisa beberapa)',
+        formats: 'Mengubah file HWP dan HWPX ke PDF. Tidak perlu Hancom Office.',
+        notAccepted: '"{name}" bukan file Hangul (HWP).',
+      },
+    },
     'pdf-to-jpg': {
       name: 'PDF ke JPG',
       title: 'PDF ke JPG Gratis Tanpa Daftar - Ubah Halaman Jadi Gambar',

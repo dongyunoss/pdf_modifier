@@ -21,6 +21,7 @@ export const ICON_PATHS = {
   'page-numbers': '<path d="M5 9h14"/><path d="M5 15h14"/><path d="M10 4 8 20"/><path d="m16 4-2 16"/>',
   'word-to-pdf': '<path d="M14 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8z"/><path d="M14 3v5h5"/><path d="m8.5 11.5 1.5 6 2-4 2 4 1.5-6"/>',
   'ppt-to-pdf': '<rect x="3" y="4" width="18" height="12" rx="2"/><path d="M12 16v4"/><path d="M8 20h8"/><path d="M8 12.5V10"/><path d="M12 12.5V7.5"/><path d="M16 12.5v-4"/>',
+  'hwp-to-pdf': '<path d="M14 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8z"/><path d="M14 3v5h5"/><path d="M9 11v7"/><path d="M15 11v7"/><path d="M9 14.5h6"/>',
   sign: '<path d="M3 20h18"/><path d="M15.5 3.5a2.1 2.1 0 0 1 3 3L8 17l-4 1 1-4z"/>',
   protect: '<rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/>',
   unlock: '<rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V7a4 4 0 0 1 7.5-2"/>',

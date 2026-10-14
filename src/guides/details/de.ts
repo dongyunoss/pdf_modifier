@@ -287,6 +287,36 @@ export const de: ToolDetailSet = {
         ],
       },
     ],
+    'hwp-to-pdf': [
+      {
+        title: 'Wann es sich lohnt',
+        blocks: [
+          { list: [
+            'Ein HWP-Dokument einer koreanischen Schule, Firma oder Behörde auf einem Computer oder Smartphone ohne Hancom Office öffnen',
+            'Eine Bewerbung, Hausarbeit oder ein Formular einreichen, das als PDF verlangt wird',
+            'Eine HWP-Datei auf einem Mac oder Chromebook drucken, auf dem sich Hancom Office schwer installieren lässt',
+          ] },
+        ],
+      },
+      {
+        title: 'So funktioniert es',
+        blocks: [
+          'rhwp, eine Open-Source-Engine für HWP und HWPX (MIT-Lizenz), zeichnet jede Seite des Dokuments in Ihrem Browser, und genau diese Darstellung wird zum PDF. Nichts wird hochgeladen, Formulare mit persönlichen Daten bleiben also auf Ihrem Gerät.',
+          'Engine und Schriften (etwa 6 MB) werden einmal geladen. Verwendet ein Dokument Hanja oder Symbole wie ① und ㉠, die den Nanum-Schriften fehlen, wird einmalig zusätzlich eine Ergänzungsschrift (Noto Sans KR) geladen.',
+        ],
+      },
+      {
+        title: 'Gut zu wissen',
+        blocks: [
+          { list: [
+            'Hancom- und Windows-Schriften wie Hamchorom Batang, Malgun Gothic oder die HY-Schriften dürfen nicht eingebettet werden; stattdessen werden Nanum Myeongjo und Nanum Gothic verwendet. Jedes Zeichen steht dort, wo das Original es vorsieht, die Zeilenumbrüche stimmen also – die Buchstabenformen können aber leicht abweichen.',
+            'Der Text im PDF ist echter Text: durchsuchbar, kopierbar und auch vergrößert scharf.',
+            'Passwortgeschützte und nur zur Verteilung gespeicherte Dokumente lassen sich nicht umwandeln. Entfernen Sie das Passwort in Hancom Office und versuchen Sie es erneut.',
+            'Um mehrere Dokumente zusammenzufassen, wandeln Sie sie um und nutzen dann {tool:merge}; ist die Datei zu groß zum Einreichen, verkleinern Sie sie mit {tool:compress}.',
+          ] },
+        ],
+      },
+    ],
     'pdf-to-jpg': [
       {
         title: 'Wann es hilft',

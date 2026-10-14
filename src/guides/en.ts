@@ -40,6 +40,8 @@ export const en: GuideSet = {
     updatesTitle: 'Update history',
     updates: [
       { date: '2026-10-14', items: [
+        'Added HWP to PDF for Hangul (HWP, HWPX) documents. It converts inside your browser with the open-source rhwp engine (MIT) and keeps text searchable.',
+        'Added the guide “How to Convert a Hangul (HWP) File to PDF Without Hancom Office”.',
         'Added Word to PDF and PowerPoint to PDF. They run LibreOffice (MPL-2.0), compiled to WebAssembly, inside your browser, so files are never uploaded.',
         'Added the Sign PDF tool for adding a signature or stamp to a PDF. You can draw it, type your name or upload an image.',
         'Added the guide “How to Sign a PDF Without Printing or Scanning It”.',
@@ -894,6 +896,70 @@ export const en: GuideSet = {
         },
       ],
     },
+    {
+      slug: 'hwp-to-pdf-without-hancom',
+      title: 'How to Convert a Hangul (HWP) File to PDF Without Hancom Office',
+      description:
+        'When you need to submit an HWP or HWPX document as a PDF: how to convert it with or without Hancom Office (on a Mac, Chromebook or phone), and what to check afterwards.',
+      tools: ['hwp-to-pdf', 'merge', 'compress', 'word-to-pdf'],
+      published: '2026-10-14',
+      updated: '2026-10-14',
+      sections: [
+        {
+          blocks: [
+            'Korean government letters, school assignments and job application forms still often arrive as Hangul (HWP) files, the format of the Korean word processor by Hancom. More and more places ask for a PDF, though, and on a Mac, a Chromebook or a work computer without Hancom Office you can’t even open the file. Here is the simplest route for each situation.',
+          ],
+        },
+        {
+          title: '1. If you have Hancom Office: “Save as PDF”',
+          blocks: [
+            'If Hancom Office is installed, open the document and use “Save as PDF” in the File menu. It is the most accurate option because the original fonts are embedded and the result matches exactly. Use the method below when that isn’t possible.',
+          ],
+        },
+        {
+          title: '2. Without Hancom Office: convert in your browser',
+          blocks: [
+            { steps: [
+              'Open {tool:hwp-to-pdf}. It works on a PC, a Mac or a phone.',
+              'Choose the HWP or HWPX file. You can pick several at once.',
+              'The converter and fonts (about 6 MB) are downloaded once, then each page is turned into a PDF page.',
+              'Press “Download” to save the PDF. With several files you can download them all as one ZIP.',
+            ] },
+            'This converts inside your browser without uploading the document, so forms containing ID numbers or contact details stay on your device.',
+          ],
+        },
+        {
+          title: 'Comparing the options',
+          blocks: [
+            { table: {
+              head: ['Method', 'What you need', 'Appearance', 'Upload'],
+              rows: [
+                ['Hancom Office “Save as PDF”', 'Hancom Office installed', 'Identical to the original', 'None'],
+                ['Hancom Docs (web)', 'Hancom account sign-in', 'Almost identical', 'Uploaded to Hancom’s servers'],
+                ['This site’s {tool:hwp-to-pdf}', 'Just a browser', 'Same line breaks, similar fonts', 'None (converted on your device)'],
+              ],
+            } },
+          ],
+        },
+        {
+          title: 'What to check after converting',
+          blocks: [
+            { list: [
+              'Fonts: fonts such as Hamchorom Batang or Malgun Gothic become Nanum Myeongjo or Nanum Gothic. Line breaks follow the original, but glyph shapes differ slightly, so look at tight spots such as signature lines and table cells.',
+              'Page count: make sure it matches the original. Very complex tables or objects can occasionally come out differently.',
+              'Passwords: password-protected and distribution-only documents can’t be converted. Ask the sender for a copy without a password.',
+              'File size: if photos make the PDF large, shrink it with {tool:compress}; to submit several documents as one, combine them with {tool:merge}.',
+            ] },
+          ],
+        },
+        {
+          title: 'What is the difference between HWP and HWPX?',
+          blocks: [
+            'HWP is the long-standing format of the Hangul word processor, while HWPX is a newer XML-based format that is also a Korean national standard (KS X 6101). Files saved by recent versions and public-sector documents are increasingly HWPX. Both convert the same way. If you received a Word file instead, use {tool:word-to-pdf}.',
+          ],
+        },
+      ],
+    },
   ],
 
   toolDetails: {
@@ -1178,6 +1244,36 @@ export const en: GuideSet = {
             'Speaker notes and hidden slides are not included.',
             'Fonts such as Calibri are replaced with similar free fonts, so text width can change slightly. Check text boxes that are filled to the edge.',
             'For handouts with several slides per sheet, choose “multiple pages per sheet” when printing. To shrink the result use {tool:compress}; to turn slides into images use {tool:pdf-to-jpg}.',
+          ] },
+        ],
+      },
+    ],
+    'hwp-to-pdf': [
+      {
+        title: 'When to use it',
+        blocks: [
+          { list: [
+            'Opening an HWP document from a Korean school, office or government agency on a computer or phone without Hancom Office',
+            'Submitting an application, assignment or form that must be sent as a PDF',
+            'Printing an HWP file on a Mac or Chromebook where Hancom Office is hard to install',
+          ] },
+        ],
+      },
+      {
+        title: 'How it works',
+        blocks: [
+          'rhwp, an open-source engine for HWP and HWPX (MIT license), draws each page of the document inside your browser, and that drawing is turned into the PDF. Nothing is uploaded, so forms with personal details stay on your device.',
+          'The engine and fonts (about 6 MB) are downloaded once. If a document uses hanja or symbols such as ① and ㉠ that Nanum fonts lack, a supplementary font (Noto Sans KR) is downloaded once as well.',
+        ],
+      },
+      {
+        title: 'Good to know',
+        blocks: [
+          { list: [
+            'Hancom and Windows fonts such as Hamchorom Batang, Malgun Gothic or the HY fonts can’t be included, so Nanum Myeongjo and Nanum Gothic are used. Characters stay where the original puts them, so line breaks match, but glyph shapes may differ slightly.',
+            'Text in the PDF is real text, so it can be searched and copied and stays sharp when zoomed in.',
+            'Password-protected and distribution-only documents can’t be converted. Remove the password in Hancom Office and try again.',
+            'To combine several documents, convert them and then use {tool:merge}; if the file is too large to submit, shrink it with {tool:compress}.',
           ] },
         ],
       },

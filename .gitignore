@@ -11,6 +11,7 @@ public/pdfjs/
 
 # Word·PPT 변환 엔진 (scripts/build-office-engine.mjs 가 생성)
 public/office/
+public/hwp/
 
 # environment variables
 .env

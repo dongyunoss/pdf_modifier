@@ -578,6 +578,38 @@ export const it: Dictionary = {
         notAccepted: '«{name}» non è un file PowerPoint.',
       },
     },
+    'hwp-to-pdf': {
+      name: 'HWP in PDF',
+      title: 'HWP in PDF gratis e senza registrazione - convertire file Hangul',
+      description:
+        'Converti documenti dell’editor coreano Hangul (HWP, HWPX) in PDF mantenendo tabelle e immagini, senza Hancom Office.',
+      tagline: 'Trasforma documenti HWP e HWPX in PDF pagina per pagina, senza Hancom Office. I tuoi file non lasciano il dispositivo.',
+      steps: [
+        'Scegli i file Hangul (HWP, HWPX) da convertire. Puoi sceglierne più di uno alla volta.',
+        'Il convertitore e i font si scaricano una volta, poi ogni pagina diventa una pagina del PDF.',
+        'Scarica i PDF o passali subito a unire, comprimere e altro con «Continua con».',
+      ],
+      faq: [
+        {
+          q: 'I miei documenti vengono caricati su un server?',
+          a: 'No. Il motore che legge gli HWP (rhwp) viene scaricato nel browser e converte sul tuo dispositivo, quindi i documenti non ne escono mai. Motore e font (circa 6 MB) si scaricano una volta; poi parte subito.',
+        },
+        {
+          q: 'Il PDF sarà identico all’originale?',
+          a: 'Gli a capo e le interruzioni di pagina restano quasi sempre come in Hancom Office, mentre font come Hamchorom Batang o Malgun Gothic vengono sostituiti dai simili Nanum Myeongjo e Nanum Gothic. Il testo resta testo, quindi puoi cercarlo e copiarlo nel PDF.',
+        },
+        {
+          q: 'Ci sono file che non si possono convertire?',
+          a: 'I documenti protetti da password non si aprono, e quelli salvati per la distribuzione (sola lettura) potrebbero non aprirsi. Oggetti molto complessi o font insoliti possono apparire leggermente diversi: controlla il risultato prima di inviarlo.',
+        },
+      ],
+      ui: {
+        choose: 'Scegli file HWP',
+        drop: 'Trascina qui i file Hangul (HWP, HWPX) (anche più di uno)',
+        formats: 'Converte file HWP e HWPX in PDF. Non serve Hancom Office.',
+        notAccepted: '«{name}» non è un file Hangul (HWP).',
+      },
+    },
     'pdf-to-jpg': {
       name: 'Da PDF a JPG',
       title: 'Da PDF a JPG gratis e senza registrazione',

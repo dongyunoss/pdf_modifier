@@ -578,6 +578,38 @@ export const zhTw: Dictionary = {
         notAccepted: '「{name}」不是 PowerPoint 檔案。',
       },
     },
+    'hwp-to-pdf': {
+      name: 'HWP 轉 PDF',
+      title: 'HWP 轉 PDF - 免費、免註冊，線上把韓文 HWP 檔案轉成 PDF',
+      description:
+        '將韓國文書處理軟體「韓文」（Hangul）的文件（HWP、HWPX）連同表格和圖片原樣轉換成 PDF。',
+      tagline: '不必安裝韓文軟體，把 HWP、HWPX 文件依頁面原樣轉成 PDF。檔案不會離開你的裝置。',
+      steps: [
+        '選擇要轉換的韓文檔案（HWP、HWPX），可以一次選多個。',
+        '第一次使用會下載轉換引擎和字型，接著逐頁轉成 PDF。',
+        '下載完成的 PDF，或透過「繼續處理」直接交給合併、壓縮等工具。',
+      ],
+      faq: [
+        {
+          q: '文件會上傳到伺服器嗎？',
+          a: '不會。讀取 HWP 的引擎（rhwp）會下載到瀏覽器裡，在這台裝置內完成轉換，文件不會離開裝置。第一次下載引擎和字型（約 6 MB），之後就能直接開始。',
+        },
+        {
+          q: '轉換結果和原檔完全一樣嗎？',
+          a: '換行和分頁大多與韓文軟體中看到的一致，字型會換成外形相近的 Nanum Myeongjo、Nanum Gothic。文字以文字而非圖片保存，可以在 PDF 中搜尋和複製。',
+        },
+        {
+          q: '有無法轉換的檔案嗎？',
+          a: '設有密碼的文件無法開啟，以「發布用」（唯讀）方式儲存的文件也可能無法開啟。非常複雜的物件或特殊字型可能略有不同，繳交前請檢查結果。',
+        },
+      ],
+      ui: {
+        choose: '選擇 HWP 檔案',
+        drop: '將韓文檔案（HWP、HWPX）拖曳到這裡（可多個）',
+        formats: '將 HWP、HWPX 檔案轉換成 PDF，不必安裝韓文軟體。',
+        notAccepted: '「{name}」不是韓文（HWP）檔案。',
+      },
+    },
     'pdf-to-jpg': {
       name: 'PDF 轉 JPG',
       title: 'PDF 轉 JPG - 免費、免註冊，將頁面轉成高畫質圖片',

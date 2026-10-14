@@ -10,6 +10,7 @@ export const TOOL_IDS = [
   'jpg-to-pdf',
   'word-to-pdf',
   'ppt-to-pdf',
+  'hwp-to-pdf',
   'pdf-to-jpg',
   'watermark',
   'page-numbers',
@@ -42,6 +43,7 @@ export const TOOLS: ToolMeta[] = [
   { id: 'jpg-to-pdf', slug: 'jpg-to-pdf', category: 'convert', related: ['merge', 'compress', 'organize'] },
   { id: 'word-to-pdf', slug: 'word-to-pdf', category: 'convert', related: ['merge', 'compress', 'sign'] },
   { id: 'ppt-to-pdf', slug: 'ppt-to-pdf', category: 'convert', related: ['compress', 'merge', 'pdf-to-jpg'] },
+  { id: 'hwp-to-pdf', slug: 'hwp-to-pdf', category: 'convert', related: ['merge', 'compress', 'sign'] },
   { id: 'pdf-to-jpg', slug: 'pdf-to-jpg', category: 'convert', related: ['jpg-to-pdf', 'split', 'compress'] },
   { id: 'watermark', slug: 'add-watermark-to-pdf', category: 'edit', related: ['protect', 'page-numbers', 'compress'] },
   { id: 'page-numbers', slug: 'add-page-numbers-to-pdf', category: 'edit', related: ['watermark', 'merge', 'compress'] },
@@ -59,7 +61,7 @@ export type OfficeToolId = keyof typeof OFFICE_TOOLS;
 export const isOfficeTool = (id: ToolId): id is OfficeToolId => id in OFFICE_TOOLS;
 
 /** PDF 를 입력으로 받지 않는 도구 (결과 PDF 를 넘겨줄 수 없음) */
-export const NON_PDF_INPUT: ReadonlySet<ToolId> = new Set(['jpg-to-pdf', 'word-to-pdf', 'ppt-to-pdf']);
+export const NON_PDF_INPUT: ReadonlySet<ToolId> = new Set(['jpg-to-pdf', 'word-to-pdf', 'ppt-to-pdf', 'hwp-to-pdf']);
 
 export const CATEGORY_ORDER: ToolCategory[] = ['organize', 'optimize', 'convert', 'edit', 'security'];
 

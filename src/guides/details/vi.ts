@@ -287,6 +287,36 @@ export const vi: ToolDetailSet = {
         ],
       },
     ],
+    'hwp-to-pdf': [
+      {
+        title: 'Khi nào nên dùng',
+        blocks: [
+          { list: [
+            'Mở tài liệu HWP từ trường học, công ty hay cơ quan Hàn Quốc trên máy tính hoặc điện thoại không có Hancom Office',
+            'Nộp hồ sơ, bài tập hay biểu mẫu yêu cầu gửi dưới dạng PDF',
+            'In file HWP trên Mac hoặc Chromebook, nơi khó cài Hancom Office',
+          ] },
+        ],
+      },
+      {
+        title: 'Cách hoạt động',
+        blocks: [
+          'rhwp, bộ đọc HWP và HWPX mã nguồn mở (giấy phép MIT), vẽ từng trang tài liệu ngay trong trình duyệt rồi chuyển hình đó thành PDF. Không có gì bị tải lên, nên biểu mẫu chứa thông tin cá nhân vẫn ở trên thiết bị của bạn.',
+          'Bộ chuyển đổi và phông chữ (khoảng 6 MB) chỉ tải một lần. Nếu tài liệu có chữ Hán hoặc ký hiệu như ①, ㉠ mà phông Nanum không có, một phông bổ trợ (Noto Sans KR) cũng được tải thêm một lần.',
+        ],
+      },
+      {
+        title: 'Nên biết',
+        blocks: [
+          { list: [
+            'Các phông của Hancom và Windows như Hamchorom Batang, Malgun Gothic hay phông HY không thể đưa vào, nên được thay bằng Nanum Myeongjo và Nanum Gothic. Mỗi ký tự giữ đúng vị trí như bản gốc nên ngắt dòng không đổi, nhưng hình dáng chữ có thể hơi khác.',
+            'Chữ trong PDF là chữ thật: tìm kiếm, sao chép được và vẫn sắc nét khi phóng to.',
+            'Tài liệu có mật khẩu hoặc tài liệu chỉ để phân phối không chuyển được. Hãy gỡ mật khẩu trong Hancom Office rồi thử lại.',
+            'Muốn gộp nhiều tài liệu, hãy chuyển xong rồi dùng {tool:merge}; nếu file quá nặng để nộp, giảm dung lượng bằng {tool:compress}.',
+          ] },
+        ],
+      },
+    ],
     'pdf-to-jpg': [
       {
         title: 'Khi nào nên dùng',

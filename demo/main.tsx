@@ -4,6 +4,7 @@ import { render, type JSX } from 'preact';
 import { useEffect, useRef, useState } from 'preact/hooks';
 import CompressTool from '../src/components/tools/CompressTool';
 import { Icon } from '../src/components/tools/Icon';
+import HwpToPdfTool from '../src/components/tools/HwpToPdfTool';
 import ImagesToPdfTool from '../src/components/tools/ImagesToPdfTool';
 import MergeTool from '../src/components/tools/MergeTool';
 import OfficeToPdfTool from '../src/components/tools/OfficeToPdfTool';
@@ -85,6 +86,8 @@ function renderTool(id: ToolId, base: ToolBaseProps): JSX.Element {
       return <OfficeToPdfTool {...base} kind="word" t={t['word-to-pdf'].ui} />;
     case 'ppt-to-pdf':
       return <OfficeToPdfTool {...base} kind="ppt" t={t['ppt-to-pdf'].ui} />;
+    case 'hwp-to-pdf':
+      return <HwpToPdfTool {...base} t={t['hwp-to-pdf'].ui} />;
     case 'pdf-to-jpg':
       return <PdfToImagesTool {...base} t={t['pdf-to-jpg'].ui} />;
     case 'watermark':

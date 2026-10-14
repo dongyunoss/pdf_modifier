@@ -287,6 +287,36 @@ export const tr: ToolDetailSet = {
         ],
       },
     ],
+    'hwp-to-pdf': [
+      {
+        title: 'Ne zaman kullanılır',
+        blocks: [
+          { list: [
+            'Kore’deki bir okul, şirket veya kurumdan gelen HWP belgesini Hancom Office olmayan bir bilgisayarda ya da telefonda açmak',
+            'PDF olarak gönderilmesi istenen bir başvuruyu, ödevi veya formu teslim etmek',
+            'Hancom Office kurmanın zor olduğu Mac veya Chromebook’ta HWP yazdırmak',
+          ] },
+        ],
+      },
+      {
+        title: 'Nasıl çalışır',
+        blocks: [
+          'HWP ve HWPX için açık kaynaklı bir motor olan rhwp (MIT lisansı), belgenin her sayfasını tarayıcınızda çizer ve bu çizim PDF’ye dönüştürülür. Hiçbir şey yüklenmez; kişisel bilgi içeren formlar cihazınızda kalır.',
+          'Motor ve yazı tipleri (yaklaşık 6 MB) bir kez indirilir. Belgede Nanum yazı tiplerinde olmayan hanja veya ①, ㉠ gibi semboller varsa yardımcı bir yazı tipi (Noto Sans KR) de bir kez indirilir.',
+        ],
+      },
+      {
+        title: 'Bilmekte fayda var',
+        blocks: [
+          { list: [
+            'Hamchorom Batang, Malgun Gothic veya HY gibi Hancom ve Windows yazı tipleri eklenemediği için yerlerine Nanum Myeongjo ve Nanum Gothic kullanılır. Her karakter özgün belgedeki yerinde kalır, bu yüzden satır sonları aynıdır; ancak harf biçimleri biraz farklı olabilir.',
+            'PDF’deki metin gerçek metindir: aranabilir, kopyalanabilir ve büyütüldüğünde net kalır.',
+            'Parola korumalı veya yalnızca dağıtım amaçlı belgeler dönüştürülemez. Parolayı Hancom Office’te kaldırıp yeniden deneyin.',
+            'Birden fazla belgeyi birleştirmek için dönüştürdükten sonra {tool:merge} kullanın; dosya göndermek için çok büyükse {tool:compress} ile küçültün.',
+          ] },
+        ],
+      },
+    ],
     'pdf-to-jpg': [
       {
         title: 'Ne zaman kullanılır',

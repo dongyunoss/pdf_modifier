@@ -578,6 +578,38 @@ export const en: Dictionary = {
         notAccepted: '“{name}” is not a PowerPoint file.',
       },
     },
+    'hwp-to-pdf': {
+      name: 'HWP to PDF',
+      title: 'HWP to PDF - Convert Hangul HWP and HWPX Files Free, No Sign-Up',
+      description:
+        'Convert Hangul word processor documents (HWP, HWPX) to PDF with tables and images intact, without Hancom Office.',
+      tagline: 'Turn HWP and HWPX documents into PDFs page for page, without Hancom Office. Your files never leave your device.',
+      steps: [
+        'Choose the Hangul files (HWP, HWPX) to convert. You can pick several at once.',
+        'The converter and fonts are downloaded once, then each page is turned into a PDF page.',
+        'Download the PDFs, or pass them straight to merge, compress and more with “Continue with”.',
+      ],
+      faq: [
+        {
+          q: 'Are my documents uploaded to a server?',
+          a: 'No. The HWP engine (rhwp) is downloaded into your browser and converts on your device, so your documents never leave it. The engine and fonts (about 6 MB) are downloaded once; after that it starts right away.',
+        },
+        {
+          q: 'Will the PDF look exactly like the original?',
+          a: 'Line and page breaks mostly stay exactly as in Hancom Office, while fonts such as Hamchorom Batang or Malgun Gothic are replaced with similar Nanum Myeongjo and Nanum Gothic. Text is kept as real text, so you can search and copy it in the PDF.',
+        },
+        {
+          q: 'Are there files it can’t convert?',
+          a: 'Password-protected documents can’t be opened, and documents saved for distribution (read-only) may not open either. Very complex objects or unusual fonts can look slightly different, so check the result before submitting it.',
+        },
+      ],
+      ui: {
+        choose: 'Choose HWP files',
+        drop: 'Drop Hangul files (HWP, HWPX) here (you can add several)',
+        formats: 'Converts HWP and HWPX files to PDF. No Hancom Office needed.',
+        notAccepted: '“{name}” is not a Hangul (HWP) file.',
+      },
+    },
     'pdf-to-jpg': {
       name: 'PDF to JPG',
       title: 'PDF to JPG - Convert PDF Pages to Images Free, No Sign-Up',

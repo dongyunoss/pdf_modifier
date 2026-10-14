@@ -287,6 +287,36 @@ export const fr: ToolDetailSet = {
         ],
       },
     ],
+    'hwp-to-pdf': [
+      {
+        title: 'Quand l’utiliser',
+        blocks: [
+          { list: [
+            'Ouvrir un document HWP envoyé par une école, une entreprise ou une administration coréenne sur un ordinateur ou un téléphone sans Hancom Office',
+            'Remettre une candidature, un devoir ou un formulaire qui doit être envoyé en PDF',
+            'Imprimer un HWP sur un Mac ou un Chromebook où Hancom Office est difficile à installer',
+          ] },
+        ],
+      },
+      {
+        title: 'Comment ça marche',
+        blocks: [
+          'rhwp, un moteur open source pour HWP et HWPX (licence MIT), dessine chaque page du document dans votre navigateur, puis ce rendu est transformé en PDF. Rien n’est envoyé : les formulaires contenant des données personnelles restent sur votre appareil.',
+          'Le moteur et les polices (environ 6 Mo) sont téléchargés une seule fois. Si le document contient des hanja ou des symboles comme ① et ㉠ absents des polices Nanum, une police d’appoint (Noto Sans KR) est aussi téléchargée une fois.',
+        ],
+      },
+      {
+        title: 'Bon à savoir',
+        blocks: [
+          { list: [
+            'Les polices Hancom et Windows comme Hamchorom Batang, Malgun Gothic ou les HY ne peuvent pas être intégrées : Nanum Myeongjo et Nanum Gothic les remplacent. Chaque caractère reste à la place prévue par l’original, donc les retours à la ligne sont identiques, mais la forme des lettres peut un peu différer.',
+            'Le texte du PDF est un vrai texte : on peut le rechercher, le copier, et il reste net au zoom.',
+            'Les documents protégés par mot de passe ou réservés à la diffusion ne peuvent pas être convertis. Retirez le mot de passe dans Hancom Office puis réessayez.',
+            'Pour réunir plusieurs documents, convertissez-les puis utilisez {tool:merge} ; si le fichier est trop lourd pour l’envoi, réduisez-le avec {tool:compress}.',
+          ] },
+        ],
+      },
+    ],
     'pdf-to-jpg': [
       {
         title: 'Quand l’utiliser',

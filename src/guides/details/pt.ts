@@ -287,6 +287,36 @@ export const pt: ToolDetailSet = {
         ],
       },
     ],
+    'hwp-to-pdf': [
+      {
+        title: 'Quando usar',
+        blocks: [
+          { list: [
+            'Abrir um documento HWP de uma escola, empresa ou órgão coreano em um computador ou celular sem o Hancom Office',
+            'Enviar uma inscrição, trabalho ou formulário que precisa ser entregue em PDF',
+            'Imprimir um HWP em um Mac ou Chromebook, onde é difícil instalar o Hancom Office',
+          ] },
+        ],
+      },
+      {
+        title: 'Como funciona',
+        blocks: [
+          'O rhwp, um mecanismo de código aberto para HWP e HWPX (licença MIT), desenha cada página do documento no navegador e esse desenho vira o PDF. Nada é enviado, então formulários com dados pessoais ficam no seu aparelho.',
+          'O mecanismo e as fontes (cerca de 6 MB) são baixados uma vez. Se o documento usar hanja ou símbolos como ① e ㉠, que faltam nas fontes Nanum, uma fonte de apoio (Noto Sans KR) também é baixada uma vez.',
+        ],
+      },
+      {
+        title: 'Bom saber',
+        blocks: [
+          { list: [
+            'Fontes da Hancom e do Windows, como Hamchorom Batang, Malgun Gothic ou as HY, não podem ser incluídas, então são usadas Nanum Myeongjo e Nanum Gothic. Cada caractere fica onde o original o coloca, por isso as quebras de linha batem, mas o desenho das letras pode mudar um pouco.',
+            'O texto do PDF é texto de verdade: dá para pesquisar e copiar, e ele fica nítido ao ampliar.',
+            'Documentos com senha ou só para distribuição não podem ser convertidos. Remova a senha no Hancom Office e tente de novo.',
+            'Para juntar vários documentos, converta-os e use {tool:merge}; se o arquivo ficar grande demais para enviar, reduza com {tool:compress}.',
+          ] },
+        ],
+      },
+    ],
     'pdf-to-jpg': [
       {
         title: 'Quando usar',

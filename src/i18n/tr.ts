@@ -578,6 +578,38 @@ export const tr: Dictionary = {
         notAccepted: '"{name}" bir PowerPoint dosyası değil.',
       },
     },
+    'hwp-to-pdf': {
+      name: 'HWP’den PDF’ye',
+      title: 'HWP’yi PDF’ye Çevir - Ücretsiz ve Üye Olmadan Hangul Dosyası Dönüştür',
+      description:
+        'Kore kelime işlemcisi Hangul’un belgelerini (HWP, HWPX) tablo ve görselleriyle birlikte, Hancom Office olmadan PDF’ye dönüştürün.',
+      tagline: 'HWP ve HWPX belgelerini Hancom Office olmadan sayfa sayfa PDF’ye çevirin. Dosyalarınız cihazınızdan çıkmaz.',
+      steps: [
+        'Dönüştürmek istediğiniz Hangul dosyalarını (HWP, HWPX) seçin. Birden fazlasını aynı anda seçebilirsiniz.',
+        'Dönüştürücü ve yazı tipleri bir kez indirilir, ardından her sayfa bir PDF sayfasına çevrilir.',
+        'PDF’leri indirin ya da "Devam et" ile birleştirme, sıkıştırma gibi araçlara doğrudan aktarın.',
+      ],
+      faq: [
+        {
+          q: 'Belgelerim bir sunucuya yükleniyor mu?',
+          a: 'Hayır. HWP okuyan motor (rhwp) tarayıcınıza indirilir ve cihazınızda dönüştürür; belgeleriniz cihazınızdan hiç çıkmaz. Motor ve yazı tipleri (yaklaşık 6 MB) bir kez indirilir; sonrasında hemen başlar.',
+        },
+        {
+          q: 'PDF özgün belgeyle birebir aynı mı olur?',
+          a: 'Satır ve sayfa sonları neredeyse her zaman Hancom Office’teki gibi kalır; Hamchorom Batang veya Malgun Gothic gibi yazı tipleri ise benzer Nanum Myeongjo ve Nanum Gothic ile değiştirilir. Metin, metin olarak kalır; PDF’de arayıp kopyalayabilirsiniz.',
+        },
+        {
+          q: 'Dönüştürülemeyen dosyalar var mı?',
+          a: 'Parola korumalı belgeler açılamaz; dağıtım için (salt okunur) kaydedilmiş belgeler de açılmayabilir. Çok karmaşık nesneler veya alışılmadık yazı tipleri biraz farklı görünebilir, göndermeden önce sonucu kontrol edin.',
+        },
+      ],
+      ui: {
+        choose: 'HWP dosyası seç',
+        drop: 'Hangul dosyalarını (HWP, HWPX) buraya bırakın (birden fazla olabilir)',
+        formats: 'HWP ve HWPX dosyalarını PDF’ye çevirir. Hancom Office gerekmez.',
+        notAccepted: '"{name}" bir Hangul (HWP) dosyası değil.',
+      },
+    },
     'pdf-to-jpg': {
       name: 'PDF’den JPG’ye',
       title: 'PDF’den JPG’ye - Ücretsiz ve Üye Olmadan Dönüştürün',

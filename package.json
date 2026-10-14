@@ -8,9 +8,9 @@
     "node": ">=22.13.0"
   },
   "scripts": {
-    "predev": "node scripts/copy-pdfjs-assets.mjs && node scripts/build-office-engine.mjs",
+    "predev": "node scripts/copy-pdfjs-assets.mjs && node scripts/build-office-engine.mjs && node scripts/build-hwp-engine.mjs",
     "dev": "astro dev",
-    "prebuild": "node scripts/copy-pdfjs-assets.mjs && node scripts/build-office-engine.mjs",
+    "prebuild": "node scripts/copy-pdfjs-assets.mjs && node scripts/build-office-engine.mjs && node scripts/build-hwp-engine.mjs",
     "build": "astro build",
     "preview": "astro preview",
     "check": "astro check",
@@ -29,13 +29,17 @@
     "@expo-google-fonts/nanum-gothic": "0.4.0",
     "@expo-google-fonts/nanum-myeongjo": "0.4.1",
     "@expo-google-fonts/noto-sans-jp": "0.4.4",
+    "@expo-google-fonts/noto-sans-kr": "0.4.4",
     "@expo-google-fonts/noto-sans-sc": "0.4.4",
     "@expo-google-fonts/noto-sans-tc": "0.4.4",
+    "@rhwp/core": "0.8.7",
     "astro": "^7.3.5",
     "fflate": "^0.8.3",
     "fzstd": "0.1.1",
+    "jspdf": "4.2.1",
     "pdfjs-dist": "^6.3.289",
-    "preact": "^10.29.8"
+    "preact": "^10.29.8",
+    "svg2pdf.js": "2.8.1"
   },
   "devDependencies": {
     "@astrojs/check": "^0.9.10",

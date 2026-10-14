@@ -287,6 +287,36 @@ export const zhCn: ToolDetailSet = {
         ],
       },
     ],
+    'hwp-to-pdf': [
+      {
+        title: '适用场景',
+        blocks: [
+          { list: [
+            '在没有韩文软件的电脑或手机上，查看韩国学校、公司或机关发来的 HWP 文档时',
+            '申请材料、作业或表格要求以 PDF 提交时',
+            '在 Mac、Chromebook 等难以安装韩文软件的设备上打印 HWP 时',
+          ] },
+        ],
+      },
+      {
+        title: '工作原理',
+        blocks: [
+          '开源的 HWP/HWPX 引擎 rhwp（MIT 许可）在浏览器中逐页绘制文档，再把画面原样转成 PDF。文件不会上传，含个人信息的表格也能放心转换。',
+          '引擎和字体（约 6 MB）只需首次下载。如果文档用到 Nanum 字体中没有的汉字或 ①、㉠ 等符号，还会额外下载一次辅助字体（Noto Sans KR）。',
+        ],
+      },
+      {
+        title: '小贴士',
+        blocks: [
+          { list: [
+            'Hamchorom Batang、Malgun Gothic 等字体因版权原因无法放入，会换成 Nanum Myeongjo、Nanum Gothic。文字位置沿用原文件，因此换行不变，但字形可能略有不同。',
+            'PDF 中的文字是真正的文字，可以搜索和复制，放大也不会模糊。',
+            '设有密码或分发用的文档无法转换，请先在韩文软件中解除密码再试。',
+            '想把多个文档合成一个，转换后用{tool:merge}合并；提交文件太大可以用{tool:compress}压缩。',
+          ] },
+        ],
+      },
+    ],
     'pdf-to-jpg': [
       {
         title: '适用场景',

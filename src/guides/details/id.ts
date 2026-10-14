@@ -287,6 +287,36 @@ export const id: ToolDetailSet = {
         ],
       },
     ],
+    'hwp-to-pdf': [
+      {
+        title: 'Kapan dipakai',
+        blocks: [
+          { list: [
+            'Membuka dokumen HWP dari sekolah, perusahaan, atau instansi Korea di komputer atau ponsel tanpa Hancom Office',
+            'Mengirim lamaran, tugas, atau formulir yang harus diserahkan dalam bentuk PDF',
+            'Mencetak file HWP di Mac atau Chromebook yang sulit dipasangi Hancom Office',
+          ] },
+        ],
+      },
+      {
+        title: 'Cara kerjanya',
+        blocks: [
+          'rhwp, mesin sumber terbuka untuk HWP dan HWPX (lisensi MIT), menggambar setiap halaman dokumen di browser Anda, lalu gambar itu diubah menjadi PDF. Tidak ada yang diunggah, jadi formulir berisi data pribadi tetap di perangkat Anda.',
+          'Mesin dan font (sekitar 6 MB) diunduh sekali. Jika dokumen memakai hanja atau simbol seperti ① dan ㉠ yang tidak ada di font Nanum, font pendukung (Noto Sans KR) juga diunduh sekali.',
+        ],
+      },
+      {
+        title: 'Perlu diketahui',
+        blocks: [
+          { list: [
+            'Font Hancom dan Windows seperti Hamchorom Batang, Malgun Gothic, atau font HY tidak bisa disertakan, jadi dipakai Nanum Myeongjo dan Nanum Gothic. Setiap karakter tetap di posisi aslinya sehingga pergantian baris sama, tetapi bentuk hurufnya bisa sedikit berbeda.',
+            'Teks di PDF adalah teks sungguhan: bisa dicari, disalin, dan tetap tajam saat diperbesar.',
+            'Dokumen berkata sandi atau dokumen distribusi tidak bisa dikonversi. Hapus kata sandinya di Hancom Office lalu coba lagi.',
+            'Untuk menggabungkan beberapa dokumen, konversi dulu lalu gunakan {tool:merge}; jika file terlalu besar untuk dikirim, perkecil dengan {tool:compress}.',
+          ] },
+        ],
+      },
+    ],
     'pdf-to-jpg': [
       {
         title: 'Kapan dipakai',
