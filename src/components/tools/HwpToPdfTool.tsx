@@ -1,8 +1,8 @@
-import { useEffect, useRef, useState } from 'preact/hooks';
+import { useRef, useState } from 'preact/hooks';
 import type { ToolUi } from '../../i18n';
 import { fmt } from '../../i18n/format';
 import { baseName, pdfBlob, safeFileName } from '../../lib/files';
-import { hwpDownloadSize, hwpToPdf, type HwpProgress } from '../../lib/hwp/convert';
+import { hwpToPdf, type HwpProgress } from '../../lib/hwp/convert';
 import { OfficeError } from '../../lib/office/assets';
 import { Busy } from './Busy';
 import { Dropzone } from './Dropzone';
@@ -40,14 +40,7 @@ function HwpToPdfTool({ t }: { t: ToolUi<'hwp-to-pdf'> }) {
   const [error, setError] = useState<string | null>(null);
   const [stage, setStage] = useState<Stage | null>(null);
   const [result, setResult] = useState<ResultFile[] | null>(null);
-  const [sizeMb, setSizeMb] = useState<number | null>(null);
   const run = useRef(0);
-
-  useEffect(() => {
-    hwpDownloadSize()
-      .then((bytes) => setSizeMb(Math.max(1, Math.round(bytes / MB))))
-      .catch(() => undefined);
-  }, []);
 
   const describe = (err: unknown, name: string): string => {
     if (err instanceof OfficeError) {
@@ -136,12 +129,6 @@ function HwpToPdfTool({ t }: { t: ToolUi<'hwp-to-pdf'> }) {
             <Icon name="file" size={16} />
             {t.formats}
           </li>
-          {sizeMb !== null && (
-            <li>
-              <Icon name="download" size={16} />
-              {fmt(office.engineNote, { size: sizeMb.toLocaleString(locale) })}
-            </li>
-          )}
           <li>
             <Icon name="info" size={16} />
             {office.fontNote}

@@ -15,7 +15,7 @@ test.describe('한글(HWP) → PDF', () => {
 
   test('HWP 와 HWPX 를 한 번에 PDF 로 바꾼다 (광고 있는 도구 페이지에서 바로)', async ({ page }) => {
     await page.goto('/hwp-to-pdf/');
-    await expect(page.locator('.office-notes')).toContainText('MB');
+    await expect(page.locator('.office-notes')).not.toContainText('MB');
     await page.locator('astro-island:not([ssr])').first().waitFor({ state: 'attached' });
     await page.locator('.tool-area input[type=file]').setInputFiles([await fixture('plan.hwp'), await fixture('symbols.hwpx')]);
     await expect(page.getByRole('heading', { name: '완료되었습니다!' })).toBeVisible({ timeout: TIMEOUT });
