@@ -16,6 +16,8 @@ export const ja: Dictionary = {
     skipToContent: '本文へスキップ',
     home: 'ホーム',
     support: '応援する',
+    bookmark: 'ブックマーク',
+    bookmarkHint: '{keys} を押すと、このサイトをブックマークに追加できます。',
   },
   categories: {
     organize: 'ページ整理',

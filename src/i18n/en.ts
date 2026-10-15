@@ -16,6 +16,8 @@ export const en: Dictionary = {
     skipToContent: 'Skip to content',
     home: 'Home',
     support: 'Support us',
+    bookmark: 'Bookmark',
+    bookmarkHint: 'Press {keys} to bookmark this site.',
   },
   categories: {
     organize: 'Organize pages',

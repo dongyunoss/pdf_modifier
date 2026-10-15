@@ -16,6 +16,8 @@ export const zhCn: Dictionary = {
     skipToContent: '跳到正文',
     home: '首页',
     support: '支持我们',
+    bookmark: '收藏',
+    bookmarkHint: '按 {keys} 即可将本站加入收藏夹。',
   },
   categories: {
     organize: '页面整理',

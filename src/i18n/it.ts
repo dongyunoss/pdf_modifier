@@ -16,6 +16,8 @@ export const it: Dictionary = {
     skipToContent: 'Vai al contenuto',
     home: 'Home',
     support: 'Sostienici',
+    bookmark: 'Preferiti',
+    bookmarkHint: 'Premi {keys} per aggiungere questo sito ai preferiti.',
   },
   categories: {
     organize: 'Organizza pagine',

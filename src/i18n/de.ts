@@ -16,6 +16,8 @@ export const de: Dictionary = {
     skipToContent: 'Zum Inhalt springen',
     home: 'Startseite',
     support: 'Unterstützen',
+    bookmark: 'Lesezeichen',
+    bookmarkHint: 'Drücken Sie {keys}, um diese Seite als Lesezeichen zu speichern.',
   },
   categories: {
     organize: 'Seiten organisieren',

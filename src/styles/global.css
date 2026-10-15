@@ -3221,3 +3221,42 @@ body.is-sorting * {
     width: 300px;
   }
 }
+
+/* ───────────────────────── 즐겨찾기 안내 (PC 전용) ───────────────────────── */
+.bookmark-button {
+  padding-inline: 10px;
+  color: var(--text-muted);
+}
+
+.bookmark-button:hover {
+  color: #d97706;
+}
+
+.bookmark-panel {
+  display: block;
+  width: max-content;
+  max-width: 320px;
+  margin: 0;
+  padding: 12px 14px;
+  font-size: 0.875rem;
+  line-height: 1.5;
+}
+
+.bookmark-panel kbd {
+  padding: 1px 6px;
+  border: 1px solid var(--border-strong);
+  border-bottom-width: 2px;
+  border-radius: 6px;
+  background: var(--surface-2);
+  font-family: inherit;
+  font-size: 0.82rem;
+  font-weight: 700;
+  white-space: nowrap;
+}
+
+/* 휴대폰·태블릿에는 Ctrl + D 가 없으므로 숨깁니다. */
+@media (max-width: 900px), (hover: none) {
+  .bookmark-menu {
+    display: none;
+  }
+}

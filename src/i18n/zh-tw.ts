@@ -16,6 +16,8 @@ export const zhTw: Dictionary = {
     skipToContent: '跳到主要內容',
     home: '首頁',
     support: '支持我們',
+    bookmark: '加入書籤',
+    bookmarkHint: '按 {keys} 即可將本站加入書籤。',
   },
   categories: {
     organize: '頁面整理',
