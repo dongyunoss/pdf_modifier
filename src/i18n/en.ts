@@ -18,6 +18,7 @@ export const en: Dictionary = {
     support: 'Support us',
     bookmark: 'Bookmark',
     bookmarkHint: 'Press {keys} to bookmark this site.',
+    installApp: 'Install app',
   },
   categories: {
     organize: 'Organize pages',

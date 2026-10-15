@@ -18,6 +18,7 @@ export const it: Dictionary = {
     support: 'Sostienici',
     bookmark: 'Preferiti',
     bookmarkHint: 'Premi {keys} per aggiungere questo sito ai preferiti.',
+    installApp: 'Installa app',
   },
   categories: {
     organize: 'Organizza pagine',

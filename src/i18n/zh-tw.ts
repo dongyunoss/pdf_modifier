@@ -18,6 +18,7 @@ export const zhTw: Dictionary = {
     support: '支持我們',
     bookmark: '加入書籤',
     bookmarkHint: '按 {keys} 即可將本站加入書籤。',
+    installApp: '安裝應用程式',
   },
   categories: {
     organize: '頁面整理',

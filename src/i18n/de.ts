@@ -18,6 +18,7 @@ export const de: Dictionary = {
     support: 'Unterstützen',
     bookmark: 'Lesezeichen',
     bookmarkHint: 'Drücken Sie {keys}, um diese Seite als Lesezeichen zu speichern.',
+    installApp: 'App installieren',
   },
   categories: {
     organize: 'Seiten organisieren',

@@ -18,6 +18,7 @@ export const vi: Dictionary = {
     support: 'Ủng hộ chúng tôi',
     bookmark: 'Dấu trang',
     bookmarkHint: 'Nhấn {keys} để thêm trang này vào dấu trang.',
+    installApp: 'Cài ứng dụng',
   },
   categories: {
     organize: 'Sắp xếp trang',

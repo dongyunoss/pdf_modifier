@@ -18,6 +18,7 @@ export const tr: Dictionary = {
     support: 'Bize destek olun',
     bookmark: 'Yer imi',
     bookmarkHint: 'Bu siteyi yer imlerine eklemek için {keys} tuşlarına basın.',
+    installApp: 'Uygulamayı yükle',
   },
   categories: {
     organize: 'Sayfaları düzenle',

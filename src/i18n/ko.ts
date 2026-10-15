@@ -17,6 +17,7 @@ export const ko = {
     support: '후원하기',
     bookmark: '즐겨찾기',
     bookmarkHint: '{keys}를 누르면 이 사이트가 즐겨찾기에 추가됩니다.',
+    installApp: '앱으로 설치',
   },
   categories: {
     organize: '페이지 정리',

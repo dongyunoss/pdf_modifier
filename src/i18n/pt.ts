@@ -18,6 +18,7 @@ export const pt: Dictionary = {
     support: 'Apoie o projeto',
     bookmark: 'Favoritos',
     bookmarkHint: 'Pressione {keys} para adicionar este site aos favoritos.',
+    installApp: 'Instalar app',
   },
   categories: {
     organize: 'Organizar páginas',

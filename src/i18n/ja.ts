@@ -18,6 +18,7 @@ export const ja: Dictionary = {
     support: '応援する',
     bookmark: 'ブックマーク',
     bookmarkHint: '{keys} を押すと、このサイトをブックマークに追加できます。',
+    installApp: 'アプリとしてインストール',
   },
   categories: {
     organize: 'ページ整理',

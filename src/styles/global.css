@@ -3260,3 +3260,7 @@ body.is-sorting * {
     display: none;
   }
 }
+
+.bookmark-menu[hidden] {
+  display: none;
+}
