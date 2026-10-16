@@ -16,9 +16,8 @@ export const vi: Dictionary = {
     skipToContent: 'Chuyển đến nội dung',
     home: 'Trang chủ',
     support: 'Ủng hộ chúng tôi',
-    bookmark: 'Dấu trang',
     bookmarkHint: 'Nhấn {keys} để thêm trang này vào dấu trang.',
-    installApp: 'Cài ứng dụng',
+    addHome: 'Thêm vào màn hình chính',
   },
   categories: {
     organize: 'Sắp xếp trang',

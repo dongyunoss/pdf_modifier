@@ -16,9 +16,8 @@ export const tr: Dictionary = {
     skipToContent: 'İçeriğe geç',
     home: 'Ana sayfa',
     support: 'Bize destek olun',
-    bookmark: 'Yer imi',
     bookmarkHint: 'Bu siteyi yer imlerine eklemek için {keys} tuşlarına basın.',
-    installApp: 'Uygulamayı yükle',
+    addHome: 'Ana ekrana ekle',
   },
   categories: {
     organize: 'Sayfaları düzenle',

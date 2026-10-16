@@ -3224,8 +3224,11 @@ body.is-sorting * {
 
 /* ───────────────────────── 즐겨찾기 안내 (PC 전용) ───────────────────────── */
 .bookmark-button {
+  gap: 6px;
   padding-inline: 10px;
   color: var(--text-muted);
+  font-size: 0.875rem;
+  white-space: nowrap;
 }
 
 .bookmark-button:hover {

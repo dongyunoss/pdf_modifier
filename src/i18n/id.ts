@@ -16,9 +16,8 @@ export const id: Dictionary = {
     skipToContent: 'Lompat ke konten',
     home: 'Beranda',
     support: 'Dukung kami',
-    bookmark: 'Bookmark',
     bookmarkHint: 'Tekan {keys} untuk menandai situs ini.',
-    installApp: 'Pasang aplikasi',
+    addHome: 'Tambah ke layar utama',
   },
   categories: {
     organize: 'Atur halaman',

@@ -16,9 +16,8 @@ export const pt: Dictionary = {
     skipToContent: 'Pular para o conteúdo',
     home: 'Início',
     support: 'Apoie o projeto',
-    bookmark: 'Favoritos',
     bookmarkHint: 'Pressione {keys} para adicionar este site aos favoritos.',
-    installApp: 'Instalar app',
+    addHome: 'Adicionar à tela inicial',
   },
   categories: {
     organize: 'Organizar páginas',
