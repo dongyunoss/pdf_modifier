@@ -2,6 +2,7 @@ import type { ComponentChildren } from 'preact';
 import { useEffect, useRef, useState } from 'preact/hooks';
 import { fmt } from '../../i18n/format';
 import { canPreview, downloadBlob, formatBytes, previewBlob } from '../../lib/files';
+import { INSTALL_CHANGE, installWay, isMac, promptInstall, type InstallWay } from '../../lib/install';
 import { HANDOFF_PARAM, HANDOFF_VALUE, saveHandoff } from '../../lib/handoff';
 import { holdPage } from '../../lib/leave-guard';
 import { runTask } from '../../lib/pdf/client';
@@ -207,6 +208,8 @@ export function ResultPanel({ files, zipName = 'files.zip', summary, onReset }: 
         {ui.startOver}
       </button>
 
+      <AddHome />
+
       {related.length > 0 && (
         <nav class="result-next" aria-label={ui.continueWith}>
           <h3>{ui.continueWith}</h3>
@@ -236,5 +239,50 @@ export function ResultPanel({ files, zipName = 'files.zip', summary, onReset }: 
       {/* 버튼(다시 하기·이어서 작업하기)과 떨어진 맨 아래에 둡니다 — 실수 클릭 방지 (애드센스 정책) */}
       {showResultAd && <AdUnit config={resultAd!} label={ui.ad} />}
     </section>
+  );
+}
+
+/** 다음에도 바로 쓰도록 사이트를 홈 화면(PC 는 바탕화면·작업표시줄)에 추가하자고 작게 권합니다. */
+function AddHome() {
+  const { ui } = useTool();
+  const [way, setWay] = useState<InstallWay>(null);
+  const [hint, setHint] = useState(false);
+
+  useEffect(() => {
+    const update = () => setWay(installWay());
+    update();
+    window.addEventListener(INSTALL_CHANGE, update);
+    return () => window.removeEventListener(INSTALL_CHANGE, update);
+  }, []);
+
+  if (!way) return null;
+  // 설치 창을 띄울 수 없는 브라우저는 직접 추가하는 방법을 알려 줍니다.
+  const [before, after = ''] = ui.bookmarkHint.split('{keys}');
+  return (
+    <div class="add-home">
+      <button
+        type="button"
+        class="btn btn-ghost btn-sm add-home-button"
+        aria-expanded={way === 'prompt' ? undefined : hint}
+        onClick={() => (way === 'prompt' ? void promptInstall() : setHint((open) => !open))}
+      >
+        <Icon name="star" size={16} />
+        {ui.addHome}
+      </button>
+      <span>{ui.addHomeNote}</span>
+      {hint && (
+        <p class="add-home-hint" role="status">
+          {way === 'ios' ? (
+            ui.iosHomeHint
+          ) : (
+            <>
+              {before}
+              <kbd>{isMac() ? '⌘ + D' : 'Ctrl + D'}</kbd>
+              {after}
+            </>
+          )}
+        </p>
+      )}
+    </div>
   );
 }

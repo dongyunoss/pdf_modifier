@@ -49,6 +49,17 @@ test.describe('PDF 합치기', () => {
   });
 });
 
+test('결과 화면에 「홈 화면에 추가」를 작게 보여 주고, 설치 창이 없는 브라우저에는 방법을 알려 준다', async ({ page }) => {
+  await page.goto('/merge-pdf/');
+  await expect(page.locator('.site-header .add-home, .site-header .bookmark-menu')).toHaveCount(0);
+  await upload(page, [pdfFile('a.pdf', await makePdf(1)), pdfFile('b.pdf', await makePdf(1))]);
+  await page.getByRole('button', { name: 'PDF 합치기' }).click();
+  const button = page.locator('.result .add-home').getByRole('button', { name: '홈 화면에 추가' });
+  await expect(button).toBeVisible();
+  await button.click();
+  await expect(page.locator('.add-home-hint')).toContainText(/(Ctrl|⌘) \+ D/);
+});
+
 test('PDF 분할: 범위별로 나누고 ZIP 으로 받는다', async ({ page }) => {
   await page.goto('/split-pdf/');
   await upload(page, [pdfFile('report.pdf', await makePdf(5))]);

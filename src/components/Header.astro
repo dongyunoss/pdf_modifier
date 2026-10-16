@@ -77,19 +77,13 @@ const langHref = (code: Lang) => (langs.includes(code) ? switchLangPath(path, co
           }
         </ul>
       </details>
-      <details class="menu bookmark-menu">
-        <summary class="btn btn-ghost bookmark-button" title={dict.nav.addHome}>
-          <Icon name="star" size={18} />
-          <span class="bookmark-label">{dict.nav.addHome}</span>
-        </summary>
-        <p class="menu-panel bookmark-panel" set:html={dict.nav.bookmarkHint.replace('{keys}', '<kbd data-bookmark-keys>Ctrl + D</kbd>')} />
-      </details>
     </nav>
   </div>
 </header>
 
 <script>
   import { LANG_STORAGE_KEY } from '../i18n/languages';
+  import { watchInstall } from '../lib/install';
 
   // 메뉴 바깥을 클릭하거나 Esc 를 누르면 열린 메뉴(도구·언어)를 닫고, 한 메뉴를 열면 다른 메뉴는 닫습니다.
   const menus = [...document.querySelectorAll<HTMLDetailsElement>('.site-header details.menu')];
@@ -109,40 +103,8 @@ const langHref = (code: Lang) => (langs.includes(code) ? switchLangPath(path, co
     open.querySelector('summary')?.focus();
   });
 
-  // 크롬·엣지(PC)는 사이트를 앱으로 설치하라고 요청할 수 있습니다(바탕화면·작업표시줄에 아이콘이 생김).
-  // 그런 브라우저에서는 '홈 화면에 추가' 버튼이 설치 창을 띄우고, 나머지에서는 아래 즐겨찾기 단축키 안내를 보여 줍니다.
-  interface InstallPrompt extends Event {
-    prompt(): Promise<void>;
-    userChoice: Promise<{ outcome: 'accepted' | 'dismissed' }>;
-  }
-  let installPrompt: InstallPrompt | null = null;
-  const starButtons = [...document.querySelectorAll<HTMLElement>('.bookmark-button')];
-  const hideStar = () => starButtons.forEach((button) => button.closest('.bookmark-menu')?.setAttribute('hidden', ''));
-  if (window.matchMedia('(display-mode: standalone)').matches) hideStar();
-  window.addEventListener('beforeinstallprompt', (event) => {
-    event.preventDefault();
-    installPrompt = event as InstallPrompt;
-  });
-  window.addEventListener('appinstalled', () => {
-    installPrompt = null;
-    hideStar();
-  });
-  for (const button of starButtons) {
-    button.addEventListener('click', async (event) => {
-      if (!installPrompt) return;
-      event.preventDefault();
-      const prompt = installPrompt;
-      installPrompt = null;
-      await prompt.prompt();
-      const { outcome } = await prompt.userChoice;
-      if (outcome === 'accepted') hideStar();
-    });
-  }
-
-  // 즐겨찾기 단축키는 맥에서 ⌘ + D 입니다 (웹사이트가 직접 즐겨찾기를 추가하는 것은 브라우저가 막습니다).
-  if (/Mac|iPhone|iPad/.test(navigator.platform)) {
-    for (const key of document.querySelectorAll('[data-bookmark-keys]')) key.textContent = '⌘ + D';
-  }
+  // 앱 설치 요청은 페이지를 연 직후에 한 번만 오므로 미리 잡아 둡니다 (결과 화면의 '홈 화면에 추가'가 씁니다).
+  watchInstall();
 
   // 언어 메뉴(머리말·바닥글)에서 고른 언어를 기억해 두면, 다음에 다른 언어 주소로 들어와도 그 언어로 보여 줍니다.
   document.addEventListener('click', (event) => {
