@@ -11,9 +11,10 @@ import { ResultPanel, type ResultFile } from './ResultPanel';
 import { ToolFrame, withToolRoot } from './ToolRoot';
 import { localeOf, useTool } from './context';
 
-const ACCEPT = '.hwp,.hwpx';
+const ACCEPT = '.hwp,.hwpx,.hml';
 const MB = 1024 * 1024;
-const isHwp = (name: string) => /\.hwpx?$/i.test(name);
+// HML 은 한글 프로그램의 XML 형식(HWPML)입니다. rhwp 가 내용을 보고 형식을 알아서 가립니다.
+const isHwp = (name: string) => /\.(hwpx?|hml)$/i.test(name);
 
 interface Stage {
   index: number;

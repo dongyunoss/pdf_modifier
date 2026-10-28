@@ -4,3 +4,4 @@
 - `plan.hwp`: [rhwp](https://github.com/edwardkim/rhwp) 저장소(MIT)의 `rhwp-studio/public/samples/biz_plan.hwp`
 - `symbols.hwpx`: 같은 저장소의 `samples/hwpx/business_overview.hwpx` 첫 문단 앞에 「① 漢字 ㉠」를 넣은 것
   (나눔 글꼴에 없는 글자를 보조 글꼴로 돌리는지 확인)
+- `table.hml`: 같은 저장소의 `samples/hml/formatting_table.hml` (한글 XML 형식 HWPML 2.91, 표 포함)

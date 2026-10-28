@@ -586,10 +586,10 @@ export const zhTw: Dictionary = {
       name: 'HWP 轉 PDF',
       title: 'HWP 轉 PDF - 免費、免註冊，線上把韓文 HWP 檔案轉成 PDF',
       description:
-        '將韓國文書處理軟體「韓文」（Hangul）的文件（HWP、HWPX）連同表格和圖片原樣轉換成 PDF。',
+        '將韓國文書處理軟體「韓文」（Hangul）的文件（HWP、HWPX、HML）連同表格和圖片原樣轉換成 PDF。',
       tagline: '不必安裝韓文軟體，把 HWP、HWPX 文件依頁面原樣轉成 PDF。檔案不會離開你的裝置。',
       steps: [
-        '選擇要轉換的韓文檔案（HWP、HWPX），可以一次選多個。',
+        '選擇要轉換的韓文檔案（HWP、HWPX、HML），可以一次選多個。',
         '第一次使用會下載轉換引擎和字型，接著逐頁轉成 PDF。',
         '下載完成的 PDF，或透過「繼續處理」直接交給合併、壓縮等工具。',
       ],
@@ -609,8 +609,8 @@ export const zhTw: Dictionary = {
       ],
       ui: {
         choose: '選擇 HWP 檔案',
-        drop: '將韓文檔案（HWP、HWPX）拖曳到這裡（可多個）',
-        formats: '將 HWP、HWPX 檔案轉換成 PDF，不必安裝韓文軟體。',
+        drop: '將韓文檔案（HWP、HWPX、HML）拖曳到這裡（可多個）',
+        formats: '將 HWP、HWPX、HML 檔案轉換成 PDF，不必安裝韓文軟體。',
         notAccepted: '「{name}」不是韓文（HWP）檔案。',
       },
     },

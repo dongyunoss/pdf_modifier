@@ -586,10 +586,10 @@ export const id: Dictionary = {
       name: 'HWP ke PDF',
       title: 'HWP ke PDF Gratis Tanpa Daftar - Ubah File Hangul ke PDF',
       description:
-        'Ubah dokumen pengolah kata Korea Hangul (HWP, HWPX) ke PDF lengkap dengan tabel dan gambar, tanpa Hancom Office.',
-      tagline: 'Ubah dokumen HWP dan HWPX ke PDF halaman demi halaman tanpa Hancom Office. File Anda tidak keluar dari perangkat.',
+        'Ubah dokumen pengolah kata Korea Hangul (HWP, HWPX, HML) ke PDF lengkap dengan tabel dan gambar, tanpa Hancom Office.',
+      tagline: 'Ubah dokumen HWP, HWPX, dan HML ke PDF halaman demi halaman tanpa Hancom Office. File Anda tidak keluar dari perangkat.',
       steps: [
-        'Pilih file Hangul (HWP, HWPX) yang ingin diubah. Anda bisa memilih beberapa sekaligus.',
+        'Pilih file Hangul (HWP, HWPX, HML) yang ingin diubah. Anda bisa memilih beberapa sekaligus.',
         'Pengonversi dan font diunduh sekali, lalu setiap halaman diubah menjadi halaman PDF.',
         'Unduh PDF-nya, atau langsung teruskan ke gabung, kompres, dan lainnya lewat "Lanjutkan dengan".',
       ],
@@ -609,8 +609,8 @@ export const id: Dictionary = {
       ],
       ui: {
         choose: 'Pilih file HWP',
-        drop: 'Letakkan file Hangul (HWP, HWPX) di sini (bisa beberapa)',
-        formats: 'Mengubah file HWP dan HWPX ke PDF. Tidak perlu Hancom Office.',
+        drop: 'Letakkan file Hangul (HWP, HWPX, HML) di sini (bisa beberapa)',
+        formats: 'Mengubah file HWP, HWPX, dan HML ke PDF. Tidak perlu Hancom Office.',
         notAccepted: '"{name}" bukan file Hangul (HWP).',
       },
     },

@@ -586,10 +586,10 @@ export const vi: Dictionary = {
       name: 'HWP sang PDF',
       title: 'Chuyển HWP sang PDF miễn phí, không cần đăng ký',
       description:
-        'Chuyển tài liệu của phần mềm soạn thảo Hàn Quốc Hangul (HWP, HWPX) sang PDF, giữ nguyên bảng và hình ảnh, không cần Hancom Office.',
+        'Chuyển tài liệu của phần mềm soạn thảo Hàn Quốc Hangul (HWP, HWPX, HML) sang PDF, giữ nguyên bảng và hình ảnh, không cần Hancom Office.',
       tagline: 'Chuyển tài liệu HWP, HWPX sang PDF đúng từng trang mà không cần Hancom Office. File không rời khỏi thiết bị của bạn.',
       steps: [
-        'Chọn file Hangul (HWP, HWPX) cần chuyển. Có thể chọn nhiều file cùng lúc.',
+        'Chọn file Hangul (HWP, HWPX, HML) cần chuyển. Có thể chọn nhiều file cùng lúc.',
         'Bộ chuyển đổi và phông chữ được tải một lần, sau đó từng trang được chuyển thành trang PDF.',
         'Tải file PDF về, hoặc chuyển ngay sang gộp, nén… bằng "Làm tiếp với".',
       ],
@@ -609,8 +609,8 @@ export const vi: Dictionary = {
       ],
       ui: {
         choose: 'Chọn file HWP',
-        drop: 'Thả file Hangul (HWP, HWPX) vào đây (có thể nhiều file)',
-        formats: 'Chuyển file HWP và HWPX sang PDF. Không cần Hancom Office.',
+        drop: 'Thả file Hangul (HWP, HWPX, HML) vào đây (có thể nhiều file)',
+        formats: 'Chuyển file HWP, HWPX và HML sang PDF. Không cần Hancom Office.',
         notAccepted: '"{name}" không phải file Hangul (HWP).',
       },
     },

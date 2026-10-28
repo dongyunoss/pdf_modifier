@@ -585,10 +585,10 @@ export const ko = {
       name: '한글(HWP) → PDF 변환',
       title: 'HWP PDF 변환 - 로그인 없이 무료로 한글 파일을 PDF로',
       description:
-        '한글 문서(HWP, HWPX)를 표와 그림 그대로 PDF로 변환하세요. 한글 프로그램이 없어도 됩니다.',
-      tagline: '한글 프로그램 없이 HWP·HWPX 문서를 쪽 모양 그대로 PDF로 바꿉니다. 파일은 기기 밖으로 나가지 않습니다.',
+        '한글 문서(HWP, HWPX, HML)를 표와 그림 그대로 PDF로 변환하세요. 한글 프로그램이 없어도 됩니다.',
+      tagline: '한글 프로그램 없이 HWP·HWPX·HML 문서를 쪽 모양 그대로 PDF로 바꿉니다. 파일은 기기 밖으로 나가지 않습니다.',
       steps: [
-        '변환할 한글 파일(HWP, HWPX)을 선택합니다. 여러 개를 한꺼번에 골라도 됩니다.',
+        '변환할 한글 파일(HWP, HWPX, HML)을 선택합니다. 여러 개를 한꺼번에 골라도 됩니다.',
         '처음 한 번 변환 엔진과 글꼴을 내려받은 뒤, 쪽마다 PDF로 옮깁니다.',
         '완성된 PDF를 내려받거나 「이어서 작업하기」로 합치기·압축 등에 바로 넘깁니다.',
       ],
@@ -608,8 +608,8 @@ export const ko = {
       ],
       ui: {
         choose: 'HWP 파일 선택',
-        drop: '한글 파일(HWP, HWPX)을 여기에 끌어다 놓으세요 (여러 개 가능)',
-        formats: 'HWP, HWPX 파일을 PDF로 바꿉니다. 한글 프로그램이 없어도 됩니다.',
+        drop: '한글 파일(HWP, HWPX, HML)을 여기에 끌어다 놓으세요 (여러 개 가능)',
+        formats: 'HWP, HWPX, HML 파일을 PDF로 바꿉니다. 한글 프로그램이 없어도 됩니다.',
         notAccepted: '「{name}」은(는) 한글(HWP) 파일이 아닙니다.',
       },
     },

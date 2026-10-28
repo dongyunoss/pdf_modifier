@@ -586,10 +586,10 @@ export const it: Dictionary = {
       name: 'HWP in PDF',
       title: 'HWP in PDF gratis e senza registrazione - convertire file Hangul',
       description:
-        'Converti documenti dell’editor coreano Hangul (HWP, HWPX) in PDF mantenendo tabelle e immagini, senza Hancom Office.',
-      tagline: 'Trasforma documenti HWP e HWPX in PDF pagina per pagina, senza Hancom Office. I tuoi file non lasciano il dispositivo.',
+        'Converti documenti dell’editor coreano Hangul (HWP, HWPX, HML) in PDF mantenendo tabelle e immagini, senza Hancom Office.',
+      tagline: 'Trasforma documenti HWP, HWPX e HML in PDF pagina per pagina, senza Hancom Office. I tuoi file non lasciano il dispositivo.',
       steps: [
-        'Scegli i file Hangul (HWP, HWPX) da convertire. Puoi sceglierne più di uno alla volta.',
+        'Scegli i file Hangul (HWP, HWPX, HML) da convertire. Puoi sceglierne più di uno alla volta.',
         'Il convertitore e i font si scaricano una volta, poi ogni pagina diventa una pagina del PDF.',
         'Scarica i PDF o passali subito a unire, comprimere e altro con «Continua con».',
       ],
@@ -609,8 +609,8 @@ export const it: Dictionary = {
       ],
       ui: {
         choose: 'Scegli file HWP',
-        drop: 'Trascina qui i file Hangul (HWP, HWPX) (anche più di uno)',
-        formats: 'Converte file HWP e HWPX in PDF. Non serve Hancom Office.',
+        drop: 'Trascina qui i file Hangul (HWP, HWPX, HML) (anche più di uno)',
+        formats: 'Converte file HWP, HWPX e HML in PDF. Non serve Hancom Office.',
         notAccepted: '«{name}» non è un file Hangul (HWP).',
       },
     },

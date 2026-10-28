@@ -586,10 +586,10 @@ export const tr: Dictionary = {
       name: 'HWP’den PDF’ye',
       title: 'HWP’yi PDF’ye Çevir - Ücretsiz ve Üye Olmadan Hangul Dosyası Dönüştür',
       description:
-        'Kore kelime işlemcisi Hangul’un belgelerini (HWP, HWPX) tablo ve görselleriyle birlikte, Hancom Office olmadan PDF’ye dönüştürün.',
-      tagline: 'HWP ve HWPX belgelerini Hancom Office olmadan sayfa sayfa PDF’ye çevirin. Dosyalarınız cihazınızdan çıkmaz.',
+        'Kore kelime işlemcisi Hangul’un belgelerini (HWP, HWPX, HML) tablo ve görselleriyle birlikte, Hancom Office olmadan PDF’ye dönüştürün.',
+      tagline: 'HWP, HWPX ve HML belgelerini Hancom Office olmadan sayfa sayfa PDF’ye çevirin. Dosyalarınız cihazınızdan çıkmaz.',
       steps: [
-        'Dönüştürmek istediğiniz Hangul dosyalarını (HWP, HWPX) seçin. Birden fazlasını aynı anda seçebilirsiniz.',
+        'Dönüştürmek istediğiniz Hangul dosyalarını (HWP, HWPX, HML) seçin. Birden fazlasını aynı anda seçebilirsiniz.',
         'Dönüştürücü ve yazı tipleri bir kez indirilir, ardından her sayfa bir PDF sayfasına çevrilir.',
         'PDF’leri indirin ya da "Devam et" ile birleştirme, sıkıştırma gibi araçlara doğrudan aktarın.',
       ],
@@ -609,8 +609,8 @@ export const tr: Dictionary = {
       ],
       ui: {
         choose: 'HWP dosyası seç',
-        drop: 'Hangul dosyalarını (HWP, HWPX) buraya bırakın (birden fazla olabilir)',
-        formats: 'HWP ve HWPX dosyalarını PDF’ye çevirir. Hancom Office gerekmez.',
+        drop: 'Hangul dosyalarını (HWP, HWPX, HML) buraya bırakın (birden fazla olabilir)',
+        formats: 'HWP, HWPX ve HML dosyalarını PDF’ye çevirir. Hancom Office gerekmez.',
         notAccepted: '"{name}" bir Hangul (HWP) dosyası değil.',
       },
     },

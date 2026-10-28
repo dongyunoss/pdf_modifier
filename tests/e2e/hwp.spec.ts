@@ -41,6 +41,19 @@ test.describe('한글(HWP) → PDF', () => {
     expect(pdf.getPageCount()).toBeGreaterThanOrEqual(1);
   });
 
+  test('HML(한글 XML 문서)도 PDF 로 바꾼다', async ({ page }) => {
+    await page.goto('/hwp-to-pdf/');
+    await page.locator('astro-island:not([ssr])').first().waitFor({ state: 'attached' });
+    await page.locator('.tool-area input[type=file]').setInputFiles([await fixture('table.hml')]);
+    await expect(page.getByRole('heading', { name: '완료되었습니다!' })).toBeVisible({ timeout: TIMEOUT });
+
+    const { name, bytes } = await downloadVia(page, '다운로드');
+    expect(name).toBe('table.pdf');
+    const pdf = Buffer.from(bytes);
+    expect((await openPdf(pdf)).getPageCount()).toBe(1);
+    expect(has(pdf, 'NanumMyeongjo') || has(pdf, 'NanumGothic')).toBe(true);
+  });
+
   test('한글 파일이 아니면 알려 준다', async ({ page }) => {
     await page.goto('/en/hwp-to-pdf/');
     await page.locator('astro-island:not([ssr])').first().waitFor({ state: 'attached' });

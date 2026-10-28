@@ -1,4 +1,4 @@
-// 한글(HWP·HWPX) 문서를 브라우저 안에서 PDF 로 바꿉니다.
+// 한글(HWP·HWPX·HML) 문서를 브라우저 안에서 PDF 로 바꿉니다.
 // rhwp(Rust → WebAssembly)가 쪽마다 SVG 를 그리면, svg2pdf.js 와 jsPDF 가 글꼴을 넣은 PDF 로 옮깁니다.
 // 글자가 그림이 아니라 글자로 들어가므로 PDF 에서 검색·복사할 수 있습니다.
 // Word·PPT 엔진과 달리 여러 스레드를 쓰지 않아 일반 도구 페이지에서 바로 돌아갑니다.
@@ -172,7 +172,7 @@ function openError(error: unknown): OfficeError {
 }
 
 /**
- * HWP·HWPX 파일 하나를 PDF 로 바꿉니다. isCancelled 가 true 를 돌려주면 다음 쪽으로 넘어가기 전에 멈춥니다.
+ * HWP·HWPX·HML 파일 하나를 PDF 로 바꿉니다. isCancelled 가 true 를 돌려주면 다음 쪽으로 넘어가기 전에 멈춥니다.
  */
 export async function hwpToPdf(
   file: File,
