@@ -2,7 +2,7 @@ import { readFileSync } from 'node:fs';
 import { describe, expect, it } from 'vitest';
 import { readCoverage } from '../../src/lib/hwp/cmap';
 import { liftHmlVersion } from '../../src/lib/hwp/hml';
-import { covers, isBold, roleFor } from '../../src/lib/hwp/svg';
+import { covers, isBold, roleFor, withLookalikes } from '../../src/lib/hwp/svg';
 
 const font = (path: string) => readCoverage(new Uint8Array(readFileSync(`node_modules/@expo-google-fonts/${path}`)));
 
@@ -31,6 +31,17 @@ describe('HWP → PDF 글꼴 고르기', () => {
     expect(covers(gothic, '①')).toBe(false);
     expect(covers(gothic, '漢字')).toBe(false);
     expect(covers(fallback, '① 漢字 ㉠ 사업')).toBe(true);
+  });
+
+  it('어느 글꼴에도 없는 합성 기호 ∘ 는 닮은 ◦ 로 바꾼다', () => {
+    const myeongjo = font('nanum-myeongjo/400Regular/NanumMyeongjo_400Regular.ttf');
+    const fallback = font('noto-sans-kr/400Regular/NotoSansKR_400Regular.ttf');
+    expect(covers(myeongjo, '∘')).toBe(false);
+    expect(covers(fallback, '∘')).toBe(false);
+    expect(withLookalikes(myeongjo, '(f∘g)(x)')).toBe('(f◦g)(x)');
+    expect(covers(myeongjo, withLookalikes(myeongjo, 'f∘g∙h'))).toBe(true);
+    // 글꼴에 원래 글자가 있으면 그대로 둡니다.
+    expect(withLookalikes(new Set([0x2218, 0x25e6]), '∘')).toBe('∘');
   });
 });
 

@@ -2,6 +2,7 @@
 // - 글꼴: 문서 글꼴(바탕, 맑은 고딕, 함초롬바탕 …)을 PDF 에 넣을 수 있는 무료 글꼴(나눔명조·나눔고딕)로 바꿉니다.
 //   rhwp 는 글꼴 목록 끝에 serif / sans-serif 를 붙여 주므로 그것으로 명조·고딕을 고릅니다.
 // - 나눔 글꼴에 없는 글자(한자, ①, ㉠ 등)가 든 글자는 보조 글꼴(Noto Sans KR)로 돌립니다.
+// - 어느 글꼴에도 없는 수식 기호(∘ 등)는 모양이 거의 같은 글자(◦)로 바꿉니다.
 // - 굵기: jsPDF 는 보통·굵게만 알아서, 500 같은 값은 등록 안 된 글꼴로 보고 한글이 깨집니다.
 // - 한 글자짜리 textLength 는 svg2pdf 가 글자 간격을 0으로 나눠 PDF 에 -Infinity 를 씁니다.
 
@@ -36,6 +37,52 @@ export function covers(coverage: ReadonlySet<number>, text: string): boolean {
   return true;
 }
 
+/** 넣을 수 있는 어느 글꼴에도 없는 수식 기호와, 모양이 거의 같아 대신 쓸 글자 */
+const LOOKALIKES: Record<string, string> = {
+  '∘': '◦', // ∘ 합성 연산자 → ◦
+  '∙': '·', // ∙ 점 연산자 → ·
+};
+
+/** 글꼴에 없는 글자 중 닮은 글자가 그 글꼴에 있는 것만 바꿉니다. */
+export function withLookalikes(coverage: ReadonlySet<number>, text: string): string {
+  return text.replace(/[∘∙]/g, (char) => {
+    const lookalike = LOOKALIKES[char];
+    return coverage.has(char.codePointAt(0)!) || !coverage.has(lookalike.codePointAt(0)!) ? char : lookalike;
+  });
+}
+
+function replaceText(node: Node, coverage: ReadonlySet<number>): void {
+  if (node.nodeType === 3) {
+    const text = node.nodeValue ?? '';
+    const replaced = withLookalikes(coverage, text);
+    if (replaced !== text) node.nodeValue = replaced;
+    return;
+  }
+  for (const child of Array.from(node.childNodes)) replaceText(child, coverage);
+}
+
+/**
+ * 글자 하나뿐인 ∘(수식 합성 기호)는 작은 원으로 그립니다. 나눔의 ◦ 는 글자 크기라 수식에서 너무 큽니다.
+ * 크기와 자리는 수학 글꼴(Latin Modern)의 ∘ 를 따릅니다: 너비 0.5em 가운데, 기준선 0.25em 위, 지름 약 0.36em.
+ */
+function drawRing(text: Element): boolean {
+  if ((text.textContent ?? '').trim() !== '∘') return false;
+  const size = Number.parseFloat(text.closest('[font-size]')?.getAttribute('font-size') ?? '') || 16;
+  const x = Number.parseFloat(text.getAttribute('x') ?? '0') || 0;
+  const y = Number.parseFloat(text.getAttribute('y') ?? '0') || 0;
+  const ring = text.ownerDocument.createElementNS('http://www.w3.org/2000/svg', 'circle');
+  ring.setAttribute('cx', String(x + size * 0.25));
+  ring.setAttribute('cy', String(y - size * 0.25));
+  ring.setAttribute('r', String(size * 0.16));
+  ring.setAttribute('fill', 'none');
+  ring.setAttribute('stroke', text.closest('[fill]')?.getAttribute('fill') ?? '#000000');
+  ring.setAttribute('stroke-width', String(size * 0.04));
+  const transform = text.getAttribute('transform');
+  if (transform) ring.setAttribute('transform', transform);
+  text.replaceWith(ring);
+  return true;
+}
+
 export interface Coverage {
   gothic: ReadonlySet<number>;
   myeongjo: ReadonlySet<number>;
@@ -67,9 +114,13 @@ export function prepareSvg(svg: Element, coverage: Coverage): boolean {
       text.setAttribute('data-font', text.closest('[font-family]')?.getAttribute('font-family') ?? 'sans-serif');
     }
     let role: FontRole = roleFor(text.getAttribute('data-font')!);
-    if (!covers(coverage[role], content)) {
+    // 수식의 ∘ 등은 브라우저가 시스템 수학 글꼴로 그려 주지만, PDF 에는 넣은 글꼴만 쓰이므로 빠집니다.
+    if (!coverage[role].has(0x2218) && drawRing(text)) continue;
+    replaceText(text, coverage[role]);
+    const shown = text.textContent ?? '';
+    if (!covers(coverage[role], shown)) {
       needsFallback = true;
-      if (coverage.fallback && covers(coverage.fallback, content)) role = 'fallback';
+      if (coverage.fallback && covers(coverage.fallback, shown)) role = 'fallback';
     }
     text.setAttribute('font-family', FONT_FAMILY[role]);
   }
