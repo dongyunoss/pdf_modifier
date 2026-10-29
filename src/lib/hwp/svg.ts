@@ -2,17 +2,23 @@
 // - 글꼴: 문서 글꼴(바탕, 맑은 고딕, 함초롬바탕 …)을 PDF 에 넣을 수 있는 무료 글꼴(나눔명조·나눔고딕)로 바꿉니다.
 //   rhwp 는 글꼴 목록 끝에 serif / sans-serif 를 붙여 주므로 그것으로 명조·고딕을 고릅니다.
 // - 나눔 글꼴에 없는 글자(한자, ①, ㉠ 등)가 든 글자는 보조 글꼴(Noto Sans KR)로 돌립니다.
-// - 어느 글꼴에도 없는 수식 기호(∘ 등)는 모양이 거의 같은 글자(◦)로 바꿉니다.
-// - 굵기: jsPDF 는 보통·굵게만 알아서, 500 같은 값은 등록 안 된 글꼴로 보고 한글이 깨집니다.
+// - 수식은 한글이 수식 글꼴을 PDF 에 넣듯, 수식 글꼴(STIX Two Text, 변수는 기울임)로 쓰고
+//   그 글꼴에 없는 기호(∘ ≤ ≠ ∼ 등)는 Noto Sans Math 로 씁니다.
+// - 굵기·기울임: jsPDF 는 등록한 모양만 알아서, 500 같은 값이나 없는 모양은 다른 글꼴로 보고 한글이 깨집니다.
+//   모양마다 PDF 에 글꼴이 하나씩 더 들어가므로, 글꼴에 있는 모양(BOLD·ITALIC)만 씁니다.
 // - 한 글자짜리 textLength 는 svg2pdf 가 글자 간격을 0으로 나눠 PDF 에 -Infinity 를 씁니다.
 
-export type FontRole = 'gothic' | 'myeongjo' | 'fallback';
+export type FontRole = 'gothic' | 'myeongjo' | 'fallback' | 'math' | 'symbol';
+/** 필요할 때만 내려받는 글꼴 */
+export type ExtraRole = Exclude<FontRole, 'gothic' | 'myeongjo'>;
 
 /** jsPDF 에 등록하는 글꼴 이름 */
 export const FONT_FAMILY: Record<FontRole, string> = {
   gothic: 'NanumGothic',
   myeongjo: 'NanumMyeongjo',
   fallback: 'NotoSansKR',
+  math: 'STIXTwoText',
+  symbol: 'NotoSansMath',
 };
 
 /** SVG 의 font-family 목록에서 명조(serif)·고딕(sans-serif)을 고릅니다. */
@@ -23,6 +29,13 @@ export function roleFor(fontFamily: string): 'gothic' | 'myeongjo' {
   if (generic === 'sans-serif' || generic === 'monospace') return 'gothic';
   return /바탕|명조|궁서|batang|myeong|myungjo|gungsuh|times|serif/.test(names[0] ?? '') ? 'myeongjo' : 'gothic';
 }
+
+/** 굵은 모양이 있는 글꼴과 기울인 모양이 있는 글꼴 (build-hwp-engine.mjs 의 FONTS 와 맞춥니다) */
+const BOLD: ReadonlySet<FontRole> = new Set(['gothic', 'myeongjo']);
+const ITALIC: ReadonlySet<FontRole> = new Set(['math']);
+
+/** rhwp 는 수식 글자에 'Latin Modern Math', 'STIX Two Math' … 목록을 붙입니다. */
+export const isEquation = (fontFamily: string): boolean => /Latin Modern Math|STIX Two Math/i.test(fontFamily);
 
 /** jsPDF 가 아는 굵기 (bold 또는 보통) */
 export const isBold = (weight: string | null): boolean =>
@@ -37,71 +50,41 @@ export function covers(coverage: ReadonlySet<number>, text: string): boolean {
   return true;
 }
 
-/** 넣을 수 있는 어느 글꼴에도 없는 수식 기호와, 모양이 거의 같아 대신 쓸 글자 */
-const LOOKALIKES: Record<string, string> = {
-  '∘': '◦', // ∘ 합성 연산자 → ◦
-  '∙': '·', // ∙ 점 연산자 → ·
-};
+/** 글꼴마다 그릴 수 있는 글자. 아직 받지 않은 글꼴은 null */
+export type Coverage = Record<'gothic' | 'myeongjo', ReadonlySet<number>> & Record<ExtraRole, ReadonlySet<number> | null>;
 
-/** 글꼴에 없는 글자 중 닮은 글자가 그 글꼴에 있는 것만 바꿉니다. */
-export function withLookalikes(coverage: ReadonlySet<number>, text: string): string {
-  return text.replace(/[∘∙]/g, (char) => {
-    const lookalike = LOOKALIKES[char];
-    return coverage.has(char.codePointAt(0)!) || !coverage.has(lookalike.codePointAt(0)!) ? char : lookalike;
-  });
-}
-
-function replaceText(node: Node, coverage: ReadonlySet<number>): void {
-  if (node.nodeType === 3) {
-    const text = node.nodeValue ?? '';
-    const replaced = withLookalikes(coverage, text);
-    if (replaced !== text) node.nodeValue = replaced;
-    return;
+/**
+ * 글자를 그릴 글꼴을 고릅니다. 후보를 차례로 보다가 아직 받지 않은 글꼴을 만나면, 지금 있는 글꼴로 고르고
+ * 그 글꼴을 needs 로 알려 줍니다 (받은 뒤 다시 고르면 됨).
+ */
+export function pickFont(fontFamily: string, text: string, coverage: Coverage): { role: FontRole; needs?: ExtraRole } {
+  const order: FontRole[] = isEquation(fontFamily)
+    ? ['math', 'symbol', 'myeongjo', 'fallback']
+    : [roleFor(fontFamily), 'fallback', 'symbol'];
+  const loaded = order.find((role) => coverage[role]) ?? 'myeongjo';
+  for (const role of order) {
+    const set = coverage[role];
+    if (!set) return { role: loaded, needs: role as ExtraRole };
+    if (covers(set, text)) return { role };
   }
-  for (const child of Array.from(node.childNodes)) replaceText(child, coverage);
+  return { role: loaded };
+}
+
+function toMinus(node: Node): void {
+  if (node.nodeType === 3) node.nodeValue = (node.nodeValue ?? '').replaceAll('-', '−');
+  else for (const child of Array.from(node.childNodes)) toMinus(child);
 }
 
 /**
- * 글자 하나뿐인 ∘(수식 합성 기호)는 작은 원으로 그립니다. 나눔의 ◦ 는 글자 크기라 수식에서 너무 큽니다.
- * 크기와 자리는 수학 글꼴(Latin Modern)의 ∘ 를 따릅니다: 너비 0.5em 가운데, 기준선 0.25em 위, 지름 약 0.36em.
+ * SVG 를 제자리에서 고칩니다. 아직 받지 않았지만 필요한 글꼴을 돌려줍니다
+ * (그 글자는 있는 글꼴로 두므로, 받은 뒤 다시 부르면 됩니다).
  */
-function drawRing(text: Element): boolean {
-  if ((text.textContent ?? '').trim() !== '∘') return false;
-  const size = Number.parseFloat(text.closest('[font-size]')?.getAttribute('font-size') ?? '') || 16;
-  const x = Number.parseFloat(text.getAttribute('x') ?? '0') || 0;
-  const y = Number.parseFloat(text.getAttribute('y') ?? '0') || 0;
-  const ring = text.ownerDocument.createElementNS('http://www.w3.org/2000/svg', 'circle');
-  ring.setAttribute('cx', String(x + size * 0.25));
-  ring.setAttribute('cy', String(y - size * 0.25));
-  ring.setAttribute('r', String(size * 0.16));
-  ring.setAttribute('fill', 'none');
-  ring.setAttribute('stroke', text.closest('[fill]')?.getAttribute('fill') ?? '#000000');
-  ring.setAttribute('stroke-width', String(size * 0.04));
-  const transform = text.getAttribute('transform');
-  if (transform) ring.setAttribute('transform', transform);
-  text.replaceWith(ring);
-  return true;
-}
-
-export interface Coverage {
-  gothic: ReadonlySet<number>;
-  myeongjo: ReadonlySet<number>;
-  /** 보조 글꼴을 아직 받지 않았으면 null (그래도 필요 여부는 알려 줌) */
-  fallback: ReadonlySet<number> | null;
-}
-
-/**
- * SVG 를 제자리에서 고칩니다. 보조 글꼴이 필요한 글자가 있으면 true 를 돌려줍니다
- * (coverage.fallback 이 없으면 해당 글자는 그대로 두므로, 받은 뒤 다시 부르면 됩니다).
- */
-export function prepareSvg(svg: Element, coverage: Coverage): boolean {
-  let needsFallback = false;
+export function prepareSvg(svg: Element, coverage: Coverage): Set<ExtraRole> {
+  const needs = new Set<ExtraRole>();
   for (const el of Array.from(svg.querySelectorAll('[font-weight]'))) {
     if (isBold(el.getAttribute('font-weight'))) el.setAttribute('font-weight', 'bold');
     else el.removeAttribute('font-weight');
   }
-  // 기울임은 등록한 글꼴에 없으므로 바로 세웁니다 (기울인 글꼴이 없으면 jsPDF 가 다른 글꼴로 바꿔 한글이 깨짐).
-  for (const el of Array.from(svg.querySelectorAll('[font-style]'))) el.removeAttribute('font-style');
 
   for (const text of Array.from(svg.querySelectorAll('text'))) {
     const content = text.textContent ?? '';
@@ -109,25 +92,26 @@ export function prepareSvg(svg: Element, coverage: Coverage): boolean {
       text.removeAttribute('textLength');
       text.removeAttribute('lengthAdjust');
     }
-    // 처음 고칠 때 원래 글꼴 목록을 남겨 두어, 보조 글꼴을 받은 뒤 다시 불러도 같은 판단을 합니다.
+    // 처음 고칠 때 원래 글꼴 목록·굵기·기울임을 남겨 두어, 글꼴을 받은 뒤 다시 불러도 같은 판단을 합니다.
     if (!text.hasAttribute('data-font')) {
       text.setAttribute('data-font', text.closest('[font-family]')?.getAttribute('font-family') ?? 'sans-serif');
+      if (text.closest('[font-weight]')) text.setAttribute('data-bold', '');
+      if (text.closest('[font-style]')?.getAttribute('font-style') === 'italic') text.setAttribute('data-italic', '');
+      // 한글 수식처럼 빼기는 붙임표(-)가 아니라 빼기 기호(−)로 씁니다.
+      if (isEquation(text.getAttribute('data-font')!) && content.includes('-')) toMinus(text);
     }
-    let role: FontRole = roleFor(text.getAttribute('data-font')!);
-    // 수식의 ∘ 등은 브라우저가 시스템 수학 글꼴로 그려 주지만, PDF 에는 넣은 글꼴만 쓰이므로 빠집니다.
-    if (!coverage[role].has(0x2218) && drawRing(text)) continue;
-    replaceText(text, coverage[role]);
-    const shown = text.textContent ?? '';
-    if (!covers(coverage[role], shown)) {
-      needsFallback = true;
-      if (coverage.fallback && covers(coverage.fallback, shown)) role = 'fallback';
-    }
-    text.setAttribute('font-family', FONT_FAMILY[role]);
+    const picked = pickFont(text.getAttribute('data-font')!, text.textContent ?? '', coverage);
+    if (picked.needs) needs.add(picked.needs);
+    text.setAttribute('font-family', FONT_FAMILY[picked.role]);
+    text.setAttribute('font-weight', BOLD.has(picked.role) && text.hasAttribute('data-bold') ? 'bold' : 'normal');
+    text.setAttribute('font-style', ITALIC.has(picked.role) && text.hasAttribute('data-italic') ? 'italic' : 'normal');
   }
+  for (const el of Array.from(svg.querySelectorAll('[font-style]:not(text)'))) el.removeAttribute('font-style');
+  for (const el of Array.from(svg.querySelectorAll('[font-weight]:not(text)'))) el.removeAttribute('font-weight');
   // 글자 바깥(묶음 g 등)에 남은 문서 글꼴 이름은 쓰이지 않지만, 혹시 모를 상속을 위해 같이 바꿉니다.
   for (const el of Array.from(svg.querySelectorAll('[font-family]:not(text)'))) {
     const family = el.getAttribute('font-family') ?? '';
     if (!Object.values(FONT_FAMILY).includes(family)) el.setAttribute('font-family', FONT_FAMILY[roleFor(family)]);
   }
-  return needsFallback;
+  return needs;
 }

@@ -7,20 +7,20 @@ import { Decoder, download, memoryError, OfficeError } from '../office/assets';
 import type { PackedAsset } from '../office/types';
 import { readCoverage } from './cmap';
 import { liftHmlVersion } from './hml';
-import { FONT_FAMILY, prepareSvg, type Coverage } from './svg';
+import { FONT_FAMILY, prepareSvg, type Coverage, type ExtraRole, type FontRole } from './svg';
 
 export const HWP_MANIFEST_URL = '/hwp/manifest.json';
 /** CSS 픽셀(96 dpi) → PDF 포인트(72 dpi) */
 const PX_TO_PT = 0.75;
 
-type FontAsset = PackedAsset & { name: string };
+type FontAsset = PackedAsset & { name: string; style: 'normal' | 'bold' | 'italic' };
 
 interface HwpManifest {
   version: string;
   base: string;
   script: string;
   wasm: PackedAsset;
-  fonts: { gothic: FontAsset[]; myeongjo: FontAsset[]; fallback: FontAsset[] };
+  fonts: Record<FontRole, FontAsset[]>;
 }
 
 interface RhwpDocument {
@@ -82,7 +82,7 @@ interface Engine {
 }
 
 let enginePromise: Promise<Engine> | null = null;
-let fallbackPromise: Promise<Record<string, LoadedFont>> | null = null;
+const extraPromises: Record<string, Promise<Record<string, LoadedFont>>> = {};
 
 /** 내려받기 → 압축 풀기 (여러 파일을 동시에 받고, 진행 바이트를 알려 줌) */
 async function fetchAssets(
@@ -136,32 +136,31 @@ function prepareEngine(onProgress: (progress: HwpProgress) => void): Promise<Eng
   return enginePromise;
 }
 
-/** 나눔 글꼴에 없는 글자가 나왔을 때만 받는 보조 글꼴 */
-function prepareFallback(onProgress: (progress: HwpProgress) => void): Promise<Record<string, LoadedFont>> {
-  fallbackPromise ??= (async () => {
+/** 문서에 필요할 때만 받는 글꼴 (보조 글꼴, 수식 글꼴·기호) */
+function prepareExtra(roles: ExtraRole[], onProgress: (progress: HwpProgress) => void): Promise<Record<string, LoadedFont>> {
+  const key = roles.join('+');
+  extraPromises[key] ??= (async () => {
     const manifest = await getHwpManifest();
-    const buffers = await fetchAssets(manifest, manifest.fonts.fallback, onProgress);
-    return loadFonts(manifest.fonts.fallback, buffers);
+    const assets = roles.flatMap((role) => manifest.fonts[role] ?? []);
+    return loadFonts(assets, await fetchAssets(manifest, assets, onProgress));
   })().catch((error) => {
-    fallbackPromise = null;
+    delete extraPromises[key];
     throw error;
   });
-  return fallbackPromise;
+  return extraPromises[key];
 }
 
 // ────────────────────────────── 변환 ──────────────────────────────
 
-/** jsPDF 문서에 글꼴을 등록합니다 (굵은 보조 글꼴은 보통 글꼴로 대신합니다). */
-function registerFonts(pdf: JsPdf, manifest: HwpManifest, fonts: Record<string, LoadedFont>, roles: Array<'gothic' | 'myeongjo' | 'fallback'>) {
+/** jsPDF 문서에 글꼴을 등록합니다 (글꼴에 있는 모양만. 없는 모양은 prepareSvg 가 쓰지 않습니다). */
+function registerFonts(pdf: JsPdf, manifest: HwpManifest, fonts: Record<string, LoadedFont>, roles: FontRole[]) {
   for (const role of roles) {
-    const list = manifest.fonts[role];
-    list.forEach((asset, index) => {
+    for (const asset of manifest.fonts[role] ?? []) {
       const font = fonts[asset.name];
-      if (!font) return;
+      if (!font) continue;
       pdf.addFileToVFS(asset.name, font.base64);
-      pdf.addFont(asset.name, FONT_FAMILY[role], index === 0 ? 'normal' : 'bold', undefined, 'Identity-H');
-      if (list.length === 1) pdf.addFont(asset.name, FONT_FAMILY[role], 'bold', undefined, 'Identity-H');
-    });
+      pdf.addFont(asset.name, FONT_FAMILY[role], asset.style, undefined, 'Identity-H');
+    }
   }
 }
 
@@ -202,13 +201,15 @@ export async function hwpToPdf(
     gothic: font(manifest.fonts.gothic[0].name),
     myeongjo: font(manifest.fonts.myeongjo[0].name),
     fallback: null,
+    math: null,
+    symbol: null,
   };
+  const registered = new Set<FontRole>();
 
   try {
     const pages = doc.pageCount();
     if (pages === 0) throw new OfficeError('OPEN_FAILED', 'empty document');
     let pdf: JsPdf | null = null;
-    let fallbackRegistered = false;
     for (let page = 0; page < pages; page++) {
       if (isCancelled()) throw cancelled();
       onProgress({ phase: 'page', loaded: page, total: pages });
@@ -222,11 +223,12 @@ export async function hwpToPdf(
       const svg = stage.querySelector('svg');
       if (!svg) throw new OfficeError('OPEN_FAILED', `page ${page + 1}: no svg`);
 
-      if (prepareSvg(svg, coverage) && !coverage.fallback) {
-        const fallback = await prepareFallback(onProgress);
-        Object.assign(engine.fonts, fallback);
-        coverage.fallback = fallback[manifest.fonts.fallback[0].name]?.coverage ?? null;
-        prepareSvg(svg, coverage);
+      // 쪽에 처음 나온 글꼴은 받아서 다시 고릅니다 (수식 글꼴을 받으면 기호 글꼴도 함께 받음).
+      for (let needs = prepareSvg(svg, coverage); needs.size; needs = prepareSvg(svg, coverage)) {
+        if (needs.has('math') && !coverage.symbol) needs.add('symbol');
+        const roles = [...needs];
+        Object.assign(engine.fonts, await prepareExtra(roles, onProgress));
+        for (const role of roles) coverage[role] = engine.fonts[manifest.fonts[role]?.[0]?.name ?? '']?.coverage ?? new Set();
         onProgress({ phase: 'page', loaded: page, total: pages });
       }
 
@@ -239,10 +241,9 @@ export async function hwpToPdf(
       } else {
         pdf.addPage([width, height], orientation);
       }
-      if (coverage.fallback && !fallbackRegistered) {
-        registerFonts(pdf, manifest, engine.fonts, ['fallback']);
-        fallbackRegistered = true;
-      }
+      const extras = (['fallback', 'math', 'symbol'] as const).filter((role) => coverage[role] && !registered.has(role));
+      registerFonts(pdf, manifest, engine.fonts, extras);
+      for (const role of extras) registered.add(role);
       await svg2pdf(svg, pdf, { x: 0, y: 0, width, height });
       stage.replaceChildren();
       // 쪽 사이에 화면을 한 번 그리게 해서 진행 막대가 멈춰 보이지 않게 합니다.

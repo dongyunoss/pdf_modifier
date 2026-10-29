@@ -3,6 +3,7 @@
 //
 // - rhwp 가 HWP 문서를 쪽마다 SVG 로 그리면, 브라우저에서 svg2pdf.js·jsPDF 로 글자가 살아 있는 PDF 를 만듭니다.
 // - 글꼴: 나눔고딕·나눔명조(항상) + Noto Sans KR(나눔에 없는 한자·①·㉠ 등이 문서에 있을 때만 내려받음)
+//   + 수식 글꼴 STIX Two Text(기울임 포함)·Noto Sans Math(∘ ≤ ≠ ∼ 등 기호, 수식이 있을 때만 내려받음)
 // - zstd 로 압축합니다(노드에 없으면 gzip). 결과를 node_modules/.cache 에 보관해 다음 빌드에서 다시 씁니다.
 import { createHash } from 'node:crypto';
 import { cpSync, existsSync, mkdirSync, readdirSync, readFileSync, rmSync, writeFileSync } from 'node:fs';
@@ -20,17 +21,23 @@ const root = join(dirname(fileURLToPath(import.meta.url)), '..');
 const ENGINE_PKG = 'rhwp-core-pdfm';
 const PART_SIZE = 20 * 1024 * 1024;
 
-/** 글꼴 묶음: gothic·myeongjo 는 항상, fallback 은 필요할 때만 */
+/** 글꼴 묶음: gothic·myeongjo 는 항상, 나머지는 필요할 때만. [패키지, 파일, 모양(normal·bold·italic)] */
 const FONTS = {
   gothic: [
-    ['@expo-google-fonts/nanum-gothic', '400Regular/NanumGothic_400Regular.ttf'],
-    ['@expo-google-fonts/nanum-gothic', '700Bold/NanumGothic_700Bold.ttf'],
+    ['@expo-google-fonts/nanum-gothic', '400Regular/NanumGothic_400Regular.ttf', 'normal'],
+    ['@expo-google-fonts/nanum-gothic', '700Bold/NanumGothic_700Bold.ttf', 'bold'],
   ],
   myeongjo: [
-    ['@expo-google-fonts/nanum-myeongjo', '400Regular/NanumMyeongjo_400Regular.ttf'],
-    ['@expo-google-fonts/nanum-myeongjo', '700Bold/NanumMyeongjo_700Bold.ttf'],
+    ['@expo-google-fonts/nanum-myeongjo', '400Regular/NanumMyeongjo_400Regular.ttf', 'normal'],
+    ['@expo-google-fonts/nanum-myeongjo', '700Bold/NanumMyeongjo_700Bold.ttf', 'bold'],
   ],
-  fallback: [['@expo-google-fonts/noto-sans-kr', '400Regular/NotoSansKR_400Regular.ttf']],
+  fallback: [['@expo-google-fonts/noto-sans-kr', '400Regular/NotoSansKR_400Regular.ttf', 'normal']],
+  // 한글 수식 글꼴(HY수식)처럼 Times 꼴에 변수는 기울임. 기호는 Noto Sans Math 가 맡습니다.
+  math: [
+    ['@expo-google-fonts/stix-two-text', '400Regular/STIXTwoText_400Regular.ttf', 'normal'],
+    ['@expo-google-fonts/stix-two-text', '400Regular_Italic/STIXTwoText_400Regular_Italic.ttf', 'italic'],
+  ],
+  symbol: [['@expo-google-fonts/noto-sans-math', '400Regular/NotoSansMath_400Regular.ttf', 'normal']],
 };
 
 const pkgDir = (name) => dirname(require.resolve(`${name}/package.json`));
@@ -88,14 +95,14 @@ async function build(out) {
   // wasm-bindgen 이 만든 JS 는 내용을 바꾸지 않고 그대로 둡니다 (wasm 은 압축을 풀어 직접 넘김).
   writeFileSync(join(work, 'rhwp.js'), readFileSync(join(src, 'rhwp.js')));
   const entries = Object.entries(FONTS).flatMap(([group, files]) =>
-    files.map(([pkg, file]) => ({ group, name: file.slice(file.lastIndexOf('/') + 1), path: join(pkgDir(pkg), file) })),
+    files.map(([pkg, file, style]) => ({ group, name: file.slice(file.lastIndexOf('/') + 1), style, path: join(pkgDir(pkg), file) })),
   );
   const [wasm, ...fonts] = await Promise.all([
     store('rhwp_bg.wasm', readFileSync(join(src, 'rhwp_bg.wasm'))),
     ...entries.map((font) => store(`fonts/${font.name}`, readFileSync(font.path))),
   ]);
   const fontGroups = {};
-  entries.forEach((font, index) => (fontGroups[font.group] ??= []).push({ name: font.name, ...fonts[index] }));
+  entries.forEach((font, index) => (fontGroups[font.group] ??= []).push({ name: font.name, style: font.style, ...fonts[index] }));
 
   writeFileSync(
     join(work, 'NOTICE.txt'),
@@ -106,7 +113,7 @@ async function build(out) {
       '본 제품은 한글과컴퓨터의 한글 문서 파일(.hwp) 공개 문서를 참고하여 개발되었습니다.',
       '"한글", "한컴", "HWP", "HWPX"는 주식회사 한글과컴퓨터의 등록 상표이며, 이 사이트는 한글과컴퓨터와 관련이 없습니다.',
       '',
-      'Fonts: Nanum Gothic, Nanum Myeongjo, Noto Sans KR — SIL Open Font License 1.1 (https://openfontlicense.org).',
+      'Fonts: Nanum Gothic, Nanum Myeongjo, Noto Sans KR, STIX Two Text, Noto Sans Math — SIL Open Font License 1.1 (https://openfontlicense.org).',
       '',
     ].join('\n'),
   );

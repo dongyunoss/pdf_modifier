@@ -2,7 +2,7 @@ import { readFileSync } from 'node:fs';
 import { describe, expect, it } from 'vitest';
 import { readCoverage } from '../../src/lib/hwp/cmap';
 import { liftHmlVersion } from '../../src/lib/hwp/hml';
-import { covers, isBold, roleFor, withLookalikes } from '../../src/lib/hwp/svg';
+import { covers, isBold, pickFont, roleFor, type Coverage } from '../../src/lib/hwp/svg';
 
 const font = (path: string) => readCoverage(new Uint8Array(readFileSync(`node_modules/@expo-google-fonts/${path}`)));
 
@@ -33,15 +33,22 @@ describe('HWP → PDF 글꼴 고르기', () => {
     expect(covers(fallback, '① 漢字 ㉠ 사업')).toBe(true);
   });
 
-  it('어느 글꼴에도 없는 합성 기호 ∘ 는 닮은 ◦ 로 바꾼다', () => {
-    const myeongjo = font('nanum-myeongjo/400Regular/NanumMyeongjo_400Regular.ttf');
-    const fallback = font('noto-sans-kr/400Regular/NotoSansKR_400Regular.ttf');
-    expect(covers(myeongjo, '∘')).toBe(false);
-    expect(covers(fallback, '∘')).toBe(false);
-    expect(withLookalikes(myeongjo, '(f∘g)(x)')).toBe('(f◦g)(x)');
-    expect(covers(myeongjo, withLookalikes(myeongjo, 'f∘g∙h'))).toBe(true);
-    // 글꼴에 원래 글자가 있으면 그대로 둡니다.
-    expect(withLookalikes(new Set([0x2218, 0x25e6]), '∘')).toBe('∘');
+  it('수식은 수식 글꼴로, 그 글꼴에 없는 기호는 수학 기호 글꼴로 쓴다', () => {
+    const math = font('stix-two-text/400Regular/STIXTwoText_400Regular.ttf');
+    const symbol = font('noto-sans-math/400Regular/NotoSansMath_400Regular.ttf');
+    // 나눔·Noto Sans KR 어디에도 없는 수식 기호가 수학 글꼴엔 모두 있습니다.
+    for (const char of '∘∼≤≥≠∠') expect(covers(symbol, char)).toBe(true);
+    expect(covers(math, 'xπ°')).toBe(true);
+    const equation = "'Latin Modern Math', 'STIX Two Text', 'STIX Two Math', 'Times New Roman', 'Times', serif";
+    const body = "'함초롬바탕',serif";
+    const none: Coverage = { gothic: new Set(), myeongjo: new Set([0x78]), fallback: null, math: null, symbol: null };
+    // 아직 받지 않은 글꼴은 있는 글꼴로 두고 받아 달라고 알립니다.
+    expect(pickFont(equation, 'x', none)).toEqual({ role: 'myeongjo', needs: 'math' });
+    expect(pickFont(body, 'x', none)).toEqual({ role: 'myeongjo' });
+    const all: Coverage = { ...none, fallback: new Set(), math, symbol };
+    expect(pickFont(equation, 'x', all)).toEqual({ role: 'math' });
+    expect(pickFont(equation, '∘', all)).toEqual({ role: 'symbol' });
+    expect(pickFont(body, '∘', all)).toEqual({ role: 'symbol' });
   });
 });
 
