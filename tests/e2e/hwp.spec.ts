@@ -54,6 +54,20 @@ test.describe('한글(HWP) → PDF', () => {
     expect(has(pdf, 'NanumMyeongjo') || has(pdf, 'NanumGothic')).toBe(true);
   });
 
+  test('한글 2010 등이 저장한 HWPML 2.8 문서도 바꾼다', async ({ page }) => {
+    // rhwp 는 2.8 을 거절하므로, 변환 전에 버전 표시를 맞추는지 확인합니다.
+    const table = await fixture('table.hml');
+    const old = { ...table, name: 'old.hml', buffer: Buffer.from(table.buffer.toString('utf8').replace('Version="2.91"', 'Version="2.8"'), 'utf8') };
+    expect(old.buffer.includes('Version="2.8"')).toBe(true);
+    await page.goto('/hwp-to-pdf/');
+    await page.locator('astro-island:not([ssr])').first().waitFor({ state: 'attached' });
+    await page.locator('.tool-area input[type=file]').setInputFiles([old]);
+    await expect(page.getByRole('heading', { name: '완료되었습니다!' })).toBeVisible({ timeout: TIMEOUT });
+    const { name, bytes } = await downloadVia(page, '다운로드');
+    expect(name).toBe('old.pdf');
+    expect((await openPdf(Buffer.from(bytes))).getPageCount()).toBe(1);
+  });
+
   test('한글 파일이 아니면 알려 준다', async ({ page }) => {
     await page.goto('/en/hwp-to-pdf/');
     await page.locator('astro-island:not([ssr])').first().waitFor({ state: 'attached' });

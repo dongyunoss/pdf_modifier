@@ -6,6 +6,7 @@ import type { jsPDF as JsPdf } from 'jspdf';
 import { Decoder, download, memoryError, OfficeError } from '../office/assets';
 import type { PackedAsset } from '../office/types';
 import { readCoverage } from './cmap';
+import { liftHmlVersion } from './hml';
 import { FONT_FAMILY, prepareSvg, type Coverage } from './svg';
 
 export const HWP_MANIFEST_URL = '/hwp/manifest.json';
@@ -186,7 +187,7 @@ export async function hwpToPdf(
 
   let doc: RhwpDocument;
   try {
-    doc = new engine.rhwp.HwpDocument(new Uint8Array(await file.arrayBuffer()));
+    doc = new engine.rhwp.HwpDocument(liftHmlVersion(new Uint8Array(await file.arrayBuffer())));
   } catch (error) {
     throw openError(error);
   }

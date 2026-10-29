@@ -1,6 +1,7 @@
 import { readFileSync } from 'node:fs';
 import { describe, expect, it } from 'vitest';
 import { readCoverage } from '../../src/lib/hwp/cmap';
+import { liftHmlVersion } from '../../src/lib/hwp/hml';
 import { covers, isBold, roleFor } from '../../src/lib/hwp/svg';
 
 const font = (path: string) => readCoverage(new Uint8Array(readFileSync(`node_modules/@expo-google-fonts/${path}`)));
@@ -30,5 +31,22 @@ describe('HWP → PDF 글꼴 고르기', () => {
     expect(covers(gothic, '①')).toBe(false);
     expect(covers(gothic, '漢字')).toBe(false);
     expect(covers(fallback, '① 漢字 ㉠ 사업')).toBe(true);
+  });
+});
+
+describe('HML(HWPML) 버전 맞추기', () => {
+  const hml = (version: string) => `﻿<?xml version="1.0" encoding="UTF-8"?><HWPML Style="embed" SubVersion="8.0.1.0" Version="${version}"><HEAD/></HWPML>`;
+  const lift = (text: string) => new TextDecoder('utf-8', { ignoreBOM: true }).decode(liftHmlVersion(new TextEncoder().encode(text)));
+
+  it('rhwp 가 받지 않는 2.x 버전은 2.91 로 바꾼다', () => {
+    expect(lift(hml('2.8'))).toBe(hml('2.91'));
+    expect(lift(hml('2.7'))).toBe(hml('2.91'));
+  });
+
+  it('받는 버전, SubVersion, HML 이 아닌 파일은 그대로 둔다', () => {
+    for (const version of ['2.1', '2.9', '2.91', '3.0']) expect(lift(hml(version))).toBe(hml(version));
+    expect(lift('<HWPML Version="2.91" SubVersion="2.8"/>')).toBe('<HWPML Version="2.91" SubVersion="2.8"/>');
+    const hwp = new Uint8Array([0xd0, 0xcf, 0x11, 0xe0, 0xa1, 0xb1, 0x1a, 0xe1]);
+    expect(liftHmlVersion(hwp)).toBe(hwp);
   });
 });
