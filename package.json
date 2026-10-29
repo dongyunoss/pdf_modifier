@@ -32,13 +32,13 @@
     "@expo-google-fonts/noto-sans-kr": "0.4.4",
     "@expo-google-fonts/noto-sans-sc": "0.4.4",
     "@expo-google-fonts/noto-sans-tc": "0.4.4",
-    "@rhwp/core": "https://github.com/dongyunoss/rhwp/releases/download/core-v0.8.7-pdfm.2/rhwp-core-0.8.7-pdfm.2.tgz",
     "astro": "^7.3.5",
     "fflate": "^0.8.3",
     "fzstd": "0.1.1",
     "jspdf": "4.2.1",
     "pdfjs-dist": "^6.3.289",
     "preact": "^10.29.8",
+    "rhwp-core-pdfm": "https://github.com/dongyunoss/rhwp/releases/download/core-v0.8.7-pdfm.2/rhwp-core-0.8.7-pdfm.2.tgz",
     "svg2pdf.js": "2.8.1"
   },
   "devDependencies": {

@@ -14,7 +14,10 @@ import zlib from 'node:zlib';
 
 const require = createRequire(import.meta.url);
 const root = join(dirname(fileURLToPath(import.meta.url)), '..');
-const ENGINE_PKG = '@rhwp/core';
+// rhwp 를 고친 fork(dongyunoss/rhwp, 브랜치 hml-exam-support)의 빌드입니다. HML 의 미주·자동 번호·
+// 문단 번호·그림을 읽고 HWPML 2.8 도 엽니다. @rhwp/core 와 이름을 달리해, 빌드 환경에 남은 공식
+// 패키지가 조용히 쓰이는 일이 없게 합니다(없으면 아래 require.resolve 에서 빌드가 멈춥니다).
+const ENGINE_PKG = 'rhwp-core-pdfm';
 const PART_SIZE = 20 * 1024 * 1024;
 
 /** 글꼴 묶음: gothic·myeongjo 는 항상, fallback 은 필요할 때만 */
@@ -59,7 +62,7 @@ writeFileSync(manifestPath, readFileSync(join(cacheDir, 'manifest.json')));
 console.log(`[hwp] engine ${key} → public/hwp (${((Date.now() - started) / 1000).toFixed(1)}s)`);
 
 async function build(out) {
-  console.log(`[hwp] building engine ${key} (${zstdAvailable ? 'zstd' : 'gzip'})`);
+  console.log(`[hwp] building engine ${key} from ${ENGINE_PKG}@${pkgVersion(ENGINE_PKG)} (${zstdAvailable ? 'zstd' : 'gzip'})`);
   const work = `${out}.tmp`;
   rmSync(work, { recursive: true, force: true });
   mkdirSync(join(work, 'fonts'), { recursive: true });
