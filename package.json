@@ -40,7 +40,7 @@
     "jspdf": "4.2.1",
     "pdfjs-dist": "^6.3.289",
     "preact": "^10.29.8",
-    "rhwp-core-pdfm": "https://github.com/dongyunoss/rhwp/releases/download/core-v0.8.7-pdfm.4/rhwp-core-0.8.7-pdfm.4.tgz",
+    "rhwp-core-pdfm": "https://github.com/dongyunoss/rhwp/releases/download/core-v0.8.7-pdfm.5/rhwp-core-0.8.7-pdfm.5.tgz",
     "svg2pdf.js": "2.8.1"
   },
   "devDependencies": {
